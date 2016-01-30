@@ -146,7 +146,7 @@ disqus:
 #################################### global configure #######################################
 
 username: lixueping
-baseurl: /blog
+baseurl: /
 markdown: redcarpet
 safe: false
 highlighter: pygments
