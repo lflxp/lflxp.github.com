@@ -135,6 +135,8 @@ customLinks:
       url: http://hortonworks.com/hdp/whats-new/
     - text: DjangoBook2.0 学习
       url: http://djangobook.py3k.cn/2.0/
+    - text: Sublime Text3
+      url: http://python.jobbole.com/81312/
     message: 未来的方向
 
 #comment config
