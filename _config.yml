@@ -46,7 +46,7 @@ timezone:      null
 title: Jekyll Theme
 description: Just another Jekyll theme design and code by lixueping.win.
 keywords: Jekyll Theme
-url: /
+url: /StrayBirds
 feed: /atom.xml
 favicon: http://jekyllrb.com/favicon.png
 
@@ -152,7 +152,7 @@ safe: false
 highlighter: pygments
 title: 记录点滴
 description: 江湖就是人情世故
-theme: hack
+theme: kunka
 disqusname: lixueping
 
 # theme can be: hack, leap-day, merlot, midnight, minimal, modernist, slate, time-machine, kunka
