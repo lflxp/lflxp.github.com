@@ -92,9 +92,9 @@ follow:
 customLinks:
   - item:
     - text: 监控平台
-      url: http://lflxp.cn
+      url: http://lixueping.win
     - text: 我的博客
-      url: http://lflxp.cn/blog
+      url: http://lflxp.cn
     - text: GITHUB
       url: http://github.com/lixueping
     - text: Golang 
