@@ -146,6 +146,8 @@ customLinks:
     - text: Sublime Text3
       url: http://python.jobbole.com/81312/
     message: 未来的方向
+    - text: DjangoBook2.0 有图片
+      url: http://www.iteedu.com/webtech/python/djangocn2/chapter06.php
 
 #comment config
 disqus:
