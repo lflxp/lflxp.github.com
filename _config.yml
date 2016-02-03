@@ -160,7 +160,7 @@ disqus:
 #################################### global configure #######################################
 
 username: lflxp
-baseurl: lflxp.github.com
+baseurl: 
 markdown: redcarpet
 safe: false
 highlighter: pygments
