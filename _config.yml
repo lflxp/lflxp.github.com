@@ -166,7 +166,7 @@ safe: false
 highlighter: pygments
 title: 记录点滴
 description: 江湖就是人情世故
-theme: minimal
+theme: hack
 disqusname: lixueping
 
 # theme can be: hack, leap-day, merlot, midnight, minimal, modernist, slate, time-machine, kunka
