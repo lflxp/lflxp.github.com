@@ -99,8 +99,10 @@ customLinks:
       url: http://www.jiankongbao.com/new_server
     - text: 我的博客
       url: http://lflxp.cn
-    - text: GITHUB
+    - text: GITHUB-lixueping
       url: http://github.com/lixueping
+    - text: GITHUB-lflxp
+      url: http://github.com/lflxp
     - text: Golang 
       url: http://www.godoc.org
     - text: PHP
