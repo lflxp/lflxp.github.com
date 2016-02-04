@@ -119,6 +119,8 @@ customLinks:
       url: http://aws.amazon.com/cn
     message: 我的项目
   - item:
+    - text: 百度云加速CDN
+      url: http://su.baidu.com/
     - text: Docker 集群编排系统kubernetes
       url: https://github.com/kubernetes
     - text: kubernetes 官网
