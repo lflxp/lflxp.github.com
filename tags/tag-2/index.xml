@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tag-2 on 爱像水墨青花</title>
+    <link>https://www.lflxp.cn/tags/tag-2/</link>
+    <description>Recent content in tag-2 on 爱像水墨青花</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
+    <lastBuildDate>Mon, 13 Jan 2020 15:43:48 +0800</lastBuildDate>
+    
+	<atom:link href="https://www.lflxp.cn/tags/tag-2/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[中文] 个人笔记</title>
+      <link>https://www.lflxp.cn/post/notebook/notebook/</link>
+      <pubDate>Mon, 13 Jan 2020 15:43:48 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/notebook/notebook/</guid>
+      <description>介绍 琵琶，无已无求 随欲而安 工作内容 devops software enginer k8s flutter middlewares ai experence</description>
+    </item>
+    
+    <item>
+      <title>[English] Creating a New Theme</title>
+      <link>https://www.lflxp.cn/post/nice/english-preview/</link>
+      <pubDate>Thu, 31 Aug 2017 15:43:48 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/nice/english-preview/</guid>
+      <description>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&#39;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&#39;t cover using CSS to style your theme.
+We&#39;ll start with creating a new site with a very basic template.</description>
+    </item>
+    
+  </channel>
+</rss>

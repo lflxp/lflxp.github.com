@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Django2自带用户登录注册功能总结 - 爱像水墨青花</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lixueping" /><meta name="description" content="之前的登陆什么的都是自己利用数据库查询，form组件，cookie及session保存状态实现的，比较花费时间，而Django自带的登录认证" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.lflxp.cn/post/python/djaong2login/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Django2自带用户登录注册功能总结" />
+<meta property="og:description" content="之前的登陆什么的都是自己利用数据库查询，form组件，cookie及session保存状态实现的，比较花费时间，而Django自带的登录认证" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lflxp.cn/post/python/djaong2login/" />
+<meta property="article:published_time" content="2020-01-17T13:57:22+08:00" />
+<meta property="article:modified_time" content="2020-01-17T16:57:33+08:00" />
+<meta itemprop="name" content="Django2自带用户登录注册功能总结">
+<meta itemprop="description" content="之前的登陆什么的都是自己利用数据库查询，form组件，cookie及session保存状态实现的，比较花费时间，而Django自带的登录认证">
+<meta itemprop="datePublished" content="2020-01-17T13:57:22&#43;08:00" />
+<meta itemprop="dateModified" content="2020-01-17T16:57:33&#43;08:00" />
+<meta itemprop="wordCount" content="1513">
+
+
+
+<meta itemprop="keywords" content="django2,python," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Django2自带用户登录注册功能总结"/>
+<meta name="twitter:description" content="之前的登陆什么的都是自己利用数据库查询，form组件，cookie及session保存状态实现的，比较花费时间，而Django自带的登录认证"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">琵琶</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">目录</li>
+      </a><a href="/post/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">琵琶</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">目录</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Django2自带用户登录注册功能总结</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-01-17 </span>
+        <div class="post-category">
+            <a href="/categories/django2/"> django2 </a>
+            </div>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#数据库部分">数据库部分</a></li>
+    <li><a href="#url部分">URL部分</a></li>
+    <li><a href="#settingspy部分">settings.py部分</a></li>
+    <li><a href="#views部分">Views部分</a></li>
+    <li><a href="#html部分">HTML部分</a>
+      <ul>
+        <li><a href="#userinfohtml">userinfo.html</a></li>
+        <li><a href="#loginhtml">login.html</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>之前的登陆什么的都是自己利用数据库查询，form组件，cookie及session保存状态实现的，比较花费时间，而Django自带的登录认证能帮助我们快速开发</p>
+<h2 id="数据库部分">数据库部分</h2>
+<p>在我们在models.py创建表时，会发现Django会自动创建很多表，其中有一个表名为：<code>auth_user</code></p>
+<p>这个表就是Django自带的用户表，可以利用它来实现登录认证等,先看一下这个表字段有哪些：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Django Auth模块自带User模型所包含字段
+
+username：用户名
+email: 电子邮件
+password：密码    
+first_name：名
+last_name：姓
+is_active: 是否为活跃用户。默认是True
+is_staff: 是否为员工。默认是False
+is_superuser: 是否为管理员。默认是False
+dat_joined: 加入日期。系统自动生成。
+</code></pre></td></tr></table>
+</div>
+</div><p><em><strong>在models.py里的相关操作：</strong></em></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="sa"></span><span class="s1">&#39;&#39;&#39;</span><span class="s1">因为要用到它，所以要先导入</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="k">class</span> <span class="nc">UserInfo</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">)</span><span class="p">:</span>
+    <span class="n">user</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">User</span><span class="p">,</span><span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>   
+    <span class="c1">#和自带的User表一对一关联</span>
+    <span class="n">role</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>  <span class="c1">#可以加扩展信息字段，比如年龄，性别，角色</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里注意一个问题，调试用的数据可以通过admin来添加，之后还有注册功能来添加数据</p>
+<h2 id="url部分">URL部分</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">urlpatterns = [
+    path(&#39;admin/&#39;, admin.site.urls),
+    path(&#39;login&#39;,views.acc_login),
+    path(&#39;logout&#39;,views.acc_logout,name=&#34;logout&#34;), #模板里可以由name值通过{% url &#39;logout&#39; %}获取url
+    path(&#39;crm&#39;,views.crm),
+
+]
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="settingspy部分">settings.py部分</h2>
+<blockquote>
+<p>LOGIN_URL=&rdquo;/login&rdquo; #（视图函数登录权限跳转要用）</p>
+</blockquote>
+<h2 id="views部分">Views部分</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span><span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">authenticate</span><span class="p">,</span><span class="n">login</span><span class="p">,</span><span class="n">logout</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="kn">import</span> <span class="n">login_required</span>
+<span class="c1">#</span>
+
+<span class="nd">@login_required</span>  <span class="c1">#没有登录直接访问的话，会根据settings.py中的LOGIN_URL=&#34;/login&#34;跳转（有一个默认的）</span>
+<span class="k">def</span> <span class="nf">crm</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">userinfo.html</span><span class="s2">&#34;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">acc_login</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="p">:</span>
+    <span class="n">error_msg</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1"> </span><span class="s1">&#39;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="o">==</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">GET</span><span class="s2">&#34;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">login.html</span><span class="s2">&#34;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="o">==</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">POST</span><span class="s2">&#34;</span><span class="p">:</span>
+        <span class="n">username</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">username</span><span class="s2">&#34;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+        <span class="n">password</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">password</span><span class="s2">&#34;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+        <span class="n">user</span><span class="o">=</span><span class="n">authenticate</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">)</span>  <span class="c1">#只是验证功能，还没有登录</span>
+        <span class="k">if</span> <span class="n">user</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>        <span class="c1">#username</span>
+            <span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">user</span><span class="p">)</span><span class="p">)</span>  <span class="c1">#&lt;class &#39;django.contrib.auth.models.User&#39;&gt;</span>
+            <span class="n">login</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">user</span><span class="p">)</span>   <span class="c1">#验证通过，登录</span>
+            <span class="c1">#内部有request.user=user     可以用模板{{request.user}}</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">next</span><span class="s2">&#34;</span><span class="p">,</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">/crm</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">)</span>    <span class="c1">#http://127.0.0.1:8080/login?next=/crm</span>
+            <span class="c1">#登录成功默认跳转用户信息页面，如果是其他页面来的，登录后跳转到其他页面</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>        <span class="c1">#None</span>
+            <span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">user</span><span class="p">)</span><span class="p">)</span>  <span class="c1">#&lt;class &#39;NoneType&#39;&gt;</span>
+            <span class="n">error_msg</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">用户名或密码错误</span><span class="s2">&#34;</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">login.html</span><span class="s2">&#34;</span><span class="p">,</span> <span class="p">{</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">error_msg</span><span class="s2">&#34;</span><span class="p">:</span><span class="n">error_msg</span><span class="p">}</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">acc_logout</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="p">:</span>
+    <span class="n">logout</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">/login</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="html部分">HTML部分</h2>
+<h3 id="userinfohtml">userinfo.html</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">body</span><span class="p"></span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p"></span><span class="p">&gt;</span>{{ request.user }}<span class="p">&lt;</span><span class="p">/</span><span class="nt">a</span><span class="p">&gt;</span><span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{% url &#39;logout&#39; %}&#34;</span><span class="p"></span><span class="p">&gt;</span>退出<span class="p">&lt;</span><span class="p">/</span><span class="nt">a</span><span class="p">&gt;</span><span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">body</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="loginhtml">login.html</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">body</span><span class="p"></span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;container&#34;</span><span class="p"></span><span class="p">&gt;</span>
+
+      <span class="p">&lt;</span><span class="nt">form</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-signin&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span> <span class="na">novalidate</span><span class="p"></span><span class="p">&gt;</span>
+          {% csrf_token %}
+        <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-signin-heading&#34;</span><span class="p"></span><span class="p">&gt;</span>请登录<span class="p">&lt;</span><span class="p">/</span><span class="nt">h2</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;inputEmail&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-control&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;username&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;username&#34;</span> <span class="na">required</span> <span class="na">autofocus</span><span class="p"></span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;inputPassword&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-control&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Password&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;password&#34;</span> <span class="na">required</span><span class="p"></span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span><span class="p">&lt;</span><span class="nt">span</span> <span class="na">STYLE</span><span class="o">=</span><span class="s">&#34;color: red&#34;</span><span class="p"></span><span class="p">&gt;</span>{{ error_msg }}<span class="p">&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span><span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span><span class="p"></span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">label</span><span class="p"></span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;remember-me&#34;</span><span class="p"></span><span class="p">&gt;</span> Remember me
+          <span class="p">&lt;</span><span class="p">/</span><span class="nt">label</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;btn btn-lg btn-primary btn-block&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span><span class="p"></span><span class="p">&gt;</span>登录<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="p">/</span><span class="nt">form</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span> <span class="c">&lt;!--</span><span class="c"> /container </span><span class="c">--&gt;</span>
+
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">body</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="总结">总结</h2>
+<ol>
+<li>利用Django自带的User表可以实现自动验证，此外，可以对User进行扩展，</li>
+</ol>
+<blockquote>
+<p>user=models.OneToOneField(User,on_delete=models.CASCADE)</p>
+</blockquote>
+<ol start="2">
+<li>利用authenticate实现验证</li>
+</ol>
+<p><code>from django.contrib.auth import authenticate,login,logout user=authenticate(username=username,password=password,role=role)</code></p>
+<ol start="3">
+<li>验证通过，利用login进行登录</li>
+</ol>
+<p><code>from django.contrib.auth import authenticate,login,logout login(request,user)   #验证通过，登录</code></p>
+<ol start="4">
+<li>利用logout进行退出</li>
+</ol>
+<p><code>from django.contrib.auth import authenticate,login,logout logout(request)</code></p>
+<ol start="5">
+<li>利用login_required给其他url加登录权限要求</li>
+</ol>
+<p><code>@login_required  #没有登录直接访问的话，会根据settings.py中的LOGIN_URL=&quot;/login&quot;跳转（有一个默认的） def crm(request): return render(request,&quot;userinfo.html&quot;)</code></p>
+<p>在访问需要登录权限的url是，会根据settings.py里<code>LOGIN_URL</code>进行跳转,跳转之后url：</p>
+<blockquote>
+<p>http://127.0.0.1:8080/login?next=/crm</p>
+</blockquote>
+<p>可在登录成功跳转进行设置：</p>
+<blockquote>
+<p>return redirect(request.GET.get(&ldquo;next&rdquo;,'/crm&rsquo;))</p>
+</blockquote>
+<p>如果是从login页面直接登录的就跳转到crm
+如果是其他url跳转login登录的，成功之后还跳转到其他url</p>
+<p><code>版权声明：本文为CSDN博主「月守护」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。 原文链接：https://blog.csdn.net/csdniter/article/details/96992678</code></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lixueping</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-01-17
+        <a href="https://github.com/lflxp/commit/3d6538be75422eed21760fdd74d6c25001d22d42" title="2020年 01月 17日 星期五 16:57:33 CST">(3d6538b)</a>
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content">MIT</span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/tx.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/ali.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/django2/">django2</a>
+          <a href="/tags/python/">python</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/k8s/rancher/%E5%85%A5%E9%97%A8/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Rancher2.x 初体验</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/golang/image/">
+            <span class="next-text nav-default">golang中image/jpeg包和image/png包用法</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="lflxp/lflxp.github.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:382023823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/lflxp" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.lflxp.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">lflxp.cn 版权所有 ICP证：<a href='http://www.beian.miit.gov.cn' target='_blank'>渝ICP备17011066号-1</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script><script></script><script src="https://cdn.jsdelivr.net/npm/raphael@2.2.7/raphael.min.js" integrity="sha256-67By+NpOtm9ka1R6xpUefeGOY8kWWHHRAKlvaTJ7ONI=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/flowchart.js@1.8.0/release/flowchart.min.js" integrity="sha256-zNGWjubXoY6rb5MnmpBNefO0RgoVYfle9p0tvOQM+6k=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '渝ICP备17011066号-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

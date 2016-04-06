@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rancher on 爱像水墨青花</title>
+    <link>https://www.lflxp.cn/categories/rancher/</link>
+    <description>Recent content in rancher on 爱像水墨青花</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
+    <lastBuildDate>Fri, 17 Jan 2020 16:23:22 +0800</lastBuildDate>
+    
+	<atom:link href="https://www.lflxp.cn/categories/rancher/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Rancher2.x 初体验</title>
+      <link>https://www.lflxp.cn/post/k8s/rancher/%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Fri, 17 Jan 2020 16:23:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/k8s/rancher/%E5%85%A5%E9%97%A8/</guid>
+      <description>介绍 https://github.com/rancher/rancher Rancher is an open source project that provides a container management platform built for organizations that deploy containers in production. Rancher makes it easy to run Kubernetes everywhere, meet IT requirements, and empower DevOps teams. Latest Release Latest - v2.3.4 - rancher/rancher:latest - Read the full release notes. Stable - v2.3.4 - rancher/rancher:stable - Read the full release notes. To get automated notifications of our latest release,</description>
+    </item>
+    
+  </channel>
+</rss>

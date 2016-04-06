@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用kubeadm创建一个高可用的etcd集群 - 爱像水墨青花</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lixueping" /><meta name="description" content="默认情况下，kubeadm 运行单成员的 etcd 集群，该集群由控制面节点上的 kubelet 以静态 Pod 的方式进行管理。由于 etcd 集群只包含一个成员且不能在任一成员不可用" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.lflxp.cn/post/k8s/deploy/%E4%BD%BF%E7%94%A8kubeadm%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84etcd%E9%9B%86%E7%BE%A4/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用kubeadm创建一个高可用的etcd集群" />
+<meta property="og:description" content="默认情况下，kubeadm 运行单成员的 etcd 集群，该集群由控制面节点上的 kubelet 以静态 Pod 的方式进行管理。由于 etcd 集群只包含一个成员且不能在任一成员不可用" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lflxp.cn/post/k8s/deploy/%E4%BD%BF%E7%94%A8kubeadm%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84etcd%E9%9B%86%E7%BE%A4/" />
+<meta property="article:published_time" content="2020-01-17T18:38:22+08:00" />
+<meta property="article:modified_time" content="2020-01-17T18:38:22+08:00" />
+<meta itemprop="name" content="使用kubeadm创建一个高可用的etcd集群">
+<meta itemprop="description" content="默认情况下，kubeadm 运行单成员的 etcd 集群，该集群由控制面节点上的 kubelet 以静态 Pod 的方式进行管理。由于 etcd 集群只包含一个成员且不能在任一成员不可用">
+<meta itemprop="datePublished" content="2020-01-17T18:38:22&#43;08:00" />
+<meta itemprop="dateModified" content="2020-01-17T18:38:22&#43;08:00" />
+<meta itemprop="wordCount" content="1429">
+
+
+
+<meta itemprop="keywords" content="部署,kubeadm,etcd," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用kubeadm创建一个高可用的etcd集群"/>
+<meta name="twitter:description" content="默认情况下，kubeadm 运行单成员的 etcd 集群，该集群由控制面节点上的 kubelet 以静态 Pod 的方式进行管理。由于 etcd 集群只包含一个成员且不能在任一成员不可用"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">琵琶</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">目录</li>
+      </a><a href="/post/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">琵琶</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">目录</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用kubeadm创建一个高可用的etcd集群</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-01-17 </span>
+        <div class="post-category">
+            <a href="/categories/k8s/"> k8s </a>
+            </div>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#准备开始">准备开始</a></li>
+    <li><a href="#建立集群">建立集群</a></li>
+    <li><a href="#接下来">接下来</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>默认情况下，kubeadm 运行单成员的 etcd 集群，该集群由控制面节点上的 kubelet 以静态 Pod 的方式进行管理。由于 etcd 集群只包含一个成员且不能在任一成员不可用时保持运行，所以这不是一种高可用设置。本任务，将告诉您如何在使用 kubeadm 创建一个 kubernetes 集群时创建一个外部 etcd：有三个成员的高可用 etcd 集群。</p>
+<h2 id="准备开始">准备开始</h2>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<ul>
+<li>三个可以通过 2379 和 2380 端口相互通信的主机。本文档使用这些作为默认端口。不过，它们可以通过 kubeadm 的配置文件进行自定义。</li>
+</ul>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<ul>
+<li>每个主机必须 <a href="/docs/setup/production-environment/tools/kubeadm/install-kubeadm/">安装有 docker、kubelet 和 kubeadm</a>。</li>
+</ul>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<ul>
+<li>一些可以用来在主机间复制文件的基础设施。例如 <code>ssh</code> 和 <code>scp</code> 就可以满足需求。</li>
+</ul>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="建立集群">建立集群</h2>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>一般来说，是在一个节点上生成所有证书并且只分发这些<em>必要</em>的文件到其它节点上。</p>
+<blockquote>
+<p>kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这个例子中，不需要其他加密工具。</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<ol>
+<li>
+<p>将 kubelet 配置为 etcd 的服务管理器。</p>
+<p>由于 etcd 是首先创建的，因此您必须通过创建具有更高优先级的新文件来覆盖 kubeadm 提供的 kubelet 单元文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">cat <span class="s">&lt;&lt; EOF &gt; /etc/systemd/system/kubelet.service.d/20-etcd-service-manager.conf
+</span><span class="s">[Service]
+</span><span class="s">ExecStart=
+</span><span class="s">#  Replace &#34;systemd&#34; with the cgroup driver of your container runtime. The default value in the kubelet is &#34;cgroupfs&#34;.
+</span><span class="s">ExecStart=/usr/bin/kubelet --address=127.0.0.1 --pod-manifest-path=/etc/kubernetes/manifests --cgroup-driver=systemd
+</span><span class="s">Restart=always
+</span><span class="s">EOF</span>
+
+systemctl daemon-reload
+systemctl restart kubelet
+</code></pre></td></tr></table>
+</div>
+</div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+</li>
+<li>
+<p>为 kubeadm 创建配置文件。</p>
+<p>使用以下脚本为每个将要运行 etcd 成员的主机生成一个 kubeadm 配置文件。</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 使用 IP 或可解析的主机名替换 HOST0、HOST1 和 HOST2</span>
+<span class="nb">export</span> <span class="nv">HOST0</span><span class="o">=</span>10.0.0.6
+<span class="nb">export</span> <span class="nv">HOST1</span><span class="o">=</span>10.0.0.7
+<span class="nb">export</span> <span class="nv">HOST2</span><span class="o">=</span>10.0.0.8
+
+<span class="c1"># 创建临时目录来存储将被分发到其它主机上的文件</span>
+mkdir -p /tmp/<span class="si">${</span><span class="nv">HOST0</span><span class="si">}</span>/ /tmp/<span class="si">${</span><span class="nv">HOST1</span><span class="si">}</span>/ /tmp/<span class="si">${</span><span class="nv">HOST2</span><span class="si">}</span>/
+
+<span class="nv">ETCDHOSTS</span><span class="o">=</span><span class="o">(</span><span class="si">${</span><span class="nv">HOST0</span><span class="si">}</span> <span class="si">${</span><span class="nv">HOST1</span><span class="si">}</span> <span class="si">${</span><span class="nv">HOST2</span><span class="si">}</span><span class="o">)</span>
+<span class="nv">NAMES</span><span class="o">=</span><span class="o">(</span><span class="s2">&#34;infra0&#34;</span> <span class="s2">&#34;infra1&#34;</span> <span class="s2">&#34;infra2&#34;</span><span class="o">)</span>
+
+<span class="k">for</span> i in <span class="s2">&#34;</span><span class="si">${</span><span class="p">!ETCDHOSTS[@]</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">do</span>
+<span class="nv">HOST</span><span class="o">=</span><span class="si">${</span><span class="nv">ETCDHOSTS</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span>
+<span class="nv">NAME</span><span class="o">=</span><span class="si">${</span><span class="nv">NAMES</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span>
+cat <span class="s">&lt;&lt; EOF &gt; /tmp/${HOST}/kubeadmcfg.yaml
+</span><span class="s">apiVersion: &#34;kubeadm.k8s.io/v1beta2&#34;
+</span><span class="s">kind: ClusterConfiguration
+</span><span class="s">etcd:
+</span><span class="s">    local:
+</span><span class="s">        serverCertSANs:
+</span><span class="s">        - &#34;${HOST}&#34;
+</span><span class="s">        peerCertSANs:
+</span><span class="s">        - &#34;${HOST}&#34;
+</span><span class="s">        extraArgs:
+</span><span class="s">            initial-cluster: infra0=https://${ETCDHOSTS[0]}:2380,infra1=https://${ETCDHOSTS[1]}:2380,infra2=https://${ETCDHOSTS[2]}:2380
+</span><span class="s">            initial-cluster-state: new
+</span><span class="s">            name: ${NAME}
+</span><span class="s">            listen-peer-urls: https://${HOST}:2380
+</span><span class="s">            listen-client-urls: https://${HOST}:2379
+</span><span class="s">            advertise-client-urls: https://${HOST}:2379
+</span><span class="s">            initial-advertise-peer-urls: https://${HOST}:2380
+</span><span class="s">EOF</span>
+<span class="k">done</span>
+</code></pre></td></tr></table>
+</div>
+</div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+</li>
+<li>
+<p>生成证书颁发机构</p>
+<p>如果您已经拥有 CA，那么唯一的操作是复制 CA 的 <code>crt</code> 和 <code>key</code> 文件到 <code>etc/kubernetes/pki/etcd/ca.crt</code> 和 <code>/etc/kubernetes/pki/etcd/ca.key</code>。复制完这些文件后继续下一步，“为每个成员创建证书”。</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>如果您还没有 CA，则在 <code>$HOST0</code>（您为 kubeadm 生成配置文件的位置）上运行此命令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">kubeadm alpha phase certs etcd-ca
+</code></pre></td></tr></table>
+</div>
+</div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>创建了如下两个文件</p>
+<ul>
+<li><code>/etc/kubernetes/pki/etcd/ca.crt</code></li>
+<li><code>/etc/kubernetes/pki/etcd/ca.key</code></li>
+</ul>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+</li>
+<li>
+<p>为每个成员创建证书</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">kubeadm alpha phase certs etcd-server --config<span class="o">=</span>/tmp/<span class="si">${</span><span class="nv">HOST2</span><span class="si">}</span>/kubeadmcfg.yaml
+kubeadm alpha phase certs etcd-peer --config<span class="o">=</span>/tmp/<span class="si">${</span><span class="nv">HOST2</span><span class="si">}</span>/kubeadmcfg.yaml
+kubeadm alpha phase certs etcd-healthcheck-client --config<span class="o">=</span>/tmp/<span class="si">${</span><span class="nv">HOST2</span><span class="si">}</span>/kubeadmcfg.yaml
+kubeadm alpha phase certs apiserver-etcd-client --config<span class="o">=</span>/tmp/<span class="si">${</span><span class="nv">HOST2</span><span class="si">}</span>/kubeadmcfg.yaml
+cp -R /etc/kubernetes/pki /tmp/<span class="si">${</span><span class="nv">HOST2</span><span class="si">}</span>/
+<span class="c1"># 清理不可重复使用的证书</span>
+find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
+
+kubeadm alpha phase certs etcd-server --config<span class="o">=</span>/tmp/<span class="si">${</span><span class="nv">HOST1</span><span class="si">}</span>/kubeadmcfg.yaml
+kubeadm alpha phase certs etcd-peer --config<span class="o">=</span>/tmp/<span class="si">${</span><span class="nv">HOST1</span><span class="si">}</span>/kubeadmcfg.yaml
+kubeadm alpha phase certs etcd-healthcheck-client --config<span class="o">=</span>/tmp/<span class="si">${</span><span class="nv">HOST1</span><span class="si">}</span>/kubeadmcfg.yaml
+kubeadm alpha phase certs apiserver-etcd-client --config<span class="o">=</span>/tmp/<span class="si">${</span><span class="nv">HOST1</span><span class="si">}</span>/kubeadmcfg.yaml
+cp -R /etc/kubernetes/pki /tmp/<span class="si">${</span><span class="nv">HOST1</span><span class="si">}</span>/
+find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
+
+kubeadm alpha phase certs etcd-server --config<span class="o">=</span>/tmp/<span class="si">${</span><span class="nv">HOST0</span><span class="si">}</span>/kubeadmcfg.yaml
+kubeadm alpha phase certs etcd-peer --config<span class="o">=</span>/tmp/<span class="si">${</span><span class="nv">HOST0</span><span class="si">}</span>/kubeadmcfg.yaml
+kubeadm alpha phase certs etcd-healthcheck-client --config<span class="o">=</span>/tmp/<span class="si">${</span><span class="nv">HOST0</span><span class="si">}</span>/kubeadmcfg.yaml
+kubeadm alpha phase certs apiserver-etcd-client --config<span class="o">=</span>/tmp/<span class="si">${</span><span class="nv">HOST0</span><span class="si">}</span>/kubeadmcfg.yaml
+<span class="c1"># 不需要移动 certs 因为它们是给 HOST0 使用的</span>
+
+<span class="c1"># 清理不应从此主机复制的证书</span>
+find /tmp/<span class="si">${</span><span class="nv">HOST2</span><span class="si">}</span> -name ca.key -type f -delete
+find /tmp/<span class="si">${</span><span class="nv">HOST1</span><span class="si">}</span> -name ca.key -type f -delete
+</code></pre></td></tr></table>
+</div>
+</div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+</li>
+<li>
+<p>复制证书和 kubeadm 配置</p>
+<p>证书已生成，现在必须将它们移动到对应的主机。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">USER</span><span class="o">=</span>ubuntu
+<span class="nv">HOST</span><span class="o">=</span><span class="si">${</span><span class="nv">HOST1</span><span class="si">}</span>
+scp -r /tmp/<span class="si">${</span><span class="nv">HOST</span><span class="si">}</span>/* <span class="si">${</span><span class="nv">USER</span><span class="si">}</span>@<span class="si">${</span><span class="nv">HOST</span><span class="si">}</span>:
+ssh <span class="si">${</span><span class="nv">USER</span><span class="si">}</span>@<span class="si">${</span><span class="nv">HOST</span><span class="si">}</span>
+USER@HOST $ sudo -Es
+root@HOST $ chown -R root:root pki
+root@HOST $ mv pki /etc/kubernetes/
+</code></pre></td></tr></table>
+</div>
+</div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+</li>
+<li>
+<p>确保已经所有预期的文件都存在</p>
+<p><code>$HOST0</code> 所需文件的完整列表如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">/tmp/${HOST0}
+└── kubeadmcfg.yaml
+---
+/etc/kubernetes/pki
+├── apiserver-etcd-client.crt
+├── apiserver-etcd-client.key
+└── etcd
+    ├── ca.crt
+    ├── ca.key
+    ├── healthcheck-client.crt
+    ├── healthcheck-client.key
+    ├── peer.crt
+    ├── peer.key
+    ├── server.crt
+    └── server.key
+</code></pre></td></tr></table>
+</div>
+</div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>在 <code>$HOST1</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$HOME
+└── kubeadmcfg.yaml
+---
+/etc/kubernetes/pki
+├── apiserver-etcd-client.crt
+├── apiserver-etcd-client.key
+└── etcd
+    ├── ca.crt
+    ├── healthcheck-client.crt
+    ├── healthcheck-client.key
+    ├── peer.crt
+    ├── peer.key
+    ├── server.crt
+    └── server.key
+</code></pre></td></tr></table>
+</div>
+</div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>在 <code>$HOST2</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$HOME
+└── kubeadmcfg.yaml
+---
+/etc/kubernetes/pki
+├── apiserver-etcd-client.crt
+├── apiserver-etcd-client.key
+└── etcd
+    ├── ca.crt
+    ├── healthcheck-client.crt
+    ├── healthcheck-client.key
+    ├── peer.crt
+    ├── peer.key
+    ├── server.crt
+    └── server.key
+</code></pre></td></tr></table>
+</div>
+</div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+</li>
+<li>
+<p>创建静态 Pod 清单</p>
+<p>既然证书和配置已经就绪，是时候去创建清单了。在每台主机上运行 <code>kubeadm</code> 命令来生成 etcd 使用的静态清单。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">root@HOST0 $ kubeadm alpha phase etcd <span class="nb">local</span> --config<span class="o">=</span>/tmp/<span class="si">${</span><span class="nv">HOST0</span><span class="si">}</span>/kubeadmcfg.yaml
+root@HOST1 $ kubeadm alpha phase etcd <span class="nb">local</span> --config<span class="o">=</span>/home/ubuntu/kubeadmcfg.yaml
+root@HOST2 $ kubeadm alpha phase etcd <span class="nb">local</span> --config<span class="o">=</span>/home/ubuntu/kubeadmcfg.yaml
+</code></pre></td></tr></table>
+</div>
+</div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+</li>
+<li>
+<p>可选：检查群集运行状况</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">docker run --rm -it <span class="se">\
+</span><span class="se"></span>--net host <span class="se">\
+</span><span class="se"></span>-v /etc/kubernetes:/etc/kubernetes quay.io/coreos/etcd:v3.2.18 etcdctl <span class="se">\
+</span><span class="se"></span>--cert-file /etc/kubernetes/pki/etcd/peer.crt <span class="se">\
+</span><span class="se"></span>--key-file /etc/kubernetes/pki/etcd/peer.key <span class="se">\
+</span><span class="se"></span>--ca-file /etc/kubernetes/pki/etcd/ca.crt <span class="se">\
+</span><span class="se"></span>--endpoints https://<span class="si">${</span><span class="nv">HOST0</span><span class="si">}</span>:2379 cluster-health
+...
+cluster is healthy
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h2 id="接下来">接下来</h2>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>一旦拥有了一个正常工作的 3 成员的 etcd 集群，你就可以基于<a href="/docs/setup/independent/high-availability/">使用 kubeadm 的外部 etcd 方法</a>，继续部署一个高可用的控制平面。</p>
+<h2 id="参考">参考</h2>
+<blockquote>
+<p><a href="https://github.com/kubernetes/website/edit/master/content/zh/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm.md">https://github.com/kubernetes/website/edit/master/content/zh/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm.md</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://kubernetes.io/zh/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/">https://kubernetes.io/zh/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/</a></p>
+</blockquote>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lixueping</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-01-17
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content">MIT</span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/tx.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/ali.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E9%83%A8%E7%BD%B2/">部署</a>
+          <a href="/tags/kubeadm/">kubeadm</a>
+          <a href="/tags/etcd/">etcd</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/k8s/istio/getstart/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Istio Get Start 安装</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/k8s/deploy/kubeadm%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">
+            <span class="next-text nav-default">利用 kubeadm 创建高可用集群</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="lflxp/lflxp.github.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:382023823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/lflxp" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.lflxp.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">lflxp.cn 版权所有 ICP证：<a href='http://www.beian.miit.gov.cn' target='_blank'>渝ICP备17011066号-1</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script><script></script><script src="https://cdn.jsdelivr.net/npm/raphael@2.2.7/raphael.min.js" integrity="sha256-67By+NpOtm9ka1R6xpUefeGOY8kWWHHRAKlvaTJ7ONI=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/flowchart.js@1.8.0/release/flowchart.min.js" integrity="sha256-zNGWjubXoY6rb5MnmpBNefO0RgoVYfle9p0tvOQM+6k=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '渝ICP备17011066号-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

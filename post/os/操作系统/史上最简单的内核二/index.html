@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>史上最简单的内核（二） - 爱像水墨青花</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lixueping" /><meta name="description" content="转载注明出处：http://www.cnblogs.com/lucasysfeng/p/4847662.html 上一讲地址：http://w" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.lflxp.cn/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%8F%B2%E4%B8%8A%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E5%86%85%E6%A0%B8%E4%BA%8C/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="史上最简单的内核（二）" />
+<meta property="og:description" content="转载注明出处：http://www.cnblogs.com/lucasysfeng/p/4847662.html 上一讲地址：http://w" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lflxp.cn/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%8F%B2%E4%B8%8A%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E5%86%85%E6%A0%B8%E4%BA%8C/" />
+<meta property="article:published_time" content="2020-01-17T23:01:22+08:00" />
+<meta property="article:modified_time" content="2020-01-17T23:01:22+08:00" />
+<meta itemprop="name" content="史上最简单的内核（二）">
+<meta itemprop="description" content="转载注明出处：http://www.cnblogs.com/lucasysfeng/p/4847662.html 上一讲地址：http://w">
+<meta itemprop="datePublished" content="2020-01-17T23:01:22&#43;08:00" />
+<meta itemprop="dateModified" content="2020-01-17T23:01:22&#43;08:00" />
+<meta itemprop="wordCount" content="2832">
+
+
+
+<meta itemprop="keywords" content="os," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="史上最简单的内核（二）"/>
+<meta name="twitter:description" content="转载注明出处：http://www.cnblogs.com/lucasysfeng/p/4847662.html 上一讲地址：http://w"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">琵琶</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">目录</li>
+      </a><a href="/post/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">琵琶</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">目录</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">史上最简单的内核（二）</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-01-17 </span>
+        <div class="post-category">
+            <a href="/categories/10%E5%88%86%E9%92%9F%E5%86%99%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 10分钟写操作系统 </a>
+            </div>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#如何启动内核">如何启动内核</a></li>
+    <li><a href="#第一步-汇编入口">第一步 汇编入口</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#第二步-内核入口">第二步 内核入口</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#第三步-生成内核">第三步 生成内核</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#第四步-将内核拷贝到软盘镜像">第四步 将内核拷贝到软盘镜像</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#第五步-启动内核">第五步 启动内核</a></li>
+    <li><a href="#代码获取">代码获取</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>转载注明出处：http://www.cnblogs.com/lucasysfeng/p/4847662.html</p>
+<p>上一讲地址：http://www.cnblogs.com/lucasysfeng/p/4846119.html</p>
+<p>项目地址：https://github.com/lucasysfeng/lucasOS</p>
+<p>上一讲我们介绍了计算机的启动流程，并给出了一份简单的主引导记录代码，此份代码仅仅是显示几个字符，并没有做它本应该做的事&ndash;启动内核。本讲我们首先看下内核是如何被启动的，然后写一个简单的内核，用已经实现的主引导记录配合GRUB启动它。</p>
+<h2 id="如何启动内核">如何启动内核</h2>
+<p>前一讲我们说到，计算机读取&quot;主引导记录&quot;前面446字节的机器码之后，会运行事先安装的“启动管理器”bootloader，由用户选择启动哪个内核，之后就会载入内核，将控制权交给内核。GNU GRUB（GRand Unified Bootloader）就是一种bootloader，满足多重引导规范（The Multiboot Specification），GRUB可选择操作系统分区上的不同内核，下图就是GRUB的图形界面：</p>
+<p><img src="http://images2015.cnblogs.com/blog/443349/201510/443349-20151005020445299-2104931327.jpg" alt="123"></p>
+<p>图 GRUB界面</p>
+<p><code>能够被GRUB启动的内核需要满足两个的条件:</code></p>
+<ul>
+<li>(1) 内核的前8K字节内必须要包含多重引导规范的头信息（Multiboot Header）；</li>
+<li>(2) 内核要加载在内存地址的1MB以上。</li>
+</ul>
+<p>那么Multiboot Header是什么样子的呢？它必须包含4字节对齐的3个域（还有其他非必须域，我们不讨论），如下：</p>
+<ul>
+<li>魔数域（magic）：标志头的魔数，必须等于 0x1BADB002。。</li>
+<li>标志域（flag）：是否需要引导程序支持某些特性，我们不关心这些特性，这个标志置为0。</li>
+<li>校验域（checksum）：校验等式是否成立（magic + flags + checksum = 0）</li>
+</ul>
+<p>本文不讨论GRUB的实现，我们会用前人已经写好的GRUB（笔者会给出），我们要做的是完成符合GRUB启动规范的内核。为了完成这个内核，<code>我们需要写少量的汇编用来在内核中加入Multiboot Header，然后用C语言写内核入口，最后将汇编目标代码和C语言目标代码链接起来生成真正的内核</code>。下面就让我们一步步地完成这些吧！</p>
+<h2 id="第一步-汇编入口">第一步 汇编入口</h2>
+<ol>
+<li><code>汇编代码如下：</code></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">; 文件名 boot.asm
+; Copyright: www.cnblogs.com/lucasysfeng
+ 
+MBOOT_MAGIC  equ 0x1BADB002  ; multiboot magic域，必须为此值
+MBOOT_FLAGS  equ 0x00        ; multiboot flag域, GRUB启动时是否要做一些特殊操作
+MBOOT_CHECKSUM  equ -(MBOOT_MAGIC + MBOOT_FLAGS) ; multiboot checksum域，校验上面两个域是否正确
+ 
+[BITS 32]                    ; 以32位编译
+ 
+section .text
+  dd  MBOOT_MAGIC
+  dd  MBOOT_FLAGS
+  dd  MBOOT_CHECKSUM
+  dd  start
+ 
+[GLOBAL start]
+[EXTERN kernel_main]         ; 内核入口函数, EXTERN表明此符号在外部定义
+ 
+start:
+  cli                        ; 禁用中断
+  call kernel_main           ; 调用内核入口函数
+  jmp $                      ; 无限循环
+</code></pre></td></tr></table>
+</div>
+</div><p>在上面汇编中，我们定义了GRUB启动需要的域MBOOT_MAGIC、MBOOT_FLAGS和MBOOT_CHECKSUM，并调用了内核入口函数kernel_main, kernel_main下一节实现。</p>
+<ol start="2">
+<li><code>编译生成目标文件boot.o</code></li>
+</ol>
+<blockquote>
+<h1 id="nasm--f-elf-bootasm--o-booto">nasm -f elf boot.asm -o boot.o</h1>
+</blockquote>
+<p>运行上面命令后会生成目标文件boot.o，-f  elf的意思是生成ELF格式的目标代码。</p>
+<h2 id="第二步-内核入口">第二步 内核入口</h2>
+<ol>
+<li><code>内核代码如下：</code></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">/****************************************************
+# Copyright(c) www.cnblogs.com/lucasysfeng, all rights reserved
+# File        : kernel.c
+# Author      : lucasysfeng
+# Description : 内核入口函数
+****************************************************/
+ 
+int kernel_main()
+{
+    // 显存开始地址
+    char *display_buf = (char*)0xb8000;        
+ 
+    // 清屏
+    unsigned int i = 0;
+    const unsigned int total = 80 * 25 * 2;      // 一屏25行，每行80个字符，每个字符2个字节
+    while(i &lt; total)
+    {
+        display_buf[i++] = &#39; &#39;;
+        display_buf[i++] = 0x04;                 // 颜色
+    }
+ 
+    // 显示字符
+    const char *str = &#34;Hello World, welcome to kernel!&#34;;
+    for (i = 0; &#39;\0&#39; != *str;)
+    {
+        display_buf[i++] = *(str++);
+        display_buf[i++] = 0x04;
+    }
+ 
+    return 0;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p><code>0xb8000h</code>是显存开始的地址，读者可以看<a href="http://www.cnblogs.com/lucasysfeng/p/4846119.html">第一讲</a> “实模式内存地址空间分布”那张图，找到0xb8000h这个地址。从0xb8000h这个地址开始，每2个字节表示一个字符，前一个字节是字符的ASCII码，后一个字节是这个字符的颜色和属性，颜色和属性此处先不用关心。这段C代码的其余部分相信读者都能看得懂，我就不过多解释了。</p>
+<ol start="2">
+<li><code>编译生成目标文件kernel.o</code></li>
+</ol>
+<blockquote>
+<h1 id="gcc--m32--c--o-kernelo-kernelc">gcc -m32 -c -o kernel.o kernel.c</h1>
+</blockquote>
+<p>运行上面命令后，目标文件kernel.o就生成了。</p>
+<h2 id="第三步-生成内核">第三步 生成内核</h2>
+<p>上面讲到了能被GRUB启动的内核需要满足的条件：</p>
+<ul>
+<li>(1) 内核的前8K字节内必须要包含多重引导规范的头信息（Multiboot Header）；</li>
+<li>(2) 内核要加载在内存地址的1MB以上。</li>
+</ul>
+<p>我们将头信息放在了汇编生成的目标文件boot.o中，因此我们需要将boot.o和kernel.o链接到一起生成真正的kernel,并且这个真正的内核要加载到1MB内存上，为此，我们需要下面的链接脚本和命令(关于链接脚本的使用自行google)：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">/***************************
+* 文件名: link.ld  
+***************************/
+ 
+ENTRY(start)
+SECTIONS
+{
+    . = 0x100000;
+ 
+    .text :
+    {
+        *(.text)
+        . = ALIGN(4096);
+    }
+    .data :
+    {
+        *(.data)
+        *(.rodata)
+        . = ALIGN(4096);
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>我们用ld命令链接目标文件boot.o和kernel.o，指明使用链接脚本link.ld:</p>
+<blockquote>
+<h1 id="ld--t-linkld--m-elf_i386--nostdlib-booto-kernelo--o-kernel">ld -T link.ld -m elf_i386 -nostdlib boot.o kernel.o -o kernel</h1>
+</blockquote>
+<p>运行上面命令后，会生成我们要启动的真正的内核kernel，那么这个kernel是否满足GRUB启动规范呢？我们可以通过反汇编来看一下：</p>
+<blockquote>
+<h1 id="objdump--d--kernel--head--n30">objdump -d  kernel | head -n30</h1>
+</blockquote>
+<p>结果如下图所示，我们看到100000了吗，这个就是.text段起始的地址即1M，看到02 b0 ad 1b 00 00了吗，这个就是GRUB魔数域1b ad b0 02（大小端问题，反向存储）</p>
+<p><img src="http://images2015.cnblogs.com/blog/443349/201510/443349-20151005211209924-1506282586.png" alt=""></p>
+<h2 id="第四步-将内核拷贝到软盘镜像">第四步 将内核拷贝到软盘镜像</h2>
+<p>我们这里不制作软盘镜像，而是使用已经制作好的软盘镜像，镜像名称lucasOS.img，已经放在github上了。我们也无需制作GRUB，这个软盘镜像已经包含了GRUB.我们要做的是把内核文件kernel拷贝到软盘镜像lucasOS.img中。</p>
+<ol>
+<li><code>获取lucasOS.img软盘镜像。</code></li>
+</ol>
+<p>lucasOS目录下的lucasOS.img就是我们要的软盘镜像。</p>
+<blockquote>
+<h1 id="git-clone-httpsgithubcomlucasysfenglucasosgit">git clone <a href="https://github.com/lucasysfeng/lucasOS.git">https://github.com/lucasysfeng/lucasOS.git</a></h1>
+</blockquote>
+<ol start="2">
+<li><code>创建挂载点。</code></li>
+</ol>
+<blockquote>
+<h1 id="sudo-mkdir-mntlucasos">sudo mkdir /mnt/lucasOS</h1>
+</blockquote>
+<ol start="3">
+<li><code>挂载软盘镜像</code></li>
+</ol>
+<p>注意把lucasOS.img改为你的lucasOS.img所在路径。</p>
+<blockquote>
+<h1 id="sudo-mount-lucasosimg-mntlucasos">sudo mount lucasOS.img /mnt/lucasOS</h1>
+</blockquote>
+<ol start="4">
+<li><code>把内核文件拷贝到软盘镜像中</code></li>
+</ol>
+<p>注意把kernel改为你的kernel所在路径。</p>
+<blockquote>
+<h1 id="sudo-cp-kernel-mntlucasoskernel">sudo cp kernel /mnt/lucasOS/kernel</h1>
+</blockquote>
+<ol start="5">
+<li><code>卸载软盘镜像</code></li>
+</ol>
+<blockquote>
+<h1 id="sudo-umount-mntlucasos">sudo umount /mnt/lucasOS</h1>
+</blockquote>
+<h2 id="第五步-启动内核">第五步 启动内核</h2>
+<p>上一讲我们用软盘镜像启动了一个空的虚拟机，下面用同样地操作启动虚拟机，<code>要记得把软盘镜像lucasOS.img从ubuntu拷贝到windows下</code>。这里我们使用VMware创建虚拟机，当然也可以使用其他软件创建虚拟机。</p>
+<ol>
+<li>创建空的虚拟机，去掉开机从CD/DVD启动选项。</li>
+</ol>
+<p><img src="http://images2015.cnblogs.com/blog/443349/201509/443349-20150923172253194-1173963410.png" alt="2"></p>
+<ol start="2">
+<li>网络选择host-only模式。</li>
+</ol>
+<p><img src="http://images2015.cnblogs.com/blog/443349/201509/443349-20150923172306647-546312325.png" alt="3"></p>
+<ol start="3">
+<li>选择从软盘驱动，路径选择已经拷贝到windows下的镜像lucasOS.img.</li>
+</ol>
+<p><img src="http://images2015.cnblogs.com/blog/443349/201510/443349-20151004024039433-679580535.png" alt="4"></p>
+<ol start="4">
+<li>开启虚拟机电源，看到如下的画面（约停留2s），恭喜你，GRUB成功了！</li>
+</ol>
+<p><img src="http://images2015.cnblogs.com/blog/443349/201510/443349-20151005175719737-449927167.png" alt="5"></p>
+<ol start="5">
+<li>GRUB启动成功后，会自动载入内核，出现下面画面，恭喜你，载入内核成功！</li>
+</ol>
+<p><img src="http://images2015.cnblogs.com/blog/443349/201510/443349-20151005175930534-1973897977.png" alt="6"></p>
+<p>好了，至此，我们完成了内核的启动流程，下一讲我们开始内核之旅！</p>
+<h2 id="代码获取">代码获取</h2>
+<p>本系列GitHub地址 <a href="https://github.com/lflxp/lucasOS">https://github.com/lflxp/lucasOS</a>，用下面命令获取代码:</p>
+<blockquote>
+<h1 id="git-clone-httpsgithubcomlflxplucasosgit">git clone <a href="https://github.com/lflxp/lucasOS.git">https://github.com/lflxp/lucasOS.git</a></h1>
+</blockquote>
+<p>本讲的代码是code/chapter2，笔者已经将上面的命令集成到Makefile中了，读者只需进入目录，按ReadMe.txt说明执行即可</p>
+<h2 id="参考">参考</h2>
+<ol>
+<li><a href="http://www.jamesmolloy.co.uk/tutorial_html/2.-Genesis.html">http://www.jamesmolloy.co.uk/tutorial_html/2.-Genesis.html</a></li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lixueping</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-01-17
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content">MIT</span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/tx.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/ali.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/os/">os</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/%E7%AE%97%E6%B3%95/%E5%88%9B%E5%BB%BA%E5%9E%8B/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">简单工厂模式</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/10%E5%88%86%E9%92%9F%E5%86%99%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%80/">
+            <span class="next-text nav-default">10分钟写操作系统（一）</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="lflxp/lflxp.github.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:382023823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/lflxp" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.lflxp.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">lflxp.cn 版权所有 ICP证：<a href='http://www.beian.miit.gov.cn' target='_blank'>渝ICP备17011066号-1</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script><script></script><script src="https://cdn.jsdelivr.net/npm/raphael@2.2.7/raphael.min.js" integrity="sha256-67By+NpOtm9ka1R6xpUefeGOY8kWWHHRAKlvaTJ7ONI=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/flowchart.js@1.8.0/release/flowchart.min.js" integrity="sha256-zNGWjubXoY6rb5MnmpBNefO0RgoVYfle9p0tvOQM+6k=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '渝ICP备17011066号-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

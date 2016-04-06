@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>helm重要操作记录 - 爱像水墨青花</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lxp" /><meta name="description" content="helm tiller安装 helm init helm init &amp;ndash;tiller-image=daocloud.io/liukuan73/tiller-lk:v2.9.1 &amp;ndash;tiller-namespace=kube-system helm init &amp;ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.5.1 &amp;ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts helm init &amp;ndash;tiller-image=harbor.hub.cn/bigdata-dev/tiller:v2.10.0 &amp;ndash;tiller-namespace=kube-system &amp;ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 1 2 3 helm init 在缺省配置下， Helm 会利用 &amp;#34;gcr.io/kubernetes-helm/tiller&amp;#34; 镜像在Kubernetes集群上安装配置 Tille" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.lflxp.cn/post/notebook/helm/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="helm重要操作记录" />
+<meta property="og:description" content="helm tiller安装 helm init helm init &ndash;tiller-image=daocloud.io/liukuan73/tiller-lk:v2.9.1 &ndash;tiller-namespace=kube-system helm init &ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.5.1 &ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts helm init &ndash;tiller-image=harbor.hub.cn/bigdata-dev/tiller:v2.10.0 &ndash;tiller-namespace=kube-system &ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 1 2 3 helm init 在缺省配置下， Helm 会利用 &#34;gcr.io/kubernetes-helm/tiller&#34; 镜像在Kubernetes集群上安装配置 Tille" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lflxp.cn/post/notebook/helm/" />
+<meta property="article:published_time" content="2020-01-14T01:37:56+08:00" />
+<meta property="article:modified_time" content="2020-01-14T14:34:14+08:00" />
+<meta itemprop="name" content="helm重要操作记录">
+<meta itemprop="description" content="helm tiller安装 helm init helm init &ndash;tiller-image=daocloud.io/liukuan73/tiller-lk:v2.9.1 &ndash;tiller-namespace=kube-system helm init &ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.5.1 &ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts helm init &ndash;tiller-image=harbor.hub.cn/bigdata-dev/tiller:v2.10.0 &ndash;tiller-namespace=kube-system &ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 1 2 3 helm init 在缺省配置下， Helm 会利用 &#34;gcr.io/kubernetes-helm/tiller&#34; 镜像在Kubernetes集群上安装配置 Tille">
+<meta itemprop="datePublished" content="2020-01-14T01:37:56&#43;08:00" />
+<meta itemprop="dateModified" content="2020-01-14T14:34:14&#43;08:00" />
+<meta itemprop="wordCount" content="1774">
+
+
+
+<meta itemprop="keywords" content="k8s,helm," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="helm重要操作记录"/>
+<meta name="twitter:description" content="helm tiller安装 helm init helm init &ndash;tiller-image=daocloud.io/liukuan73/tiller-lk:v2.9.1 &ndash;tiller-namespace=kube-system helm init &ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.5.1 &ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts helm init &ndash;tiller-image=harbor.hub.cn/bigdata-dev/tiller:v2.10.0 &ndash;tiller-namespace=kube-system &ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 1 2 3 helm init 在缺省配置下， Helm 会利用 &#34;gcr.io/kubernetes-helm/tiller&#34; 镜像在Kubernetes集群上安装配置 Tille"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">琵琶</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">目录</li>
+      </a><a href="/post/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">琵琶</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">目录</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">helm重要操作记录</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-01-14 </span>
+        <div class="post-category">
+            <a href="/categories/helm/"> helm </a>
+            </div>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#helm-tiller安装">helm tiller安装</a></li>
+    <li><a href="#删除helm服务">删除helm服务</a></li>
+    <li><a href="#repo-查询服务添加">repo 查询、服务、添加</a></li>
+    <li><a href="#更新indexyaml文件">更新index.yaml文件</a></li>
+    <li><a href="#向repo中增加软件包将chart文件夹移动到repo目录并将chart打包">向repo中增加软件包(将chart文件夹移动到repo目录，并将chart打包)</a></li>
+    <li><a href="#验证搜索">验证/搜索</a></li>
+    <li><a href="#安装chart">安装Chart</a></li>
+    <li><a href="#创建charts">创建charts</a></li>
+    <li><a href="#查询chart部署">查询chart部署</a></li>
+    <li><a href="#查看状态">查看状态</a></li>
+    <li><a href="#查看全部的release">查看全部的release</a></li>
+    <li><a href="#更新版本">更新版本</a></li>
+    <li><a href="#查看本地chart生成yaml文件">查看本地Chart生成yaml文件</a></li>
+    <li><a href="#版本回滚">版本回滚</a></li>
+    <li><a href="#查看release的版本信息">查看release的版本信息</a></li>
+    <li><a href="#删除release">删除release</a></li>
+    <li><a href="#使用第三方chat库">使用第三方chat库</a></li>
+    <li><a href="#使用-upgrade-会自动判读如果没安装会先安装建议使用此方法">使用 upgrade ,会自动判读如果没安装，会先安装(建议使用此方法)</a></li>
+    <li><a href="#下载charts到本地">下载charts到本地</a></li>
+    <li><a href="#利用helm-lint命令检查下载的chart是否存在问题">利用helm lint命令检查下载的chart是否存在问题</a></li>
+    <li><a href="#上传-helm-charts">上传 Helm Charts</a></li>
+    <li><a href="#插件pluginhttpsgithubcomchartmuseumhelm-push">插件Plugin</a></li>
+    <li><a href="#push操作httpsgithubcomgoharborharborblobmasterdocsuser_guidemdreplicating-images">push操作</a></li>
+    <li><a href="#helm-chart顺序启动或依赖启动">helm chart顺序启动或依赖启动</a></li>
+    <li><a href="#各种名词变量解析">各种名词变量解析</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="helm-tiller安装">helm tiller安装</h2>
+<p>helm init</p>
+<p>helm init &ndash;tiller-image=daocloud.io/liukuan73/tiller-lk:v2.9.1 &ndash;tiller-namespace=kube-system</p>
+<p>helm init &ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.5.1 &ndash;stable-repo-url <a href="https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts">https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts</a></p>
+<p>helm init &ndash;tiller-image=harbor.hub.cn/bigdata-dev/tiller:v2.10.0 &ndash;tiller-namespace=kube-system &ndash;stable-repo-url <a href="https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts">https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">helm init  在缺省配置下， Helm 会利用 &#34;gcr.io/kubernetes-helm/tiller&#34; 镜像在Kubernetes集群上安装配置 Tiller；
+并且利用 &#34;https://kubernetes-charts.storage.googleapis.com&#34; 作为缺省的 stable repository 的地址。
+由于在国内可能无法访问 &#34;gcr.io&#34;, &#34;storage.googleapis.com&#34; 等域名，阿里云容器服务为此提供了镜像站点。
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="删除helm服务">删除helm服务</h2>
+<p>helm reset</p>
+<p>helm reset -f  //强制删除k8s集群上的pod</p>
+<h2 id="repo-查询服务添加">repo 查询、服务、添加</h2>
+<p>helm repo list</p>
+<p>helm serve &ndash;address 0.0.0.0:8879 &ndash;repo-path /dcos/appstore/local-repo</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">备注：1. helm serve 不指定任何参数的话会在默认的repo目录（/root/.helm/repository/local ）启动服务，根据该目录下的软件包（tgz）信息在该目录下创建index.html文件。2. 可以通过指定--repo-path参数实现在自定义的目录下启动服务，并在那个目录下创建index.html文件。
+</code></pre></td></tr></table>
+</div>
+</div><p>helm repo add local-repo http://10.128.2.2:8879</p>
+<p>helm repo add helm-remote http://10.128.22.33:8081/artifactory/helm-remote &ndash;username <!-- raw HTML omitted --> &ndash;password <!-- raw HTML omitted --></p>
+<p>helm repo add harbor &ndash;cert-file=/root/kye/harbor.crt &ndash;key-file=/root/kye/harbor.key &ndash;ca-file=/etc/docker/certs.d/harbor.cn/ca.crt &ndash;username=*** &ndash;password=***
+<a href="https://harbor.cn/chartrepo/helm">https://harbor.cn/chartrepo/helm</a></p>
+<p>helm repo add &ndash;username=*** &ndash;password=***** cmdb <a href="https://harbor.hub.cn/chartrepo/cmdb">https://harbor.hub.cn/chartrepo/cmdb</a></p>
+<h2 id="更新indexyaml文件">更新index.yaml文件</h2>
+<p>helm repo index &ndash;url=http://10.142.21.21:8879 .</p>
+<p>helm repo update</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">通过helm repo index 命令将chart的metadata记录更新在index.yaml文件中:
+cd /dcos/appstore/local-repo
+helm repo index --url=http://10.142.21.21:8879 .    
+helm repo update
+备注： 这句话的作用是:Read the current directory and generate an index file based on the charts found.
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="向repo中增加软件包将chart文件夹移动到repo目录并将chart打包">向repo中增加软件包(将chart文件夹移动到repo目录，并将chart打包)</h2>
+<p>helm package jenkins &ndash;save=false</p>
+<p>helm package k8sapi &ndash;version 1.0.3</p>
+<p>helm package middlewares &ndash;version=1.5.0 -u middlewares/Chart.yaml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">备注:
+1. helm package的作用是在当前目录下将软件打包为tgz，假如这个软件包中有requirement.yaml，则打包时还需要加上--dependency-update，用来update dependencies from &#34;requirements.yaml&#34; to dir &#34;charts/&#34; before packaging
+2. --save=false的作用是不将tgz文件再拷贝一份到默认的local chart repo文件夹（/root/.helm/repository/local/）下，否则默认会将tgz拷贝一份到那，并检查那个目录下的index.html是否存在，不存在会报错。或者在3.2中最后把没用到的local repo删掉，就不用加--save=false了。
+3. -u 验证Chart.yaml文件
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="验证搜索">验证/搜索</h2>
+<p>helm search jenkins</p>
+<h2 id="安装chart">安装Chart</h2>
+<p>helm install local-repo/jenkins //指定local-repo:</p>
+<p>helm install stable/mariadb //指定chart:</p>
+<p>helm install ./nginx-1.2.3.tgz //指定打包的chart:</p>
+<p>helm install ./nginx  //指定打包目录:</p>
+<p>helm install <a href="https://example.com/charts/nginx-1.2.3.tgz">https://example.com/charts/nginx-1.2.3.tgz</a> //指定chart包URL:</p>
+<p>helm install -f myvalues.yaml ./redis  //如果要覆盖chart中的默认值，通过指定配置文件方式</p>
+<p>helm install stable/mysql &ndash;name mysqlyo //指定部署name fullname</p>
+<h2 id="创建charts">创建charts</h2>
+<p>helm create mycharts</p>
+<h2 id="查询chart部署">查询chart部署</h2>
+<p>helm get my-release</p>
+<h2 id="查看状态">查看状态</h2>
+<p>helm status my-release</p>
+<h2 id="查看全部的release">查看全部的release</h2>
+<p>helm list -a</p>
+<h2 id="更新版本">更新版本</h2>
+<p>helm upgrade my-release -f mysql/values.yaml &ndash;set resources.requests.memory=1024Mi my-release</p>
+<p>helm upgrade unsung-sparrow local/k8sapi &ndash;version 1.0.0</p>
+<h2 id="查看本地chart生成yaml文件">查看本地Chart生成yaml文件</h2>
+<p>helm template .</p>
+<h2 id="版本回滚">版本回滚</h2>
+<p>helm rollback mysql 1  //1为版本号，可以添加 &ndash;debug打印调试信息</p>
+<p>helm rollback &ndash;debug mysql 1</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">2. mac-temp:test test$ helm list4. NAME      	REVISION	UPDATED                 	STATUS  	CHART           	NAMESPACE
+6. inky-eagle	1       	Thu Sep  7 20:45:34 2017	DEPLOYED	prometheus-4.5.0	default  8. test      	5       	Tue Sep 12 18:43:19 2017	DEPLOYED	test-0.1.0      	default  10.  12. mac-temp:test test$ helm history test14. REVISION	UPDATED                 	STATUS    	CHART     	DESCRIPTION      16. 1       	Thu Aug 24 19:50:32 2017	SUPERSEDED	test-0.1.0	Deletion complete18. 2       	Tue Sep 12 18:31:11 2017	SUPERSEDED	test-0.1.0	Upgrade complete20. 3       	Tue Sep 12 18:37:31 2017	SUPERSEDED	test-0.1.0	Upgrade complete22. 4       	Tue Sep 12 18:40:25 2017	SUPERSEDED	test-0.1.0	Rollback to 2    24. 5       	Tue Sep 12 18:43:19 2017	SUPERSEDED	test-0.1.0	Rollback to 2    26. 6       	Tue Sep 12 18:43:25 2017	DEPLOYED  	test-0.1.0	Rollback to 2    28.  30. mac-temp:test test$ helm rollback test 232. Rollback was a success! Happy Helming!
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="查看release的版本信息">查看release的版本信息</h2>
+<p>helm hist my-release</p>
+<h2 id="删除release">删除release</h2>
+<p>helm delete my-release //可回滚</p>
+<p>helm ls -a myrelease //确认是否删除</p>
+<p>helm delete &ndash;purge my-release //彻底删除 不可回滚</p>
+<h2 id="使用第三方chat库">使用第三方chat库</h2>
+<p>helm repo add fabric8 <a href="https://fabric8.io/helm">https://fabric8.io/helm</a> //添加fabric8库</p>
+<p>helm search fabric8  //搜索fabric8提供的工具</p>
+<h2 id="使用-upgrade-会自动判读如果没安装会先安装建议使用此方法">使用 upgrade ,会自动判读如果没安装，会先安装(建议使用此方法)</h2>
+<p>helm upgrade &ndash;install mycharts .</p>
+<p>helm upgrade &ndash;install &ndash;set name=mycharts &ndash;tiller-namespace=default  mycharts ./mycharts/</p>
+<h2 id="下载charts到本地">下载charts到本地</h2>
+<p>helm search peometheus</p>
+<p>helm fetch stable/prometheus</p>
+<p>helm fetch stable/mysql &ndash;version 0.2.8 &ndash;untar</p>
+<h2 id="利用helm-lint命令检查下载的chart是否存在问题">利用helm lint命令检查下载的chart是否存在问题</h2>
+<p>helm lint mysql</p>
+<h2 id="上传-helm-charts">上传 Helm Charts</h2>
+<p><a href="https://aeric.io/post/harbor-manage-helm-charts/">https://aeric.io/post/harbor-manage-helm-charts/</a></p>
+<h2 id="插件pluginhttpsgithubcomchartmuseumhelm-push"><a href="https://github.com/chartmuseum/helm-push">插件Plugin</a></h2>
+<p>helm plugin install <a href="https://github.com/chartmuseum/helm-push">https://github.com/chartmuseum/helm-push</a></p>
+<h2 id="push操作httpsgithubcomgoharborharborblobmasterdocsuser_guidemdreplicating-images"><a href="https://github.com/goharbor/harbor/blob/master/docs/user_guide.md#replicating-images">push操作</a></h2>
+<p>helm push &ndash;ca-file=ca.crt &ndash;key-file=server.key &ndash;cert-file=server.crt &ndash;username=admin &ndash;password=passw0rd chart_repo/hello-helm-0.1.0.tgz myrepo</p>
+<p>helm push k9sapi harbor &ndash;version 0.0.1</p>
+<h2 id="helm-chart顺序启动或依赖启动">helm chart顺序启动或依赖启动</h2>
+<p><a href="http://www.coderdocument.com/docs/helm/v2/helm_commands/helm_dependency_build.html">参考文章</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">关键点就是：
+根据 requirements.lock文件重新构建charts/目录。
+构建用于重构chart对 requirements.lock文件中指定的状态的依赖关系。
+如果没有找到 requirements.lock文件，helm dependency build将反映helm dependency update命令的行为。这意味着它将更新磁盘上的依赖来反映requirements.yaml。并生成一个锁文件。
+helm dependency build [flags] CHART
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="各种名词变量解析">各种名词变量解析</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">1. 模板格式 : 模版文件deployment.yaml
+2. Release.Name – 发行版名称
+3. fullname :Release.Name+Chart.Name – 避免名字冲突
+4. svc.yaml : 服务描述文件，声明如何访问服务
+5. secrets.yaml : 存储密钥
+6. Label : 通过release和app标签可以查找到 所有相关的资源
+7. https://blog.csdn.net/kozazyh/article/details/79537996
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lxp</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-01-14
+        <a href="https://github.com/lflxp/commit/a81e1ebcdd02b19a8f85328b96db3b5525ba18cc" title="new helm">(a81e1eb)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/tx.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/ali.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/k8s/">k8s</a>
+          <a href="/tags/helm/">helm</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/notebook/dgraph/first/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Dgraph 图数据库试用</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/notebook/notebook/">
+            <span class="next-text nav-default">[中文] 个人笔记</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="lflxp/lflxp.github.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:382023823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/lflxp" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.lflxp.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">lflxp.cn 版权所有 ICP证：<a href='http://www.beian.miit.gov.cn' target='_blank'>渝ICP备17011066号-1</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script><script></script><script src="https://cdn.jsdelivr.net/npm/raphael@2.2.7/raphael.min.js" integrity="sha256-67By+NpOtm9ka1R6xpUefeGOY8kWWHHRAKlvaTJ7ONI=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/flowchart.js@1.8.0/release/flowchart.min.js" integrity="sha256-zNGWjubXoY6rb5MnmpBNefO0RgoVYfle9p0tvOQM+6k=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '渝ICP备17011066号-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>利用tesseract-ocr进行中文识别 - 爱像水墨青花</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lixueping" /><meta name="description" content="https://github.com/tesseract-ocr/tesseract 介绍 tesseract是用c&#43;&#43;编写的OCR engine- libtesseract 并且带有命令执行文件 - tesseract 未来可以集成在系统中进行信息转换和数据抓取，封装成api对外提供服" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.lflxp.cn/post/ai/ocr/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="利用tesseract-ocr进行中文识别" />
+<meta property="og:description" content="https://github.com/tesseract-ocr/tesseract 介绍 tesseract是用c&#43;&#43;编写的OCR engine- libtesseract 并且带有命令执行文件 - tesseract 未来可以集成在系统中进行信息转换和数据抓取，封装成api对外提供服" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lflxp.cn/post/ai/ocr/" />
+<meta property="article:published_time" content="2020-01-15T23:11:22+08:00" />
+<meta property="article:modified_time" content="2020-01-16T17:59:55+08:00" />
+<meta itemprop="name" content="利用tesseract-ocr进行中文识别">
+<meta itemprop="description" content="https://github.com/tesseract-ocr/tesseract 介绍 tesseract是用c&#43;&#43;编写的OCR engine- libtesseract 并且带有命令执行文件 - tesseract 未来可以集成在系统中进行信息转换和数据抓取，封装成api对外提供服">
+<meta itemprop="datePublished" content="2020-01-15T23:11:22&#43;08:00" />
+<meta itemprop="dateModified" content="2020-01-16T17:59:55&#43;08:00" />
+<meta itemprop="wordCount" content="1004">
+
+
+
+<meta itemprop="keywords" content="ocr,文字识别,ai,tesseract," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="利用tesseract-ocr进行中文识别"/>
+<meta name="twitter:description" content="https://github.com/tesseract-ocr/tesseract 介绍 tesseract是用c&#43;&#43;编写的OCR engine- libtesseract 并且带有命令执行文件 - tesseract 未来可以集成在系统中进行信息转换和数据抓取，封装成api对外提供服"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">琵琶</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">目录</li>
+      </a><a href="/post/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">琵琶</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">目录</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">利用tesseract-ocr进行中文识别</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-01-15 </span>
+        <div class="post-category">
+            <a href="/categories/ocr/"> ocr </a>
+            </div>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#brief-history">Brief history</a></li>
+    <li><a href="#安装">安装</a>
+      <ul>
+        <li><a href="#预编译二进制安装">预编译二进制安装</a></li>
+      </ul>
+    </li>
+    <li><a href="#使用tesseract命令行进行文字识别和提取httpsgithubcomtesseract-ocrtesseractwikicommand-line-usage">使用Tesseract命令行进行文字识别和提取</a>
+      <ul>
+        <li><a href="#简单图片识别命令">简单图片识别命令</a></li>
+        <li><a href="#指定语言识别库">指定语言识别库</a></li>
+        <li><a href="#语言解析指定">语言解析指定</a></li>
+        <li><a href="#pdf输出格式">pdf输出格式</a></li>
+        <li><a href="#html格式输出">html格式输出</a></li>
+        <li><a href="#tsv-output-currently-available-in-305-dev-in-master-branch-on-github">TSV output (Currently available in 3.05-dev in master branch on github)</a></li>
+      </ul>
+    </li>
+    <li><a href="#基于tesseract-ocr进行中文识别">基于tesseract-OCR进行中文识别</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p><a href="https://github.com/tesseract-ocr/tesseract">https://github.com/tesseract-ocr/tesseract</a></p>
+</blockquote>
+<p><a href="https://travis-ci.org/tesseract-ocr/tesseract"><img src="https://travis-ci.org/tesseract-ocr/tesseract.svg?branch=master" alt="Build Status"></a>
+<a href="https://ci.appveyor.com/project/zdenop/tesseract/"><img src="https://ci.appveyor.com/api/projects/status/miah0ikfsf0j3819/branch/master?svg=true" alt="Build status"></a>
+<img src="https://github.com/tesseract-ocr/tesseract/workflows/CI/badge.svg" alt="Build status"><!-- raw HTML omitted -->
+<a href="https://scan.coverity.com/projects/tesseract-ocr"><img src="https://scan.coverity.com/projects/tesseract-ocr/badge.svg" alt="Coverity Scan Build Status"></a>
+<a href="https://lgtm.com/projects/g/tesseract-ocr/tesseract/context:cpp"><img src="https://img.shields.io/lgtm/grade/cpp/g/tesseract-ocr/tesseract.svg?logo=lgtm&amp;logoWidth=18" alt="Code Quality: Cpp"></a>
+<a href="https://lgtm.com/projects/g/tesseract-ocr/tesseract/alerts"><img src="https://img.shields.io/lgtm/alerts/g/tesseract-ocr/tesseract.svg?logo=lgtm&amp;logoWidth=18" alt="Total Alerts"></a>
+<a href="https://bugs.chromium.org/p/oss-fuzz/issues/list?sort=-opened&amp;can=1&amp;q=proj:tesseract-ocr"><img src="https://img.shields.io/badge/oss--fuzz-fuzzing-brightgreen" alt="OSS-Fuzz"></a>
+<!-- raw HTML omitted -->
+<a href="https://raw.githubusercontent.com/tesseract-ocr/tesseract/master/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="GitHub license"></a>
+<a href="https://github.com/tesseract-ocr/tesseract/releases/"><img src="https://img.shields.io/badge/download-all%20releases-brightgreen.svg" alt="Downloads"></a></p>
+<h2 id="介绍">介绍</h2>
+<p>tesseract是用c++编写的<em><strong>OCR engine</strong></em>- <code>libtesseract</code> 并且带有<em><strong>命令执行文件</strong></em> - <code>tesseract</code>
+未来可以集成在系统中进行信息转换和数据抓取，封装成api对外提供服务，目前只是短暂使用，本文的目的是实现中文识别为目标。</p>
+<h2 id="brief-history">Brief history</h2>
+<p>Tesseract was originally developed at Hewlett-Packard Laboratories Bristol and
+at Hewlett-Packard Co, Greeley Colorado between 1985 and 1994, with some
+more changes made in 1996 to port to Windows, and some C++izing in 1998.
+In 2005 Tesseract was open sourced by HP. Since 2006 it is developed by Google.</p>
+<p>The latest (LSTM based) stable version is <strong><a href="https://github.com/tesseract-ocr/tesseract/releases/tag/4.1.1">4.1.1</a></strong>, released on December 26, 2019.
+Latest source code is available from <a href="https://github.com/tesseract-ocr/tesseract/tree/master">master branch on GitHub</a>.
+Open issues can be found in <a href="https://github.com/tesseract-ocr/tesseract/issues">issue tracker</a>,
+and <a href="https://github.com/tesseract-ocr/tesseract/wiki/Planning">Planning wiki</a>.</p>
+<p>The latest 3.0x version is <strong><a href="https://github.com/tesseract-ocr/tesseract/releases/tag/3.05.02">3.05.02</a></strong>, released on June 19, 2018. Latest source code for 3.05 is available from <a href="https://github.com/tesseract-ocr/tesseract/tree/3.05">3.05 branch on GitHub</a>. There is no development for this version, but it can be used for special cases (e.g. see <a href="https://github.com/tesseract-ocr/tesseract/wiki/Planning#regression-of-features-from-30x">Regression of features from 3.0x</a>).</p>
+<p>See <strong><a href="https://github.com/tesseract-ocr/tesseract/wiki/ReleaseNotes">Release Notes</a></strong> and <strong><a href="https://github.com/tesseract-ocr/tesseract/blob/master/ChangeLog">Change Log</a></strong> for more details of the releases.</p>
+<h2 id="安装">安装</h2>
+<ul>
+<li><a href="https://github.com/tesseract-ocr/tesseract/wiki">预编译二进制安装</a></li>
+<li><a href="https://github.com/tesseract-ocr/tesseract/wiki/Compiling">源码安装</a></li>
+</ul>
+<p>Supported Compilers are:</p>
+<ul>
+<li>GCC 4.8 and above</li>
+<li>Clang 3.4 and above</li>
+<li>MSVC 2015, 2017, 2019</li>
+</ul>
+<p>Other compilers might work, but are not officially supported.</p>
+<h3 id="预编译二进制安装">预编译二进制安装</h3>
+<p><em><strong>macOS</strong></em>  <code>Homebrew</code></p>
+<blockquote>
+<p>brew install tesseract</p>
+</blockquote>
+<p>Training directories can be found using <code>brew list tesseract</code> Possible location can be <code>/usr/local/Cellar/tesseract/3.05.02/share/tessdata/</code></p>
+<p><em><strong>Ubuntu</strong></em></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install tesseract-ocr
+sudo apt install libtesseract-dev
+</code></pre></td></tr></table>
+</div>
+</div><p><em><strong>Note for Ubuntu users</strong></em>: In case apt is unable to find the package try adding <code>universe</code> entry to the <code>sources.list</code> file as shown below.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo vi /etc/apt/sources.list
+
+Copy the first line &#34;deb http://archive.ubuntu.com/ubuntu bionic main&#34; and paste it as shown below on the next line.
+If you are using a different release of ubuntu, then replace bionic with the respective release name.
+
+deb http://archive.ubuntu.com/ubuntu bionic universe
+</code></pre></td></tr></table>
+</div>
+</div><p><em><strong>Raspbian</strong></em></p>
+<ul>
+<li><a href="https://notesalexp.org/tesseract-ocr/">Raspbian Stretch(notesalexp.org)</a></li>
+<li><a href="http://raspbian.org/RaspbianRepository">Raspbian Buster</a></li>
+</ul>
+<p><em><strong>Centos8</strong></em></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">dnf config-manager --add-repo https://download.opensuse.org/repositories/home:/Alexander_Pozdnyakov/CentOS_8/
+rpm --import https://build.opensuse.org/projects/home:Alexander_Pozdnyakov/public_key
+dnf install tesseract
+dnf install tesseract-langpack-deu
+</code></pre></td></tr></table>
+</div>
+</div><p><em><strong>Centos7</strong></em></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum-config-manager --add-repo https://download.opensuse.org/repositories/home:/Alexander_Pozdnyakov/CentOS_7/
+sudo rpm --import https://build.opensuse.org/projects/home:Alexander_Pozdnyakov/public_key
+yum update
+yum install tesseract 
+yum install tesseract-langpack-deu
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="使用tesseract命令行进行文字识别和提取httpsgithubcomtesseract-ocrtesseractwikicommand-line-usage"><a href="https://github.com/tesseract-ocr/tesseract/wiki/Command-Line-Usage">使用Tesseract命令行进行文字识别和提取</a></h2>
+<blockquote>
+<p>tesseract imagename outputbase [-l lang] [&ndash;oem ocrenginemode] [&ndash;psm pagesegmode] [configfiles&hellip;]</p>
+</blockquote>
+<h3 id="简单图片识别命令">简单图片识别命令</h3>
+<p><em><strong>注意：</strong></em></p>
+<ul>
+<li>默认使用英语作为识别语言</li>
+<li>3 as the Page Segmentation Mode</li>
+<li>默认输出格式：text</li>
+</ul>
+<blockquote>
+<p>tesseract imagename outputb</p>
+</blockquote>
+<h3 id="指定语言识别库">指定语言识别库</h3>
+<ul>
+<li>文字训练模型库 <a href="https://github.com/tesseract-ocr/tessdata/">https://github.com/tesseract-ocr/tessdata/</a></li>
+<li>中文简体模型: <a href="https://github.com/tesseract-ocr/tessdata/blob/master/chi_sim.traineddata">chi_sim.traineddata</a></li>
+</ul>
+<blockquote>
+<p>tesseract &ndash;tessdata-dir /usr/share imagename outputbase -l eng &ndash;psm 3</p>
+</blockquote>
+<h3 id="语言解析指定">语言解析指定</h3>
+<ul>
+<li>单语言</li>
+</ul>
+<blockquote>
+<p>tesseract testing/eurotext.png testing/eurotext-eng -l eng</p>
+</blockquote>
+<ul>
+<li>多语言</li>
+</ul>
+<blockquote>
+<p>tesseract testing/eurotext.png testing/eurotext-engdeu -l eng+deu</p>
+</blockquote>
+<h3 id="pdf输出格式">pdf输出格式</h3>
+<blockquote>
+<p>tesseract testing/eurotext.png testing/eurotext-eng -l eng pdf</p>
+</blockquote>
+<h3 id="html格式输出">html格式输出</h3>
+<blockquote>
+<p>tesseract testing/eurotext.png testing/eurotext-eng -l eng hocr</p>
+</blockquote>
+<p><em><strong>OutPut</strong></em></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+&lt;!DOCTYPE html PUBLIC &#34;-//W3C//DTD XHTML 1.0 Transitional//EN&#34;
+    &#34;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&#34;&gt;
+&lt;html xmlns=&#34;http://www.w3.org/1999/xhtml&#34; xml:lang=&#34;en&#34; lang=&#34;en&#34;&gt;
+ &lt;head&gt;
+  &lt;title&gt;&lt;/title&gt;
+&lt;meta http-equiv=&#34;Content-Type&#34; content=&#34;text/html;charset=utf-8&#34; /&gt;
+  &lt;meta name=&#39;ocr-system&#39; content=&#39;tesseract 3.05.00dev&#39; /&gt;
+  &lt;meta name=&#39;ocr-capabilities&#39; content=&#39;ocr_page ocr_carea ocr_par ocr_line ocrx_word&#39;/&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class=&#39;ocr_page&#39; id=&#39;page_1&#39; title=&#39;image &#34;./testing/eurotext.png&#34;; bbox 0 0 1024 800; ppageno 0&#39;&gt;
+   &lt;div class=&#39;ocr_carea&#39; id=&#39;block_1_1&#39; title=&#34;bbox 98 66 918 661&#34;&gt;
+    &lt;p class=&#39;ocr_par&#39; id=&#39;par_1_1&#39; lang=&#39;eng&#39; title=&#34;bbox 98 66 918 661&#34;&gt;
+     &lt;span class=&#39;ocr_line&#39; id=&#39;line_1_1&#39; title=&#34;bbox 105 66 823 113; baseline 0.015 -18; x_size 39; x_descenders 7; x_ascenders 9&#34;&gt;&lt;span class=&#39;ocrx_word&#39; id=&#39;word_1_1&#39; title=&#39;bbox 105 66 178 97; x_wconf 90&#39;&gt;The&lt;/span&gt; &lt;span class=&#39;ocrx_word&#39; id=&#39;word_1_2&#39; title=&#39;bbox 205 67 347 106; x_wconf 87&#39;&gt;&lt;strong&gt;(quick)&lt;/strong&gt;&lt;/span&gt; &lt;span class=&#39;ocrx_word&#39; id=&#39;word_1_3&#39; title=&#39;bbox 376 69 528 109; x_wconf 89&#39;&gt;[brown]&lt;/span&gt; &lt;span class=&#39;ocrx_word&#39; id=&#39;word_1_4&#39; title=&#39;bbox 559 71 663 110; x_wconf 89&#39;&gt;{fox}&lt;/span&gt; &lt;span class=&#39;ocrx_word&#39; id=&#39;word_1_5&#39; title=&#39;bbox 687 73 823 113; x_wconf 89&#39;&gt;jumps!&lt;/span&gt; 
+     &lt;/span&gt;
+    &lt;/p&gt;
+   &lt;/div&gt;
+  &lt;/div&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="tsv-output-currently-available-in-305-dev-in-master-branch-on-github">TSV output (Currently available in 3.05-dev in master branch on github)</h3>
+<blockquote>
+<p>tesseract testing/eurotext.png testing/eurotext-eng -l eng tsv</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">level	page_num	block_num	par_num	line_num	word_num	left	top	width	height	conf	text
+1	1	0	0	0	0	0	0	1024	800	-1	
+2	1	1	0	0	0	98	66	821	596	-1	
+3	1	1	1	0	0	98	66	821	596	-1	
+4	1	1	1	1	0	105	66	719	48	-1	
+5	1	1	1	1	1	105	66	74	32	90	The
+5	1	1	1	1	2	205	67	143	40	87	(quick)
+5	1	1	1	1	3	376	69	153	41	89	[brown]
+5	1	1	1	1	4	559	71	105	40	89	{fox}
+5	1	1	1	1	5	687	73	137	41	89	jumps!
+4	1	1	1	2	0	104	115	784	51	-1	
+5	1	1	1	2	1	104	115	96	33	91	Over
+5	1	1	1	2	2	224	117	60	32	89	the
+5	1	1	1	2	3	310	117	224	39	88	$43,456.78
+5	1	1	1	2	4	561	121	136	42	92	&lt;lazy&gt;
+5	1	1	1	2	5	722	123	70	32	92	#90
+5	1	1	1	2	6	818	125	70	41	89	dog
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="基于tesseract-ocr进行中文识别">基于tesseract-OCR进行中文识别</h2>
+<p><a href="https://www.cnblogs.com/wangkevin5626/p/9640165.html">链接地址</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lixueping</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-01-16
+        <a href="https://github.com/lflxp/commit/e69668aab8e432c50dbba896b556c37795bcd3db" title="2020年 01月 16日 星期四 17:59:55 CST">(e69668a)</a>
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content">MIT</span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/tx.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/ali.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/ocr/">ocr</a>
+          <a href="/tags/%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB/">文字识别</a>
+          <a href="/tags/ai/">ai</a>
+          <a href="/tags/tesseract/">tesseract</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/ai/face-recognition/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">利用face_recognition进行人脸识别</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/k8s/yaml/deployment/">
+            <span class="next-text nav-default">Deployment.yaml 全记录</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="lflxp/lflxp.github.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:382023823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/lflxp" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.lflxp.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">lflxp.cn 版权所有 ICP证：<a href='http://www.beian.miit.gov.cn' target='_blank'>渝ICP备17011066号-1</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script><script></script><script src="https://cdn.jsdelivr.net/npm/raphael@2.2.7/raphael.min.js" integrity="sha256-67By+NpOtm9ka1R6xpUefeGOY8kWWHHRAKlvaTJ7ONI=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/flowchart.js@1.8.0/release/flowchart.min.js" integrity="sha256-zNGWjubXoY6rb5MnmpBNefO0RgoVYfle9p0tvOQM+6k=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '渝ICP备17011066号-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

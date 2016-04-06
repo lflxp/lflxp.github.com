@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on 爱像水墨青花</title>
+    <link>https://www.lflxp.cn/tags/python/</link>
+    <description>Recent content in python on 爱像水墨青花</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
+    <lastBuildDate>Fri, 17 Jan 2020 13:57:22 +0800</lastBuildDate>
+    
+	<atom:link href="https://www.lflxp.cn/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Django2自带用户登录注册功能总结</title>
+      <link>https://www.lflxp.cn/post/python/djaong2login/</link>
+      <pubDate>Fri, 17 Jan 2020 13:57:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/python/djaong2login/</guid>
+      <description>之前的登陆什么的都是自己利用数据库查询，form组件，cookie及session保存状态实现的，比较花费时间，而Django自带的登录认证</description>
+    </item>
+    
+    <item>
+      <title>运维实用技巧</title>
+      <link>https://www.lflxp.cn/post/python/skill/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/python/skill/</guid>
+      <description>env环境变量取消 ALL_PROXY unset all_proxy &amp;amp;&amp;amp; unset ALL_PROXY http static tool python2 python -m SimpleHTTPServer 8000 python3 python3 -m http.server 8000 showme static wget https://github.com/lflxp/showme/releases/download/v0.5/showme-x86-amd64.tar.gz tar -zxvf ./showme-x86-amd64.tar.gz chmod +x showme showme static rust https://github.com/brson/basic-http-server cargo install basic-http-server basic-http-server -x</description>
+    </item>
+    
+  </channel>
+</rss>

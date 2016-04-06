@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Istio BookInfo Application测试案例 - 爱像水墨青花</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lixueping" /><meta name="description" content="https://istio.io/docs/examples/bookinfo/ Start the application services Change directory to the root of the Istio installation. The default Istio installation uses automatic sidecar injection. Label the namespace that will host the application with istio-injection=enabled: $ kubectl label namespace default istio-injection=enabled 1 If you use OpenShift, make sure to give appropriate permissions to service accounts on the namespace as described in OpenShift setup page. Deploy your application using the kubectl command: $ kubectl" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.lflxp.cn/post/k8s/istio/bookinfo/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Istio BookInfo Application测试案例" />
+<meta property="og:description" content="https://istio.io/docs/examples/bookinfo/ Start the application services Change directory to the root of the Istio installation. The default Istio installation uses automatic sidecar injection. Label the namespace that will host the application with istio-injection=enabled: $ kubectl label namespace default istio-injection=enabled 1 If you use OpenShift, make sure to give appropriate permissions to service accounts on the namespace as described in OpenShift setup page. Deploy your application using the kubectl command: $ kubectl" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lflxp.cn/post/k8s/istio/bookinfo/" />
+<meta property="article:published_time" content="2020-01-17T18:38:22+08:00" />
+<meta property="article:modified_time" content="2020-01-17T19:59:39+08:00" />
+<meta itemprop="name" content="Istio BookInfo Application测试案例">
+<meta itemprop="description" content="https://istio.io/docs/examples/bookinfo/ Start the application services Change directory to the root of the Istio installation. The default Istio installation uses automatic sidecar injection. Label the namespace that will host the application with istio-injection=enabled: $ kubectl label namespace default istio-injection=enabled 1 If you use OpenShift, make sure to give appropriate permissions to service accounts on the namespace as described in OpenShift setup page. Deploy your application using the kubectl command: $ kubectl">
+<meta itemprop="datePublished" content="2020-01-17T18:38:22&#43;08:00" />
+<meta itemprop="dateModified" content="2020-01-17T19:59:39&#43;08:00" />
+<meta itemprop="wordCount" content="745">
+
+
+
+<meta itemprop="keywords" content="service mesh,istio,install," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Istio BookInfo Application测试案例"/>
+<meta name="twitter:description" content="https://istio.io/docs/examples/bookinfo/ Start the application services Change directory to the root of the Istio installation. The default Istio installation uses automatic sidecar injection. Label the namespace that will host the application with istio-injection=enabled: $ kubectl label namespace default istio-injection=enabled 1 If you use OpenShift, make sure to give appropriate permissions to service accounts on the namespace as described in OpenShift setup page. Deploy your application using the kubectl command: $ kubectl"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">琵琶</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">目录</li>
+      </a><a href="/post/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">琵琶</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">目录</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Istio BookInfo Application测试案例</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-01-17 </span>
+        <div class="post-category">
+            <a href="/categories/istio/"> istio </a>
+            </div>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#start-the-application-services">Start the application services</a></li>
+    <li><a href="#determine-the-ingress-ip-and-port">Determine the ingress IP and port</a></li>
+    <li><a href="#confirm-the-app-is-accessible-from-outside-the-cluster">Confirm the app is accessible from outside the cluster</a></li>
+    <li><a href="#apply-default-destination-rules">Apply default destination rules</a></li>
+    <li><a href="#whats-next">What’s next</a></li>
+    <li><a href="#cleanup">Cleanup</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p><a href="https://istio.io/docs/examples/bookinfo/">https://istio.io/docs/examples/bookinfo/</a></p>
+</blockquote>
+<h2 id="start-the-application-services">Start the application services</h2>
+<ol>
+<li>
+<p>Change directory to the root of the Istio installation.</p>
+</li>
+<li>
+<p>The default Istio installation uses automatic sidecar injection. Label the namespace that will host the application with istio-injection=enabled:</p>
+</li>
+</ol>
+<blockquote>
+<p>$ kubectl label namespace default istio-injection=enabled</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">If you use OpenShift, make sure to give appropriate permissions to service accounts on the namespace as described in OpenShift setup page.
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>Deploy your application using the kubectl command:</li>
+</ol>
+<blockquote>
+<p>$ kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">If you disabled automatic sidecar injection during installation and rely on manual sidecar injection, use the istioctl kube-inject command to modify the bookinfo.yaml file before deploying your application.
+
+$ kubectl apply -f &lt;(istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml)
+</code></pre></td></tr></table>
+</div>
+</div><p>The command launches all four services shown in the bookinfo application architecture diagram. All 3 versions of the reviews service, v1, v2, and v3, are started.</p>
+<blockquote>
+<p>In a realistic deployment, new versions of a microservice are deployed over time instead of deploying all versions simultaneously.</p>
+</blockquote>
+<ol start="4">
+<li>Confirm all services and pods are correctly defined and running:</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ kubectl get services
+NAME                       CLUSTER-IP   EXTERNAL-IP   PORT(S)              AGE
+details                    10.0.0.31    &lt;none&gt;        9080/TCP             6m
+kubernetes                 10.0.0.1     &lt;none&gt;        443/TCP              7d
+productpage                10.0.0.120   &lt;none&gt;        9080/TCP             6m
+ratings                    10.0.0.15    &lt;none&gt;        9080/TCP             6m
+reviews                    10.0.0.170   &lt;none&gt;        9080/TCP             6m
+</code></pre></td></tr></table>
+</div>
+</div><p>and</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ kubectl get pods
+NAME                                        READY     STATUS    RESTARTS   AGE
+details-v1-1520924117-48z17                 2/2       Running   0          6m
+productpage-v1-560495357-jk1lz              2/2       Running   0          6m
+ratings-v1-734492171-rnr5l                  2/2       Running   0          6m
+reviews-v1-874083890-f0qf0                  2/2       Running   0          6m
+reviews-v2-1343845940-b34q5                 2/2       Running   0          6m
+reviews-v3-1813607990-8ch52                 2/2       Running   0          6m
+</code></pre></td></tr></table>
+</div>
+</div><ol start="5">
+<li>To confirm that the Bookinfo application is running, send a request to it by a curl command from some pod, for example from ratings:</li>
+</ol>
+<blockquote>
+<p>$ kubectl exec -it $(kubectl get pod -l app=ratings -o jsonpath=&rsquo;{.items[0].metadata.name}') -c ratings &ndash; curl productpage:9080/productpage | grep -o &ldquo;<!-- raw HTML omitted -->.*<!-- raw HTML omitted -->&rdquo;</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<h2 id="determine-the-ingress-ip-and-port">Determine the ingress IP and port</h2>
+<p>Now that the Bookinfo services are up and running, you need to make the application accessible from outside of your Kubernetes cluster, e.g., from a browser. An Istio Gateway is used for this purpose.</p>
+<ol>
+<li>Define the ingress gateway for the application:</li>
+</ol>
+<blockquote>
+<p>$ kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml</p>
+</blockquote>
+<ol start="2">
+<li>Confirm the gateway has been created:</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ kubectl get gateway
+NAME               AGE
+bookinfo-gateway   32s
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>
+<p>Follow these instructions to set the INGRESS_HOST and INGRESS_PORT variables for accessing the gateway. Return here, when they are set.</p>
+</li>
+<li>
+<p>Set GATEWAY_URL:</p>
+</li>
+</ol>
+<blockquote>
+<p>$ export GATEWAY_URL=$INGRESS_HOST:$INGRESS_PORT</p>
+</blockquote>
+<h2 id="confirm-the-app-is-accessible-from-outside-the-cluster">Confirm the app is accessible from outside the cluster</h2>
+<p>To confirm that the Bookinfo application is accessible from outside the cluster, run the following curl command:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ curl -s http://${GATEWAY_URL}/productpage | grep -o &#34;&lt;title&gt;.*&lt;/title&gt;&#34;
+&lt;title&gt;Simple Bookstore App&lt;/title&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>You can also point your browser to http://$GATEWAY_URL/productpage to view the Bookinfo web page. If you refresh the page several times, you should see different versions of reviews shown in productpage, presented in a round robin style (red stars, black stars, no stars), since we haven’t yet used Istio to control the version routing.</p>
+<h2 id="apply-default-destination-rules">Apply default destination rules</h2>
+<p>Before you can use Istio to control the Bookinfo version routing, you need to define the available versions, called subsets, in destination rules.</p>
+<p>Run the following command to create default destination rules for the Bookinfo services:</p>
+<ul>
+<li>
+<p>If you did not enable mutual TLS, execute this command:</p>
+<blockquote>
+<p>Choose this option if you are new to Istio and are using the demo configuration profile.</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>$ kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml</p>
+</blockquote>
+<ul>
+<li>If you <code>did</code> enable mutual TLS, execute this command:</li>
+</ul>
+<blockquote>
+<p>$ kubectl apply -f samples/bookinfo/networking/destination-rule-all-mtls.yaml</p>
+</blockquote>
+<p>Wait a few seconds for the destination rules to propagate.</p>
+<p>You can display the destination rules with the following command:</p>
+<blockquote>
+<p>$ kubectl get destinationrules -o yaml</p>
+</blockquote>
+<h2 id="whats-next">What’s next</h2>
+<p>You can now use this sample to experiment with Istio’s features for traffic routing, fault injection, rate limiting, etc. To proceed, refer to one or more of the <a href="https://istio.io/docs/tasks">Istio Tasks</a>, depending on your interest. <a href="https://istio.io/docs/tasks/traffic-management/request-routing/">Configuring Request Routing</a> is a good place to start for beginners.</p>
+<h2 id="cleanup">Cleanup</h2>
+<p>When you’re finished experimenting with the Bookinfo sample, uninstall and clean it up using the following instructions:</p>
+<ol>
+<li>Delete the routing rules and terminate the application pods</li>
+</ol>
+<blockquote>
+<p>$ samples/bookinfo/platform/kube/cleanup.sh</p>
+</blockquote>
+<ol start="2">
+<li>Confirm shutdown</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ kubectl get virtualservices   #-- there should be no virtual services
+$ kubectl get destinationrules  #-- there should be no destination rules
+$ kubectl get gateway           #-- there should be no gateway
+$ kubectl get pods              #-- the Bookinfo pods should be deleted
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lixueping</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-01-17
+        <a href="https://github.com/lflxp/commit/0d79e966ba39409955556c7e130a3cf320611c52" title="2020年 01月 17日 星期五 19:59:39 CST">(0d79e96)</a>
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content">MIT</span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/tx.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/ali.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/service-mesh/">service mesh</a>
+          <a href="/tags/istio/">istio</a>
+          <a href="/tags/install/">install</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/python/pip%E4%BF%AE%E6%94%B9%E6%BA%90/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">修改pip源 加速安装</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/k8s/istio/getstart/">
+            <span class="next-text nav-default">Istio Get Start 安装</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="lflxp/lflxp.github.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:382023823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/lflxp" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.lflxp.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">lflxp.cn 版权所有 ICP证：<a href='http://www.beian.miit.gov.cn' target='_blank'>渝ICP备17011066号-1</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script><script></script><script src="https://cdn.jsdelivr.net/npm/raphael@2.2.7/raphael.min.js" integrity="sha256-67By+NpOtm9ka1R6xpUefeGOY8kWWHHRAKlvaTJ7ONI=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/flowchart.js@1.8.0/release/flowchart.min.js" integrity="sha256-zNGWjubXoY6rb5MnmpBNefO0RgoVYfle9p0tvOQM+6k=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '渝ICP备17011066号-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
