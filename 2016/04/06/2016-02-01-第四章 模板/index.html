@@ -1,0 +1,1261 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="django," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="笑傲江湖" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="在前一章中，你可能已经注意到我们在例子视图中返回文本的方式有点特别。 也就是说，HTML被直接硬编码在 Python 代码之中。
+1234def current_datetime(request):    now = datetime.datetime.now()    html = &amp;quot;&amp;lt;html&amp;gt;&amp;lt;body&amp;gt;It is now %s.&amp;lt;/body&amp;gt;&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第四章 模板">
+<meta property="og:url" content="http://www.lflxp.cn/2016/04/06/2016-02-01-第四章 模板/index.html">
+<meta property="og:site_name" content="笑傲江湖">
+<meta property="og:description" content="在前一章中，你可能已经注意到我们在例子视图中返回文本的方式有点特别。 也就是说，HTML被直接硬编码在 Python 代码之中。
+1234def current_datetime(request):    now = datetime.datetime.now()    html = &amp;quot;&amp;lt;html&amp;gt;&amp;lt;body&amp;gt;It is now %s.&amp;lt;/body&amp;gt;&amp;">
+<meta property="og:updated_time" content="2016-04-06T11:25:58.422Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第四章 模板">
+<meta name="twitter:description" content="在前一章中，你可能已经注意到我们在例子视图中返回文本的方式有点特别。 也就是说，HTML被直接硬编码在 Python 代码之中。
+1234def current_datetime(request):    now = datetime.datetime.now()    html = &amp;quot;&amp;lt;html&amp;gt;&amp;lt;body&amp;gt;It is now %s.&amp;lt;/body&amp;gt;&amp;">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6270391365704615000,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 第四章 模板 | 笑傲江湖 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?eb05bb32276230ed42405c8e64b1be45";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">笑傲江湖</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">思想与技术的碰撞</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-heartbeat fa-fw"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fighter-jet fa-fw"></i> <br />
+            
+            有料哟
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'PVSXLGfuQBNHs9Z2t7KV','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                第四章 模板
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-06T18:31:45+08:00" content="2016-04-06">
+              2016-04-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Django-book-2-0/" itemprop="url" rel="index">
+                    <span itemprop="name">Django book 2.0</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/06/2016-02-01-第四章 模板/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/06/2016-02-01-第四章 模板/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在前一章中，你可能已经注意到我们在例子视图中返回文本的方式有点特别。 也就是说，HTML被直接硬编码在 Python 代码之中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def current_datetime(request):</span><br><span class="line">    now = datetime.datetime.now()</span><br><span class="line">    html = &quot;&lt;html&gt;&lt;body&gt;It is now %s.&lt;/body&gt;&lt;/html&gt;&quot; % now</span><br><span class="line">    return HttpResponse(html)</span><br></pre></td></tr></table></figure>
+<p>尽管这种技术便于解释视图是如何工作的，但直接将HTML硬编码到你的视图里却并不是一个好主意。 让我们来看一下为什么：</p>
+<ul>
+<li><p>对页面设计进行的任何改变都必须对 Python 代码进行相应的修改。 站点设计的修改往往比底层 Python 代码的修改要频繁得多，因此如果可以在不进行 Python 代码修改的情况下变更设计，那将会方便得多。</p>
+</li>
+<li><p>Python 代码编写和 HTML 设计是两项不同的工作，大多数专业的网站开发环境都将他们分配给不同的人员（甚至不同部门）来完成。 设计者和HTML/CSS的编码人员不应该被要求去编辑Python的代码来完成他们的工作。</p>
+</li>
+<li><p>程序员编写 Python代码和设计人员制作模板两项工作同时进行的效率是最高的，远胜于让一个人等待另一个人完成对某个既包含 Python又包含 HTML 的文件的编辑工作。</p>
+</li>
+</ul>
+<p>基于这些原因，将页面的设计和Python的代码分离开会更干净简洁更容易维护。 我们可以使用 Django的 模板系统 (Template System)来实现这种模式，这就是本章要具体讨论的问题。</p>
+<h3 id="模板系统基本知识"><a href="#模板系统基本知识" class="headerlink" title="模板系统基本知识"></a><font color="#008000">模板系统基本知识</font></h3><p>模板是一个文本，用于分离文档的表现形式和内容。 模板定义了占位符以及各种用于规范文档该如何显示的各部分基本逻辑（模板标签）。 模板通常用于产生HTML，但是Django的模板也能产生任何基于文本格式的文档。</p>
+<p>让我们从一个简单的例子模板开始。 该模板描述了一个向某个与公司签单人员致谢 HTML 页面。 可将其视为一个格式信函：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;&lt;title&gt;Ordering notice&lt;/title&gt;&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;h1&gt;Ordering notice&lt;/h1&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;Dear  person_name &#125;&#125;,&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;Thanks for placing an order from  company &#125;&#125;. It&apos;s scheduled to</span><br><span class="line">ship on  ship_date|date:&quot;F j, Y&quot; &#125;&#125;.&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;Here are the items you&apos;ve ordered:&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;ul&gt;</span><br><span class="line"> for item in item_list %&#125;</span><br><span class="line">    &lt;li&gt; item &#125;&#125;&lt;/li&gt;</span><br><span class="line"> endfor %&#125;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br><span class="line"> if ordered_warranty %&#125;</span><br><span class="line">    &lt;p&gt;Your warranty information will be included in the packaging.&lt;/p&gt;</span><br><span class="line"> else %&#125;</span><br><span class="line">    &lt;p&gt;You didn&apos;t order a warranty, so you&apos;re on your own when</span><br><span class="line">    the products inevitably stop working.&lt;/p&gt;</span><br><span class="line"> endif %&#125;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;Sincerely,&lt;br /&gt; company &#125;&#125;&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>该模板是一段添加了些许变量和模板标签的基础 HTML 。 让我们逐步分析一下：</p>
+<blockquote>
+<p>用两个大括号括起来的文字（例如  person_name }} ）称为 变量(variable) 。这意味着在此处插入指定变量的值。 如何指定变量的值呢？ 稍后就会说明。</p>
+<p>被大括号和百分号包围的文本(例如  if ordered_warranty %} )是 模板标签(template tag) 。标签(tag)定义比较明确，即： 仅通知模板系统完成某些工作的标签。</p>
+<p>这个例子中的模板包含一个for标签（  for item in item_list %} ）和一个if 标签（ if ordered_warranty %} ）</p>
+<p>for标签类似Python的for语句，可让你循环访问序列里的每一个项目。 if 标签，正如你所料，是用来执行逻辑判断的。 在这里，tag标签检查ordered_warranty值是否为True。如果是，模板系统将显示 if ordered_warranty %}和 else %}之间的内容；否则将显示 else %}和 endif %}之间的内容。 else %}是可选的。</p>
+<p>最后，这个模板的第二段中有一个关于filter过滤器的例子，它是一种最便捷的转换变量输出格式的方式。 如这个例子中的ship_date|date:”F j, Y” }}，我们将变量ship_date传递给date过滤器，同时指定参数”F j,Y”。date过滤器根据参数进行格式输出。 过滤器是用管道符(|)来调用的，具体可以参见Unix管道符。</p>
+</blockquote>
+<p>Django 模板含有很多内置的tags和filters,我们将陆续进行学习. 附录F列出了很多的tags和filters的列表,熟悉这些列表对你来说是个好建议. 你依然可以利用它创建自己的tag和filters。这些我们在第9章会讲到。</p>
+<h3 id="如何使用模板系统"><a href="#如何使用模板系统" class="headerlink" title="如何使用模板系统"></a><font color="#008000">如何使用模板系统</font></h3><p>让我们深入研究模板系统，你将会明白它是如何工作的。但我们暂不打算将它与先前创建的视图结合在一起，因为我们现在的目的是了解它是如何独立工作的。 。 （换言之， 通常你会将模板和视图一起使用，但是我们只是想突出模板系统是一个Python库，你可以在任何地方使用它，而不仅仅是在Django视图中。）</p>
+<p>在Python代码中使用Django模板的最基本方式如下：</p>
+<p>1.可以用原始的模板代码字符串创建一个 Template 对象， Django同样支持用指定模板文件路径的方式来创建 Template 对象;</p>
+<p>2.调用模板对象的render方法，并且传入一套变量context。它将返回一个基于模板的展现字符串，模板中的变量和标签会被context值替换。</p>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from django import template</span><br><span class="line">&gt;&gt;&gt; t = template.Template(&apos;My name is  name &#125;&#125;.&apos;)</span><br><span class="line">&gt;&gt;&gt; c = template.Context(&#123;&apos;name&apos;: &apos;Adrian&apos;&#125;)</span><br><span class="line">&gt;&gt;&gt; print t.render(c)</span><br><span class="line">My name is Adrian.</span><br><span class="line">&gt;&gt;&gt; c = template.Context(&#123;&apos;name&apos;: &apos;Fred&apos;&#125;)</span><br><span class="line">&gt;&gt;&gt; print t.render(c)</span><br><span class="line">My name is Fred.</span><br></pre></td></tr></table></figure>
+<p>以下部分逐步的详细介绍</p>
+<h3 id="创建模板对象"><a href="#创建模板对象" class="headerlink" title="创建模板对象"></a><font color="#008000">创建模板对象</font></h3><p>创建一个 <font color="#008000">Template</font> 对象最简单的方法就是直接实例化它。 <font color="#008000">Template</font> 类就在 <font color="#008000">django.template </font>模块中，构造函数接受一个参数，原始模板代码。 让我们深入挖掘一下 Python的解释器看看它是怎么工作的。</p>
+<p>转到project目录（在第二章由 <font color="#008000">django-admin.py startproject </font>命令创建）， 输入命令 <font color="#008000">python manage.py shell</font> 启动交互界面。</p>
+<p>一个特殊的Python提示符</p>
+<p>如果你曾经使用过Python，你一定好奇，为什么我们运行<font color="#008000">python manage.py shell</font>而不是<font color="#008000">python</font>。这两个命令都会启动交互解释器，但是<font color="#008000">manage.py shell</font>命令有一个重要的不同： 在启动解释器之前，它告诉Django使用哪个设置文件。 Django框架的大部分子系统，包括模板系统，都依赖于配置文件；如果Django不知道使用哪个配置文件，这些系统将不能工作。</p>
+<p>如果你想知道，这里将向你解释它背后是如何工作的。 Django搜索DJANGO_SETTINGS_MODULE环境变量，它被设置在settings.py中。例如，假设mysite在你的Python搜索路径中，那么DJANGO_SETTINGS_MODULE应该被设置为：’mysite.settings’。</p>
+<p>当你运行命令：python manage.py shell，它将自动帮你处理DJANGO_SETTINGS_MODULE。 在当前的这些示例中，我们鼓励你使用<code>python manage.py shell</code>这个方法，这样可以免去你大费周章地去配置那些你不熟悉的环境变量。</p>
+<p>随着你越来越熟悉Django，你可能会偏向于废弃使用<code>manage.py shell</code> ，而是在你的配置文件<font color="#008000">.bash_profile</font>中手动添加 <font color="#008000</font">&gt;DJANGO_SETTINGS_MODULE</font>这个环境变量。</p>
+<p>让我们来了解一些模板系统的基本知识：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from django.template import Template</span><br><span class="line">&gt;&gt;&gt; t = Template(&apos;My name is  name &#125;&#125;.&apos;)</span><br><span class="line">&gt;&gt;&gt; print t</span><br></pre></td></tr></table></figure>
+<p>如果你跟我们一起做，你将会看到下面的内容：</p>
+<pre><code>&lt;django.template.Template object at 0xb7d5f24c&gt;
+</code></pre><font color="#008000">0xb7d5f24c</font> 每次都会不一样，这没什么关系；这只是Python运行时 Template 对象的ID。<br><br>当你创建一个 Template 对象，模板系统在内部编译这个模板到内部格式，并做优化，做好 渲染的准备。 如果你的模板语法有错误，那么在调用 <font color="#008000">Template()</font> 时就会抛出 <font color="#008000">TemplateSyntaxError </font>异常：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from django.template import Template</span><br><span class="line">&gt;&gt;&gt; t = Template(&apos; notatag %&#125;&apos;)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in ?</span><br><span class="line">  ...</span><br><span class="line">django.template.TemplateSyntaxError: Invalid block tag: &apos;notatag&apos;</span><br></pre></td></tr></table></figure><br><br>这里，块标签(block tag)指向的是<code>notatag %}</code>，块标签与模板标签是同义的。<br><br>系统会在下面的情形抛出 <font color="#008000">TemplateSyntaxError</font> 异常：<br><br>- 无效的tags<br><br>- 标签的参数无效<br><br>- 无效的过滤器<br><br>- 过滤器的参数无效<br><br>- 无效的模板语法<br><br>- 未封闭的块标签 （针对需要封闭的块标签）<br><br>### <font color="#008000">模板渲染</font>
+
+<p>一旦你创建一个 <font color="#008000">Template</font> 对象，你可以用 <em>context</em> 来传递数据给它。 一个context是一系列变量和它们值的集合。</p>
+<p>context在Django里表现为 <font color="#008000">Context</font> 类，在 <font color="#008000">django.template</font> 模块里。 她的构造函数带有一个可选的参数： 一个字典映射变量和它们的值。 调用 <font color="#008000">Template</font> 对象 的 <font color="#008000">render() </font>方法并传递context来填充模板：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from django.template import Context, Template</span><br><span class="line">&gt;&gt;&gt; t = Template(&apos;My name is  name &#125;&#125;.&apos;)</span><br><span class="line">&gt;&gt;&gt; c = Context(&#123;&apos;name&apos;: &apos;Stephane&apos;&#125;)</span><br><span class="line">&gt;&gt;&gt; t.render(c)</span><br><span class="line">u&apos;My name is Stephane.&apos;</span><br></pre></td></tr></table></figure>
+<p>我们必须指出的一点是，<font color="#008000">t.render(c)</font>返回的值是一个Unicode对象，不是普通的Python字符串。 你可以通过字符串前的u来区分。 在框架中，Django会一直使用Unicode对象而不是普通的字符串。 如果你明白这样做给你带来了多大便利的话，尽可能地感激Django在幕后有条不紊地为你所做这这么多工作吧。 如果不明白你从中获益了什么，别担心。你只需要知道Django对Unicode的支持，将让你的应用程序轻松地处理各式各样的字符集，而不仅仅是基本的A-Z英文字符。</p>
+<p>字典和Contexts</p>
+<p>Python的字典数据类型就是关键字和它们值的一个映射。 <font color="#008000">Context </font>和字典很类似， <font color="#008000">Context</font> 还提供更多的功能，请看第九章。</p>
+<p>变量名必须由英文字符开始 （A-Z或a-z）并可以包含数字字符、下划线和小数点。 （小数点在这里有特别的用途，稍后我们会讲到）变量是大小写敏感的。</p>
+<p>下面是编写模板并渲染的示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from django.template import Template, Context</span><br><span class="line">&gt;&gt;&gt; raw_template = &quot;&quot;&quot;&lt;p&gt;Dear  person_name &#125;&#125;,&lt;/p&gt;</span><br><span class="line">...</span><br><span class="line">... &lt;p&gt;Thanks for placing an order from  company &#125;&#125;. It&apos;s scheduled to</span><br><span class="line">... ship on  ship_date|date:&quot;F j, Y&quot; &#125;&#125;.&lt;/p&gt;</span><br><span class="line">...</span><br><span class="line">...  if ordered_warranty %&#125;</span><br><span class="line">... &lt;p&gt;Your warranty information will be included in the packaging.&lt;/p&gt;</span><br><span class="line">...  else %&#125;</span><br><span class="line">... &lt;p&gt;You didn&apos;t order a warranty, so you&apos;re on your own when</span><br><span class="line">... the products inevitably stop working.&lt;/p&gt;</span><br><span class="line">...  endif %&#125;</span><br><span class="line">...</span><br><span class="line">... &lt;p&gt;Sincerely,&lt;br /&gt; company &#125;&#125;&lt;/p&gt;&quot;&quot;&quot;</span><br><span class="line">&gt;&gt;&gt; t = Template(raw_template)</span><br><span class="line">&gt;&gt;&gt; import datetime</span><br><span class="line">&gt;&gt;&gt; c = Context(&#123;&apos;person_name&apos;: &apos;John Smith&apos;,</span><br><span class="line">...     &apos;company&apos;: &apos;Outdoor Equipment&apos;,</span><br><span class="line">...     &apos;ship_date&apos;: datetime.date(2009, 4, 2),</span><br><span class="line">...     &apos;ordered_warranty&apos;: False&#125;)</span><br><span class="line">&gt;&gt;&gt; t.render(c)</span><br><span class="line">u&quot;&lt;p&gt;Dear John Smith,&lt;/p&gt;\n\n&lt;p&gt;Thanks for placing an order from Outdoor</span><br><span class="line">Equipment. It&apos;s scheduled to\nship on April 2, 2009.&lt;/p&gt;\n\n\n&lt;p&gt;You</span><br><span class="line">didn&apos;t order a warranty, so you&apos;re on your own when\nthe products</span><br><span class="line">inevitably stop working.&lt;/p&gt;\n\n\n&lt;p&gt;Sincerely,&lt;br /&gt;Outdoor Equipment</span><br><span class="line">&lt;/p&gt;&quot;</span><br></pre></td></tr></table></figure>
+<p>让我们逐步来分析下这段代码：</p>
+<ul>
+<li><p>首先我们导入 （import）类 <font color="#008000">Template</font> 和 <font color="#008000">Context</font> ，它们都在模块 django.template 里。</p>
+</li>
+<li><p>我们把模板原始文本保存到变量 <font color="#008000">raw_template </font>。注意到我们使用了三个引号来 标识这些文本，因为这样可以包含多行。</p>
+</li>
+<li><p>接下来，我们创建了一个模板对象 <font color="#008000">t</font> ，把 <font color="#008000">raw_template</font> 作为 <font color="#008000">Template</font> 类构造函数的参数。</p>
+</li>
+<li><p>我们从Python的标准库导入 <font color="#008000">datetime</font> 模块，以后我们将会使用它。</p>
+</li>
+<li><p>然后，我们创建一个 <font color="#008000">Context</font> 对象， <font color="#008000">c</font> 。 <font color="#008000">Context</font> 构造的参数是Python 字典数据类型。 在这里，我们指定参数 <font color="#008000">person_name</font> 的值是 <font color="#008000">‘John Smith’</font> , 参数company 的值为 ‘Outdoor Equipment’ ，等等。</p>
+</li>
+<li><p>最后，我们在模板对象上调用 <font color="#008000">render()</font> 方法，传递 <font color="#008000">context</font>参数给它。 这是返回渲染后的模板的方法，它会替换模板变量为真实的值和执行块标签。</p>
+</li>
+<li><p>注意，warranty paragraph显示是因为 <font color="#008000">ordered_warranty</font> 的值为 <font color="#008000">True</font> . 注意时间的显示， <font color="#008000">April 2, 2009 , 它是按 ‘F j, Y’</font> 格式显示的。</p>
+</li>
+<li><p>如果你是Python初学者，你可能在想为什么输出里有回车换行的字符(<font color="#008000">‘\n’</font> )而不是 显示回车换行？ 因为这是Python交互解释器的缘故： 调用 t.render(c) 返回字符串， 解释器缺省显示这些字符串的 真实内容呈现 ，而不是打印这个变量的值。 要显示换行而不是 <font color="#008000">‘\n’</font> ，使用 <font color="#008000">print </font>语句： <font color="#008000">print t.render(c) </font>。</p>
+</li>
+</ul>
+<p>这就是使用Django模板系统的基本规则： 写模板，创建 <font color="#008000">Template</font> 对象，创建 <font color="#008000">Context </font>， 调用 render() 方法。</p>
+<h3 id="同一模板，多个上下文"><a href="#同一模板，多个上下文" class="headerlink" title="同一模板，多个上下文"></a><font color="#008000">同一模板，多个上下文</font></h3><p>一旦有了 <font color="#008000">模板</font> 对象，你就可以通过它渲染多个context， 例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from django.template import Template, Context</span><br><span class="line">&gt;&gt;&gt; t = Template(&apos;Hello,  name &#125;&#125;&apos;)</span><br><span class="line">&gt;&gt;&gt; print t.render(Context(&#123;&apos;name&apos;: &apos;John&apos;&#125;))</span><br><span class="line">Hello, John</span><br><span class="line">&gt;&gt;&gt; print t.render(Context(&#123;&apos;name&apos;: &apos;Julie&apos;&#125;))</span><br><span class="line">Hello, Julie</span><br><span class="line">&gt;&gt;&gt; print t.render(Context(&#123;&apos;name&apos;: &apos;Pat&apos;&#125;))</span><br><span class="line">Hello, Pat</span><br></pre></td></tr></table></figure>
+<p>无论何时我们都可以像这样使用同一模板源渲染多个context，只进行 一次模板创建然后多次调用render()方法渲染会更为高效：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Bad</span><br><span class="line">for name in (&apos;John&apos;, &apos;Julie&apos;, &apos;Pat&apos;):</span><br><span class="line">    t = Template(&apos;Hello,  name &#125;&#125;&apos;)</span><br><span class="line">    print t.render(Context(&#123;&apos;name&apos;: name&#125;))</span><br><span class="line"></span><br><span class="line"># Good</span><br><span class="line">t = Template(&apos;Hello,  name &#125;&#125;&apos;)</span><br><span class="line">for name in (&apos;John&apos;, &apos;Julie&apos;, &apos;Pat&apos;):</span><br><span class="line">    print t.render(Context(&#123;&apos;name&apos;: name&#125;))</span><br></pre></td></tr></table></figure>
+<p>Django 模板解析非常快捷。 大部分的解析工作都是在后台通过对简短正则表达式一次性调用来完成。 这和基于 XML 的模板引擎形成鲜明对比，那些引擎承担了 XML 解析器的开销，且往往比 Django 模板渲染引擎要慢上几个数量级。</p>
+<h3 id="深度变量的查找"><a href="#深度变量的查找" class="headerlink" title="深度变量的查找"></a><font color="#008000">深度变量的查找</font></h3><p>在到目前为止的例子中，我们通过 context 传递的简单参数值主要是字符串，还有一个 datetime.date 范例。 然而，模板系统能够非常简洁地处理更加复杂的数据结构，例如list、dictionary和自定义的对象。</p>
+<p>在 Django 模板中遍历复杂数据结构的关键是句点字符 (.)。</p>
+<p>最好是用几个例子来说明一下。 比如，假设你要向模板传递一个 Python 字典。 要通过字典键访问该字典的值，可使用一个句点：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from django.template import Template, Context</span><br><span class="line">&gt;&gt;&gt; person = &#123;&apos;name&apos;: &apos;Sally&apos;, &apos;age&apos;: &apos;43&apos;&#125;</span><br><span class="line">&gt;&gt;&gt; t = Template(&apos; person.name &#125;&#125; is  person.age &#125;&#125; years old.&apos;)</span><br><span class="line">&gt;&gt;&gt; c = Context(&#123;&apos;person&apos;: person&#125;)</span><br><span class="line">&gt;&gt;&gt; t.render(c)</span><br><span class="line">u&apos;Sally is 43 years old.&apos;</span><br></pre></td></tr></table></figure>
+<p>同样，也可以通过句点来访问对象的属性。 比方说， Python 的 datetime.date 对象有 year 、 month 和 day 几个属性，你同样可以在模板中使用句点来访问这些属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from django.template import Template, Context</span><br><span class="line">&gt;&gt;&gt; import datetime</span><br><span class="line">&gt;&gt;&gt; d = datetime.date(1993, 5, 2)</span><br><span class="line">&gt;&gt;&gt; d.year</span><br><span class="line">&gt;&gt;&gt; d.month</span><br><span class="line">&gt;&gt;&gt; d.day</span><br><span class="line">&gt;&gt;&gt; t = Template(&apos;The month is  date.month &#125;&#125; and the year is  date.year &#125;&#125;.&apos;)</span><br><span class="line">&gt;&gt;&gt; c = Context(&#123;&apos;date&apos;: d&#125;)</span><br><span class="line">&gt;&gt;&gt; t.render(c)</span><br><span class="line">u&apos;The month is 5 and the year is 1993.&apos;</span><br></pre></td></tr></table></figure>
+<p>这个例子使用了一个自定义的类，演示了通过实例变量加一点(dots)来访问它的属性，这个方法适用于任意的对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from django.template import Template, Context</span><br><span class="line">&gt;&gt;&gt; class Person(object):</span><br><span class="line">...     def __init__(self, first_name, last_name):</span><br><span class="line">...         self.first_name, self.last_name = first_name, last_name</span><br><span class="line">&gt;&gt;&gt; t = Template(&apos;Hello,  person.first_name &#125;&#125;  person.last_name &#125;&#125;.&apos;)</span><br><span class="line">&gt;&gt;&gt; c = Context(&#123;&apos;person&apos;: Person(&apos;John&apos;, &apos;Smith&apos;)&#125;)</span><br><span class="line">&gt;&gt;&gt; t.render(c)</span><br><span class="line">u&apos;Hello, John Smith.&apos;</span><br></pre></td></tr></table></figure>
+<p>点语法也可以用来引用对象的<em> 方法</em>。 例如，每个 Python 字符串都有 upper() 和 isdigit() 方法，你在模板中可以使用同样的句点语法来调用它们：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from django.template import Template, Context</span><br><span class="line">&gt;&gt;&gt; t = Template(&apos; var &#125;&#125; --  var.upper &#125;&#125; --  var.isdigit &#125;&#125;&apos;)</span><br><span class="line">&gt;&gt;&gt; t.render(Context(&#123;&apos;var&apos;: &apos;hello&apos;&#125;))</span><br><span class="line">u&apos;hello -- HELLO -- False&apos;</span><br><span class="line">&gt;&gt;&gt; t.render(Context(&#123;&apos;var&apos;: &apos;123&apos;&#125;))</span><br><span class="line">u&apos;123 -- 123 -- True&apos;</span><br></pre></td></tr></table></figure>
+<p>注意这里调用方法时并<em> 没有</em> 使用圆括号 而且也无法给该方法传递参数；你只能调用不需参数的方法。 （我们将在本章稍后部分解释该设计观。）</p>
+<p>最后，句点也可用于访问列表索引，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from django.template import Template, Context</span><br><span class="line">&gt;&gt;&gt; t = Template(&apos;Item 2 is  items.2 &#125;&#125;.&apos;)</span><br><span class="line">&gt;&gt;&gt; c = Context(&#123;&apos;items&apos;: [&apos;apples&apos;, &apos;bananas&apos;, &apos;carrots&apos;]&#125;)</span><br><span class="line">&gt;&gt;&gt; t.render(c)</span><br><span class="line">u&apos;Item 2 is carrots.&apos;</span><br></pre></td></tr></table></figure>
+<p>不允许使用负数列表索引。 像  items.-1 }} 这样的模板变量将会引发<code>TemplateSyntaxError</code></p>
+<p>Python 列表类型</p>
+<p>一点提示： Python的列表是从0开始索引。 第一项的索引是0，第二项的是1，依此类推。</p>
+<p>句点查找规则可概括为： 当模板系统在变量名中遇到点时，按照以下顺序尝试进行查找：</p>
+<ul>
+<li><p>字典类型查找 （比如 foo[“bar”] )</p>
+</li>
+<li><p>属性查找 (比如 foo.bar )</p>
+</li>
+<li><p>方法调用 （比如 foo.bar() )</p>
+</li>
+<li><p>列表类型索引查找 (比如 foo[bar] )</p>
+</li>
+</ul>
+<p>系统使用找到的第一个有效类型。 这是一种短路逻辑。</p>
+<p>句点查找可以多级深度嵌套。 例如在下面这个例子中 person.name.upper}} 会转换成字典类型查找（ person[‘name’] ) 然后是方法调用（ upper() ):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from django.template import Template, Context</span><br><span class="line">&gt;&gt;&gt; person = &#123;&apos;name&apos;: &apos;Sally&apos;, &apos;age&apos;: &apos;43&apos;&#125;</span><br><span class="line">&gt;&gt;&gt; t = Template(&apos; person.name.upper &#125;&#125; is  person.age &#125;&#125; years old.&apos;)</span><br><span class="line">&gt;&gt;&gt; c = Context(&#123;&apos;person&apos;: person&#125;)</span><br><span class="line">&gt;&gt;&gt; t.render(c)</span><br><span class="line">u&apos;SALLY is 43 years old.&apos;</span><br></pre></td></tr></table></figure>
+<h3 id="方法调用行为"><a href="#方法调用行为" class="headerlink" title="方法调用行为"></a><font color="#008000">方法调用行为</font></h3><p>方法调用比其他类型的查找略为复杂一点。 以下是一些注意事项：</p>
+<pre><code>在方法查找过程中，如果某方法抛出一个异常，除非该异常有一个 silent_variable_failure 属性并且值为 True ，否则的话它将被传播。如果异常被传播，模板里的指定变量会被置为空字符串，比如:
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; t = Template(&quot;My name is  person.first_name &#125;&#125;.&quot;)</span><br><span class="line">&gt;&gt;&gt; class PersonClass3:</span><br><span class="line">...     def first_name(self):</span><br><span class="line">...         raise AssertionError, &quot;foo&quot;</span><br><span class="line">&gt;&gt;&gt; p = PersonClass3()</span><br><span class="line">&gt;&gt;&gt; t.render(Context(&#123;&quot;person&quot;: p&#125;))</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">...</span><br><span class="line">AssertionError: foo</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; class SilentAssertionError(AssertionError):</span><br><span class="line">...     silent_variable_failure = True</span><br><span class="line">&gt;&gt;&gt; class PersonClass4:</span><br><span class="line">...     def first_name(self):</span><br><span class="line">...         raise SilentAssertionError</span><br><span class="line">&gt;&gt;&gt; p = PersonClass4()</span><br><span class="line">&gt;&gt;&gt; t.render(Context(&#123;&quot;person&quot;: p&#125;))</span><br><span class="line">u&apos;My name is .&apos;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>仅在方法无需传入参数时，其调用才有效。 否则，系统将会转移到下一个查找类型（列表索引查找）。</p>
+<p>显然，有些方法是有副作用的，好的情况下允许模板系统访问它们可能只是干件蠢事，坏的情况下甚至会引发安全漏洞。</p>
+<p>例如，你的一个 BankAccount 对象有一个 delete() 方法。 如果某个模板中包含了像  account.delete }}这样的标签，其中<code>account</code> 又是BankAccount 的一个实例，请注意在这个模板载入时，account对象将被删除。</p>
+<p>要防止这样的事情发生，必须设置该方法的 alters_data 函数属性：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def delete(self):</span><br><span class="line">    # Delete the account</span><br><span class="line">delete.alters_data = True</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>模板系统不会执行任何以该方式进行标记的方法。 接上面的例子，如果模板文件里包含了  account.delete }} ，对象又具有 delete()方法，而且delete() 有alters_data=True这个属性，那么在模板载入时， delete()方法将不会被执行。 它将静静地错误退出。</p>
+</blockquote>
+<h3 id="如何处理无效变量"><a href="#如何处理无效变量" class="headerlink" title="如何处理无效变量"></a><font color="#008000">如何处理无效变量</font></h3><p>默认情况下，如果一个变量不存在，模板系统会把它展示为空字符串，不做任何事情来表示失败。 例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from django.template import Template, Context</span><br><span class="line">&gt;&gt;&gt; t = Template(&apos;Your name is  name &#125;&#125;.&apos;)</span><br><span class="line">&gt;&gt;&gt; t.render(Context())</span><br><span class="line">u&apos;Your name is .&apos;</span><br><span class="line">&gt;&gt;&gt; t.render(Context(&#123;&apos;var&apos;: &apos;hello&apos;&#125;))</span><br><span class="line">u&apos;Your name is .&apos;</span><br><span class="line">&gt;&gt;&gt; t.render(Context(&#123;&apos;NAME&apos;: &apos;hello&apos;&#125;))</span><br><span class="line">u&apos;Your name is .&apos;</span><br><span class="line">&gt;&gt;&gt; t.render(Context(&#123;&apos;Name&apos;: &apos;hello&apos;&#125;))</span><br><span class="line">u&apos;Your name is .&apos;</span><br></pre></td></tr></table></figure>
+<p>系统静悄悄地表示失败，而不是引发一个异常，因为这通常是人为错误造成的。 这种情况下，因为变量名有错误的状况或名称， 所有的查询都会失败。 现实世界中，对于一个web站点来说，如果仅仅因为一个小的模板语法错误而造成无法访问，这是不可接受的。</p>
+<h2 id="玩一玩上下文-context-对象"><a href="#玩一玩上下文-context-对象" class="headerlink" title="玩一玩上下文(context)对象"></a><font color="#008000">玩一玩上下文(context)对象</font></h2><p>多数时间，你可以通过传递一个完全填充(full populated)的字典给 Context() 来初始化 上下文(Context) 。 但是初始化以后，你也可以使用标准的Python字典语法(syntax)向<code>上下文(Context)</code> 对象添加或者删除条目:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from django.template import Context</span><br><span class="line">&gt;&gt;&gt; c = Context(&#123;&quot;foo&quot;: &quot;bar&quot;&#125;)</span><br><span class="line">&gt;&gt;&gt; c[&apos;foo&apos;]</span><br><span class="line">&apos;bar&apos;</span><br><span class="line">&gt;&gt;&gt; del c[&apos;foo&apos;]</span><br><span class="line">&gt;&gt;&gt; c[&apos;foo&apos;]</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  ...</span><br><span class="line">KeyError: &apos;foo&apos;</span><br><span class="line">&gt;&gt;&gt; c[&apos;newvariable&apos;] = &apos;hello&apos;</span><br><span class="line">&gt;&gt;&gt; c[&apos;newvariable&apos;]</span><br><span class="line">&apos;hello&apos;</span><br></pre></td></tr></table></figure>
+<h3 id="基本的模板标签和过滤器"><a href="#基本的模板标签和过滤器" class="headerlink" title="基本的模板标签和过滤器"></a><font color="#008000">基本的模板标签和过滤器</font></h3><p>像我们以前提到过的，模板系统带有内置的标签和过滤器。 下面的章节提供了一个多数通用标签和过滤器的简要说明。</p>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><h3 id="if-else"><a href="#if-else" class="headerlink" title="if/else"></a><font color="#008000"><strong>if/else</strong></font></h3><p> if %} 标签检查(evaluate)一个变量，如果这个变量为真（即，变量存在，非空，不是布尔值假），系统会显示在  if %} 和  endif %} 之间的任何内容，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">if today_is_weekend %&#125;</span><br><span class="line">   &lt;p&gt;Welcome to the weekend!&lt;/p&gt;</span><br><span class="line">endif %&#125;</span><br><span class="line"></span><br><span class="line">else %&#125; 标签是可选的：</span><br><span class="line"></span><br><span class="line">if today_is_weekend %&#125;</span><br><span class="line">   &lt;p&gt;Welcome to the weekend!&lt;/p&gt;</span><br><span class="line">else %&#125;</span><br><span class="line">   &lt;p&gt;Get back to work.&lt;/p&gt;</span><br><span class="line">endif %&#125;</span><br></pre></td></tr></table></figure>
+<p>Python 的“真值”</p>
+<p>在Python和Django模板系统中，以下这些对象相当于布尔值的False</p>
+<ul>
+<li><p>空列表([] )</p>
+</li>
+<li><p>空元组(() )</p>
+</li>
+<li><p>空字典({} )</p>
+</li>
+<li><p>空字符串(‘’ )</p>
+</li>
+<li><p>零值(0 )</p>
+</li>
+<li><p>特殊对象None</p>
+</li>
+<li><p>对象False（很明显）</p>
+</li>
+<li><p>提示：你也可以在自定义的对象里定义他们的布尔值属性(这个是python的高级用法)。</p>
+</li>
+</ul>
+<p>除以上几点以外的所有东西都视为<code>True</code></p>
+<p> if %} 标签接受 and ， or 或者 not 关键字来对多个变量做判断 ，或者对变量取反（ not )，例如： 例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">if athlete_list and coach_list %&#125;</span><br><span class="line">   Both athletes and coaches are available.</span><br><span class="line">endif %&#125;</span><br><span class="line"></span><br><span class="line">if not athlete_list %&#125;</span><br><span class="line">   There are no athletes.</span><br><span class="line">endif %&#125;</span><br><span class="line"></span><br><span class="line">if athlete_list or coach_list %&#125;</span><br><span class="line">   There are some athletes or some coaches.</span><br><span class="line">endif %&#125;</span><br><span class="line"></span><br><span class="line">if not athlete_list or coach_list %&#125;</span><br><span class="line">   There are no athletes or there are some coaches.</span><br><span class="line">endif %&#125;</span><br><span class="line"></span><br><span class="line">if athlete_list and not coach_list %&#125;</span><br><span class="line">   There are some athletes and absolutely no coaches.</span><br><span class="line">endif %&#125;</span><br></pre></td></tr></table></figure>
+<p> if %} 标签不允许在同一个标签中同时使用 and 和 or ，因为逻辑上可能模糊的，例如，如下示例是错误的： 比如这样的代码是不合法的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if athlete_list and coach_list or cheerleader_list %&#125;</span><br></pre></td></tr></table></figure>
+<p>系统不支持用圆括号来组合比较操作。 如果你确实需要用到圆括号来组合表达你的逻辑式，考虑将它移到模板之外处理，然后以模板变量的形式传入结果吧。 或者，仅仅用嵌套的 if %}标签替换吧，就像这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if athlete_list %&#125;</span><br><span class="line">    if coach_list or cheerleader_list %&#125;</span><br><span class="line">       We have athletes, and either coaches or cheerleaders!</span><br><span class="line">    endif %&#125;</span><br><span class="line">endif %&#125;</span><br></pre></td></tr></table></figure>
+<p>多次使用同一个逻辑操作符是没有问题的，但是我们不能把不同的操作符组合起来。 例如，这是合法的：</p>
+<pre><code>if athlete_list or coach_list or parent_list or teacher_list %}
+</code></pre><p>并没有  elif %} 标签， 请使用嵌套的<code>if %}</code> 标签来达成同样的效果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if athlete_list %&#125;</span><br><span class="line">   &lt;p&gt;Here are the athletes:  athlete_list &#125;&#125;.&lt;/p&gt;</span><br><span class="line">else %&#125;</span><br><span class="line">   &lt;p&gt;No athletes are available.&lt;/p&gt;</span><br><span class="line">    if coach_list %&#125;</span><br><span class="line">       &lt;p&gt;Here are the coaches:  coach_list &#125;&#125;.&lt;/p&gt;</span><br><span class="line">    endif %&#125;</span><br><span class="line">endif %&#125;</span><br></pre></td></tr></table></figure>
+<p>一定要用  endif %} 关闭每一个  if %} 标签。</p>
+<h3 id="for"><a href="#for" class="headerlink" title="for"></a><font color="#008000"><strong>for</strong></font></h3><p> for %} 允许我们在一个序列上迭代。 与Python的 for 语句的情形类似，循环语法是 for X in Y ，Y是要迭代的序列而X是在每一个特定的循环中使用的变量名称。 每一次循环中，模板系统会渲染在  for %} 和  endfor %} 之间的所有内容。</p>
+<p>例如，给定一个运动员列表 athlete_list 变量，我们可以使用下面的代码来显示这个列表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line"> for athlete in athlete_list %&#125;</span><br><span class="line">    &lt;li&gt; athlete.name &#125;&#125;&lt;/li&gt;</span><br><span class="line"> endfor %&#125;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+<p>给标签增加一个 reversed 使得该列表被反向迭代：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> for athlete in athlete_list reversed %&#125;</span><br><span class="line">...</span><br><span class="line"> endfor %&#125;</span><br></pre></td></tr></table></figure>
+<p>可以嵌套使用  for %} 标签：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">for athlete in athlete_list %&#125;</span><br><span class="line">   &lt;h1&gt; athlete.name &#125;&#125;&lt;/h1&gt;</span><br><span class="line">   &lt;ul&gt;</span><br><span class="line">    for sport in athlete.sports_played %&#125;</span><br><span class="line">       &lt;li&gt; sport &#125;&#125;&lt;/li&gt;</span><br><span class="line">    endfor %&#125;</span><br><span class="line">   &lt;/ul&gt;</span><br><span class="line">endfor %&#125;</span><br></pre></td></tr></table></figure>
+<p>在执行循环之前先检测列表的大小是一个通常的做法，当列表为空时输出一些特别的提示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if athlete_list %&#125;</span><br><span class="line">    for athlete in athlete_list %&#125;</span><br><span class="line">       &lt;p&gt; athlete.name &#125;&#125;&lt;/p&gt;</span><br><span class="line">    endfor %&#125;</span><br><span class="line">else %&#125;</span><br><span class="line">   &lt;p&gt;There are no athletes. Only computer programmers.&lt;/p&gt;</span><br><span class="line">endif %&#125;</span><br></pre></td></tr></table></figure>
+<p>因为这种做法十分常见，所以<code>for</code> 标签支持一个可选的<code>empty %}</code> 分句，通过它我们可以定义当列表为空时的输出内容 下面的例子与之前那个等价：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for athlete in athlete_list %&#125;</span><br><span class="line">   &lt;p&gt; athlete.name &#125;&#125;&lt;/p&gt;</span><br><span class="line">empty %&#125;</span><br><span class="line">   &lt;p&gt;There are no athletes. Only computer programmers.&lt;/p&gt;</span><br><span class="line">endfor %&#125;</span><br></pre></td></tr></table></figure>
+<p>Django不支持退出循环操作。 如果我们想退出循环，可以改变正在迭代的变量，让其仅仅包含需要迭代的项目。 同理，Django也不支持continue语句，我们无法让当前迭代操作跳回到循环头部。 （请参看本章稍后的理念和限制小节，了解下决定这个设计的背后原因）</p>
+<p>在每个<code>for %}</code>循环里有一个称为<code>forloop</code> 的模板变量。这个变量有一些提示循环进度信息的属性。</p>
+<blockquote>
+<p>forloop.counter 总是一个表示当前循环的执行次数的整数计数器。 这个计数器是从1开始的，所以在第一次循环时 forloop.counter 将会被设置为1。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for item in todo_list %&#125;</span><br><span class="line">   &lt;p&gt; forloop.counter &#125;&#125;:  item &#125;&#125;&lt;/p&gt;</span><br><span class="line">endfor %&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>forloop.counter0 类似于 forloop.counter ，但是它是从0计数的。 第一次执行循环时这个变量会被设置为0。</p>
+<p>forloop.revcounter 是表示循环中剩余项的整型变量。 在循环初次执行时 forloop.revcounter 将被设置为序列中项的总数。 最后一次循环执行中，这个变量将被置1。</p>
+<p>forloop.revcounter0 类似于 forloop.revcounter ，但它以0做为结束索引。 在第一次执行循环时，该变量会被置为序列的项的个数减1。</p>
+<p>forloop.first 是一个布尔值，如果该迭代是第一次执行，那么它被置为<figure class="highlight plain"><figcaption><span>在下面的情形中这个变量是很有用的：</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; System Message: WARNING/2 (&lt;string&gt;, line 1071); backlink</span><br><span class="line"></span><br><span class="line">&gt; Inline literal start-string without end-string.</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p> for object in objects %}<br>     if forloop.first %}<li class="first"> else %}</li><li> endif %}<br>     object }}<br>    </li><br> endfor %}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; forloop.last 是一个布尔值；在最后一次执行循环时被置为True。 一个常见的用法是在一系列的链接之间放置管道符（|）</span><br><span class="line"></span><br><span class="line">     for link in links %&#125; link &#125;&#125; if not forloop.last %&#125; |  endif %&#125; endfor %&#125;</span><br><span class="line"></span><br><span class="line">&gt; 上面的模板可能会产生如下的结果：</span><br><span class="line"></span><br><span class="line">    Link1 | Link2 | Link3 | Link4</span><br><span class="line"></span><br><span class="line">&gt; 另一个常见的用途是为列表的每个单词的加上逗号。</span><br></pre></td></tr></table></figure></p>
+<p>Favorite places:<br> for p in places %} p }} if not forloop.last %},  endif %} endfor %}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; forloop.parentloop 是一个指向当前循环的上一级循环的 forloop 对象的引用（在嵌套循环的情况下）。 例子在此：</span><br></pre></td></tr></table></figure></p>
+<p> for country in countries %}<br>    <table><br>     for city in country.city_list %}<br>        <tr><br>        <td>Country # forloop.parentloop.counter }}</td><br>        <td>City # forloop.counter }}</td><br>        <td> city }}</td><br>        </tr><br>     endfor %}<br>    </table><br> endfor %}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">forloop 变量仅仅能够在循环中使用。 在模板解析器碰到 endfor %&#125;标签后，forloop就不可访问了。</span><br><span class="line"></span><br><span class="line">Context和forloop变量</span><br><span class="line"></span><br><span class="line">在一个  for %&#125; 块中，已存在的变量会被移除，以避免 forloop 变量被覆盖。 Django会把这个变量移动到 forloop.parentloop 中。通常我们不用担心这个问题，但是一旦我们在模板中定义了 forloop 这个变量（当然我们反对这样做），在  for %&#125; 块中它会在 forloop.parentloop 被重新命名。</span><br><span class="line"></span><br><span class="line">### &lt;font color=#008000&gt;**ifequal/ifnotequal**&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">Django模板系统压根儿就没想过实现一个全功能的编程语言，所以它不允许我们在模板中执行Python的语句（还是那句话，要了解更多请参看理念和限制小节）。 但是比较两个变量的值并且显示一些结果实在是个太常见的需求了，所以Django提供了  ifequal %&#125; 标签供我们使用。</span><br><span class="line"></span><br><span class="line"> ifequal %&#125; 标签比较两个值，当他们相等时，显示在  ifequal %&#125; 和  endifequal %&#125; 之中所有的值。</span><br><span class="line"></span><br><span class="line">下面的例子比较两个模板变量 user 和 currentuser :</span><br></pre></td></tr></table></figure></p>
+<p> ifequal user currentuser %}<br>    </p><h1>Welcome!</h1><br> endifequal %}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">参数可以是硬编码的字符串，随便用单引号或者双引号引起来，所以下列代码都是正确的：</span><br></pre></td></tr></table></figure><p></p>
+<p> ifequal section ‘sitenews’ %}<br>    </p><h1>Site News</h1><br> endifequal %}<p></p>
+<p> ifequal section “community” %}<br>    </p><h1>Community</h1><br> endifequal %}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">和  if %&#125; 类似，  ifequal %&#125; 支持可选的  else%&#125; 标签：</span><br></pre></td></tr></table></figure><p></p>
+<p> ifequal section ‘sitenews’ %}<br>    </p><h1>Site News</h1><br> else %}<br>    <h1>No News Here</h1><br> endifequal %}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">只有模板变量，字符串，整数和小数可以作为  ifequal %&#125; 标签的参数。下面是合法参数的例子：</span><br></pre></td></tr></table></figure><p></p>
+<p> ifequal variable 1 %}<br> ifequal variable 1.23 %}<br> ifequal variable ‘foo’ %}<br> ifequal variable “foo” %}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">其他任何类型，例如Python的字典类型、列表类型、布尔类型，不能用在  ifequal %&#125; 中。 下面是些错误的例子：</span><br></pre></td></tr></table></figure></p>
+<p> ifequal variable True %}<br> ifequal variable [1, 2, 3] %}<br> ifequal variable {‘key’: ‘value’} %}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如果你需要判断变量是真还是假，请使用  if %&#125; 来替代  ifequal %&#125; 。</span><br><span class="line"></span><br><span class="line">### &lt;font color=#008000&gt;注释&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">就像HTML或者Python，Django模板语言同样提供代码注释。 注释使用 &#123;# #&#125; ：</span><br><span class="line"></span><br><span class="line">    &#123;# This is a comment #&#125;</span><br><span class="line"></span><br><span class="line">注释的内容不会在模板渲染时输出。</span><br><span class="line"></span><br><span class="line">用这种语法的注释不能跨越多行。 这个限制是为了提高模板解析的性能。 在下面这个模板中，输出结果和模板本身是 完全一样的（也就是说，注释标签并没有被解析为注释）：</span><br></pre></td></tr></table></figure></p>
+<p>This is a<br>test.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如果要实现多行注释，可以使用``  comment %&#125;`` 模板标签，就像这样：</span><br></pre></td></tr></table></figure></p>
+<p> comment %}<br>This is a<br>multi-line comment.<br> endcomment %}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># &lt;font color=#008000&gt;过滤器&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">就象本章前面提到的一样，模板过滤器是在变量被显示前修改它的值的一个简单方法。 过滤器使用管道字符，如下所示：</span><br><span class="line"></span><br><span class="line">     name|lower &#125;&#125;</span><br><span class="line"></span><br><span class="line">显示的内容是变量  name &#125;&#125; 被过滤器 lower 处理后的结果，它功能是转换文本为小写。</span><br><span class="line"></span><br><span class="line">过滤管道可以被* 套接* ，既是说，一个过滤器管道的输出又可以作为下一个管道的输入，如此下去。 下面的例子实现查找列表的第一个元素并将其转化为大写。</span><br><span class="line"></span><br><span class="line">     my_list|first|upper &#125;&#125;</span><br><span class="line"></span><br><span class="line">有些过滤器有参数。 过滤器的参数跟随冒号之后并且总是以双引号包含。 例如：</span><br><span class="line"></span><br><span class="line">     bio|truncatewords:&quot;30&quot; &#125;&#125;</span><br><span class="line"></span><br><span class="line">这个将显示变量 bio 的前30个词。</span><br><span class="line"></span><br><span class="line">以下几个是最为重要的过滤器的一部分。 附录F包含其余的过滤器。</span><br><span class="line"></span><br><span class="line">&gt; addslashes : 添加反斜杠到任何反斜杠、单引号或者双引号前面。 这在处理包含JavaScript的文本时是非常有用的。</span><br><span class="line"></span><br><span class="line">&gt; date : 按指定的格式字符串参数格式化 date 或者 datetime 对象， 范例：</span><br><span class="line"></span><br><span class="line">     pub_date|date:&quot;F j, Y&quot; &#125;&#125;</span><br><span class="line"></span><br><span class="line">&gt; 格式参数的定义在附录F中。</span><br><span class="line"></span><br><span class="line">&gt; length : 返回变量的长度。 对于列表，这个参数将返回列表元素的个数。 对于字符串，这个参数将返回字符串中字符的个数。 你可以对列表或者字符串，或者任何知道怎么测定长度的Python 对象使用这个方法（也就是说，有 __len__() 方法的对象）。</span><br><span class="line"></span><br><span class="line">## &lt;font color=#008000&gt;理念与局限&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">现在你已经对Django的模板语言有一些认识了，我们将指出一些特意设置的限制和为什么要这样做 背后的一些设计哲学。</span><br><span class="line"></span><br><span class="line">相对与其他的网络应用的组件，模板的语法很具主观性，因此可供程序员的选择方案也很广泛。 事实上，Python有成十上百的 开放源码的模板语言实现。 每个实现都是因为开发者认为现存的模板语言不够用。 （事实上，对一个 Python开发者来说，写一个自己的模板语言就象是某种“成人礼”一样！ 如果你还没有完成一个自己的 模板语言，好好考虑写一个，这是一个非常有趣的锻炼。 ）</span><br><span class="line"></span><br><span class="line">明白了这个，你也许有兴趣知道事实上Django并不强制要求你必须使用它的模板语言。 因为Django 虽然被设计成一个FULL-Stack的Web框架，它提供了开发者所必需的所有组件，而且在大多数情况 使用Django模板系统会比其他的Python模板库要 更方便 一点，但是并不是严格要求你必须使用 它。 你将在后续的“视图中应用模板”这一章节中看到，你还可以非常容易地在Django中使用其他的模板语言。</span><br><span class="line"></span><br><span class="line">虽然如此，很明显，我们对Django模板语言的工作方式有着强烈的偏爱。 这个模板语言来源于World Online的开发经验和Django创造者们集体智慧的结晶。 下面是关于它的一些设计哲学理念：</span><br></pre></td></tr></table></figure></p>
+<pre><code>业务逻辑应该和表现逻辑相对分开 。我们将模板系统视为控制表现及表现相关逻辑的工具，仅此而已。 模板系统不应提供超出此基本目标的功能。
+
+出于这个原因，在 Django 模板中是不可能直接调用 Python 代码的。 所有的编程工作基本上都被局限于模板标签的能力范围。 当然， 是 有可能写出自定义的模板标签来完成任意工作，但这些“超范围”的 Django 模板标签有意地不允许执行任何 Python 代码。
+
+语法不应受到 HTML/XML 的束缚 。尽管 Django 模板系统主要用于生成 HTML，它还是被有意地设计为可生成非 HTML 格式，如纯文本。 一些其它的模板语言是基于 XML 的，将所有的模板逻辑置于 XML 标签与属性之中，而 Django 有意地避开了这种限制。 强制要求使用有效 XML 编写模板将会引发大量的人为错误和难以理解的错误信息，而且使用 XML 引擎解析模板也会导致令人无法容忍的模板处理开销。
+
+假定设计师精通 HTML 编码 。模板系统的设计意图并不是为了让模板一定能够很好地显示在 Dreamweaver 这样的所见即所得编辑器中。 这种限制过于苛刻，而且会使得语法不能像目前这样的完美。 Django 要求模板创作人员对直接编辑 HTML 非常熟悉。
+
+假定设计师不是 Python 程序员 。模板系统开发人员认为：模板通常由设计师而非程序员来编写，因此不应被假定拥有Python开发知识。
+
+当然，系统同样也特意地提供了对那些 由 Python 程序员进行模板制作的小型团队的支持。 它提供了一种工作模式，允许通过编写原生 Python 代码进行系统语法拓展。 （详见第十章）
+
+目标并不是要发明一种编程语言 。目标是恰到好处地提供如分支和循环这一类编程式功能，这是进行与表现相关判断的基础。
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### &lt;font color=#008000&gt;在视图中使用模板&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">在学习了模板系统的基础之后，现在让我们使用相关知识来创建视图。 重新打开我们在前一章在 mysite.views 中创建的 current_datetime 视图。 以下是其内容：</span><br></pre></td></tr></table></figure>
+<p>from django.http import HttpResponse<br>import datetime</p>
+<p>def current_datetime(request):<br>    now = datetime.datetime.now()<br>    html = “<html><body>It is now %s.</body></html>“ % now<br>    return HttpResponse(html)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">让我们用 Django 模板系统来修改该视图。 第一步，你可能已经想到了要做下面这样的修改：</span><br></pre></td></tr></table></figure></p>
+<p>from django.template import Template, Context<br>from django.http import HttpResponse<br>import datetime</p>
+<p>def current_datetime(request):<br>    now = datetime.datetime.now()<br>    t = Template(“<html><body>It is now  current_date }}.</body></html>“)<br>    html = t.render(Context({‘current_date’: now}))<br>    return HttpResponse(html)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">没错，它确实使用了模板系统，但是并没有解决我们在本章开头所指出的问题。 也就是说，模板仍然嵌入在Python代码里，并未真正的实现数据与表现的分离。 让我们将模板置于一个 单独的文件 中，并且让视图加载该文件来解决此问题。</span><br><span class="line"></span><br><span class="line">你可能首先考虑把模板保存在文件系统的某个位置并用 Python 内建的文件操作函数来读取文件内容。 假设文件保存在 &lt;font color=#008000&gt;/home/djangouser/templates/mytemplate.html &lt;/font&gt;中的话，代码就会像下面这样:</span><br></pre></td></tr></table></figure></p>
+<p>from django.template import Template, Context<br>from django.http import HttpResponse<br>import datetime</p>
+<p>def current_datetime(request):<br>    now = datetime.datetime.now()</p>
+<pre><code># Simple way of using templates from the filesystem.
+# This is BAD because it doesn&apos;t account for missing files!
+fp = open(&apos;/home/djangouser/templates/mytemplate.html&apos;)
+t = Template(fp.read())
+fp.close()
+html = t.render(Context({&apos;current_date&apos;: now}))
+return HttpResponse(html)
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">然而，基于以下几个原因，该方法还算不上简洁：</span><br><span class="line"></span><br><span class="line">- 它没有对文件丢失的情况做出处理。 如果文件 mytemplate.html 不存在或者不可读， open() 函数调用将会引发 IOError 异常。</span><br><span class="line"></span><br><span class="line">- 这里对模板文件的位置进行了硬编码。 如果你在每个视图函数都用该技术，就要不断复制这些模板的位置。 更不用说还要带来大量的输入工作！</span><br><span class="line"></span><br><span class="line">- 它包含了大量令人生厌的重复代码。 与其在每次加载模板时都调用 open() 、 fp.read() 和 fp.close() ，还不如做出更佳选择。</span><br><span class="line"></span><br><span class="line">为了解决这些问题，我们采用了 模板自加载 跟 模板目录 的技巧.</span><br><span class="line"></span><br><span class="line">### &lt;font color=#008000&gt;模板加载&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">为了减少模板加载调用过程及模板本身的冗余代码，Django 提供了一种使用方便且功能强大的 API ，用于从磁盘中加载模板，</span><br><span class="line"></span><br><span class="line">要使用此模板加载API，首先你必须将模板的保存位置告诉框架。 设置的保存文件就是我们前一章节讲述ROOT_URLCONF配置的时候提到的 settings.py。</span><br><span class="line"></span><br><span class="line">如果你是一步步跟随我们学习过来的，马上打开你的settings.py配置文件，找到TEMPLATE_DIRS这项设置吧。 它的默认设置是一个空元组（tuple），加上一些自动生成的注释。</span><br></pre></td></tr></table></figure>
+<p>TEMPLATE_DIRS = (</p>
+<pre><code># Put strings here, like &quot;/home/html/django_templates&quot; or &quot;C:/www/django/templates&quot;.
+# Always use forward slashes, even on Windows.
+# Don&apos;t forget to use absolute paths, not relative paths.
+</code></pre><p>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">该设置告诉 Django 的模板加载机制在哪里查找模板。 选择一个目录用于存放模板并将其添加到 TEMPLATE_DIRS 中：</span><br></pre></td></tr></table></figure></p>
+<p>TEMPLATE_DIRS = (<br>    ‘/home/django/mysite/templates’,<br>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">下面是一些注意事项：</span><br><span class="line"></span><br><span class="line">- 你可以任意指定想要的目录，只要运行 Web 服务器的用户可以读取该目录的子目录和模板文件。 如果实在想不出合适的位置来放置模板，我们建议在 Django 项目中创建一个 templates 目录（也就是说，如果你一直都按本书的范例操作的话，在第二章创建的 mysite 目录中）。</span><br><span class="line"></span><br><span class="line">- 如果你的 TEMPLATE_DIRS只包含一个目录，别忘了在该目录后加上个逗号。</span><br></pre></td></tr></table></figure></p>
+<pre><code>Bad:
+</code></pre><h1 id="Missing-comma"><a href="#Missing-comma" class="headerlink" title="Missing comma!"></a>Missing comma!</h1><p>TEMPLATE_DIRS = (<br>    ‘/home/django/mysite/templates’<br>)</p>
+<pre><code>Good:
+</code></pre><h1 id="Comma-correctly-in-place"><a href="#Comma-correctly-in-place" class="headerlink" title="Comma correctly in place."></a>Comma correctly in place.</h1><p>TEMPLATE_DIRS = (<br>    ‘/home/django/mysite/templates’,<br>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; Python 要求单元素元组中必须使用逗号，以此消除与圆括号表达式之间的歧义。 这是新手常犯的错误。</span><br><span class="line"></span><br><span class="line">&gt; 如果使用的是 Windows 平台，请包含驱动器符号并使用Unix风格的斜杠（/）而不是反斜杠（）,就像下面这样：</span><br></pre></td></tr></table></figure></p>
+<p>TEMPLATE_DIRS = (<br>    ‘C:/www/django/templates’,<br>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    最省事的方式是使用绝对路径（即从文件系统根目录开始的目录路径）。 如果想要更灵活一点并减少一些负面干扰，可利用 Django 配置文件就是 Python 代码这一点来动态构建 TEMPLATE_DIRS 的内容，如： 例如：</span><br><span class="line"></span><br><span class="line">import os.path</span><br><span class="line"></span><br><span class="line">TEMPLATE_DIRS = (</span><br><span class="line">    os.path.join(os.path.dirname(__file__), &apos;templates&apos;).replace(&apos;\\&apos;,&apos;/&apos;),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&gt; 这个例子使用了神奇的 Python 内部变量 __file__ ，该变量被自动设置为代码所在的 Python 模块文件名。 `` os.path.dirname(__file__)`` 将会获取自身所在的文件，即settings.py 所在的目录，然后由os.path.join 这个方法将这目录与 templates 进行连接。如果在windows下，它会智能地选择正确的后向斜杠”“进行连接，而不是前向斜杠”/”。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 在这里我们面对的是动态语言python代码，我需要提醒你的是，不要在你的设置文件里写入错误的代码，这很重要。 如果你在这里引入了语法错误，或运行错误，你的Django-powered站点将很可能就要被崩溃掉。</span><br><span class="line"></span><br><span class="line">完成 TEMPLATE_DIRS 设置后，下一步就是修改视图代码，让它使用 Django 模板加载功能而不是对模板路径硬编码。 返回 current_datetime 视图，进行如下修改：</span><br></pre></td></tr></table></figure></p>
+<p>from django.template.loader import get_template<br>from django.template import Context<br>from django.http import HttpResponse<br>import datetime</p>
+<p>def current_datetime(request):<br>    now = datetime.datetime.now()<br>    t = get_template(‘current_datetime.html’)<br>    html = t.render(Context({‘current_date’: now}))<br>    return HttpResponse(html)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">此范例中，我们使用了函数 django.template.loader.get_template() ，而不是手动从文件系统加载模板。 该 get_template() 函数以模板名称为参数，在文件系统中找出模块的位置，打开文件并返回一个编译好的 Template 对象。</span><br><span class="line"></span><br><span class="line">在这个例子里，我们选择的模板文件是current_datetime.html，但这个与.html后缀没有直接的联系。 你可以选择任意后缀的任意文件，只要是符合逻辑的都行。甚至选择没有后缀的文件也不会有问题。</span><br><span class="line"></span><br><span class="line">要确定某个模板文件在你的系统里的位置， get_template()方法会自动为你连接已经设置的 TEMPLATE_DIRS目录和你传入该法的模板名称参数。比如，你的 TEMPLATE_DIRS目录设置为 &apos;/home/django/mysite/templates&apos;，上面的 get_template()调用就会为你找到 /home/django/mysite/templates/current_datetime.html 这样一个位置。</span><br><span class="line"></span><br><span class="line">如果 get_template() 找不到给定名称的模板，将会引发一个 TemplateDoesNotExist 异常。 要了解究竟会发生什么，让我们按照第三章内容，在 Django 项目目录中运行 python manage.py runserver 命令，再次启动Django开发服务器。 接着，告诉你的浏览器，使其定位到指定页面以激活current_datetime视图（如 http://127.0.0.1:8000/time/ ）。假设你的 DEBUG项设置为 True，而你有没有建立current_datetime.html 这个模板文件，你会看到Django的错误提示网页，告诉你发生了 TemplateDoesNotExist 错误。</span><br><span class="line"></span><br><span class="line">    Screenshot of a TemplateDoesNotExist error.</span><br><span class="line"></span><br><span class="line">图 4-1: 模板文件无法找到时，将会发送提示错误的网页给用户。</span><br><span class="line"></span><br><span class="line">该页面与我们在第三章解释过的错误页面相似，只不过多了一块调试信息区： 模板加载器事后检查区。 该区域显示 Django 要加载哪个模板、每次尝试出错的原因（如：文件不存在等）。 当你尝试调试模板加载错误时，这些信息会非常有帮助。</span><br><span class="line"></span><br><span class="line">接下来，在模板目录中创建包括以下模板代码 current_datetime.html 文件：</span><br><span class="line"></span><br><span class="line">    &lt;html&gt;&lt;body&gt;It is now  current_date &#125;&#125;.&lt;/body&gt;&lt;/html&gt;</span><br><span class="line"></span><br><span class="line">在网页浏览器中刷新该页，你将会看到完整解析后的页面。</span><br><span class="line"></span><br><span class="line">## &lt;font color=#008000&gt;render_to_response()&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">我们已经告诉你如何载入一个模板文件，然后用 Context渲染它，最后返回这个处理好的HttpResponse对象给用户。 我们已经优化了方案，使用 get_template() 方法代替繁杂的用代码来处理模板及其路径的工作。 但这仍然需要一定量的时间来敲出这些简化的代码。 这是一个普遍存在的重复苦力劳动。Django为此提供了一个捷径，让你一次性地载入某个模板文件，渲染它，然后将此作为 HttpResponse返回。</span><br><span class="line"></span><br><span class="line">该捷径就是位于 django.shortcuts 模块中名为 render_to_response() 的函数。大多数情况下，你会使用``\ ``````对象，除非你的老板以代码行数来衡量你的工作。</span><br><span class="line"></span><br><span class="line">System Message: WARNING/2 (&lt;string&gt;, line 1736); backlink</span><br><span class="line"></span><br><span class="line">Inline literal start-string without end-string.</span><br><span class="line"></span><br><span class="line">System Message: WARNING/2 (&lt;string&gt;, line 1736); backlink</span><br><span class="line"></span><br><span class="line">Inline literal start-string without end-string.</span><br><span class="line"></span><br><span class="line">System Message: WARNING/2 (&lt;string&gt;, line 1736); backlink</span><br><span class="line"></span><br><span class="line">Inline literal start-string without end-string.</span><br><span class="line"></span><br><span class="line">下面就是使用 render_to_response() 重新编写过的 current_datetime 范例。</span><br></pre></td></tr></table></figure></p>
+<p>from django.shortcuts import render_to_response<br>import datetime</p>
+<p>def current_datetime(request):<br>    now = datetime.datetime.now()<br>    return render_to_response(‘current_datetime.html’, {‘current_date’: now})<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">大变样了！ 让我们逐句看看代码发生的变化：</span><br><span class="line"></span><br><span class="line">- 我们不再需要导入 get_template 、 Template 、 Context 和 HttpResponse 。相反，我们导入 django.shortcuts.render_to_response 。 import datetime 继续保留.</span><br><span class="line"></span><br><span class="line">- 在 current_datetime 函数中，我们仍然进行 now 计算，但模板加载、上下文创建、模板解析和 HttpResponse 创建工作均在对 render_to_response() 的调用中完成了。 由于 render_to_response() 返回 HttpResponse 对象，因此我们仅需在视图中 return 该值。</span><br><span class="line"></span><br><span class="line">render_to_response() 的第一个参数必须是要使用的模板名称。 如果要给定第二个参数，那么该参数必须是为该模板创建 Context 时所使用的字典。 如果不提供第二个参数， render_to_response() 使用一个空字典。</span><br><span class="line"></span><br><span class="line">### &lt;font color=#008000&gt;locals() 技巧&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">思考一下我们对 current_datetime 的最后一次赋值:</span><br></pre></td></tr></table></figure></p>
+<p>def current_datetime(request):<br>    now = datetime.datetime.now()<br>    return render_to_response(‘current_datetime.html’, {‘current_date’: now})<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">很多时候，就像在这个范例中那样，你发现自己一直在计算某个变量，保存结果到变量中（比如前面代码中的 now ），然后将这些变量发送给模板。 尤其喜欢偷懒的程序员应该注意到了，不断地为临时变量和临时模板命名有那么一点点多余。 不仅多余，而且需要额外的输入。</span><br><span class="line"></span><br><span class="line">如果你是个喜欢偷懒的程序员并想让代码看起来更加简明，可以利用 Python 的内建函数 locals() 。它返回的字典对所有局部变量的名称与值进行映射。 因此，前面的视图可以重写成下面这个样子：</span><br></pre></td></tr></table></figure></p>
+<p>def current_datetime(request):<br>    current_date = datetime.datetime.now()<br>    return render_to_response(‘current_datetime.html’, locals())<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">在此，我们没有像之前那样手工指定 context 字典，而是传入了 locals() 的值，它囊括了函数执行到该时间点时所定义的一切变量。 因此，我们将 now 变量重命名为 current_date ，因为那才是模板所预期的变量名称。 在本例中， locals() 并没有带来多 大 的改进，但是如果有多个模板变量要界定而你又想偷懒，这种技术可以减少一些键盘输入。</span><br><span class="line"></span><br><span class="line">使用 locals() 时要注意是它将包括 所有 的局部变量，它们可能比你想让模板访问的要多。 在前例中， locals() 还包含了 request 。对此如何取舍取决你的应用程序。</span><br><span class="line"></span><br><span class="line">### &lt;font color=#008000&gt;get_template()中使用子目录&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">把所有的模板都存放在一个目录下可能会让事情变得难以掌控。 你可能会考虑把模板存放在你模板目录的子目录中，这非常好。 事实上，我们推荐这样做；一些Django的高级特性（例如将在第十一章讲到的通用视图系统）的缺省约定就是期望使用这种模板布局。</span><br><span class="line"></span><br><span class="line">把模板存放于模板目录的子目录中是件很轻松的事情。 只需在调用 get_template() 时，把子目录名和一条斜杠添加到模板名称之前，如：</span><br><span class="line"></span><br><span class="line">    t = get_template(&apos;dateapp/current_datetime.html&apos;)</span><br><span class="line"></span><br><span class="line">由于 render_to_response() 只是对 get_template() 的简单封装， 你可以对 render_to_response() 的第一个参数做相同处理。</span><br><span class="line"></span><br><span class="line">    return render_to_response(&apos;dateapp/current_datetime.html&apos;, &#123;&apos;current_date&apos;: now&#125;)</span><br><span class="line"></span><br><span class="line">对子目录树的深度没有限制，你想要多少层都可以。 只要你喜欢，用多少层的子目录都无所谓。</span><br><span class="line"></span><br><span class="line">注意</span><br><span class="line"></span><br><span class="line">Windows用户必须使用斜杠而不是反斜杠。 get_template() 假定的是 Unix 风格的文件名符号约定。</span><br><span class="line"></span><br><span class="line">### &lt;font color=#008000&gt;include 模板标签&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">在讲解了模板加载机制之后，我们再介绍一个利用该机制的内建模板标签：  include %&#125; 。该标签允许在（模板中）包含其它的模板的内容。 标签的参数是所要包含的模板名称，可以是一个变量，也可以是用单/双引号硬编码的字符串。 每当在多个模板中出现相同的代码时，就应该考虑是否要使用  include %&#125; 来减少重复。</span><br><span class="line"></span><br><span class="line">下面这两个例子都包含了 nav.html 模板。这两个例子是等价的，它们证明单/双引号都是允许的。</span><br></pre></td></tr></table></figure></p>
+<p> include ‘nav.html’ %}<br> include “nav.html” %}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">下面的例子包含了 includes/nav.html 模板的内容:</span><br><span class="line"></span><br><span class="line">     include &apos;includes/nav.html&apos; %&#125;</span><br><span class="line"></span><br><span class="line">下面的例子包含了以变量 template_name 的值为名称的模板内容：</span><br><span class="line"></span><br><span class="line">     include template_name %&#125;</span><br><span class="line"></span><br><span class="line">和在 get_template() 中一样， 对模板的文件名进行判断时会在所调取的模板名称之前加上来自 TEMPLATE_DIRS 的模板目录。</span><br><span class="line"></span><br><span class="line">所包含的模板执行时的 context 和包含它们的模板是一样的。 举例说，考虑下面两个模板文件：</span><br></pre></td></tr></table></figure></p>
+<h1 id="mypage-html"><a href="#mypage-html" class="headerlink" title="mypage.html"></a>mypage.html</h1><html><br><body><br> include “includes/nav.html” %}<br><h1> title }}</h1><br></body><br></html>
+
+<h1 id="includes-nav-html"><a href="#includes-nav-html" class="headerlink" title="includes/nav.html"></a>includes/nav.html</h1><p><div id="nav"><br>    You are in:  current_section }}<br></div><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如果你用一个包含 current_section的上下文去渲染 mypage.html这个模板文件，这个变量将存在于它所包含（include）的模板里，就像你想象的那样。</span><br><span class="line"></span><br><span class="line">如果 include %&#125;标签指定的模板没找到，Django将会在下面两个处理方法中选择一个：</span><br><span class="line"></span><br><span class="line">- 如果 DEBUG 设置为 True ，你将会在 Django 错误信息页面看到 TemplateDoesNotExist 异常。</span><br><span class="line"></span><br><span class="line">- 如果 DEBUG 设置为 False ，该标签不会引发错误信息，在标签位置不显示任何东西。</span><br><span class="line"></span><br><span class="line">## &lt;font color=#008000&gt;模板继承&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">到目前为止，我们的模板范例都只是些零星的 HTML 片段，但在实际应用中，你将用 Django 模板系统来创建整个 HTML 页面。 这就带来一个常见的 Web 开发问题： 在整个网站中，如何减少共用页面区域（比如站点导航）所引起的重复和冗余代码？</span><br><span class="line"></span><br><span class="line">解决该问题的传统做法是使用 服务器端的 includes ，你可以在 HTML 页面中使用该指令将一个网页嵌入到另一个中。 事实上， Django 通过刚才讲述的  include %&#125; 支持了这种方法。 但是用 Django 解决此类问题的首选方法是使用更加优雅的策略—— 模板继承 。</span><br><span class="line"></span><br><span class="line">本质上来说，模板继承就是先构造一个基础框架模板，而后在其子模板中对它所包含站点公用部分和定义块进行重载。</span><br><span class="line"></span><br><span class="line">让我们通过修改 current_datetime.html 文件，为 current_datetime 创建一个更加完整的模板来体会一下这种做法：</span><br></pre></td></tr></table></figure></p>
+<p>&lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01//EN”&gt;</p>
+<p><html lang="en"></html></p>
+<p><head><br>    <title>The current time</title><br></head></p>
+<p><body><br>    <h1>My helpful timestamp site</h1><br>    <p>It is now  current_date }}.</p></body></p>
+<pre><code>&lt;hr&gt;
+&lt;p&gt;Thanks for visiting my site.&lt;/p&gt;
+</code></pre><p><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这看起来很棒，但如果我们要为第三章的 hours_ahead 视图创建另一个模板会发生什么事情呢？</span><br></pre></td></tr></table></figure></p>
+<p>&lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01//EN”&gt;</p>
+<p><html lang="en"></html></p>
+<p><head><br>    <title>Future time</title><br></head></p>
+<p><body><br>    <h1>My helpful timestamp site</h1><br>    <p>In  hour_offset }} hour(s), it will be  next_time }}.</p></body></p>
+<pre><code>&lt;hr&gt;
+&lt;p&gt;Thanks for visiting my site.&lt;/p&gt;
+</code></pre><p><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">很明显，我们刚才重复了大量的 HTML 代码。 想象一下，如果有一个更典型的网站，它有导航条、样式表，可能还有一些 JavaScript 代码，事情必将以向每个模板填充各种冗余的 HTML 而告终。</span><br><span class="line"></span><br><span class="line">解决这个问题的服务器端 include 方案是找出两个模板中的共同部分，将其保存为不同的模板片段，然后在每个模板中进行 include。 也许你会把模板头部的一些代码保存为 header.html 文件：</span><br></pre></td></tr></table></figure></p>
+<p>&lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01//EN”&gt;</p>
+<p><html lang="en"></html></p>
+<p><head><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">你可能会把底部保存到文件 footer.html :</span><br></pre></td></tr></table></figure></head></p>
+<pre><code>&lt;hr&gt;
+&lt;p&gt;Thanks for visiting my site.&lt;/p&gt;
+</code></pre><p><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">对基于 include 的策略，头部和底部的包含很简单。 麻烦的是中间部分。 在此范例中，每个页面都有一个 ``&lt;h1&gt;``My helpful timestamp site``&lt;/h1&gt; ``标题，但是这个标题不能放在 header.html 中，因为每个页面的 ``&lt;title&gt; ``是不同的。 如果我们将 ``&lt;h1&gt;`` 包含在头部，我们就不得不包含`` &lt;title&gt; ``，但这样又不允许在每个页面对它进行定制。 何去何从呢？</span><br><span class="line"></span><br><span class="line">Django 的模板继承系统解决了这些问题。 你可以将其视为服务器端 include 的逆向思维版本。 你可以对那些 不同 的代码段进行定义，而不是 共同 代码段。</span><br><span class="line"></span><br><span class="line">第一步是定义 基础模板 ， 该框架之后将由 子模板 所继承。 以下是我们目前所讲述范例的基础模板：</span><br></pre></td></tr></table></figure></p>
+<p>&lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01//EN”&gt;</p>
+<p><html lang="en"></html></p>
+<p><head><br>    <title> block title %} endblock %}</title><br></head></p>
+<p><body><br>    <h1>My helpful timestamp site</h1><br>     block content %} endblock %}<br>     block footer %}<br>    <hr><br>    <p>Thanks for visiting my site.</p><br>     endblock %}<br></body><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这个叫做 base.html 的模板定义了一个简单的 HTML 框架文档，我们将在本站点的所有页面中使用。 子模板的作用就是重载、添加或保留那些块的内容。 （如果你一直按顺序学习到这里，保存这个文件到你的template目录下，命名为 base.html .）</span><br><span class="line"></span><br><span class="line">我们使用一个以前已经见过的模板标签：  block %&#125; 。 所有的  block %&#125; 标签告诉模板引擎，子模板可以重载这些部分。 每个 block %&#125;标签所要做的是告诉模板引擎，该模板下的这一块内容将有可能被子模板覆盖。</span><br><span class="line"></span><br><span class="line">现在我们已经有了一个基本模板，我们可以修改 current_datetime.html 模板来 使用它：</span><br></pre></td></tr></table></figure></p>
+<p> extends “base.html” %}</p>
+<p> block title %}The current time endblock %}</p>
+<p> block content %}</p>
+<p></p><p>It is now  current_date }}.</p><br> endblock %}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">再为 hours_ahead 视图创建一个模板，看起来是这样的：</span><br></pre></td></tr></table></figure><p></p>
+<p> extends “base.html” %}</p>
+<p> block title %}Future time endblock %}</p>
+<p> block content %}</p>
+<p></p><p>In  hour_offset }} hour(s), it will be  next_time }}.</p><br> endblock %}<br>```<p></p>
+<p>看起来很漂亮是不是？ 每个模板只包含对自己而言 独一无二 的代码。 无需多余的部分。 如果想进行站点级的设计修改，仅需修改 base.html ，所有其它模板会立即反映出所作修改。</p>
+<p>以下是其工作方式。 在加载 current_datetime.html 模板时，模板引擎发现了  extends %} 标签， 注意到该模板是一个子模板。 模板引擎立即装载其父模板，即本例中的 base.html 。</p>
+<p>此时，模板引擎注意到 base.html 中的三个  block %} 标签，并用子模板的内容替换这些 block 。因此，引擎将会使用我们在 { block title %} 中定义的标题，对  block content %} 也是如此。 所以，网页标题一块将由  block title %}替换，同样地，网页的内容一块将由  block content %}替换。</p>
+<p>注意由于子模板并没有定义 footer 块，模板系统将使用在父模板中定义的值。 父模板  block %} 标签中的内容总是被当作一条退路。</p>
+<p>继承并不会影响到模板的上下文。 换句话说，任何处在继承树上的模板都可以访问到你传到模板中的每一个模板变量。</p>
+<p>你可以根据需要使用任意多的继承次数。 使用继承的一种常见方式是下面的三层法：</p>
+<p>1.创建 base.html 模板，在其中定义站点的主要外观感受。 这些都是不常修改甚至从不修改的部分。<br>2.为网站的每个区域创建 base_SECTION.html 模板(例如, base_photos.html 和 base_forum.html )。这些模板对 base.html 进行拓展，并包含区域特定的风格与设计。</p>
+<p>3.为每种类型的页面创建独立的模板，例如论坛页面或者图片库。 这些模板拓展相应的区域模板。</p>
+<p>这个方法可最大限度地重用代码，并使得向公共区域（如区域级的导航）添加内容成为一件轻松的工作。</p>
+<p>以下是使用模板继承的一些诀窍：</p>
+<ul>
+<li><p>如果在模板中使用  extends %} ，必须保证其为模板中的第一个模板标记。 否则，模板继承将不起作用。</p>
+</li>
+<li><p>一般来说，基础模板中的  block %} 标签越多越好。 记住，子模板不必定义父模板中所有的代码块，因此你可以用合理的缺省值对一些代码块进行填充，然后只对子模板所需的代码块进行（重）定义。 俗话说，钩子越多越好。</p>
+</li>
+<li><p>如果发觉自己在多个模板之间拷贝代码，你应该考虑将该代码段放置到父模板的某个  block %} 中。</p>
+</li>
+<li><p>如果你需要访问父模板中的块的内容，使用  block.super }}这个标签吧，这一个魔法变量将会表现出父模板中的内容。 如果只想在上级代码块基础上添加内容，而不是全部重载，该变量就显得非常有用了。</p>
+</li>
+<li><p>不允许在同一个模板中定义多个同名的  block %} 。 存在这样的限制是因为block 标签的工作方式是双向的。 也就是说，block 标签不仅挖了一个要填的坑，也定义了在父模板中这个坑所填充的内容。如果模板中出现了两个相同名称的  block %} 标签，父模板将无从得知要使用哪个块的内容。</p>
+</li>
+<li><p>extends %} 对所传入模板名称使用的加载方法和 get_template() 相同。 也就是说，会将模板名称被添加到 TEMPLATE_DIRS 设置之后。</p>
+</li>
+<li><p>多数情况下，  extends %} 的参数应该是字符串，但是如果直到运行时方能确定父模板名，这个参数也可以是个变量。 这使得你能够实现一些很酷的动态功能。</p>
+</li>
+</ul>
+<h3 id="下一章"><a href="#下一章" class="headerlink" title="下一章"></a><font color="#008000">下一章</font></h3><p>你现在已经掌握了模板系统的基本知识。 接下来呢？</p>
+<p>时下大多数网站都是 数据库驱动 的：网站的内容都是存储在关系型数据库中。 这使得数据和逻辑能够彻底地分开（视图和模板也以同样方式对逻辑和显示进行了分隔。)</p>
+<p>下一章将讲述如何与数据库打交道。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.jpg" alt="爱像水墨青花 WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>微信打赏</p>
+      </div>
+    
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="爱像水墨青花 Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+  </div>
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/django/" rel="tag">#django</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/06/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/06/2016-02-02-第5章 模型/" rel="prev" title="第5章 模型">
+                第5章 模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/04/06/2016-02-01-第四章 模板/"
+     data-title="第四章 模板"
+     data-content=""
+     data-url="http://www.lflxp.cn/2016/04/06/2016-02-01-第四章 模板/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/06/2016-02-01-第四章 模板/"
+           data-title="第四章 模板" data-url="http://www.lflxp.cn/2016/04/06/2016-02-01-第四章 模板/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/123.jpg"
+               alt="爱像水墨青花" />
+          <p class="site-author-name" itemprop="name">爱像水墨青花</p>
+          <p class="site-description motion-element" itemprop="description">控制自己就能控制世界</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lflxp" target="_blank">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.lflxp.cn" target="_blank">
+                  
+                    <i class="fa fa-twitter"></i>
+                  
+                  我的博客
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://aws.lflxp.cn" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  管理系统
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.baidu.com" target="_blank">
+                  
+                    <i class="fa fa-phone"></i>
+                  
+                  百度
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://godoc.org" target="_blank">
+                  
+                    <i class="fa fa-thumbs-up"></i>
+                  
+                  GoDoc
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://aws.amazon.com/cn" target="_blank">
+                  
+                    <i class="fa fa-thumbs-up"></i>
+                  
+                  Aws
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://theme-next.iissnan.com/getting-started.html" target="_blank">
+                  
+                    <i class="fa fa-thumbs-up"></i>
+                  
+                  NexT
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">Links</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://aws.lflxp.cn/" target="_blank">监控平台</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://wrapbootstrap.com/preview/WB0R5L90S" target="_blank">监控专业平台</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jiankongbao.com/new_server" target="_blank">监控宝（原型）</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://lflxp.cn" target="_blank">我的博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/lixueping" target="_blank">GITHUB-lixueping</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/lflxp" target="_blank">GITHUB-lflxp</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.godoc.org" target="_blank">Golang</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.baidu.com" target="_blank">PHP</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://Python.org" target="_blank">Python</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://developer.baidu.com/bae/" target="_blank">百度BAE</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://sofar.blog.51cto.com/353572/1601552" target="_blank">Mysql_altas</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://almsaeedstudio.com/blog/10-Free-Responsive-Bootstrap-Templates-For-2016" target="_blank">网站模板</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://aws.amazon.com/cn" target="_blank">亚马逊AWS</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://github.com/kubernetes" target="_blank">Docker 集群编排系统kubernetes</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://kubernetes.io/v1.1/docs/getting-started-guides/README.html" target="_blank">kubernetes 官网</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://github.com/coreos/etcd" target="_blank">etcd服务发现github</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coreos.com/etcd/" target="_blank">etcd 官网</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://git-scm.com/download/" target="_blank">git</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://help.github.com/" target="_blank">GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://godoc.org/" target="_blank">godoc</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://wanwang.aliyun.com" target="_blank">中国万网</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.mysql.com/" target="_blank">mysql</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.oracle.com/index.html" target="_blank">oracle</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.mongodb.com/" target="_blank">mongodb</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://hortonworks.com/hdp/whats-new/" target="_blank">HDP 2.3</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://djangobook.py3k.cn/2.0/" target="_blank">DjangoBook2.0 学习</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.iteedu.com/webtech/python/djangocn2/chapter06.php" target="_blank">DjangoBook2.0 有图片</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://docs.djangoproject.com/en/dev/howto/custom-template-tags/" target="_blank">Custom template tags and filters</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://docs.djangoproject.com/en/dev/ref/contrib/messages/" target="_blank">The messages framework</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://docs.djangoproject.com/en/dev/howto/outputting-csv/" target="_blank">Outputting CSV with Django</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://python.jobbole.com/81312/" target="_blank">Sublime Text3</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://su.baidu.com/" target="_blank">百度云CDN加速</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://jingyan.baidu.com/article/27fa7326e7208946f9271f67.html?qq-pf-to=pcqq.c2c" target="_blank">百度云CDN配置</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://go.lflxp.cn" target="_blank">GO语言圣经</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://github.com/astaxie/Go-in-Action/blob/master/ebook/zh/preface.md" target="_blank">Go实战开发之目录</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://davidstutz.github.io/bootstrap-multiselect/" target="_blank">Bootstrap-multiselect</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jb51.net/LINUXjishu/409416.html" target="_blank">vagrant使用</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.vagrantbox.es/" target="_blank">vagrant官网资源下载</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coreos.com/" target="_blank">CoreOs</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://echarts.baidu.com.cn/examples.html" target="_blank">ECharts</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://my.oschina.net/dddttttt/blog/304200" target="_blank">Django模板标签</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://docs.docker.com/engine/reference/builder/" target="_blank">DockerFile Builder</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://pengky.cn/zindex01.html" target="_blank">新能源科学技术</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://github.com/kalcaddle/KODExplorer" target="_blank">KODExplorer</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://code.youmeek.com/2016/02/28/2016/02/Hexo/#footer" target="_blank">Github 空间搭建 Hexo</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#模板系统基本知识"><span class="nav-number">1.</span> <span class="nav-text">模板系统基本知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何使用模板系统"><span class="nav-number">2.</span> <span class="nav-text">如何使用模板系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建模板对象"><span class="nav-number">3.</span> <span class="nav-text">创建模板对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同一模板，多个上下文"><span class="nav-number">4.</span> <span class="nav-text">同一模板，多个上下文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深度变量的查找"><span class="nav-number">5.</span> <span class="nav-text">深度变量的查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法调用行为"><span class="nav-number">6.</span> <span class="nav-text">方法调用行为</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何处理无效变量"><span class="nav-number">7.</span> <span class="nav-text">如何处理无效变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#玩一玩上下文-context-对象"><span class="nav-number"></span> <span class="nav-text">玩一玩上下文(context)对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本的模板标签和过滤器"><span class="nav-number">1.</span> <span class="nav-text">基本的模板标签和过滤器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标签"><span class="nav-number"></span> <span class="nav-text">标签</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#if-else"><span class="nav-number">1.</span> <span class="nav-text">if/else</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for"><span class="nav-number">2.</span> <span class="nav-text">for</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">Welcome!</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">Site News</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">Community</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">Site News</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">No News Here</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Missing-comma"><span class="nav-number"></span> <span class="nav-text">Missing comma!</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Comma-correctly-in-place"><span class="nav-number"></span> <span class="nav-text">Comma correctly in place.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mypage-html"><span class="nav-number"></span> <span class="nav-text">mypage.html</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text"> title }}</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#includes-nav-html"><span class="nav-number"></span> <span class="nav-text">includes/nav.html</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">My helpful timestamp site</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">My helpful timestamp site</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">My helpful timestamp site</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下一章"><span class="nav-number">1.</span> <span class="nav-text">下一章</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">爱像水墨青花</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lflxp"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
