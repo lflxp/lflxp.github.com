@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.lflxp.cn/"/>
-  <updated>2016-04-06T11:29:19.759Z</updated>
+  <updated>2016-04-06T14:54:01.124Z</updated>
   <id>http://www.lflxp.cn/</id>
   
   <author>
@@ -14,6 +14,137 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hexo操作总结</title>
+    <link href="http://www.lflxp.cn/2016/04/06/2016-04-06-hexo%E6%93%8D%E4%BD%9C/"/>
+    <id>http://www.lflxp.cn/2016/04/06/2016-04-06-hexo操作/</id>
+    <published>2016-04-06T13:47:13.098Z</published>
+    <updated>2016-04-06T14:54:01.124Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;hexo搭建博客命令&quot;&gt;&lt;a href=&quot;#hexo搭建博客命令&quot; class=&quot;headerlink&quot; title=&quot;hexo搭建博客命令&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://code.youmeek.com/2016/02/28/2016/02/Hexo/#footer&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;hexo搭建博客命令&lt;/a&gt;&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;记录hexo搭建博客的关键命令&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;安装-Hexo-框架&quot;&gt;&lt;a href=&quot;#安装-Hexo-框架&quot; class=&quot;headerlink&quot; title=&quot;安装 Hexo 框架&quot;&gt;&lt;/a&gt;安装 Hexo 框架&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;安装 Hexo（注意，现在是 cnpm 开头了，不是 npm 了）：cnpm install -g hexo-cli&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;安装时间不一定很快，有可能需要等 3 ~ 5 分钟。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;安装完有 WARN 警告也没关系的。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;创建-Hexo-项目&quot;&gt;&lt;a href=&quot;#创建-Hexo-项目&quot; class=&quot;headerlink&quot; title=&quot;创建 Hexo 项目&quot;&gt;&lt;/a&gt;创建 Hexo 项目&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;现在假设我要创建一个名为 hexo 的项目，项目目录就放在：E:\git_work_space 目录下，所以我们在 E:\git_work_space 目录下创建一个 hexo 目录。现在这个项目的全路径是：E:\git_work_space\hexo&lt;/li&gt;
+&lt;li&gt;打开 Git Bash&lt;blockquote&gt;
+&lt;p&gt;进入该目录：cd e:/git_work_space/hexo&lt;br&gt;然后执行：&lt;strong&gt;&lt;font color=&quot;red&quot;&gt;hexo init&lt;/font&gt;&lt;/strong&gt;，这个时间也会比较长，也有可能要等几分钟，有显示 WARN 也不用管&lt;br&gt;最后执行：cnpm install，有显示 WARN 也不用管&lt;br&gt;安装完成之后，E:\git_work_space\hexo 目录结构是这样的：&lt;br&gt;&lt;img src=&quot;http://img.youmeek.com/2016/hexo-start-b-1.jpg&quot; alt=&quot;结构&quot;&gt;&lt;br&gt;现在我们启动 hexo 本地服务，看下默认的博客是怎样的，命令：hexo server&lt;br&gt;现在用浏览器访问：&lt;a href=&quot;http://localhost:4000/，效果如下图&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://localhost:4000/，效果如下图&lt;/a&gt;:&lt;br&gt;&lt;img src=&quot;http://img.youmeek.com/2016/hexo-start-b-2.jpg&quot; alt=&quot;example&quot;&gt;&lt;br&gt;如果要停止 hexo 服务：在 Git Bash 下按 Ctrl + C 即可&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;选用其他主题&quot;&gt;&lt;a href=&quot;#选用其他主题&quot; class=&quot;headerlink&quot; title=&quot;选用其他主题&quot;&gt;&lt;/a&gt;选用其他主题&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;由于默认主题太大众了，所以现在我们换个主题。&lt;/li&gt;
+&lt;li&gt;你可以去这里找主题：&lt;blockquote&gt;
+&lt;p&gt;hexo-theme：&lt;a href=&quot;https://hexo.io/themes/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://hexo.io/themes/&lt;/a&gt;&lt;br&gt;hexo-github-theme-list：&lt;a href=&quot;https://github.com/hexojs/hexo/wiki/Themes&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/hexojs/hexo/wiki/Themes&lt;/a&gt;&lt;br&gt;有那些好看的hexo主题？：&lt;a href=&quot;http://www.zhihu.com/question/24422335&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.zhihu.com/question/24422335&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;我这里选择的 yelee：&lt;a href=&quot;https://github.com/MOxFIVE/hexo-theme-yelee&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/MOxFIVE/hexo-theme-yelee&lt;/a&gt;&lt;blockquote&gt;
+&lt;p&gt;原因是能最大化衬托出：目录、文章内容、代码块。因为我对这个博客的定位就是用来放技术类内容，所以不会让它太杂或是太花。只是目前这个颜色偏浅，后续还需要调整。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;现在假设你跟我要用的模板是一样：&lt;blockquote&gt;
+&lt;p&gt;还是让 Git Bash 保持在 E:\git_work_space\hexo 目录下，然后输入命令：git clone &lt;a href=&quot;https://github.com/MOxFIVE/hexo-theme-yelee.git&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/MOxFIVE/hexo-theme-yelee.git&lt;/a&gt; themes/yelee&lt;br&gt;这样就在 E:\git_work_space\hexo\themes 目录下生成了一个 yelle 文件夹，里面有我们刚刚 clone 下来的主题内容。&lt;br&gt;如果以后你不自己修改这个主题的话，可以考虑经常更新下作者的更新内容：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;cd e:/git_work_space/hexo/themes/yelee&lt;br&gt;git pull origin master&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;下载好主题文件之后，我们现在要修改 E:\git_work_space\hexo 目录下的项目配置文件：_config.yml，把对应的主题目录名改下，编辑如下图。&lt;/li&gt;
+&lt;li&gt;&lt;img src=&quot;http://img.youmeek.com/2016/hexo-start-b-3.jpg&quot; alt=&quot;&quot;&gt;&lt;/li&gt;
+&lt;li&gt;更改主题目录名后，我们还要重新生成主题静态内容：&lt;blockquote&gt;
+&lt;p&gt;继续在 Git Bash 中输入命令：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;重新生成静态博客的所有内容：&lt;strong&gt;&lt;font color=&quot;red&quot;&gt;hexo generate&lt;/font&gt;&lt;/strong&gt;&lt;br&gt;重启 hexo 本地服务：&lt;strong&gt;&lt;font color=&quot;red&quot;&gt;hexo server&lt;/font&gt;&lt;/strong&gt;&lt;br&gt;重新访问：&lt;a href=&quot;http://localhost:4000/，效果如下图&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://localhost:4000/，效果如下图&lt;/a&gt;&lt;br&gt;&lt;img src=&quot;http://img.youmeek.com/2016/hexo-start-b-4.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;添加「标签」页面-hexo-new-page-tags&quot;&gt;&lt;a href=&quot;#添加「标签」页面-hexo-new-page-tags&quot; class=&quot;headerlink&quot; title=&quot;添加「标签」页面  hexo new page tags&quot;&gt;&lt;/a&gt;添加「标签」页面  &lt;strong&gt;&lt;font color=&quot;red&quot;&gt;hexo new page tags&lt;/font&gt;&lt;/strong&gt;&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;新建页面&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;在终端窗口下，定位到 Hexo 站点目录下。使用 hexo new page 新建一个页面，命名为 tags ：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ cd your-hexo-site&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ hexo new page tags&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;设置页面类型&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;编辑刚新建的页面，将页面的类型设置为 tags ，主题将自动为这个页面显示标签云。页面内容如下：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;title: 标签&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;date: 2014-12-22 12:39:04&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;type: &amp;quot;tags&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;---&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;修改菜单&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;在菜单中添加链接。编辑 主题配置文件 ， 添加 tags 到 menu 中，如下:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;menu:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  home: /&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  archives: /archives&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  tags: /tags&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;注意：如果有启用 多说 或者 Disqus 评论，页面也会带有评论。 若需要关闭的话，请添加字段 comments 并将值设置为 false，如：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;禁用评论示例&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;title: 标签&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;date: 2014-12-22 12:39:04&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;type: &amp;quot;tags&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;comments: false&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;---&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;添加「分类」页面&quot;&gt;&lt;a href=&quot;#添加「分类」页面&quot; class=&quot;headerlink&quot; title=&quot;添加「分类」页面&quot;&gt;&lt;/a&gt;添加「分类」页面&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;新建「分类」页面，并在菜单中显示「分类」链接。「分类」页面将展示站点的所有分类，若你的所有文章都未包含分类，此页面将是空的。 底下代码是一篇包含分类的文章的例子：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;title: 分类测试文章&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;categories: Testing&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;---&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;新建页面&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;在终端窗口下，定位到 Hexo 站点目录下。使用 hexo new page 新建一个页面，命名为 categories ：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ cd your-hexo-site&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ hexo new page categories&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;设置页面类型&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;编辑刚新建的页面，将页面的类型设置为 categories ，主题将自动为这个页面显示分类。页面内容如下：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;title: 标签&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;date: 2014-12-22 12:39:04&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;type: &amp;quot;categories&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;---&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;修改菜单&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;在菜单中添加链接。编辑 主题配置文件 ， 添加 categories 到 menu 中，如下:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;menu:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  home: /&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  archives: /archives&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  categories : /categories&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;注意：如果有启用 多说 或者 Disqus 评论，页面也会带有评论。 若需要关闭的话，请添加字段 comments 并将值设置为 false，如：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;禁用评论示例&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;title: 分类&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;date: 2014-12-22 12:39:04&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;type: &amp;quot;categories&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;comments: false&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;---&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;Node-js-源设置&quot;&gt;&lt;a href=&quot;#Node-js-源设置&quot; class=&quot;headerlink&quot; title=&quot;Node.js 源设置&quot;&gt;&lt;/a&gt;Node.js 源设置&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;在安装 Hexo 之前，先说一下 Node.js 的源，Node.js 官方源默认是：&lt;a href=&quot;http://registry.npmjs.org，但是由于在国外，说不定你使用的时候就抽风无法下载任何软件。所以我们决定暂时使用淘宝提供的源，淘宝源官网：http://npm.taobao.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://registry.npmjs.org，但是由于在国外，说不定你使用的时候就抽风无法下载任何软件。所以我们决定暂时使用淘宝提供的源，淘宝源官网：http://npm.taobao.org/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;在 Git Bash 中我们执行下面这一句（这是一整句的）：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;alias cnpm=&amp;quot;npm --registry=https://registry.npm.taobao.org \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;--cache=$HOME/.npm/.cache/cnpm \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;--disturl=https://npm.taobao.org/dist \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;--userconfig=$HOME/.cnpmrc&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;现在验证下是否可以使用淘宝的 cnpm 命令：cnpm info express&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;如果能输出一大堆介绍，则说明成功了，以后每次要使用淘宝的源都需要这样来。现在除了默认的 npm，还多了一个 cnpm 可以使用，我们下面有关安装的讲解内容也都是基于此临时命令。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;如果输出：bash: cnpm: command not found，则表示没成功，需要你在排查下&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;把本地的博客内容同步到-Github-上&quot;&gt;&lt;a href=&quot;#把本地的博客内容同步到-Github-上&quot; class=&quot;headerlink&quot; title=&quot;把本地的博客内容同步到 Github 上&quot;&gt;&lt;/a&gt;把本地的博客内容同步到 Github 上&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;要把本地的静态博客同步到 Github，我们还需要先安装两个跟部署相关的 hexo 插件：&lt;blockquote&gt;
+&lt;p&gt;继续在 Git Bash 中输入：&lt;br&gt;cnpm install hexo -server –save&lt;br&gt;cnpm install hexo-deployer-git –save&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;编辑全局 hexo 的配置文件：_config.yml&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;官网对此配置的介绍：&lt;a href=&quot;https://hexo.io/zh-cn/docs/configuration.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://hexo.io/zh-cn/docs/configuration.html&lt;/a&gt;&lt;br&gt;我自己的编辑内容初稿（你需要认真看的是含有中文注释的内容）：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;59&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;60&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;61&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;62&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;63&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;65&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;66&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;67&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;68&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;69&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;70&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;71&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;72&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;73&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;74&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;75&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;76&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# Hexo Configuration&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;## Docs: https://hexo.io/docs/configuration.html&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;## Source: https://github.com/hexojs/hexo/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Site，这一块区域主要是设置博客的主要说明，需要注意的是：每个冒号后面都是有一个空格，然后再书写自己的内容的&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;title: YouMeek Code&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;subtitle: 这里只有代码相关，要了解更多 &amp;gt;&amp;gt;&amp;gt; YouMeek.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;description: 这里是 YouMeek.com 一部分&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;author: Judas.n&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;email: 363379444@qq.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;language: zh-CN&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;timezone:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# URL，这一块一般可以设置的是 url 这个参数，比如我要设置绑定域名的，这里就需要填写我的域名信息&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;## If your site is put in a subdirectory, set url as &amp;apos;http://yoursite.com/child&amp;apos; and root as &amp;apos;/child/&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;url: http://code.youmeek.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;root: /&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;permalink: :year/:month/:day/:title/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;permalink_defaults:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Directory&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;source_dir: source&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;public_dir: public&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;tag_dir: tags&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;archive_dir: archives&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;category_dir: categories&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;code_dir: downloads/code&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;i18n_dir: :lang&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;skip_render:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Writing&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;new_post_name: :title.md # File name of new posts&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;default_layout: post&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;titlecase: false # Transform title into titlecase&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;external_link: true # Open external links in new tab&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;filename_case: 0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;render_drafts: false&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;post_asset_folder: false&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;relative_link: false&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;future: true&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;highlight:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  enable: true&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  line_number: true&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  auto_detect: false&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  tab_replace:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Category &amp;amp; Tag&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;default_category: uncategorized&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;category_map:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;tag_map:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Date / Time format&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;## Hexo uses Moment.js to parse and display date&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;## You can customize the date format as defined in&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;## http://momentjs.com/docs/#/displaying/format/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;date_format: YYYY-MM-DD&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;time_format: HH:mm:ss&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Pagination&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;## Set per_page to 0 to disable pagination&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;per_page: 10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pagination_dir: page&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Extensions&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;## Plugins: https://hexo.io/plugins/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;## Themes: https://hexo.io/themes/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;theme: yelee&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Deployment&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;## 这里是重点，这里是修改发布地址，因为我们前面已经加了 SSH 密钥信息在 Github 设置里面了，所以只要我们电脑里面持有那两个密钥文件就可以无需密码地跟 Github 做同步。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;## 需要注意的是这里的 repo 采用的是 ssh 的地址，而不是 https 的。分支我们默认采用 master 分支，以后你翅膀硬了要换其他也无所谓。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;## Docs: https://hexo.io/docs/deployment.html&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;deploy:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  type: git&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  repo: git@github.com:judasn/judasn.github.io.git&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  branch: master&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;编辑全局配置后我们需要重新部署：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;继续在 Git Bash 中输入命令：&lt;br&gt;先清除掉已经生成的旧文件：&lt;strong&gt;&lt;font color=&quot;red&quot;&gt;hexo clean&lt;/font&gt;&lt;/strong&gt;&lt;br&gt;再生成一次静态文件：&lt;strong&gt;&lt;font color=&quot;red&quot;&gt;hexo generate&lt;/font&gt;&lt;/strong&gt;&lt;br&gt;在本地预览下：&lt;strong&gt;&lt;font color=&quot;red&quot;&gt;hexo server&lt;/font&gt;&lt;/strong&gt;&lt;br&gt;本地没问题之后，Ctrl + C 停掉本地预览，使用部署命令部署到 Github 上：&lt;strong&gt;&lt;font color=&quot;red&quot;&gt;hexo deploy&lt;/font&gt;&lt;/strong&gt;，有弹出下面提示框，请输入：yes&lt;br&gt;&lt;img src=&quot;http://img.youmeek.com/2016/hexo-start-d-1.jpg&quot; alt=&quot;&quot;&gt;&lt;br&gt;提交成功效果如下：&lt;br&gt;&lt;img src=&quot;http://img.youmeek.com/2016/hexo-start-d-2.jpg&quot; alt=&quot;&quot;&gt;&lt;br&gt;访问服务器地址进行检查：&lt;a href=&quot;http://judasn.github.io，效果如下&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://judasn.github.io，效果如下&lt;/a&gt;&lt;br&gt;&lt;img src=&quot;http://img.youmeek.com/2016/hexo-start-d-3.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;通过上面几次流程我们也就可以总结：以后，每次发表新文章要部署都按这样的流程来：&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;&lt;font color=&quot;red&quot;&gt;hexo clean&lt;/font&gt;&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;&lt;font color=&quot;red&quot;&gt;hexo generate&lt;/font&gt;&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;&lt;font color=&quot;red&quot;&gt;hexo deploy&lt;/font&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;也因为这几个命令太频繁了，所以又有了精简版的命令：&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;&lt;font color=&quot;red&quot;&gt;hexo clean == hexo clean&lt;/font&gt;&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;&lt;font color=&quot;red&quot;&gt;hexo g == hexo generate&lt;/font&gt;&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;&lt;font color=&quot;red&quot;&gt;hexo s == hexo server&lt;/font&gt;&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;&lt;font color=&quot;red&quot;&gt;hexo d == hexo deploy&lt;/font&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;绑定域名&quot;&gt;&lt;a href=&quot;#绑定域名&quot; class=&quot;headerlink&quot; title=&quot;绑定域名&quot;&gt;&lt;/a&gt;绑定域名&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;绑定域名不排除会遇到很多网络问题或是七七八八，所以这里先提供先官网的一些说明：&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://help.github.com/articles/setting-up-your-pages-site-repository/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://help.github.com/articles/setting-up-your-pages-site-repository/&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://help.github.com/articles/quick-start-setting-up-a-custom-domain/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://help.github.com/articles/quick-start-setting-up-a-custom-domain/&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://help.github.com/articles/setting-up-an-apex-domain/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://help.github.com/articles/setting-up-an-apex-domain/&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://help.github.com/articles/troubleshooting-custom-domains/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://help.github.com/articles/troubleshooting-custom-domains/&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://help.github.com/articles/custom-domain-redirects-for-github-pages-sites/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://help.github.com/articles/custom-domain-redirects-for-github-pages-sites/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;首先我们要一个 CNAME 文件（文件名叫 CNAME，没有文件后缀的），把该文件放在 E:\git_work_space\hexo\source 目录下，以后一些需要放在根目录的资源文件都可以放这里。如果你找不到这样的文件可以到我的项目上下载：&lt;a href=&quot;https://github.com/judasn/judasn.github.io&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/judasn/judasn.github.io&lt;/a&gt;&lt;blockquote&gt;
+&lt;p&gt;CNAME 上的内容需要写你具体要绑定的域名信息，比如我是：code.youmeek.com，具体你可以参考下图：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;hexo搭建博客命令&quot;&gt;&lt;a href=&quot;#hexo搭建博客命令&quot; class=&quot;headerlink&quot; title=&quot;hexo搭建博客命令&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://code.youmeek.com/2016/02/28/2016/02/Hexo
+    
+    </summary>
+    
+      <category term="hexo" scheme="http://www.lflxp.cn/categories/hexo/"/>
+    
+    
+      <category term="hexo" scheme="http://www.lflxp.cn/tags/hexo/"/>
+    
+  </entry>
   
   <entry>
     <title>hehe</title>
@@ -1751,42 +1882,6 @@ end
     <summary type="html">
     
       &lt;h1 id=&quot;Vgrant安装配置&quot;&gt;&lt;a href=&quot;#Vgrant安装配置&quot; class=&quot;headerlink&quot; title=&quot;Vgrant安装配置&quot;&gt;&lt;/a&gt;Vgrant安装配置&lt;/h1&gt;&lt;p&gt;实际上Vagrant只是一个让你可以方便设置你想要的虚拟机的便携式工具，它底
-    
-    </summary>
-    
-      <category term="vagrant" scheme="http://www.lflxp.cn/categories/vagrant/"/>
-    
-    
-      <category term="vagrant" scheme="http://www.lflxp.cn/tags/vagrant/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker与Vagrant的简单区别</title>
-    <link href="http://www.lflxp.cn/2016/04/06/2016-02-18-vagrant/"/>
-    <id>http://www.lflxp.cn/2016/04/06/2016-02-18-vagrant/</id>
-    <published>2016-04-06T10:31:45.154Z</published>
-    <updated>2016-04-06T11:27:44.276Z</updated>
-    
-    <content type="html">&lt;h1 id=&quot;【理解Docker】Docker与Vagrant的简单区别&quot;&gt;&lt;a href=&quot;#【理解Docker】Docker与Vagrant的简单区别&quot; class=&quot;headerlink&quot; title=&quot;【理解Docker】Docker与Vagrant的简单区别&quot;&gt;&lt;/a&gt;【理解Docker】Docker与Vagrant的简单区别&lt;/h1&gt;&lt;hr&gt;
-&lt;h2 id=&quot;【编者的话】本文翻译自Quora上的一个问题：Docker和Vagrant的区别，以及我们何时使用他们。&quot;&gt;&lt;a href=&quot;#【编者的话】本文翻译自Quora上的一个问题：Docker和Vagrant的区别，以及我们何时使用他们。&quot; class=&quot;headerlink&quot; title=&quot;【编者的话】本文翻译自Quora上的一个问题：Docker和Vagrant的区别，以及我们何时使用他们。&quot;&gt;&lt;/a&gt;【编者的话】本文翻译自Quora上的一个问题：Docker和Vagrant的区别，以及我们何时使用他们。&lt;/h2&gt;&lt;p&gt;Vagrant和Docker是两只不同的野兽。&lt;/p&gt;
-&lt;p&gt;Docker是一个由shell层和management层两部分组成的，用来构建并运行基于lxc的虚拟Linux容器。&lt;/p&gt;
-&lt;p&gt;Docker的伟大在于；它是轻量级的（因为它依赖于共享内核的Linux容器），[以及与它的分布无关]。虽然所有实例之间的内核共享（但与主机以及互相之间都是隔离的），不同实例的用户空间可以基于不同的Linux发行版本。&lt;/p&gt;
-&lt;p&gt;Vagrant则是一个奇妙的工具，它使用puppet和/或chef管理，用来自动调配多个虚拟机，并且每个都有他们自己的配置。对于它的虚拟化来说，它可以使用不同的供应商。原来默认的提供商是VirtualBox，但它现在支持更多了，包括VMware fusion，甚至amazon-ec2。&lt;/p&gt;
-&lt;p&gt;有趣的是，Vagrant现在也具有一个Docker提供商，因此您可以用vagrant来管理Docker的构建和部署。&lt;/p&gt;
-&lt;p&gt;Docker，并不限制它的灵活性 - “一切都是镜像”，你可以创建变体镜像和全栈镜像，其中每一个添加功能到前一个。管理这些会成为一个挑战。&lt;/p&gt;
-&lt;p&gt;Vagrant也有类似的挑战，因为虚拟机可能会过时，有时虚拟机可能很难找到以及更新。有一些工具比如packer和以前的veewee可以用来帮助你构建所谓的’基础’虚拟机。&lt;/p&gt;
-&lt;p&gt;我相信这些工具可以很好地在一起工作，我觉得这样的组合会在你计划的筹码中或者在你要做整个部件更换测试中，甚至是基础操作系统中大放异彩。&lt;/p&gt;
-&lt;p&gt;假设你有一个基于Centos的应用程序，并且你要切换到Ubuntu或是其他方式。假设你想完全地升级你的操作系统。&lt;/p&gt;
-&lt;p&gt;我总是说在开发测试与分级中，对于当前生产环境（包括配置）以及在任何潜在的替代生产环境中你必须要测试你的产品。您是否正在计划一个安全更新？你想更新或是切换到Java吗？&lt;/p&gt;
-&lt;p&gt;这是Vagrant和Docker出彩的地方。我希望Docker帮助您加快对多个操作环境的测试。&lt;/p&gt;
-&lt;p&gt;Docker是否一个部署应用程序到生产生产环境中的有用工具呢？这是它常见的使用情况 - 那么它可能是。然而，配置文件的本质变化，尤其是那些必须通过网络进行协调的地方，可以更好地用一个知道在网络中的其他组件的工具。&lt;/p&gt;
-&lt;p&gt;原文链接：What is the difference between Docker and Vagrant? When should you use each one? （翻译：田浩浩） &lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;【理解Docker】Docker与Vagrant的简单区别&quot;&gt;&lt;a href=&quot;#【理解Docker】Docker与Vagrant的简单区别&quot; class=&quot;headerlink&quot; title=&quot;【理解Docker】Docker与Vagrant的简单区别&quot;&gt;&lt;/a
     
     </summary>
     
