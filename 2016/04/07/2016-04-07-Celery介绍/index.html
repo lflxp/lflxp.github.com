@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="markdown," />
+  <meta name="keywords" content="celery," />
 
 
 
@@ -59,28 +59,19 @@
 
 
 
-<meta name="description" content="Markdown语法标题  SettingNote:
-StackEdit is accessible offline after the application has been loaded for the first time.
-Your local documents are not shared between different browsers or computers.
-Cleari">
+<meta name="description" content="什么是Celery
+在运营系统中经常用到异步方式来处理我们的任务，比如将业务上线流程串成任务再写入队列，通过后台作业节点去调度执行。比较典型的案例为腾讯的蓝鲸、织云、云智慧等平台。本译文结合Django+Celery+Redis实现一个定期从Flickr 获取图片并展示的简单案例，方便大家理解实现异步对列任务的过程。刚接触django的时候，我经历过的最让人沮丧的事情是需要定期运行一段代码。我写了">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Markdown">
-<meta property="og:url" content="http://www.lflxp.cn/2016/04/06/2016-01-27-markdown/index.html">
+<meta property="og:title" content="Celery介绍">
+<meta property="og:url" content="http://www.lflxp.cn/2016/04/07/2016-04-07-Celery介绍/index.html">
 <meta property="og:site_name" content="笑傲江湖">
-<meta property="og:description" content="Markdown语法标题  SettingNote:
-StackEdit is accessible offline after the application has been loaded for the first time.
-Your local documents are not shared between different browsers or computers.
-Cleari">
-<meta property="og:image" content="http://ww4.sinaimg.cn/bmiddle/aa397b7fjw1dzplsgpdw5j.jpg">
-<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\prod%20\(n_{i}\)+1">
-<meta property="og:updated_time" content="2016-04-06T11:29:45.240Z">
+<meta property="og:description" content="什么是Celery
+在运营系统中经常用到异步方式来处理我们的任务，比如将业务上线流程串成任务再写入队列，通过后台作业节点去调度执行。比较典型的案例为腾讯的蓝鲸、织云、云智慧等平台。本译文结合Django+Celery+Redis实现一个定期从Flickr 获取图片并展示的简单案例，方便大家理解实现异步对列任务的过程。刚接触django的时候，我经历过的最让人沮丧的事情是需要定期运行一段代码。我写了">
+<meta property="og:updated_time" content="2016-04-07T06:04:19.868Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Markdown">
-<meta name="twitter:description" content="Markdown语法标题  SettingNote:
-StackEdit is accessible offline after the application has been loaded for the first time.
-Your local documents are not shared between different browsers or computers.
-Cleari">
-<meta name="twitter:image" content="http://ww4.sinaimg.cn/bmiddle/aa397b7fjw1dzplsgpdw5j.jpg">
+<meta name="twitter:title" content="Celery介绍">
+<meta name="twitter:description" content="什么是Celery
+在运营系统中经常用到异步方式来处理我们的任务，比如将业务上线流程串成任务再写入队列，通过后台作业节点去调度执行。比较典型的案例为腾讯的蓝鲸、织云、云智慧等平台。本译文结合Django+Celery+Redis实现一个定期从Flickr 获取图片并展示的简单案例，方便大家理解实现异步对列任务的过程。刚接触django的时候，我经历过的最让人沮丧的事情是需要定期运行一段代码。我写了">
 
 
 
@@ -98,7 +89,7 @@ Cleari">
   };
 </script>
 
-  <title> Markdown | 笑傲江湖 </title>
+  <title> Celery介绍 | 笑傲江湖 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -298,7 +289,7 @@ Cleari">
             
             
               
-                Markdown
+                Celery介绍
               
             
           </h1>
@@ -310,8 +301,8 @@ Cleari">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-06T18:31:45+08:00" content="2016-04-06">
-              2016-04-06
+            <time itemprop="dateCreated" datetime="2016-04-07T14:00:22+08:00" content="2016-04-07">
+              2016-04-07
             </time>
           </span>
 
@@ -324,8 +315,8 @@ Cleari">
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/markdown/" itemprop="url" rel="index">
-                    <span itemprop="name">markdown</span>
+                  <a href="/categories/celery/" itemprop="url" rel="index">
+                    <span itemprop="name">celery</span>
                   </a>
                 </span>
 
@@ -340,8 +331,8 @@ Cleari">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/06/2016-01-27-markdown/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/06/2016-01-27-markdown/" itemprop="commentsCount"></span>
+                <a href="/2016/04/07/2016-04-07-Celery介绍/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/07/2016-04-07-Celery介绍/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -363,174 +354,17 @@ Cleari">
       
 
       
-        <h1 id="Markdown语法"><a href="#Markdown语法" class="headerlink" title="Markdown语法"></a>Markdown语法</h1><h1 id="标题-Setting"><a href="#标题-Setting" class="headerlink" title="标题  Setting"></a><strong>标题</strong> <i class="icon-cog"></i> <strong>Setting</strong></h1><h2 id="Note"><a href="#Note" class="headerlink" title="Note:"></a><strong>Note:</strong></h2><ul>
-<li>StackEdit is accessible offline after the application has been loaded for the first time.</li>
-<li>Your local documents are not shared between different browsers or computers.</li>
-<li>Clearing your browser’s data may <strong>delete all your local documents!</strong> Make sure your documents are synchronized with <strong>Google Drive</strong> or <strong>Dropbox</strong> (check out the <a href="#synchronization"><i class="icon-refresh"></i> Synchronization</a> section).</li>
-<li>All your local documents are listed in the document panel. You can switch from one to another by clicking a document in the list or you can toggle documents using <kbd>Ctrl+[</kbd> and <kbd>Ctrl+]</kbd>.</li>
-</ul>
-<hr>
-<blockquote>
-<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a><strong><a href="http://www.baidu.com" target="_blank" rel="external">二级标题</a></strong></h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a><em>三级标题</em></h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a><em>四级标题</em></h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><hr>
-<h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><p>-（+<em>） 第一项 -（+</em>） 第二项 - （+*）第三项</p>
-<h1 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a><strong>无序列表</strong></h1><ul>
-<li>列表一</li>
-<li>列表二</li>
-<li>列表三</li>
-</ul>
-<h2 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a><strong>有序列表</strong></h2><ol>
-<li>列表一</li>
-<li>列表二</li>
-<li>列表三<blockquote>
-<p>###区块引用<br>注：-、1.和文本之间要保留一个字符的空格。</p>
+        <h1 id="什么是Celery"><a href="#什么是Celery" class="headerlink" title="什么是Celery"></a>什么是Celery</h1><blockquote>
+<p>在运营系统中经常用到异步方式来处理我们的任务，比如将业务上线流程串成任务再写入队列，通过后台作业节点去调度执行。比较典型的案例为腾讯的蓝鲸、织云、云智慧等平台。本译文结合Django+Celery+Redis实现一个定期从Flickr 获取图片并展示的简单案例，方便大家理解实现异步对列任务的过程。<br>刚接触django的时候，我经历过的最让人沮丧的事情是需要定期运行一段代码。我写了一个需要每天上午12点执行一个动作的不错的函数。很简单是不是？错了。事实证明，这对我来说是一个巨大的困难点，因为，那时我使用Cpane类型的虚拟主机管理系统，它能专门提供一个很友好，很方便的图形用户界面来设置cron作业。<br>经过反复研究，我发现了一个很好的解决方案 - Celery，一个用于在后台运行任务的强大的异步作业队列。但是，这也导致了其它的问题，因为我无法找到一系列简单的指令将celery集成到Django项目中。<br>当然，我最终还是设法成功搞定了它 - 这正是本文将介绍的内容：如何将celery集成到一个Django项目，创建周期性任务。<br>该项目利用Python3.4，Django的1.8.2，celery3.1.18和Redis3.0.2.</p>
+</blockquote>
+<p>Celery是一个异步任务队列/基于分布式消息传递的作业队列。它侧重于实时操作，但对调度的支持也很好。”本文，我们将重点讲解周期性执行任务的调度特点。</p>
+<ol>
+<li>为什么这一点有用呢？<blockquote>
+<p>回想一下你不得不在将来运行某一特定任务的经历。也许你需要每隔一小时访问一个API。或者，也许你需要在这一天结束时发送一批电子邮件。不论任务大小，Celery都可以使得调度周期性任务变的很容易。<br>你永远不希望终端用户等待那些不必要的页面加载或动作执行完成。如果你的应用程序工作流的一部分是一个需要很长时间的程序，当资源可用时，你就可以使用Celery在后台执行这段程序，从而使你的应用程序可以继续响应客户端的请求。这样可以使任务在应用程序的环境之外运行。</p>
 </blockquote>
 </li>
 </ol>
-<hr>
-</blockquote>
-<p>#段落<br><strong>一个空行的或者一个回车*</strong></p>
-<h1 id="——————————"><a href="#——————————" class="headerlink" title="——————————"></a>——————————</h1><p>#代码区块</p>
-<blockquote>
-<h2 id="代码区块的建立是在每行加上4个空格或者一个制表符（如同写代码一样）。如普通段落："><a href="#代码区块的建立是在每行加上4个空格或者一个制表符（如同写代码一样）。如普通段落：" class="headerlink" title="代码区块的建立是在每行加上4个空格或者一个制表符（如同写代码一样）。如普通段落：*"></a><em>代码区块的建立是在每行加上4个空格或者一个制表符（如同写代码一样）。如普通段落：*</em></h2><p>void main()</p>
-</blockquote>
-<p>{</p>
-<p>printf(“Hello, Markdown.”);</p>
-<p>}</p>
-<p>#强调</p>
-<blockquote>
-<p><em>斜体</em>，<em>斜体</em></p>
-<p><strong>粗体</strong>，<strong>粗体</strong></p>
-</blockquote>
-<h1 id="链接和图片"><a href="#链接和图片" class="headerlink" title="链接和图片"></a>链接和图片</h1><blockquote>
-<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><blockquote>
-<h3 id="链接可以由两种形式生成：行内式和参考式。"><a href="#链接可以由两种形式生成：行内式和参考式。" class="headerlink" title="链接可以由两种形式生成：行内式和参考式。"></a>链接可以由两种形式生成：行内式和参考式。</h3><h4 id="行内式："><a href="#行内式：" class="headerlink" title="行内式："></a>行内式：</h4><blockquote>
-<h4 id="younghz的Markdown库。"><a href="#younghz的Markdown库。" class="headerlink" title="younghz的Markdown库。"></a><a href="https:://github.com/younghz/Markdown" title="Markdown" target="_blank" rel="external">younghz的Markdown库</a>。</h4><h4 id="参考式："><a href="#参考式：" class="headerlink" title="参考式："></a>参考式：</h4><h4 id="younghz的Markdown库1"><a href="#younghz的Markdown库1" class="headerlink" title="younghz的Markdown库1"></a><a href="https:://github.com/younghz/Markdown" title="Markdown" target="_blank" rel="external">younghz的Markdown库1</a></h4><h4 id="younghz的Markdown库2"><a href="#younghz的Markdown库2" class="headerlink" title="younghz的Markdown库2"></a><a href="https:://github.com/younghz/Markdown" title="Markdown" target="_blank" rel="external">younghz的Markdown库2</a></h4><h4 id="参考式-2-must-not-set-within-gt-gt-gt"><a href="#参考式-2-must-not-set-within-gt-gt-gt" class="headerlink" title="参考式 2 must not set within &gt;&gt;&gt;"></a>参考式 <a href="https:://github.com/younghz/Markdown" title="Markdown" target="_blank" rel="external">2</a> must not set within &gt;&gt;&gt;</h4><p>注意：上述的<a href="http://latex.codecogs.com/gif.latex?\prod%20\(n_{i}\)+1" target="_blank" rel="external">1</a>:https:://github.com/younghz/Markdown “Markdown”不出现在区块中。</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<h3 id="简书"><a href="#简书" class="headerlink" title="简书"></a><strong><a href="http://lixueping.win" target="_blank" rel="external">简书</a></strong></h3></blockquote>
-<h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><p><img src="http://ww4.sinaimg.cn/bmiddle/aa397b7fjw1dzplsgpdw5j.jpg" alt=""></p>
-<blockquote>
-<p>添加图片的形式和链接相似，只需在链接的基础上前方加一个！。</p>
-</blockquote>
-</blockquote>
-<hr>
-<p>#引用</p>
-<blockquote>
-<p>一盏灯， 一片昏黄； 一简书， 一杯淡茶。 守着那一份淡定， 品读属于自己的寂寞。 保持淡定， 才能欣赏到最美丽的风景！ 保持淡定， 人生从此不再寂寞。</p>
-<p>锄禾日当午<br>汗滴禾下土<br>谁之盘中餐<br>粒粒皆辛苦</p>
-</blockquote>
-<p>#粗体和斜体</p>
-<blockquote>
-<p><em>一盏灯</em>， 一片昏黄；<strong>一简书</strong>， 一杯淡茶。 守着那一份淡定， 品读属于自己的寂寞。 保持淡定， 才能欣赏到最美丽的风景！ 保持淡定， 人生从此不再寂寞。</p>
-</blockquote>
-<p>#表格</p>
-<table>
-<thead>
-<tr>
-<th>Tables</th>
-<th style="text-align:center">Are</th>
-<th style="text-align:right">Cool</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>col 3 is</td>
-<td style="text-align:center">right-aligned</td>
-<td style="text-align:right">$1600</td>
-</tr>
-<tr>
-<td>col 2 is</td>
-<td style="text-align:center">centered</td>
-<td style="text-align:right">$12</td>
-</tr>
-<tr>
-<td>zebra stripes</td>
-<td style="text-align:center">are neat</td>
-<td style="text-align:right">$1</td>
-</tr>
-</tbody>
-</table>
-<p>##相关代码：</p>
-<table>
-<thead>
-<tr>
-<th>dog</th>
-<th>bird</th>
-<th>cat</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>foo</td>
-<td>foo</td>
-<td>foo</td>
-</tr>
-<tr>
-<td>bar</td>
-<td>bar</td>
-<td>bar</td>
-</tr>
-<tr>
-<td>baz</td>
-<td>baz</td>
-<td>baz</td>
-</tr>
-</tbody>
-</table>
-<p>#显示链接中带括号的图片</p>
-<p><img src="http://latex.codecogs.com/gif.latex?\prod%20\(n_{i}\)+1" alt=""></p>
-<h1 id="fengexian"><a href="#fengexian" class="headerlink" title="fengexian"></a>fengexian</h1><blockquote>
-<p>分割线最常使用就是三个或以上*，还可以使用-和_。</p>
-<hr>
-</blockquote>
-<h1 id="反斜杠"><a href="#反斜杠" class="headerlink" title="反斜杠\"></a>反斜杠\</h1><blockquote>
-<p>相当于反转义作用。使符号成为普通符号。</p>
-<h6 id="粗体"><a href="#粗体" class="headerlink" title="> [] *粗体*"></a>> [] *粗体*</h6></blockquote>
-<h1 id="符号’’"><a href="#符号’’" class="headerlink" title="符号’’"></a>符号’’</h1><blockquote>
-<h3 id="起到标记作用。如："><a href="#起到标记作用。如：" class="headerlink" title="起到标记作用。如："></a>起到标记作用。如：</h3><h3 id="ctrl-a"><a href="#ctrl-a" class="headerlink" title="ctrl+a"></a>ctrl+a</h3><h6 id="cat-etc-message-grep-v-grep-grep-log-awk-‘-print-1-2-3-100-’-find-name-gogogo-mtime-6-type-d-exec-rm-f"><a href="#cat-etc-message-grep-v-grep-grep-log-awk-‘-print-1-2-3-100-’-find-name-gogogo-mtime-6-type-d-exec-rm-f" class="headerlink" title="cat /etc/message|grep -v grep|grep log|awk ‘{print $1,$2,$3/100}’|find / -name gogogo -mtime +6 -type d -exec rm -f {} \;"></a>cat /etc/message|grep -v grep|grep log|awk ‘{print $1,$2,$3/100}’|find / -name gogogo -mtime +6 -type d -exec rm -f {} \;</h6></blockquote>
-<p>Chrome下的stackedit插件可以离线使用，很爽。也不用担心平台受限。 </p>
-<p>在线的dillinger.io算是评价好的了，可是不能离线使用。</p>
-<p>Windowns下的MarkdownPad也用过，不过免费版的体验不是很好。</p>
-<p>Mac下的Mou是国人贡献的，口碑很好。推荐。</p>
-<p>Linux下的ReText不错。</p>
-<h1 id="详细语法"><a href="#详细语法" class="headerlink" title="详细语法"></a>详细语法</h1><p><a href="http://wowubuntu.com/markdown/" target="_blank" rel="external">『Markdown 语法说明』</a></p>
-<h1 id="unonline-editor"><a href="#unonline-editor" class="headerlink" title="unonline editor"></a>unonline editor</h1><h2 id="chormeEditor"><a href="#chormeEditor" class="headerlink" title="chormeEditor"></a><a href="https://stackedit.io/editor" target="_blank" rel="external">chormeEditor</a></h2><h1 id="Content"><a href="#Content" class="headerlink" title="Content"></a>Content</h1><h3 id="Table-of-contents"><a href="#Table-of-contents" class="headerlink" title="Table of contents"></a>Table of contents</h3><p>You can insert a table of contents using the marker [TOC]:</p>
-<p>[TOC]</p>
-<blockquote>
-<p><strong>Tip:</strong> To make sure mathematical expressions are rendered properly on your website, include <strong>MathJax</strong> into your template:</p>
-</blockquote>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 
-
-<blockquote>
-<p><strong>Note:</strong> You can find more information about <strong>LaTeX</strong> mathematical expressions [here][4].</p>
-</blockquote>
-<p>sequence<br>Alice-&gt;Bob: Hello Bob, how are you?<br>Note right of Bob: Bob thinks<br>Bob–&gt;Alice: I am good thanks!</p>
-<h1 id="其它："><a href="#其它：" class="headerlink" title="其它："></a>其它：</h1><p>列表的使用(非traditonal markdown)：</p>
-<p>用|表示表格纵向边界，表头和表内容用-隔开，并可用:进行对齐设置，两边都有:则表示居中，若不加:则默认左对齐。<br>关于其它扩展语法可参见具体工具的使用说明。</p>
-<table>
-<thead>
-<tr>
-<th>代码库</th>
-<th style="text-align:center">链接</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>MarkDown</td>
-<td style="text-align:center"><a href="https://github.com/younghz/Markdown" target="_blank" rel="external">https://github.com/younghz/Markdown</a></td>
-</tr>
-<tr>
-<td>moos-young</td>
-<td style="text-align:center"><a href="https://github.com/younghz/moos-young" target="_blank" rel="external">https://github.com/younghz/moos-young</a></td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h1 id="GOOD-STUDY-SITE"><a href="#GOOD-STUDY-SITE" class="headerlink" title="GOOD STUDY SITE"></a>GOOD STUDY SITE</h1><h3 id="搭建一个免费的，无限流量的Blog—-github-Pages和Jekyll入门"><a href="#搭建一个免费的，无限流量的Blog—-github-Pages和Jekyll入门" class="headerlink" title="搭建一个免费的，无限流量的Blog—-github Pages和Jekyll入门"></a><a href="http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html" target="_blank" rel="external">搭建一个免费的，无限流量的Blog—-github Pages和Jekyll入门</a></h3><h3 id="阮一峰的网络日志"><a href="#阮一峰的网络日志" class="headerlink" title="阮一峰的网络日志"></a><a href="http://www.ruanyifeng.com/blog/" target="_blank" rel="external">阮一峰的网络日志</a></h3><h3 id="My-Blog"><a href="#My-Blog" class="headerlink" title="My Blog"></a><a href="http://www.lixueping.win/jekyll_demo" target="_blank" rel="external">My Blog</a></h3><h3 id="数据库的最简单实现"><a href="#数据库的最简单实现" class="headerlink" title="数据库的最简单实现 "></a><a href="http://url.cn/jDncwD" target="_blank" rel="external">数据库的最简单实现 </a></h3><h3 id="GitHub-Jekyll"><a href="#GitHub-Jekyll" class="headerlink" title="GitHub + Jekyll"></a><a href="http://blog.csdn.net/on_1y/article/details/19259435" target="_blank" rel="external">GitHub + Jekyll</a></h3><h3 id="为-Jekyll-添加多说评论系统"><a href="#为-Jekyll-添加多说评论系统" class="headerlink" title="为 Jekyll 添加多说评论系统"></a><a href="http://havee.me/internet/2013-07/add-duoshuo-commemt-system-into-jekyll.html" target="_blank" rel="external">为 Jekyll 添加多说评论系统</a></h3>
       
     </div>
 
@@ -565,7 +399,7 @@ Cleari">
       
         <div class="post-tags">
           
-            <a href="/tags/markdown/" rel="tag">#markdown</a>
+            <a href="/tags/celery/" rel="tag">#celery</a>
           
         </div>
       
@@ -574,17 +408,13 @@ Cleari">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/06/2014-09-20-java-concurrency/" rel="next" title="Java 中的并发">
-                <i class="fa fa-chevron-left"></i> Java 中的并发
+              <a href="/2016/04/07/2016-04-07-gitlab的Webhooks网站自动化部署/" rel="next" title="GitLab的Webhooks自动化部署">
+                <i class="fa fa-chevron-left"></i> GitLab的Webhooks自动化部署
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/06/2016-01-27-准备工作/" rel="prev" title="博客记录什么 写点什么">
-                博客记录什么 写点什么 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -599,10 +429,10 @@ Cleari">
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/04/06/2016-01-27-markdown/"
-     data-title="Markdown"
+        <div class="ds-share flat" data-thread-key="2016/04/07/2016-04-07-Celery介绍/"
+     data-title="Celery介绍"
      data-content=""
-     data-url="http://www.lflxp.cn/2016/04/06/2016-01-27-markdown/">
+     data-url="http://www.lflxp.cn/2016/04/07/2016-04-07-Celery介绍/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -632,8 +462,8 @@ Cleari">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/06/2016-01-27-markdown/"
-           data-title="Markdown" data-url="http://www.lflxp.cn/2016/04/06/2016-01-27-markdown/">
+      <div class="ds-thread" data-thread-key="2016/04/07/2016-04-07-Celery介绍/"
+           data-title="Celery介绍" data-url="http://www.lflxp.cn/2016/04/07/2016-04-07-Celery介绍/">
       </div>
     
   </div>
@@ -991,7 +821,7 @@ Cleari">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Markdown语法"><span class="nav-number">1.</span> <span class="nav-text">Markdown语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#标题-Setting"><span class="nav-number">2.</span> <span class="nav-text">标题  Setting</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Note"><span class="nav-number">2.1.</span> <span class="nav-text">Note:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一级标题"><span class="nav-number">3.</span> <span class="nav-text">一级标题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二级标题"><span class="nav-number">3.1.</span> <span class="nav-text">二级标题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三级标题"><span class="nav-number">3.1.1.</span> <span class="nav-text">三级标题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#四级标题"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">四级标题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#五级标题"><span class="nav-number">3.1.1.1.1.</span> <span class="nav-text">五级标题</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#列表"><span class="nav-number">4.</span> <span class="nav-text">列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#无序列表"><span class="nav-number">5.</span> <span class="nav-text">无序列表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#有序列表"><span class="nav-number">5.1.</span> <span class="nav-text">有序列表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#——————————"><span class="nav-number">6.</span> <span class="nav-text">——————————</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码区块的建立是在每行加上4个空格或者一个制表符（如同写代码一样）。如普通段落："><span class="nav-number">6.1.</span> <span class="nav-text">代码区块的建立是在每行加上4个空格或者一个制表符（如同写代码一样）。如普通段落：*</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链接和图片"><span class="nav-number">7.</span> <span class="nav-text">链接和图片</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#链接"><span class="nav-number">7.1.</span> <span class="nav-text">链接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#链接可以由两种形式生成：行内式和参考式。"><span class="nav-number">7.1.1.</span> <span class="nav-text">链接可以由两种形式生成：行内式和参考式。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#行内式："><span class="nav-number">7.1.1.1.</span> <span class="nav-text">行内式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#younghz的Markdown库。"><span class="nav-number">7.1.1.2.</span> <span class="nav-text">younghz的Markdown库。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考式："><span class="nav-number">7.1.1.3.</span> <span class="nav-text">参考式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#younghz的Markdown库1"><span class="nav-number">7.1.1.4.</span> <span class="nav-text">younghz的Markdown库1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#younghz的Markdown库2"><span class="nav-number">7.1.1.5.</span> <span class="nav-text">younghz的Markdown库2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考式-2-must-not-set-within-gt-gt-gt"><span class="nav-number">7.1.1.6.</span> <span class="nav-text">参考式 2 must not set within >>></span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简书"><span class="nav-number">7.1.2.</span> <span class="nav-text">简书</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片"><span class="nav-number">7.2.</span> <span class="nav-text">图片</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fengexian"><span class="nav-number">8.</span> <span class="nav-text">fengexian</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反斜杠"><span class="nav-number">9.</span> <span class="nav-text">反斜杠\</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#粗体"><span class="nav-number">9.0.0.0.0.1.</span> <span class="nav-text">> [] *粗体*</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#符号’’"><span class="nav-number">10.</span> <span class="nav-text">符号’’</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#起到标记作用。如："><span class="nav-number">10.0.1.</span> <span class="nav-text">起到标记作用。如：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ctrl-a"><span class="nav-number">10.0.2.</span> <span class="nav-text">ctrl+a</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#cat-etc-message-grep-v-grep-grep-log-awk-‘-print-1-2-3-100-’-find-name-gogogo-mtime-6-type-d-exec-rm-f"><span class="nav-number">10.0.2.0.0.1.</span> <span class="nav-text">cat /etc/message|grep -v grep|grep log|awk ‘{print $1,$2,$3/100}’|find / -name gogogo -mtime +6 -type d -exec rm -f {} \;</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#详细语法"><span class="nav-number">11.</span> <span class="nav-text">详细语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#unonline-editor"><span class="nav-number">12.</span> <span class="nav-text">unonline editor</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#chormeEditor"><span class="nav-number">12.1.</span> <span class="nav-text">chormeEditor</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Content"><span class="nav-number">13.</span> <span class="nav-text">Content</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Table-of-contents"><span class="nav-number">13.0.1.</span> <span class="nav-text">Table of contents</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其它："><span class="nav-number">14.</span> <span class="nav-text">其它：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GOOD-STUDY-SITE"><span class="nav-number">15.</span> <span class="nav-text">GOOD STUDY SITE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建一个免费的，无限流量的Blog—-github-Pages和Jekyll入门"><span class="nav-number">15.0.1.</span> <span class="nav-text">搭建一个免费的，无限流量的Blog—-github Pages和Jekyll入门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阮一峰的网络日志"><span class="nav-number">15.0.2.</span> <span class="nav-text">阮一峰的网络日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#My-Blog"><span class="nav-number">15.0.3.</span> <span class="nav-text">My Blog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库的最简单实现"><span class="nav-number">15.0.4.</span> <span class="nav-text">数据库的最简单实现 </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub-Jekyll"><span class="nav-number">15.0.5.</span> <span class="nav-text">GitHub + Jekyll</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为-Jekyll-添加多说评论系统"><span class="nav-number">15.0.6.</span> <span class="nav-text">为 Jekyll 添加多说评论系统</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Celery"><span class="nav-number">1.</span> <span class="nav-text">什么是Celery</span></a></li></ol></div>
             
           </div>
         </section>

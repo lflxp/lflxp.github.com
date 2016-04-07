@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.lflxp.cn/"/>
-  <updated>2016-04-07T05:47:21.616Z</updated>
+  <updated>2016-04-07T06:04:19.868Z</updated>
   <id>http://www.lflxp.cn/</id>
   
   <author>
@@ -14,6 +14,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Celery介绍</title>
+    <link href="http://www.lflxp.cn/2016/04/07/2016-04-07-Celery%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://www.lflxp.cn/2016/04/07/2016-04-07-Celery介绍/</id>
+    <published>2016-04-07T06:00:22.152Z</published>
+    <updated>2016-04-07T06:04:19.868Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;什么是Celery&quot;&gt;&lt;a href=&quot;#什么是Celery&quot; class=&quot;headerlink&quot; title=&quot;什么是Celery&quot;&gt;&lt;/a&gt;什么是Celery&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;在运营系统中经常用到异步方式来处理我们的任务，比如将业务上线流程串成任务再写入队列，通过后台作业节点去调度执行。比较典型的案例为腾讯的蓝鲸、织云、云智慧等平台。本译文结合Django+Celery+Redis实现一个定期从Flickr 获取图片并展示的简单案例，方便大家理解实现异步对列任务的过程。&lt;br&gt;刚接触django的时候，我经历过的最让人沮丧的事情是需要定期运行一段代码。我写了一个需要每天上午12点执行一个动作的不错的函数。很简单是不是？错了。事实证明，这对我来说是一个巨大的困难点，因为，那时我使用Cpane类型的虚拟主机管理系统，它能专门提供一个很友好，很方便的图形用户界面来设置cron作业。&lt;br&gt;经过反复研究，我发现了一个很好的解决方案 - Celery，一个用于在后台运行任务的强大的异步作业队列。但是，这也导致了其它的问题，因为我无法找到一系列简单的指令将celery集成到Django项目中。&lt;br&gt;当然，我最终还是设法成功搞定了它 - 这正是本文将介绍的内容：如何将celery集成到一个Django项目，创建周期性任务。&lt;br&gt;该项目利用Python3.4，Django的1.8.2，celery3.1.18和Redis3.0.2.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Celery是一个异步任务队列/基于分布式消息传递的作业队列。它侧重于实时操作，但对调度的支持也很好。”本文，我们将重点讲解周期性执行任务的调度特点。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;为什么这一点有用呢？&lt;blockquote&gt;
+&lt;p&gt;回想一下你不得不在将来运行某一特定任务的经历。也许你需要每隔一小时访问一个API。或者，也许你需要在这一天结束时发送一批电子邮件。不论任务大小，Celery都可以使得调度周期性任务变的很容易。&lt;br&gt;你永远不希望终端用户等待那些不必要的页面加载或动作执行完成。如果你的应用程序工作流的一部分是一个需要很长时间的程序，当资源可用时，你就可以使用Celery在后台执行这段程序，从而使你的应用程序可以继续响应客户端的请求。这样可以使任务在应用程序的环境之外运行。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;什么是Celery&quot;&gt;&lt;a href=&quot;#什么是Celery&quot; class=&quot;headerlink&quot; title=&quot;什么是Celery&quot;&gt;&lt;/a&gt;什么是Celery&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;在运营系统中经常用到异步方式来处理我们的任务，比如将业务上
+    
+    </summary>
+    
+      <category term="celery" scheme="http://www.lflxp.cn/categories/celery/"/>
+    
+    
+      <category term="celery" scheme="http://www.lflxp.cn/tags/celery/"/>
+    
+  </entry>
   
   <entry>
     <title>GitLab的Webhooks自动化部署</title>
@@ -1339,27 +1372,6 @@
     
     
       <category term="django" scheme="http://www.lflxp.cn/tags/django/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>bootstrap-table使用</title>
-    <link href="http://www.lflxp.cn/2016/04/06/2016-02-24-bootstrap-table%E4%BD%BF%E7%94%A8/"/>
-    <id>http://www.lflxp.cn/2016/04/06/2016-02-24-bootstrap-table使用/</id>
-    <published>2016-04-06T10:31:45.161Z</published>
-    <updated>2016-04-06T10:31:33.774Z</updated>
-    
-    <content type="html">&lt;h1 id=&quot;bootstrap-table使用&quot;&gt;&lt;a href=&quot;#bootstrap-table使用&quot; class=&quot;headerlink&quot; title=&quot;bootstrap-table使用&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://blog.163.com/wp_2002wp/blog/static/31472252201511142205327/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;bootstrap-table使用&lt;/a&gt;&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;table id=&amp;quot;table&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-toggle=&amp;quot;table&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-striped =&amp;quot;true&amp;quot;  --条纹&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-pagination =&amp;quot;true&amp;quot; --分页&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-side-pagination = &amp;quot;server&amp;quot; --服务器端分页 (&amp;apos;client&amp;apos; 客户端)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-show-header =&amp;quot;true&amp;quot; --显示表头&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-show-footer = &amp;quot;false&amp;quot; --显示表尾部&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-search = &amp;quot;false&amp;quot; --工具栏 查询框&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-strict-search = &amp;quot;false&amp;quot; --精确查询&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-search-text = &amp;quot;&amp;quot; --查询框初始值&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-search-time-out = &amp;quot;500&amp;quot; --查询timeout时间&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-trim-on-search = &amp;quot;true&amp;quot; --去掉查询参数空格&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-show-columns =&amp;quot;true&amp;quot; --工具栏 显示表头信息 可以调整显示行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-minimum-count-columns = &amp;quot;1&amp;quot; -- data-show-columns 选项最小显示1列&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-show-refresh = &amp;quot;true&amp;quot; --工具栏 显示刷新按钮&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-show-toggle =&amp;quot;true&amp;quot; --工具栏  转换表格为列表显示&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-card-view = &amp;quot;false&amp;quot; --显示为列表&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-smart-display =&amp;quot;false&amp;quot; --显示分页或列表&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-query-params-type = &amp;quot;&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-query-params = &amp;quot;queryParams&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-page-size = &amp;quot;10&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-page-number = &amp;quot;1&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-page-list = &amp;quot;[10, 25, 50, 100, 200]&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-response-handler = &amp;quot;responseHandler&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   data-url=&amp;quot;$&amp;#123;syspath&amp;#125;/sys/q/list&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/table&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;function responseHandler(res) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if(res.total &amp;gt; 0) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	 return &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	    &amp;quot;rows&amp;quot;: res.rows,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	    &amp;quot;total&amp;quot;: res.total&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	 &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125; else &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	 return &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	    &amp;quot;rows&amp;quot;: [],&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	    &amp;quot;total&amp;quot;: 0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	 &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;function queryParams(params) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       pageSize: params.pageSize,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       pageNumber: params.pageNumber,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       xx: 自定义控件.val()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;bootstrap-table使用&quot;&gt;&lt;a href=&quot;#bootstrap-table使用&quot; class=&quot;headerlink&quot; title=&quot;bootstrap-table使用&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://blog.163.com/wp_200
-    
-    </summary>
-    
-      <category term="bootstrap" scheme="http://www.lflxp.cn/categories/bootstrap/"/>
-    
     
   </entry>
   
