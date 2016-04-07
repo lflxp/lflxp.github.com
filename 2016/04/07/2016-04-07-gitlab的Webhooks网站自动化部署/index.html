@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="django," />
+  <meta name="keywords" content="gitlab," />
 
 
 
@@ -59,28 +59,20 @@
 
 
 
-<meta name="description" content="实现Django的全文检索功能（一）：选择Whoosh全文检索引擎Django没有内置全文检索功能，这方面的资料也很少。
-有搜到两篇,一篇是使用在django应用上使用sphinx全文搜索
-还有一篇是使用Whoosh的，看这里
-其中whoosh是原生唯一的python写的全文搜索引擎，虽然有说whoosh性能比不上sphinx,xapian等。
-不过whoosh本身很小，安装后才2.61M，非常容">
+<meta name="description" content="使用 GitHub / GitLab 的 Webhooks 进行网站自动化部署1老早就想写这个话题了，今天正好有机会研究了一下 git 的自动化部署。最终做到的效果就是，每当有新的 commit push 到 master 分支的时候，就自动在测试/生产服务器上进行 git pull 拉取最新的代码，免去了程序猿兼职运维 ssh 上去拉代码部署的重复性工作。我们也要 Agile developme">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Django全文搜索功能一">
-<meta property="og:url" content="http://www.lflxp.cn/2016/04/06/2016-02-04-Django全文搜索功能一/index.html">
+<meta property="og:title" content="GitLab的Webhooks自动化部署">
+<meta property="og:url" content="http://www.lflxp.cn/2016/04/07/2016-04-07-gitlab的Webhooks网站自动化部署/index.html">
 <meta property="og:site_name" content="笑傲江湖">
-<meta property="og:description" content="实现Django的全文检索功能（一）：选择Whoosh全文检索引擎Django没有内置全文检索功能，这方面的资料也很少。
-有搜到两篇,一篇是使用在django应用上使用sphinx全文搜索
-还有一篇是使用Whoosh的，看这里
-其中whoosh是原生唯一的python写的全文搜索引擎，虽然有说whoosh性能比不上sphinx,xapian等。
-不过whoosh本身很小，安装后才2.61M，非常容">
-<meta property="og:updated_time" content="2016-04-06T11:22:50.993Z">
+<meta property="og:description" content="使用 GitHub / GitLab 的 Webhooks 进行网站自动化部署1老早就想写这个话题了，今天正好有机会研究了一下 git 的自动化部署。最终做到的效果就是，每当有新的 commit push 到 master 分支的时候，就自动在测试/生产服务器上进行 git pull 拉取最新的代码，免去了程序猿兼职运维 ssh 上去拉代码部署的重复性工作。我们也要 Agile developme">
+<meta property="og:image" content="http://www.lovelucy.info/wordpress/wp-content/uploads/2015/01/github-webhooks-900x589.jpg">
+<meta property="og:image" content="http://www.lovelucy.info/wordpress/wp-content/uploads/2015/01/gitlab-webhooks-900x347.jpg">
+<meta property="og:image" content="http://www.lovelucy.info/wordpress/wp-content/uploads/2015/01/github-service.jpg">
+<meta property="og:updated_time" content="2016-04-07T05:47:21.616Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Django全文搜索功能一">
-<meta name="twitter:description" content="实现Django的全文检索功能（一）：选择Whoosh全文检索引擎Django没有内置全文检索功能，这方面的资料也很少。
-有搜到两篇,一篇是使用在django应用上使用sphinx全文搜索
-还有一篇是使用Whoosh的，看这里
-其中whoosh是原生唯一的python写的全文搜索引擎，虽然有说whoosh性能比不上sphinx,xapian等。
-不过whoosh本身很小，安装后才2.61M，非常容">
+<meta name="twitter:title" content="GitLab的Webhooks自动化部署">
+<meta name="twitter:description" content="使用 GitHub / GitLab 的 Webhooks 进行网站自动化部署1老早就想写这个话题了，今天正好有机会研究了一下 git 的自动化部署。最终做到的效果就是，每当有新的 commit push 到 master 分支的时候，就自动在测试/生产服务器上进行 git pull 拉取最新的代码，免去了程序猿兼职运维 ssh 上去拉代码部署的重复性工作。我们也要 Agile developme">
+<meta name="twitter:image" content="http://www.lovelucy.info/wordpress/wp-content/uploads/2015/01/github-webhooks-900x589.jpg">
 
 
 
@@ -98,7 +90,7 @@
   };
 </script>
 
-  <title> Django全文搜索功能一 | 笑傲江湖 </title>
+  <title> GitLab的Webhooks自动化部署 | 笑傲江湖 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -298,7 +290,7 @@
             
             
               
-                Django全文搜索功能一
+                GitLab的Webhooks自动化部署
               
             
           </h1>
@@ -310,8 +302,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-06T18:31:45+08:00" content="2016-04-06">
-              2016-04-06
+            <time itemprop="dateCreated" datetime="2016-04-07T13:41:36+08:00" content="2016-04-07">
+              2016-04-07
             </time>
           </span>
 
@@ -324,8 +316,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Django-book-2-0/" itemprop="url" rel="index">
-                    <span itemprop="name">Django book 2.0</span>
+                  <a href="/categories/gitlab/" itemprop="url" rel="index">
+                    <span itemprop="name">gitlab</span>
                   </a>
                 </span>
 
@@ -340,8 +332,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/06/2016-02-04-Django全文搜索功能一/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/06/2016-02-04-Django全文搜索功能一/" itemprop="commentsCount"></span>
+                <a href="/2016/04/07/2016-04-07-gitlab的Webhooks网站自动化部署/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/07/2016-04-07-gitlab的Webhooks网站自动化部署/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -363,60 +355,22 @@
       
 
       
-        <h3 id="实现Django的全文检索功能（一）：选择Whoosh全文检索引擎"><a href="#实现Django的全文检索功能（一）：选择Whoosh全文检索引擎" class="headerlink" title="实现Django的全文检索功能（一）：选择Whoosh全文检索引擎"></a><a href="http://blog.csdn.net/wenxuansoft/article/details/8169842" target="_blank" rel="external">实现Django的全文检索功能（一）：选择Whoosh全文检索引擎</a></h3><p>Django没有内置全文检索功能，这方面的资料也很少。</p>
-<p>有搜到两篇,一篇是使用<br><a href="http://fastfood.sinaapp.com/?p=772" target="_blank" rel="external">在django应用上使用sphinx全文搜索</a></p>
-<p>还有一篇是使用Whoosh的，<a href="http://iteye.com/topic/583603" target="_blank" rel="external">看这里</a></p>
-<p>其中whoosh是原生唯一的python写的全文搜索引擎，虽然有说whoosh性能比不上sphinx,xapian等。</p>
-<p>不过whoosh本身很小，安装后才2.61M，非常容易集成到django/python里面，而我们的需求又不大</p>
-<p>一般小站完全够用了，因此决定使用whoosh来进行全文检索。</p>
-<p>安装whoosh非常简单：</p>
-<pre><code>pip install whoosh 
-</code></pre><p>搞定！！</p>
-<p>whoosh国内搜索到一段代码，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[python] view plain copy</span><br><span class="line"></span><br><span class="line">    #一个完整的演示  </span><br><span class="line">    #!/usr/bin/env python  </span><br><span class="line">    # -*- coding: UTF-8 -*-  </span><br><span class="line">    from whoosh.index import create_in  </span><br><span class="line">    from whoosh.fields import *  </span><br><span class="line">    from whoosh.analysis import RegexAnalyzer  </span><br><span class="line">    analyzer = RegexAnalyzer(ur”([\u4e00-\u9fa5])|(\w+(\.?\w+)*)”)  </span><br><span class="line">    schema = Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT(stored=True, analyzer=analyzer))  </span><br><span class="line">    ix = create_in(“indexdir”, schema)  </span><br><span class="line">    writer = ix.writer()  </span><br><span class="line">    writer.add_document(title=u”First document”, path=u”/a”,  </span><br><span class="line">    content=u”This is the first document we’ve added!”)  </span><br><span class="line">    writer.add_document(title=u”Second document”, path=u”/b”,  </span><br><span class="line">    content=u”The second one 你 中文测试中文 is even more interesting!”)  </span><br><span class="line">    writer.commit()  </span><br><span class="line">    searcher = ix.searcher()  </span><br><span class="line">    results = searcher.find(“content”, u”first”)  </span><br><span class="line">    print results[0]  </span><br><span class="line">    results = searcher.find(“content”, u”你”)  </span><br><span class="line">    print results[0]  </span><br><span class="line">    results = searcher.find(“content”, u”测试”)  </span><br><span class="line">    print results[0]</span><br></pre></td></tr></table></figure>
-<p>whoosh默认是基于正则表达式进行分词的，这对一般的英文来说不是问题。</p>
-<p>上述代码，将中文的的正则表达式加入到analyzer = RegexAnalyzer(ur”([\u4e00-\u9fa5])|(\w+(.?\w+)*)”)</p>
-<p>这样就可以支持对中文进行检索了。</p>
-<p>不过问题远不会就如何简单，上述的analyzer分析器（可以理解为分词器）是按单个中文进行分词的，因此效果很糟。</p>
-<p>举个例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[python] view plain copy</span><br><span class="line"></span><br><span class="line">    writer.add_document(title=u&quot;学习&quot;, path=u&quot;/a&quot;,content=u&quot;先生说我们都是好学生!&quot;)  </span><br><span class="line">    writer.commit()  </span><br><span class="line">    searcher = ix.searcher()  </span><br><span class="line">    results = searcher.find(&quot;content&quot;,u&quot;学生&quot;)  </span><br><span class="line">    for hit in results:  </span><br><span class="line">        print hit.highlights(&quot;content&quot;)</span><br></pre></td></tr></table></figure>
-<p> 结果输出为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">先&lt;b class=&quot;match term0&quot;&gt;生&lt;/b&gt;说我们都是好&lt;b class=&quot;match term0&quot;&gt;学&lt;/b&gt;&lt;b class=&quot;match term1&quot;&gt;生&lt;/b&gt;</span><br></pre></td></tr></table></figure>
-<p>原因就在于，RegexAnalyzer将学生按一个字一个字进行分词，然后再搜索，这样导到输出的结果也是单个的。</p>
-<p>很明显这样在中文搜索中效率很糟，很容易搜索出一些岐义的单词。</p>
-<p>因此，在全文搜索方面不可避免地要引入中文分词技术，简单地说中文分词就要说一个中文字子分割成一个个具有意义的字词。</p>
-<p>如上述</p>
-<p>[python] view plain copy</p>
-<pre><code>先生说我们都是好学生  
-</code></pre><p>可能会被分割成：</p>
-<p>[python] view plain copy</p>
-<pre><code>先生  说  我们  都是 好 学生  
-</code></pre><p>这样检索引擎就可以根据这些词来做索引，最后检索到的结果也就会相对准确得多了。</p>
-<p>显然要做好中文分词是做中文搜索引擎的一个最基础的工作，如果我们做中文全文检索</p>
-<p>那也必须有一个中文分词库。</p>
-<p>中文分词要达到智能、准确并不是一件容易的事，目前国内有不少商业的分词库。</p>
-<p>也有一些免费的中文分词库可以用，比如：结巴中文分词库号称要做最好的Python中文分词组件。</p>
-<p>好了，废话这么多，我们就引入中文分词技术，来改造上述的代码：</p>
-<p>首先我们要写一个analyzer分析器，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[python] view plain copy</span><br><span class="line"></span><br><span class="line">    from whoosh.analysis import Tokenizer,Token  </span><br><span class="line">    class ChineseTokenizer(Tokenizer):  </span><br><span class="line">        def __call__(self, value, positions=False, chars=False,  </span><br><span class="line">                     keeporiginal=False, removestops=True,  </span><br><span class="line">                     start_pos=0, start_char=0, mode=&apos;&apos;, **kwargs):  </span><br><span class="line">            assert isinstance(value, text_type), &quot;%r is not unicode&quot; % value  </span><br><span class="line">            t = Token(positions, chars, removestops=removestops, mode=mode,  </span><br><span class="line">                **kwargs)  </span><br><span class="line">            seglist=jieba.cut(value,cut_all=False)                       #使用结巴分词库进行分词  </span><br><span class="line">            for w in seglist:  </span><br><span class="line">                t.original = t.text = w  </span><br><span class="line">                t.boost = 1.0  </span><br><span class="line">                if positions:  </span><br><span class="line">                    t.pos=start_pos+value.find(w)  </span><br><span class="line">                if chars:  </span><br><span class="line">                    t.startchar=start_char+value.find(w)  </span><br><span class="line">                    t.endchar=start_char+value.find(w)+len(w)  </span><br><span class="line">                yield t                                               #通过生成器返回每个分词的结果token  </span><br><span class="line">      </span><br><span class="line">    def ChineseAnalyzer():  </span><br><span class="line">        return ChineseTokenizer()  </span><br><span class="line">      </span><br><span class="line">      </span><br><span class="line">    #重点在这里，将原先的RegexAnalyzer(ur”([\u4e00-\u9fa5])|(\w+(\.?\w+)*)”),改成这句，用中文分词器代替原先的正则表达式解释器。  </span><br><span class="line">    analyzer=ChineseAnalyzer()</span><br></pre></td></tr></table></figure>
-<p>上述代码，先写一个ChineseTokenizer，这就是用来进行分词的.</p>
-<p>最后的运行结果如下：</p>
-<pre><code>先生说我们都是好&lt;b class=&quot;match term0&quot;&gt;学生&lt;/b&gt;
-</code></pre><p>这样我们就基本达到了用whoosh进行中文索引和检索的要求了。</p>
-<p>最后，我不得不说，中文分词库的效果会决定检索的准确性，结巴中文分库在某些分词效果上</p>
-<p>还是存在不足的，在默认模式如下：</p>
-<p>[python] view plain copy</p>
-<pre><code>我们要树立科学发展观  
-</code></pre><p>分词结果是：</p>
-<p>[python] view plain copy</p>
-<pre><code>我们    要 树立  科学  发展观  
-</code></pre><p>这种情况下你去搜索“发展”，是搜索不到的。而在全模式下，分词结果是：</p>
-<p>[python] view plain copy</p>
-<pre><code>我  我们  们   要  树  树立  立  科  科学  科学发展  学  发  发展  发展观  展  观  
-</code></pre><p>这种结果又不是我们需要。如果你对检索结果很在意，可能还是要买商用的中文分词库了。</p>
-<p>那么，如何将whoosh集成到Django呢，推荐使用django-haystack，这一款同时支持whoosh,solr,Xapian,Elasticsearc四种全文检索引擎</p>
-<p>的第三方app，使用了非常友好地方式来为你的Django应用集成全文检索功能。</p>
-<p>下一篇介绍django-haystack+Whoosh在Django中的使用</p>
+        <h1 id="使用-GitHub-GitLab-的-Webhooks-进行网站自动化部署"><a href="#使用-GitHub-GitLab-的-Webhooks-进行网站自动化部署" class="headerlink" title="使用 GitHub / GitLab 的 Webhooks 进行网站自动化部署"></a><a href="http://www.lovelucy.info/auto-deploy-website-by-webhooks-of-github-and-gitlab.html" target="_blank" rel="external">使用 GitHub / GitLab 的 Webhooks 进行网站自动化部署</a></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">老早就想写这个话题了，今天正好有机会研究了一下 git 的自动化部署。最终做到的效果就是，每当有新的 commit push 到 master 分支的时候，就自动在测试/生产服务器上进行 git pull 拉取最新的代码，免去了程序猿兼职运维 ssh 上去拉代码部署的重复性工作。我们也要 Agile development 不是？什么敏捷开发啊，极限编程啊，快速迭代啊，持续集成啊，精益创业啊，口号怎么高端怎么来，最后就是写了个自动化脚本……</span><br></pre></td></tr></table></figure>
+<h2 id="一、自动化部署脚本"><a href="#一、自动化部署脚本" class="headerlink" title="一、自动化部署脚本"></a>一、自动化部署脚本</h2><p>首先要保证要部署的 Web 目录就是 git clone 下来的一个 repository。这样 rollback 也方便，直接 checkout 某一个历史版本就好。</p>
+<p>很简单地写了个 shell 脚本 deploy.sh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"> </span><br><span class="line">WEB_PATH=&apos;/var/www/dev.lovelucy.info&apos;</span><br><span class="line">WEB_USER=&apos;lovelucydev&apos;</span><br><span class="line">WEB_USERGROUP=&apos;lovelucydev&apos;</span><br><span class="line"> </span><br><span class="line">echo &quot;Start deployment&quot;</span><br><span class="line">cd $WEB_PATH</span><br><span class="line">echo &quot;pulling source code...&quot;</span><br><span class="line">git reset --hard origin/master</span><br><span class="line">git clean -f</span><br><span class="line">git pull</span><br><span class="line">git checkout master</span><br><span class="line">echo &quot;changing permissions...&quot;</span><br><span class="line">chown -R $WEB_USER:$WEB_USERGROUP $WEB_PATH</span><br><span class="line">echo &quot;Finished.&quot;</span><br></pre></td></tr></table></figure></p>
+<p>下面要做的就是每当有 push 的时候就自动调用这个脚本。</p>
+<hr>
+<h2 id="二、监听-Web-Hooks"><a href="#二、监听-Web-Hooks" class="headerlink" title="二、监听 Web Hooks"></a>二、监听 Web Hooks</h2><p>GitHub 和 GitLab 本身都支持 Webhooks 的设定<br><img src="http://www.lovelucy.info/wordpress/wp-content/uploads/2015/01/github-webhooks-900x589.jpg" alt=""><br><img src="http://www.lovelucy.info/wordpress/wp-content/uploads/2015/01/gitlab-webhooks-900x347.jpg" alt=""></p>
+<p>那个 Payload URL 上填上需要部署到的服务器的网址，比方说 <a href="http://dev.lovelucy.info/incoming。然后之后每次有" target="_blank" rel="external">http://dev.lovelucy.info/incoming。然后之后每次有</a> push 事件 GitHub 都会主动往这个地址发送一个 POST 请求，当然你也可以选择任何事件都发个 POST 通知你。GitHub 还有个 Secret 的设定，就是一个字符串，如果加上的话就在 POST 请求的 HTTP 头中会带一个 Hash 值做验证密文，证明这个 POST 真是来自 GitHub，不然任何人都往那个地址 POST 忽悠你你都不知道谁是谁对吧……</p>
+<p>然后我们就要写一个脚本在 <a href="http://dev.lovelucy.info/incoming" target="_blank" rel="external">http://dev.lovelucy.info/incoming</a> 这里接受 POST 请求了。因为本人机器上跑的是 node，俺就找了个 nodejs 的中间件 <a href="https://github.com/rvagg/github-webhook-handler" target="_blank" rel="external">github-webhook-handler</a> 。如果你要部署的是 PHP 网站，那你应该找一个世界上最好的语言 PHP 的版本，或者自己写一个，只需要接收 $_POST 嘛，好简单的，不多废话啦。么么哒 ( • ̀ω•́ )<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g github-webhook-handler</span><br></pre></td></tr></table></figure></p>
+<p>鉴于在天朝的服务器上 npm 拉 repo 比拉屎还难的状况，我们可以 选用 阿里的镜像，据说 10 分钟和官方同步一次。<em>(:3 」∠ )</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g cnpm --registry=http://r.cnpmjs.org</span><br><span class="line">$ cnpm install -g github-webhook-handler</span><br></pre></td></tr></table></figure></p>
+<p>好了，万事俱备，下面是 NodeJS 的监听程序 deploy.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">var http = require(&apos;http&apos;)</span><br><span class="line">var createHandler = require(&apos;github-webhook-handler&apos;)</span><br><span class="line">var handler = createHandler(&#123; path: &apos;/incoming&apos;, secret: &apos;myHashSecret&apos; &#125;) </span><br><span class="line">// 上面的 secret 保持和 GitHub 后台设置的一致</span><br><span class="line"> </span><br><span class="line">function run_cmd(cmd, args, callback) &#123;</span><br><span class="line">  var spawn = require(&apos;child_process&apos;).spawn;</span><br><span class="line">  var child = spawn(cmd, args);</span><br><span class="line">  var resp = &quot;&quot;;</span><br><span class="line"> </span><br><span class="line">  child.stdout.on(&apos;data&apos;, function(buffer) &#123; resp += buffer.toString(); &#125;);</span><br><span class="line">  child.stdout.on(&apos;end&apos;, function() &#123; callback (resp) &#125;);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">http.createServer(function (req, res) &#123;</span><br><span class="line">  handler(req, res, function (err) &#123;</span><br><span class="line">    res.statusCode = 404</span><br><span class="line">    res.end(&apos;no such location&apos;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;).listen(7777)</span><br><span class="line"> </span><br><span class="line">handler.on(&apos;error&apos;, function (err) &#123;</span><br><span class="line">  console.error(&apos;Error:&apos;, err.message)</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line">handler.on(&apos;push&apos;, function (event) &#123;</span><br><span class="line">  console.log(&apos;Received a push event for %s to %s&apos;,</span><br><span class="line">    event.payload.repository.name,</span><br><span class="line">    event.payload.ref);</span><br><span class="line">  run_cmd(&apos;sh&apos;, [&apos;./deploy-dev.sh&apos;], function(text)&#123; console.log(text) &#125;);</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line">/*</span><br><span class="line">handler.on(&apos;issues&apos;, function (event) &#123;</span><br><span class="line">  console.log(&apos;Received an issue event for % action=%s: #%d %s&apos;,</span><br><span class="line">    event.payload.repository.name,</span><br><span class="line">    event.payload.action,</span><br><span class="line">    event.payload.issue.number,</span><br><span class="line">    event.payload.issue.title)</span><br><span class="line">&#125;)</span><br><span class="line">*/</span><br></pre></td></tr></table></figure></p>
+<p>于是直接就可以跑起来了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nodejs deploy.js</span><br></pre></td></tr></table></figure></p>
+<p>当然为了防止 NodeJS 自己挂掉，我们可以启用进程管理服务 <a href="https://github.com/foreverjs/forever" target="_blank" rel="external">forever</a>，它类似 python 里面的 supervisor。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cnpm install -g forever</span><br><span class="line">$ forever start deploy.js</span><br></pre></td></tr></table></figure></p>
+<p>这样就算这段 NodeJS 代码某处出错挂了，它也会自动重新启动一个进程，保证服务仍可用。forever 的几个命令还是蛮简单的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ forever list</span><br><span class="line">$ forever stop 1</span><br><span class="line">$ forever restartall</span><br></pre></td></tr></table></figure></p>
+<p>上面的 NodeJS 将 Web 服务跑在了 7777 端口，我们可以用 Nginx 反向代理到 80 端口（可选）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name dev.lovelucy.info;</span><br><span class="line"></span><br><span class="line">    # ...</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        # ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location /incoming$ &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:7777;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="三、集成第三方-Service"><a href="#三、集成第三方-Service" class="headerlink" title="三、集成第三方 Service"></a>三、集成第三方 Service</h2><p>注意到 GitHub 项目后台还有个 Service 的 tab 没？<br><img src="http://www.lovelucy.info/wordpress/wp-content/uploads/2015/01/github-service.jpg" alt=""><br>这是 GitHub 官方集成的大量的第三方服务，有点类似 IFTTT 的节奏，能做的事情就很多了。比如我设定了如果有人 push 代码，就在我们 hipchat 内部聊天群里发一个通知；如果有人提 issue，就自动给他回一封 welcome 的邮件……</p>
 
       
     </div>
@@ -452,7 +406,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/django/" rel="tag">#django</a>
+            <a href="/tags/gitlab/" rel="tag">#gitlab</a>
           
         </div>
       
@@ -461,17 +415,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/06/2016-02-04-Django全文搜索功能三/" rel="next" title="Django全文搜索功能三">
-                <i class="fa fa-chevron-left"></i> Django全文搜索功能三
+              <a href="/2016/04/07/2016-04-07-gitlab配置使用/" rel="next" title="GitLab配置使用">
+                <i class="fa fa-chevron-left"></i> GitLab配置使用
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/06/2016-02-15-第7章 表单/" rel="prev" title="第7章 表单">
-                第7章 表单 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -486,10 +436,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/04/06/2016-02-04-Django全文搜索功能一/"
-     data-title="Django全文搜索功能一"
+        <div class="ds-share flat" data-thread-key="2016/04/07/2016-04-07-gitlab的Webhooks网站自动化部署/"
+     data-title="GitLab的Webhooks自动化部署"
      data-content=""
-     data-url="http://www.lflxp.cn/2016/04/06/2016-02-04-Django全文搜索功能一/">
+     data-url="http://www.lflxp.cn/2016/04/07/2016-04-07-gitlab的Webhooks网站自动化部署/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -519,8 +469,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/06/2016-02-04-Django全文搜索功能一/"
-           data-title="Django全文搜索功能一" data-url="http://www.lflxp.cn/2016/04/06/2016-02-04-Django全文搜索功能一/">
+      <div class="ds-thread" data-thread-key="2016/04/07/2016-04-07-gitlab的Webhooks网站自动化部署/"
+           data-title="GitLab的Webhooks自动化部署" data-url="http://www.lflxp.cn/2016/04/07/2016-04-07-gitlab的Webhooks网站自动化部署/">
       </div>
     
   </div>
@@ -878,7 +828,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现Django的全文检索功能（一）：选择Whoosh全文检索引擎"><span class="nav-number">1.</span> <span class="nav-text">实现Django的全文检索功能（一）：选择Whoosh全文检索引擎</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-GitHub-GitLab-的-Webhooks-进行网站自动化部署"><span class="nav-number">1.</span> <span class="nav-text">使用 GitHub / GitLab 的 Webhooks 进行网站自动化部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、自动化部署脚本"><span class="nav-number">1.1.</span> <span class="nav-text">一、自动化部署脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、监听-Web-Hooks"><span class="nav-number">1.2.</span> <span class="nav-text">二、监听 Web Hooks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、集成第三方-Service"><span class="nav-number">1.3.</span> <span class="nav-text">三、集成第三方 Service</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
