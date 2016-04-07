@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="django," />
+  <meta name="keywords" content="gitlab," />
 
 
 
@@ -59,22 +59,22 @@
 
 
 
-<meta name="description" content="实现Django的全文检索功能（三）：进一步学习Haystack 毫无疑问Django-haystack应该是Django集成全文检索引擎的最佳选择了，haystack提供了一套非常优雅灵活易用的API， 就像Django本身的ORM/QuerySet一样，使您的索引、搜索工作大大简化。
-Django-haystack的文档在这里，是2.0beta的，大家可以去啃一下。
-http://django">
+<meta name="description" content="GitLab部署和配置1转载自: http://zhaochj.blog.51cto.com/368705/1737738
+GitLab部署脚本1转载自: http://zhaochj.github.io/deploy-gitlab-use-shell/
+gitlab软件包安装和基础配置123456789101112131415161718192021222324252627282930gitla">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Django全文搜索功能三">
-<meta property="og:url" content="http://www.lflxp.cn/2016/04/06/2016-02-04-Django全文搜索功能三/index.html">
+<meta property="og:title" content="GitLab配置使用">
+<meta property="og:url" content="http://www.lflxp.cn/2016/04/07/2016-04-07-gitlab配置使用/index.html">
 <meta property="og:site_name" content="笑傲江湖">
-<meta property="og:description" content="实现Django的全文检索功能（三）：进一步学习Haystack 毫无疑问Django-haystack应该是Django集成全文检索引擎的最佳选择了，haystack提供了一套非常优雅灵活易用的API， 就像Django本身的ORM/QuerySet一样，使您的索引、搜索工作大大简化。
-Django-haystack的文档在这里，是2.0beta的，大家可以去啃一下。
-http://django">
-<meta property="og:updated_time" content="2016-04-06T11:22:54.415Z">
+<meta property="og:description" content="GitLab部署和配置1转载自: http://zhaochj.blog.51cto.com/368705/1737738
+GitLab部署脚本1转载自: http://zhaochj.github.io/deploy-gitlab-use-shell/
+gitlab软件包安装和基础配置123456789101112131415161718192021222324252627282930gitla">
+<meta property="og:updated_time" content="2016-04-07T04:43:13.173Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Django全文搜索功能三">
-<meta name="twitter:description" content="实现Django的全文检索功能（三）：进一步学习Haystack 毫无疑问Django-haystack应该是Django集成全文检索引擎的最佳选择了，haystack提供了一套非常优雅灵活易用的API， 就像Django本身的ORM/QuerySet一样，使您的索引、搜索工作大大简化。
-Django-haystack的文档在这里，是2.0beta的，大家可以去啃一下。
-http://django">
+<meta name="twitter:title" content="GitLab配置使用">
+<meta name="twitter:description" content="GitLab部署和配置1转载自: http://zhaochj.blog.51cto.com/368705/1737738
+GitLab部署脚本1转载自: http://zhaochj.github.io/deploy-gitlab-use-shell/
+gitlab软件包安装和基础配置123456789101112131415161718192021222324252627282930gitla">
 
 
 
@@ -92,7 +92,7 @@ http://django">
   };
 </script>
 
-  <title> Django全文搜索功能三 | 笑傲江湖 </title>
+  <title> GitLab配置使用 | 笑傲江湖 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -292,7 +292,7 @@ http://django">
             
             
               
-                Django全文搜索功能三
+                GitLab配置使用
               
             
           </h1>
@@ -304,8 +304,8 @@ http://django">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-06T18:31:45+08:00" content="2016-04-06">
-              2016-04-06
+            <time itemprop="dateCreated" datetime="2016-04-07T12:39:04+08:00" content="2016-04-07">
+              2016-04-07
             </time>
           </span>
 
@@ -318,8 +318,8 @@ http://django">
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Django-book-2-0/" itemprop="url" rel="index">
-                    <span itemprop="name">Django book 2.0</span>
+                  <a href="/categories/gitlab/" itemprop="url" rel="index">
+                    <span itemprop="name">gitlab</span>
                   </a>
                 </span>
 
@@ -334,8 +334,8 @@ http://django">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/06/2016-02-04-Django全文搜索功能三/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/06/2016-02-04-Django全文搜索功能三/" itemprop="commentsCount"></span>
+                <a href="/2016/04/07/2016-04-07-gitlab配置使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/07/2016-04-07-gitlab配置使用/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -357,51 +357,11 @@ http://django">
       
 
       
-        <h3 id="实现Django的全文检索功能（三）：进一步学习Haystack"><a href="#实现Django的全文检索功能（三）：进一步学习Haystack" class="headerlink" title="实现Django的全文检索功能（三）：进一步学习Haystack "></a><a href="http://blog.csdn.net/wenxuansoft/article/details/8172766" target="_blank" rel="external">实现Django的全文检索功能（三）：进一步学习Haystack </a></h3><p>毫无疑问Django-haystack应该是Django集成全文检索引擎的最佳选择了，haystack提供了一套非常优雅灵活易用的API， 就像Django本身的ORM/QuerySet一样，使您的索引、搜索工作大大简化。</p>
-<p>Django-haystack的文档在这里，是2.0beta的，大家可以去啃一下。</p>
-<p><a href="http://django-haystack.readthedocs.org/en/latest/toc.html" target="_blank" rel="external">http://django-haystack.readthedocs.org/en/latest/toc.html</a></p>
-<p>粗粗看了一下Django-haystack，大体有这样一些特性：</p>
-<p>1、提供SearchQuerySet对象</p>
-<p>这是一个类似Django本身的QuerySet的东东，使用上也是非常类似的，像这样：</p>
-<p>[python] view plain copy</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from haystack.query import SearchQuerySet  </span><br><span class="line">all_results = SearchQuerySet().all()  </span><br><span class="line">hello_results = SearchQuerySet().filter(content=&apos;hello&apos;)  </span><br><span class="line">hello_world_results = SearchQuerySet().filter(content=&apos;hello world&apos;)  </span><br><span class="line">unfriendly_results = SearchQuerySet().exclude(content=&apos;hello&apos;).filter(content=&apos;world&apos;)  </span><br><span class="line">recent_results = SearchQuerySet().order_by(&apos;-pub_date&apos;)[:5]</span><br></pre></td></tr></table></figure>
-<p>SearchQueryset也可以像QuerySet一样进行链式调用：</p>
-<p>from haystack.query import SQ</p>
-<h1 id="We-want-“title-Foo-AND-tags-bar-OR-tags-moof-”"><a href="#We-want-“title-Foo-AND-tags-bar-OR-tags-moof-”" class="headerlink" title="We want “title: Foo AND (tags:bar OR tags:moof)”"></a>We want “title: Foo AND (tags:bar OR tags:moof)”</h1><p>sqs = SearchQuerySet().filter(title=’Foo’).filter(SQ(tags=’bar’) | SQ(tags=’moof’))</p>
-<p>看到SQ对象，是不是有些眼熟，就像Django Q对象。</p>
-<p>基本上,Haystack努力降低您的学习成本，提供一个类似DJango的抽象接口层，并且支持多种检索引擎后端，所以，推荐大家使用.</p>
-<p>2、超简单的更新索引机制</p>
-<p>当您更新了Model后，你需要更新索引，一般情况下，可以选择update_index命令：</p>
-<p>[python] view plain copy</p>
-<pre><code>manage.py update_index  
-</code></pre><p>update_index提供了多个参数来控制您的索引更新策略，像：</p>
-<h1 id="Update-everything"><a href="#Update-everything" class="headerlink" title="Update everything."></a>Update everything.</h1><p>./manage.py update_index –settings=settings.prod</p>
-<h1 id="Update-everything-with-lots-of-information-about-what’s-going-on"><a href="#Update-everything-with-lots-of-information-about-what’s-going-on" class="headerlink" title="Update everything with lots of information about what’s going on."></a>Update everything with lots of information about what’s going on.</h1><p>./manage.py update_index –settings=settings.prod –verbosity=2</p>
-<p>不过，这些更新索引并不是自动执行的，你需要写自己的计划日程来更新索引。</p>
-<p>这样的设计应该是合理的，因此执行索引操作可能是耗时的，哪些数据需要更新索引应该由您来选择。</p>
-<p>如果只是这样，那还算不上超简单，最好是能自动进行更新索引。</p>
-<p>haystack为我们提供了一个自动更新的机制。</p>
-<p>在上一篇文中，我们提到，要对一个Model进行更新，需要创建一个search_indexes.py</p>
-<p>里面定义一个index类，像这样：</p>
-<p>[python] view plain copy</p>
-<pre><code>class BlogIndex(indexes.SearchIndex, indexes.Indexable):  
-    text = indexes.CharField(document=True, use_template=True)      
-</code></pre><p>如果您要实现在Model删除、更新、增加时能自动更新索引，那非常简单，只要将index.SearchIndex更换为index.RealTimeSearchIndex即可。像这样：</p>
-<p>[python] view plain copy</p>
-<pre><code>class BlogIndex(indexes.RealTimeSearchIndex, indexes.Indexable):  
-    text = indexes.CharField(document=True, use_template=True)      
-</code></pre><p>RealTimeSearchIndex实际上是在Django里面数据的post_save/post_delete信号里面注册了自动更新的方法，这样当你Model删除、更新、增加时就能自动更新索引。是不是超简单。</p>
-<p>需要注意的是，更新索引可能是耗时的，您需要评估自己应用是否适合应用这种自动索引机制。至少我认为像涉及大量用户的Web2.0应用可能是不合适的。</p>
-<p>但是如果是像政府网站、CMS之类的，我认为是非常合适的，毕竟发布新闻信息等量不会多。</p>
-<p>至此，我们就实现了索引的自动更新功能，整个网站的全文检索的功能已全部具备，剩下的就是进一步美化了。</p>
-<p>3、ModelSearchIndex进一步简化Model索引创建</p>
-<p>haystack提供了ModelSearchIndex类，用来进一步简化Index类的创建，像这样：</p>
-<h1 id="Blacklisted-Fields"><a href="#Blacklisted-Fields" class="headerlink" title="Blacklisted Fields"></a>Blacklisted Fields</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class LimitedNoteIndex(indexes.ModelSearchIndex, indexes.Indexable):</span><br><span class="line">    class Meta:</span><br><span class="line">        model = Note</span><br><span class="line">        excludes = [&apos;user&apos;]</span><br></pre></td></tr></table></figure>
-<h1 id="Whitelisted-Fields"><a href="#Whitelisted-Fields" class="headerlink" title="Whitelisted Fields"></a>Whitelisted Fields</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class NoteIndex(indexes.ModelSearchIndex, indexes.Indexable):</span><br><span class="line">    class Meta:</span><br><span class="line">        model = Note</span><br><span class="line">        fields = [&apos;user&apos;, &apos;pub_date&apos;]</span><br></pre></td></tr></table></figure>
-<p>呵呵，haystack将你写索引字段的权力都给剥夺了，甚至你只要指定一下Model就行，是不是有点像ModelAdmin.</p>
-<p>没错，haystack就是要最大限度减少您的工作量。</p>
-<p>稍后待续……..</p>
-
+        <h1 id="GitLab部署和配置"><a href="#GitLab部署和配置" class="headerlink" title="GitLab部署和配置"></a><a href="http://zhaochj.blog.51cto.com/368705/1737738" target="_blank" rel="external">GitLab部署和配置</a></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">转载自: http://zhaochj.blog.51cto.com/368705/1737738</span><br></pre></td></tr></table></figure>
+<h1 id="GitLab部署脚本"><a href="#GitLab部署脚本" class="headerlink" title="GitLab部署脚本"></a><a href="http://zhaochj.github.io/deploy-gitlab-use-shell/" target="_blank" rel="external">GitLab部署脚本</a></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">转载自: http://zhaochj.github.io/deploy-gitlab-use-shell/</span><br></pre></td></tr></table></figure>
+<h2 id="gitlab软件包安装和基础配置"><a href="#gitlab软件包安装和基础配置" class="headerlink" title="gitlab软件包安装和基础配置"></a>gitlab软件包安装和基础配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">gitlab@gitlab-01:~/tools$ cat install_config_gitlab.sh </span><br><span class="line">#!/bin/bash</span><br><span class="line">#Program: configure gitlab</span><br><span class="line">#Author: Neal</span><br><span class="line">#E_mail: 419775240@qq.com</span><br><span class="line">#Date: 2015-12-04</span><br><span class="line">#platform: Debian 8 x86_64</span><br><span class="line">#Version 1.0</span><br><span class="line"></span><br><span class="line"># 通用安装包到http://mirror.tuna.tsinghua.edu.cn/gitlab-ce/进行下载</span><br><span class="line">sudo dpkg -i gitlab-ce_8.2.1-ce.0_amd64.deb</span><br><span class="line"></span><br><span class="line"># 修改gitlab数据存放目录</span><br><span class="line">sudo vim /var/opt/gitlab/gitlab-shell/config.yml    # repos_path: &quot;/data/git-data/repositories&quot;</span><br><span class="line">sudo vim /var/opt/gitlab/gitlab-rails/etc/gitlab.yml</span><br><span class="line">#satellites:</span><br><span class="line">#     path: /data/git-data/gitlab-satellites</span><br><span class="line">#     ...</span><br><span class="line">#gitlab_shell:</span><br><span class="line">#     path: /opt/gitlab/embedded/service/gitlab-shell/</span><br><span class="line">#     repos_path: /data/git-data/repositories</span><br><span class="line"></span><br><span class="line"># 创建数据存放目录并修改权限</span><br><span class="line">sudo mkdir  -pv /data/git-data/gitlab-satellites</span><br><span class="line">sudo mkdir -pv /data/git-data/repositories</span><br><span class="line">sudo chown -R git.git /data/git-data/</span><br><span class="line">sudo chmod 2770 /data/git-data/repositories</span><br><span class="line"></span><br><span class="line"># restart gitlab service</span><br><span class="line">sudo gitlab-ctl restart</span><br></pre></td></tr></table></figure>
+<h2 id="启用https的安全访问："><a href="#启用https的安全访问：" class="headerlink" title="启用https的安全访问："></a>启用https的安全访问：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">gitlab@gitlab-01:~/tools$ cat open_gitlab_https.sh </span><br><span class="line">#!/bin/bash</span><br><span class="line">#Program: open gitbal https access</span><br><span class="line">#Author: Neal</span><br><span class="line">#E_mail: 419775240@qq.com</span><br><span class="line">#Date: 2015-12-04</span><br><span class="line">#platform: Debian 8 x86_64</span><br><span class="line">#Version 1.0</span><br><span class="line"></span><br><span class="line"># SUBJECT为CA服务的机构信息</span><br><span class="line">SUBJECT=&quot;/C=CN/ST=ChongQing/L=YuBei/O=SJKJ/OU=CA/CN=$DOMAIN&quot;</span><br><span class="line"># SUBJECT_GITLAB为gitlab主机的机构信息</span><br><span class="line">SUBJECT_GITLAB=&quot;/C=CN/ST=ChongQing/L=YuBei/O=SJKJ/OU=OP/CN=$DOMAIN_GITLAB&quot;</span><br><span class="line"></span><br><span class="line">#apt-get -y install openssl</span><br><span class="line">## 自建CA </span><br><span class="line">read -p &quot;Enter your CA domain [www.example.com]: &quot; DOMAIN</span><br><span class="line">sudo bash -c &apos;mkdir -pv /etc/ssl/demoCA/&#123;private,newcerts&#125; &gt; /dev/null&apos;</span><br><span class="line">cd /etc/ssl</span><br><span class="line"># 生成密钥对</span><br><span class="line">sudo bash -c &apos;(umask 077;openssl genrsa -out ./demoCA/private/cakey.pem 2048)&apos;</span><br><span class="line">#sudo bash -c &apos;ln -s /etc/ssl/demoCA/private/cakey.pem /etc/ssl/demoCA/cakey.pem&apos;</span><br><span class="line"># 生成自签证书</span><br><span class="line">#sudo bash -c &apos;openssl req -new -x509 -key ./demoCA/private/cakey.pem -out ./demoCA/cacert.pem -days 3650&apos;</span><br><span class="line">sudo bash -c &quot;openssl req -new -subj $SUBJECT -x509 -key ./demoCA/private/cakey.pem -out ./demoCA/cacert.pem -days 3650&quot;</span><br><span class="line">sudo touch ./demoCA/index.txt</span><br><span class="line">sudo bash -c &quot;echo 01 &gt; ./demoCA/serial&quot;</span><br><span class="line">echo -e &quot;\033[33mCertificate services is created...\033[0m&quot;</span><br><span class="line">##自建CA完成</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 为gitlab主机创建存放私钥和证书的目录，这是一个固定目录，不能更改，请参考：</span><br><span class="line"># https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/nginx.md#enable-https</span><br><span class="line">read -p &quot;Enter your gitlab domain [www.example.com]: &quot; DOMAIN_GITLAB</span><br><span class="line">sudo bash -c &apos;mkdir -p /etc/gitlab/ssl&apos;</span><br><span class="line">cd /etc/gitlab/ssl</span><br><span class="line"># 生成私钥</span><br><span class="line">sudo bash -c &quot;(umask 077;openssl genrsa -out $&#123;DOMAIN_GITLAB&#125;.key 1024)&quot;</span><br><span class="line"># 生成证书签署请求</span><br><span class="line">sudo bash -c &quot;openssl req -new -subj $SUBJECT_GITLAB -key $&#123;DOMAIN_GITLAB&#125;.key -out $&#123;DOMAIN_GITLAB&#125;.csr&quot;</span><br><span class="line"># CA签署证书</span><br><span class="line">cd /etc/ssl</span><br><span class="line">sudo bash -c &quot;openssl ca -in /etc/gitlab/ssl/$&#123;DOMAIN_GITLAB&#125;.csr -out /etc/gitlab/ssl/$&#123;DOMAIN_GITLAB&#125;.crt -days 3650&quot;</span><br><span class="line"># 更改目录权限</span><br><span class="line">sudo chmod 700 /etc/gitlab/ssl</span><br><span class="line">#</span><br><span class="line">## 开启gitlab的https支持</span><br><span class="line">sudo vim /etc/gitlab/gitlab.rb #external_url &apos;https://$&#123;DOMAIN_GITLAB&#125;:2443&apos;</span><br><span class="line">sudo bash -c &quot;cat &lt;&lt;- EOF &gt;&gt; /etc/gitlab/gitlab.rb</span><br><span class="line"></span><br><span class="line">    ##### open htts #####################</span><br><span class="line">    nginx[&apos;redirect_http_to_https&apos;] = true</span><br><span class="line">    nginx[&apos;ssl_certificate&apos;] = \&quot;/etc/gitlab/ssl/$&#123;DOMAIN_GITLAB&#125;.crt\&quot;</span><br><span class="line">    nginx[&apos;ssl_certificate_key&apos;] = \&quot;/etc/gitlab/ssl/$&#123;DOMAIN_GITLAB&#125;.key\&quot;</span><br><span class="line">EOF&quot;</span><br><span class="line"></span><br><span class="line">sudo gitlab-ctl reconfigure # 使配置生效</span><br><span class="line">sudo gitlab-ctl restart</span><br></pre></td></tr></table></figure>
+<h2 id="启用smtp邮箱功能："><a href="#启用smtp邮箱功能：" class="headerlink" title="启用smtp邮箱功能："></a>启用smtp邮箱功能：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">gitlab@gitlab-01:~/tools$ cat open_gitlab_smtp.sh </span><br><span class="line">#!/bin/bash</span><br><span class="line">#Program: open gitlab smtp</span><br><span class="line">#Author: Neal</span><br><span class="line">#E_mail: 419775240@qq.com</span><br><span class="line">#Date: 2015-12-04</span><br><span class="line">#platform: Debian 8 x86_64</span><br><span class="line">#Version 1.0</span><br><span class="line"></span><br><span class="line">#以163邮箱为例</span><br><span class="line">sudo bash -c &quot;cat &lt;&lt;- EOF &gt;&gt; /etc/gitlab/gitlab.rb</span><br><span class="line"></span><br><span class="line">    ##### open smtp #####################</span><br><span class="line">    gitlab_rails[&apos;smtp_enable&apos;] = true</span><br><span class="line">    gitlab_rails[&apos;smtp_address&apos;] = \&quot;smtp.163.com\&quot;</span><br><span class="line">    gitlab_rails[&apos;smtp_port&apos;] = 465</span><br><span class="line">    gitlab_rails[&apos;smtp_user_name&apos;] = \&quot;XXXXX@163.com\&quot;</span><br><span class="line">    gitlab_rails[&apos;smtp_password&apos;] = \&quot;***********\&quot;</span><br><span class="line">    gitlab_rails[&apos;smtp_domain&apos;] = \&quot;163.com\&quot;</span><br><span class="line">    gitlab_rails[&apos;smtp_authentication&apos;] = \&quot;login\&quot;</span><br><span class="line">    gitlab_rails[&apos;smtp_enable_starttls_auto&apos;] = true</span><br><span class="line">    gitlab_rails[&apos;smtp_tls&apos;] = true</span><br><span class="line">    gitlab_rails[&apos;gitlab_email_from&apos;] = \&quot;XXXX@163.com\&quot;</span><br><span class="line">EOF&quot;</span><br><span class="line"></span><br><span class="line">sudo gitlab-ctl reconfigure</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -436,7 +396,7 @@ http://django">
       
         <div class="post-tags">
           
-            <a href="/tags/django/" rel="tag">#django</a>
+            <a href="/tags/gitlab/" rel="tag">#gitlab</a>
           
         </div>
       
@@ -445,17 +405,13 @@ http://django">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/06/2016-02-04-Django全文搜索功能二/" rel="next" title="Django全文搜索功能二">
-                <i class="fa fa-chevron-left"></i> Django全文搜索功能二
+              <a href="/2016/04/07/2016-04-07-gitlab部署安装/" rel="next" title="GitLab部署">
+                <i class="fa fa-chevron-left"></i> GitLab部署
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/06/2016-02-04-Django全文搜索功能一/" rel="prev" title="Django全文搜索功能一">
-                Django全文搜索功能一 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -470,10 +426,10 @@ http://django">
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/04/06/2016-02-04-Django全文搜索功能三/"
-     data-title="Django全文搜索功能三"
+        <div class="ds-share flat" data-thread-key="2016/04/07/2016-04-07-gitlab配置使用/"
+     data-title="GitLab配置使用"
      data-content=""
-     data-url="http://www.lflxp.cn/2016/04/06/2016-02-04-Django全文搜索功能三/">
+     data-url="http://www.lflxp.cn/2016/04/07/2016-04-07-gitlab配置使用/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -503,8 +459,8 @@ http://django">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/06/2016-02-04-Django全文搜索功能三/"
-           data-title="Django全文搜索功能三" data-url="http://www.lflxp.cn/2016/04/06/2016-02-04-Django全文搜索功能三/">
+      <div class="ds-thread" data-thread-key="2016/04/07/2016-04-07-gitlab配置使用/"
+           data-title="GitLab配置使用" data-url="http://www.lflxp.cn/2016/04/07/2016-04-07-gitlab配置使用/">
       </div>
     
   </div>
@@ -862,7 +818,7 @@ http://django">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现Django的全文检索功能（三）：进一步学习Haystack"><span class="nav-number">1.</span> <span class="nav-text">实现Django的全文检索功能（三）：进一步学习Haystack </span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#We-want-“title-Foo-AND-tags-bar-OR-tags-moof-”"><span class="nav-number"></span> <span class="nav-text">We want “title: Foo AND (tags:bar OR tags:moof)”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Update-everything"><span class="nav-number"></span> <span class="nav-text">Update everything.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Update-everything-with-lots-of-information-about-what’s-going-on"><span class="nav-number"></span> <span class="nav-text">Update everything with lots of information about what’s going on.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Blacklisted-Fields"><span class="nav-number"></span> <span class="nav-text">Blacklisted Fields</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Whitelisted-Fields"><span class="nav-number"></span> <span class="nav-text">Whitelisted Fields</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GitLab部署和配置"><span class="nav-number">1.</span> <span class="nav-text">GitLab部署和配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GitLab部署脚本"><span class="nav-number">2.</span> <span class="nav-text">GitLab部署脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#gitlab软件包安装和基础配置"><span class="nav-number">2.1.</span> <span class="nav-text">gitlab软件包安装和基础配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启用https的安全访问："><span class="nav-number">2.2.</span> <span class="nav-text">启用https的安全访问：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启用smtp邮箱功能："><span class="nav-number">2.3.</span> <span class="nav-text">启用smtp邮箱功能：</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

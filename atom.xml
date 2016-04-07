@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.lflxp.cn/"/>
-  <updated>2016-04-06T14:54:01.124Z</updated>
+  <updated>2016-04-07T04:43:13.173Z</updated>
   <id>http://www.lflxp.cn/</id>
   
   <author>
@@ -14,6 +14,75 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>GitLab配置使用</title>
+    <link href="http://www.lflxp.cn/2016/04/07/2016-04-07-gitlab%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/"/>
+    <id>http://www.lflxp.cn/2016/04/07/2016-04-07-gitlab配置使用/</id>
+    <published>2016-04-07T04:39:04.063Z</published>
+    <updated>2016-04-07T04:43:13.173Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;GitLab部署和配置&quot;&gt;&lt;a href=&quot;#GitLab部署和配置&quot; class=&quot;headerlink&quot; title=&quot;GitLab部署和配置&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://zhaochj.blog.51cto.com/368705/1737738&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitLab部署和配置&lt;/a&gt;&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;转载自: http://zhaochj.blog.51cto.com/368705/1737738&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;GitLab部署脚本&quot;&gt;&lt;a href=&quot;#GitLab部署脚本&quot; class=&quot;headerlink&quot; title=&quot;GitLab部署脚本&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://zhaochj.github.io/deploy-gitlab-use-shell/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitLab部署脚本&lt;/a&gt;&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;转载自: http://zhaochj.github.io/deploy-gitlab-use-shell/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;gitlab软件包安装和基础配置&quot;&gt;&lt;a href=&quot;#gitlab软件包安装和基础配置&quot; class=&quot;headerlink&quot; title=&quot;gitlab软件包安装和基础配置&quot;&gt;&lt;/a&gt;gitlab软件包安装和基础配置&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;gitlab@gitlab-01:~/tools$ cat install_config_gitlab.sh &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#!/bin/bash&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#Program: configure gitlab&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#Author: Neal&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#E_mail: 419775240@qq.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#Date: 2015-12-04&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#platform: Debian 8 x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#Version 1.0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 通用安装包到http://mirror.tuna.tsinghua.edu.cn/gitlab-ce/进行下载&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo dpkg -i gitlab-ce_8.2.1-ce.0_amd64.deb&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 修改gitlab数据存放目录&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo vim /var/opt/gitlab/gitlab-shell/config.yml    # repos_path: &amp;quot;/data/git-data/repositories&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo vim /var/opt/gitlab/gitlab-rails/etc/gitlab.yml&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#satellites:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#     path: /data/git-data/gitlab-satellites&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#     ...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#gitlab_shell:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#     path: /opt/gitlab/embedded/service/gitlab-shell/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#     repos_path: /data/git-data/repositories&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 创建数据存放目录并修改权限&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo mkdir  -pv /data/git-data/gitlab-satellites&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo mkdir -pv /data/git-data/repositories&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo chown -R git.git /data/git-data/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo chmod 2770 /data/git-data/repositories&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# restart gitlab service&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo gitlab-ctl restart&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;启用https的安全访问：&quot;&gt;&lt;a href=&quot;#启用https的安全访问：&quot; class=&quot;headerlink&quot; title=&quot;启用https的安全访问：&quot;&gt;&lt;/a&gt;启用https的安全访问：&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;gitlab@gitlab-01:~/tools$ cat open_gitlab_https.sh &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#!/bin/bash&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#Program: open gitbal https access&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#Author: Neal&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#E_mail: 419775240@qq.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#Date: 2015-12-04&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#platform: Debian 8 x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#Version 1.0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# SUBJECT为CA服务的机构信息&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;SUBJECT=&amp;quot;/C=CN/ST=ChongQing/L=YuBei/O=SJKJ/OU=CA/CN=$DOMAIN&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# SUBJECT_GITLAB为gitlab主机的机构信息&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;SUBJECT_GITLAB=&amp;quot;/C=CN/ST=ChongQing/L=YuBei/O=SJKJ/OU=OP/CN=$DOMAIN_GITLAB&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#apt-get -y install openssl&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;## 自建CA &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;read -p &amp;quot;Enter your CA domain [www.example.com]: &amp;quot; DOMAIN&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo bash -c &amp;apos;mkdir -pv /etc/ssl/demoCA/&amp;#123;private,newcerts&amp;#125; &amp;gt; /dev/null&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cd /etc/ssl&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 生成密钥对&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo bash -c &amp;apos;(umask 077;openssl genrsa -out ./demoCA/private/cakey.pem 2048)&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#sudo bash -c &amp;apos;ln -s /etc/ssl/demoCA/private/cakey.pem /etc/ssl/demoCA/cakey.pem&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 生成自签证书&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#sudo bash -c &amp;apos;openssl req -new -x509 -key ./demoCA/private/cakey.pem -out ./demoCA/cacert.pem -days 3650&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo bash -c &amp;quot;openssl req -new -subj $SUBJECT -x509 -key ./demoCA/private/cakey.pem -out ./demoCA/cacert.pem -days 3650&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo touch ./demoCA/index.txt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo bash -c &amp;quot;echo 01 &amp;gt; ./demoCA/serial&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;echo -e &amp;quot;\033[33mCertificate services is created...\033[0m&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;##自建CA完成&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 为gitlab主机创建存放私钥和证书的目录，这是一个固定目录，不能更改，请参考：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/nginx.md#enable-https&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;read -p &amp;quot;Enter your gitlab domain [www.example.com]: &amp;quot; DOMAIN_GITLAB&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo bash -c &amp;apos;mkdir -p /etc/gitlab/ssl&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cd /etc/gitlab/ssl&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 生成私钥&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo bash -c &amp;quot;(umask 077;openssl genrsa -out $&amp;#123;DOMAIN_GITLAB&amp;#125;.key 1024)&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 生成证书签署请求&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo bash -c &amp;quot;openssl req -new -subj $SUBJECT_GITLAB -key $&amp;#123;DOMAIN_GITLAB&amp;#125;.key -out $&amp;#123;DOMAIN_GITLAB&amp;#125;.csr&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# CA签署证书&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cd /etc/ssl&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo bash -c &amp;quot;openssl ca -in /etc/gitlab/ssl/$&amp;#123;DOMAIN_GITLAB&amp;#125;.csr -out /etc/gitlab/ssl/$&amp;#123;DOMAIN_GITLAB&amp;#125;.crt -days 3650&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 更改目录权限&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo chmod 700 /etc/gitlab/ssl&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;## 开启gitlab的https支持&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo vim /etc/gitlab/gitlab.rb #external_url &amp;apos;https://$&amp;#123;DOMAIN_GITLAB&amp;#125;:2443&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo bash -c &amp;quot;cat &amp;lt;&amp;lt;- EOF &amp;gt;&amp;gt; /etc/gitlab/gitlab.rb&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ##### open htts #####################&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    nginx[&amp;apos;redirect_http_to_https&amp;apos;] = true&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    nginx[&amp;apos;ssl_certificate&amp;apos;] = \&amp;quot;/etc/gitlab/ssl/$&amp;#123;DOMAIN_GITLAB&amp;#125;.crt\&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    nginx[&amp;apos;ssl_certificate_key&amp;apos;] = \&amp;quot;/etc/gitlab/ssl/$&amp;#123;DOMAIN_GITLAB&amp;#125;.key\&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;EOF&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo gitlab-ctl reconfigure # 使配置生效&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo gitlab-ctl restart&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;启用smtp邮箱功能：&quot;&gt;&lt;a href=&quot;#启用smtp邮箱功能：&quot; class=&quot;headerlink&quot; title=&quot;启用smtp邮箱功能：&quot;&gt;&lt;/a&gt;启用smtp邮箱功能：&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;gitlab@gitlab-01:~/tools$ cat open_gitlab_smtp.sh &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#!/bin/bash&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#Program: open gitlab smtp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#Author: Neal&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#E_mail: 419775240@qq.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#Date: 2015-12-04&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#platform: Debian 8 x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#Version 1.0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#以163邮箱为例&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo bash -c &amp;quot;cat &amp;lt;&amp;lt;- EOF &amp;gt;&amp;gt; /etc/gitlab/gitlab.rb&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ##### open smtp #####################&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    gitlab_rails[&amp;apos;smtp_enable&amp;apos;] = true&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    gitlab_rails[&amp;apos;smtp_address&amp;apos;] = \&amp;quot;smtp.163.com\&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    gitlab_rails[&amp;apos;smtp_port&amp;apos;] = 465&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    gitlab_rails[&amp;apos;smtp_user_name&amp;apos;] = \&amp;quot;XXXXX@163.com\&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    gitlab_rails[&amp;apos;smtp_password&amp;apos;] = \&amp;quot;***********\&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    gitlab_rails[&amp;apos;smtp_domain&amp;apos;] = \&amp;quot;163.com\&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    gitlab_rails[&amp;apos;smtp_authentication&amp;apos;] = \&amp;quot;login\&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    gitlab_rails[&amp;apos;smtp_enable_starttls_auto&amp;apos;] = true&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    gitlab_rails[&amp;apos;smtp_tls&amp;apos;] = true&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    gitlab_rails[&amp;apos;gitlab_email_from&amp;apos;] = \&amp;quot;XXXX@163.com\&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;EOF&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo gitlab-ctl reconfigure&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;GitLab部署和配置&quot;&gt;&lt;a href=&quot;#GitLab部署和配置&quot; class=&quot;headerlink&quot; title=&quot;GitLab部署和配置&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://zhaochj.blog.51cto.com/368705/1737738
+    
+    </summary>
+    
+      <category term="gitlab" scheme="http://www.lflxp.cn/categories/gitlab/"/>
+    
+    
+      <category term="gitlab" scheme="http://www.lflxp.cn/tags/gitlab/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GitLab部署</title>
+    <link href="http://www.lflxp.cn/2016/04/07/2016-04-07-gitlab%E9%83%A8%E7%BD%B2%E5%AE%89%E8%A3%85/"/>
+    <id>http://www.lflxp.cn/2016/04/07/2016-04-07-gitlab部署安装/</id>
+    <published>2016-04-07T03:18:08.802Z</published>
+    <updated>2016-04-07T03:51:58.739Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Install-a-GitLab-CE-Omnibus-package-on-Debian-8&quot;&gt;&lt;a href=&quot;#Install-a-GitLab-CE-Omnibus-package-on-Debian-8&quot; class=&quot;headerlink&quot; title=&quot;Install a GitLab CE Omnibus package on Debian 8&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://about.gitlab.com/downloads/#debian8&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Install a GitLab CE Omnibus package on Debian 8&lt;/a&gt;&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;Check if your server meets &lt;a href=&quot;http://doc.gitlab.com/ce/install/requirements.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;the hardware requirements&lt;/a&gt;. GitLab packages are built for 64bit systems. For 32bit OS, consider &lt;a href=&quot;https://about.gitlab.com/installation/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;alternative installation methods&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;1-Install-and-configure-the-necessary-dependencies&quot;&gt;&lt;a href=&quot;#1-Install-and-configure-the-necessary-dependencies&quot; class=&quot;headerlink&quot; title=&quot;1. Install and configure the necessary dependencies&quot;&gt;&lt;/a&gt;1. Install and configure the necessary dependencies&lt;/h2&gt;&lt;p&gt;If you install Postfix to send email please select ‘Internet Site’ during setup. Instead of using Postfix you can also use Sendmail or &lt;a href=&quot;https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;configure a custom SMTP server&lt;/a&gt;. If you wish to use Exim, please &lt;a href=&quot;https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md#smtp-on-localhost&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;configure it as an SMTP server&lt;/a&gt;.&lt;br&gt;On Centos 6 and 7, the commands below will also open HTTP and SSH access in the system firewall.&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo apt-get install curl openssh-server ca-certificates postfix&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;2-Add-the-GitLab-package-server-and-install-the-package&quot;&gt;&lt;a href=&quot;#2-Add-the-GitLab-package-server-and-install-the-package&quot; class=&quot;headerlink&quot; title=&quot;2. Add the GitLab package server and install the package&quot;&gt;&lt;/a&gt;2. Add the GitLab package server and install the package&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo apt-get install gitlab-ce&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;If you are not comfortable installing the repository through a piped script, you can find the &lt;a href=&quot;https://packages.gitlab.com/gitlab/gitlab-ce/install&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;entire script here&lt;/a&gt;.&lt;br&gt;Alternatively you can &lt;a href=&quot;https://packages.gitlab.com/gitlab/gitlab-ce&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;select and download the package manually&lt;/a&gt; and install using&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;curl -LJO https://packages.gitlab.com/gitlab/gitlab-ce/packages/debian/jessie/gitlab-ce-XXX.deb/download&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dpkg -i gitlab-ce-XXX.deb&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;3-Configure-and-start-GitLab&quot;&gt;&lt;a href=&quot;#3-Configure-and-start-GitLab&quot; class=&quot;headerlink&quot; title=&quot;3. Configure and start GitLab&quot;&gt;&lt;/a&gt;3. Configure and start GitLab&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo gitlab-ctl reconfigure&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;4-Browse-to-the-hostname-and-login&quot;&gt;&lt;a href=&quot;#4-Browse-to-the-hostname-and-login&quot; class=&quot;headerlink&quot; title=&quot;4. Browse to the hostname and login&quot;&gt;&lt;/a&gt;4. Browse to the hostname and login&lt;/h2&gt;&lt;p&gt;On your first visit, you’ll be redirected to a password reset screen to provide the password for the initial administrator account. Enter your desired password and you’ll be redirected back to the login screen.&lt;/p&gt;
+&lt;p&gt;The default account’s username is root. Provide the password you created earlier and login. After login you can change the username if you wish.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://doc.gitlab.com/omnibus/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Troubleshooting and configuration options in the Omnibus documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://about.gitlab.com/installation/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Alternative installation methods&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://about.gitlab.com/aws&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;AWS AMI with a preloaded Omnibus package&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://mirror.tuna.tsinghua.edu.cn/help/gitlab-ce/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;国人看这里 Chinese GitLab CE mirror hosted by TUNA&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://packages.gitlab.com/gitlab/gitlab-ce&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Browse the packages&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://about.gitlab.com/update&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Update a GitLab instance&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://doc.gitlab.com/ce/install/requirements.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Installation requirements&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://about.gitlab.com/features/#compare&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Compare GitLab CE with EE&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Install-a-GitLab-CE-Omnibus-package-on-Debian-8&quot;&gt;&lt;a href=&quot;#Install-a-GitLab-CE-Omnibus-package-on-Debian-8&quot; class=&quot;headerlink&quot; title
+    
+    </summary>
+    
+      <category term="gitlab" scheme="http://www.lflxp.cn/categories/gitlab/"/>
+    
+    
+      <category term="gitlab" scheme="http://www.lflxp.cn/tags/gitlab/"/>
+    
+  </entry>
   
   <entry>
     <title>hexo操作总结</title>
@@ -1445,450 +1514,6 @@ return render_to_response(&amp;apos;foo/login_form.html&amp;apos;)
     
     
       <category term="django" scheme="http://www.lflxp.cn/tags/django/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>第八章 高级视图和URL配置</title>
-    <link href="http://www.lflxp.cn/2016/04/06/2016-02-22-%E7%AC%AC%E5%85%AB%E7%AB%A0%20%E9%AB%98%E7%BA%A7%E8%A7%86%E5%9B%BE%E5%92%8CURL%E9%85%8D%E7%BD%AE/"/>
-    <id>http://www.lflxp.cn/2016/04/06/2016-02-22-第八章 高级视图和URL配置/</id>
-    <published>2016-04-06T10:31:45.158Z</published>
-    <updated>2016-04-06T11:28:00.237Z</updated>
-    
-    <content type="html">&lt;p&gt;在第三章，我们已经对基本的Django视图和URL配置做了介绍。 在这一章，将进一步说明框架中这两个部分的高级机能。4&lt;/p&gt;
-&lt;p&gt;URLconf 技巧&lt;br&gt;URLconf没什么特别的，就象 Django 中其它东西一样，它们只是 Python 代码。 你可以在几方面从中得到好处，正如下面所描述的。&lt;/p&gt;
-&lt;p&gt;流线型化(Streamlining)函数导入&lt;/p&gt;
-&lt;p&gt;看下这个 URLconf，它是建立在第三章的例子上:&lt;/p&gt;
-&lt;p&gt;from django.conf.urls.defaults import *&lt;br&gt;from mysite.views import hello, current_datetime, hours_ahead&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^hello/$’, hello),&lt;br&gt;    (r’^time/$’, current_datetime),&lt;br&gt;    (r’^time/plus/(\d{1,2})/$’, hours_ahead),&lt;br&gt;)&lt;br&gt;正如第三章中所解释的，在 URLconf 中的每一个入口包括了它所关联的视图函数，直接传入了一个函数对象。 这就意味着需要在模块开始处导入视图函数。&lt;/p&gt;
-&lt;p&gt;但随着 Django 应用变得复杂，它的 URLconf 也在增长，并且维护这些导入可能使得管理变麻烦。 (对每个新的view函数，你不得不记住要导入它，并且采用这种方法会使导入语句将变得相当长。)可以通过导入 views 模块本身来避免这个麻烦。 下面例子的URLconf与前一个等价：&lt;/p&gt;
-&lt;p&gt;from django.conf.urls.defaults import &lt;em&gt;&lt;br&gt;&lt;em&gt;*from mysite import views&lt;/em&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^hello/$’, &lt;strong&gt;views.hello&lt;/strong&gt; ),&lt;br&gt;    (r’^time/$’, &lt;strong&gt;views.current_datetime&lt;/strong&gt; ),&lt;br&gt;    (r’^time/plus/(d{1,2})/$’, &lt;strong&gt;views.hours_ahead&lt;/strong&gt; ),&lt;br&gt;)&lt;br&gt;Django 还提供了另一种方法可以在 URLconf 中为某个特别的模式指定视图函数： 你可以传入一个包含模块名和函数名的字符串，而不是函数对象本身。 继续示例:7&lt;/p&gt;
-&lt;p&gt;from django.conf.urls.defaults import *&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^hello/$’, &lt;strong&gt;‘mysite.views.hello’&lt;/strong&gt; ),&lt;br&gt;    (r’^time/$’, &lt;strong&gt;‘mysite.views.current_datetime’&lt;/strong&gt; ),&lt;br&gt;    (r’^time/plus/(d{1,2})/$’, &lt;strong&gt;‘mysite.views.hours_ahead’&lt;/strong&gt; ),&lt;br&gt;)&lt;br&gt;(注意视图名前后的引号。 应该使用带引号的 ‘mysite.views.current_datetime’ 而不是 mysite.views.current_datetime 。)3&lt;/p&gt;
-&lt;p&gt;使用这个技术，就不必导入视图函数了；Django 会在第一次需要它时根据字符串所描述的视图函数的名字和路径，导入合适的视图函数。&lt;/p&gt;
-&lt;p&gt;当使用字符串技术时，你可以采用更简化的方式：提取出一个公共视图前缀。 在我们的URLconf例子中，每个视图字符串的开始部分都是&lt;code&gt;\，造成重复输入。 我们可以把公共的前缀提取出来，作为第一个参数传给\&lt;/code&gt;函数：5&lt;/p&gt;
-&lt;p&gt;System Message: WARNING/2 (&lt;string&gt;, line 99); backlink&lt;/string&gt;&lt;/p&gt;
-&lt;p&gt;Inline literal start-string without end-string.&lt;/p&gt;
-&lt;p&gt;from django.conf.urls.defaults import *&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(&lt;strong&gt;‘mysite.views’&lt;/strong&gt; ,&lt;br&gt;    (r’^hello/$’, &lt;strong&gt;‘hello’&lt;/strong&gt; ),&lt;br&gt;    (r’^time/$’, &lt;strong&gt;‘current_datetime’&lt;/strong&gt; ),&lt;br&gt;    (r’^time/plus/(d{1,2})/$’, &lt;strong&gt;‘hours_ahead’&lt;/strong&gt; ),&lt;br&gt;)&lt;br&gt;注意既不要在前缀后面跟着一个点号(“.” )，也不要在视图字符串前面放一个点号。 Django 会自动处理它们。&lt;/p&gt;
-&lt;p&gt;牢记这两种方法，哪种更好一些呢？ 这取决于你的个人编码习惯和需要。&lt;/p&gt;
-&lt;p&gt;字符串方法的好处如下:&lt;/p&gt;
-&lt;p&gt;更紧凑，因为不需要你导入视图函数。&lt;/p&gt;
-&lt;p&gt;如果你的视图函数存在于几个不同的 Python 模块的话，它可以使得 URLconf 更易读和管理。&lt;/p&gt;
-&lt;p&gt;函数对象方法的好处如下:&lt;/p&gt;
-&lt;p&gt;更容易对视图函数进行包装(wrap)。 参见本章后面的《包装视图函数》一节。&lt;/p&gt;
-&lt;p&gt;更 Pythonic，就是说，更符合 Python 的传统，如把函数当成对象传递。&lt;/p&gt;
-&lt;p&gt;两个方法都是有效的，甚至你可以在同一个 URLconf 中混用它们。 决定权在你。&lt;/p&gt;
-&lt;p&gt;使用多个视图前缀2&lt;/p&gt;
-&lt;p&gt;在实践中，如果你使用字符串技术，特别是当你的 URLconf 中没有一个公共前缀时，你最终可能混合视图。 然而，你仍然可以利用视图前缀的简便方式来减少重复。 只要增加多个 patterns() 对象，象这样:&lt;/p&gt;
-&lt;p&gt;旧的:&lt;/p&gt;
-&lt;p&gt;from django.conf.urls.defaults import *&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^hello/$’, ‘mysite.views.hello’),&lt;br&gt;    (r’^time/$’, ‘mysite.views.current_datetime’),&lt;br&gt;    (r’^time/plus/(\d{1,2})/$’, ‘mysite.views.hours_ahead’),&lt;br&gt;    (r’^tag/(\w+)/$’, ‘weblog.views.tag’),&lt;br&gt;)&lt;br&gt;新的:14&lt;/p&gt;
-&lt;p&gt;from django.conf.urls.defaults import *&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘mysite.views’,&lt;br&gt;    (r’^hello/$’, ‘hello’),&lt;br&gt;    (r’^time/$’, ‘current_datetime’),&lt;br&gt;    (r’^time/plus/(\d{1,2})/$’, ‘hours_ahead’),&lt;br&gt;)&lt;/p&gt;
-&lt;p&gt;urlpatterns += patterns(‘weblog.views’,&lt;br&gt;    (r’^tag/(\w+)/$’, ‘tag’),&lt;br&gt;)&lt;br&gt;整个框架关注的是存在一个名为 urlpatterns 的模块级别的变量。如上例，这个变量可以动态生成。 这里我们要特别说明一下，patterns()返回的对象是可相加的，这个特性可能是大家没有想到的。9&lt;/p&gt;
-&lt;p&gt;调试模式中的特例&lt;/p&gt;
-&lt;p&gt;说到动态构建 urlpatterns，你可能想利用这一技术，在 Django 的调试模式下修改 URLconf 的行为。 为了做到这一点，只要在运行时检查 DEBUG 配置项的值即可，如:&lt;/p&gt;
-&lt;p&gt;from django.conf import settings&lt;br&gt;from django.conf.urls.defaults import *&lt;br&gt;from mysite import views&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^$’, views.homepage),&lt;br&gt;    (r’^(\d{4})/([a-z]{3})/$’, views.archive_month),&lt;br&gt;)&lt;/p&gt;
-&lt;p&gt;if settings.DEBUG:&lt;br&gt;    urlpatterns += patterns(‘’,&lt;br&gt;        (r’^debuginfo/$’, views.debug),&lt;br&gt;    )&lt;br&gt;在这个例子中，URL链接/debuginfo/ 只在你的 DEBUG 配置项设为 True 时才有效。&lt;/p&gt;
-&lt;p&gt;使用命名组&lt;/p&gt;
-&lt;p&gt;在目前为止的所有 URLconf 例子中，我们使用简单的无命名 正则表达式组，即，在我们想要捕获的URL部分上加上小括号，Django 会将捕获的文本作为位置参数传递给视图函数。 在更高级的用法中，还可以使用 命名 正则表达式组来捕获URL，并且将其作为 关键字 参数传给视图。&lt;/p&gt;
-&lt;p&gt;关键字参数 对比 位置参数&lt;/p&gt;
-&lt;p&gt;一个 Python 函数可以使用关键字参数或位置参数来调用，在某些情况下，可以同时进行使用。 在关键字参数调用中，你要指定参数的名字和传入的值。 在位置参数调用中，你只需传入参数，不需要明确指明哪个参数与哪个值对应，它们的对应关系隐含在参数的顺序中。&lt;/p&gt;
-&lt;p&gt;例如，考虑这个简单的函数:&lt;/p&gt;
-&lt;p&gt;def sell(item, price, quantity):&lt;br&gt;    print “Selling %s unit(s) of %s at %s” % (quantity, item, price)&lt;br&gt;为了使用位置参数来调用它，你要按照在函数定义中的顺序来指定参数。&lt;/p&gt;
-&lt;p&gt;sell(‘Socks’, ‘$2.50’, 6)&lt;br&gt;为了使用关键字参数来调用它，你要指定参数名和值。 下面的语句是等价的:&lt;/p&gt;
-&lt;p&gt;sell(item=’Socks’, price=’$2.50’, quantity=6)&lt;br&gt;sell(item=’Socks’, quantity=6, price=’$2.50’)&lt;br&gt;sell(price=’$2.50’, item=’Socks’, quantity=6)&lt;br&gt;sell(price=’$2.50’, quantity=6, item=’Socks’)&lt;br&gt;sell(quantity=6, item=’Socks’, price=’$2.50’)&lt;br&gt;sell(quantity=6, price=’$2.50’, item=’Socks’)&lt;br&gt;最后，你可以混合关键字和位置参数，只要所有的位置参数列在关键字参数之前。 下面的语句与前面的例子是等价:&lt;/p&gt;
-&lt;p&gt;sell(‘Socks’, ‘$2.50’, quantity=6)&lt;br&gt;sell(‘Socks’, price=’$2.50’, quantity=6)&lt;br&gt;sell(‘Socks’, quantity=6, price=’$2.50’)&lt;br&gt;在 Python 正则表达式中，命名的正则表达式组的语法是 (?P&lt;name&gt;pattern) ，这里 name 是组的名字，而 pattern 是匹配的某个模式。3&lt;/name&gt;&lt;/p&gt;
-&lt;p&gt;下面是一个使用无名组的 URLconf 的例子:&lt;/p&gt;
-&lt;p&gt;from django.conf.urls.defaults import *&lt;br&gt;from mysite import views&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^articles/(\d{4})/$’, views.year_archive),&lt;br&gt;    (r’^articles/(\d{4})/(\d{2})/$’, views.month_archive),&lt;br&gt;)&lt;br&gt;下面是相同的 URLconf，使用命名组进行了重写:&lt;/p&gt;
-&lt;p&gt;from django.conf.urls.defaults import *&lt;br&gt;from mysite import views&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^articles/(?P&lt;year&gt;\d{4})/$’, views.year_archive),&lt;br&gt;    (r’^articles/(?P&lt;year&gt;\d{4})/(?P&lt;month&gt;\d{2})/$’, views.month_archive),&lt;br&gt;)&lt;br&gt;这段代码和前面的功能完全一样，只有一个细微的差别： 取的值是以关键字参数的方式而不是以位置参数的方式传递给视图函数的。&lt;/month&gt;&lt;/year&gt;&lt;/year&gt;&lt;/p&gt;
-&lt;p&gt;例如，如果不带命名组，请求 /articles/2006/03/ 将会等同于这样的函数调用：&lt;/p&gt;
-&lt;p&gt;month_archive(request, ‘2006’, ‘03’)&lt;br&gt;而带命名组，同样的请求就会变成这样的函数调用：&lt;/p&gt;
-&lt;p&gt;month_archive(request, year=’2006’, month=’03’)&lt;br&gt;使用命名组可以让你的URLconfs更加清晰，减少搞混参数次序的潜在BUG，还可以让你在函数定义中对参数重新排序。 接着上面这个例子，如果我们想修改URL把月份放到 年份的 前面 ，而不使用命名组的话，我们就不得不去修改视图 month_archive 的参数次序。 如果我们使用命名组的话，修改URL里提取参数的次序对视图没有影响。5&lt;/p&gt;
-&lt;p&gt;当然，命名组的代价就是失去了简洁性： 一些开发者觉得命名组的语法丑陋和显得冗余。 命名组的另一个好处就是可读性强。&lt;/p&gt;
-&lt;p&gt;理解匹配/分组算法&lt;/p&gt;
-&lt;p&gt;需要注意的是如果在URLconf中使用命名组，那么命名组和非命名组是不能同时存在于同一个URLconf的模式中的。 如果你这样做，Django不会抛出任何错误，但你可能会发现你的URL并没有像你预想的那样匹配正确。 具体地，以下是URLconf解释器有关正则表达式中命名组和 非命名组所遵循的算法:&lt;/p&gt;
-&lt;p&gt;如果有任何命名的组，Django会忽略非命名组而直接使用命名组。&lt;/p&gt;
-&lt;p&gt;否则，Django会把所有非命名组以位置参数的形式传递。&lt;/p&gt;
-&lt;p&gt;在以上的两种情况，Django同时会以关键字参数的方式传递一些额外参数。 更具体的信息可参考下一节。&lt;/p&gt;
-&lt;p&gt;传递额外的参数到视图函数中&lt;/p&gt;
-&lt;p&gt;有时你会发现你写的视图函数是十分类似的，只有一点点的不同。 比如说，你有两个视图，它们的内容是一致的，除了它们所用的模板不太一样：&lt;/p&gt;
-&lt;h1 id=&quot;urls-py&quot;&gt;&lt;a href=&quot;#urls-py&quot; class=&quot;headerlink&quot; title=&quot;urls.py&quot;&gt;&lt;/a&gt;urls.py&lt;/h1&gt;&lt;p&gt;from django.conf.urls.defaults import *&lt;br&gt;from mysite import views&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^foo/$’, views.foo_view),&lt;br&gt;    (r’^bar/$’, views.bar_view),&lt;br&gt;)&lt;/p&gt;
-&lt;h1 id=&quot;views-py&quot;&gt;&lt;a href=&quot;#views-py&quot; class=&quot;headerlink&quot; title=&quot;views.py&quot;&gt;&lt;/a&gt;views.py&lt;/h1&gt;&lt;p&gt;from django.shortcuts import render_to_response&lt;br&gt;from mysite.models import MyModel&lt;/p&gt;
-&lt;p&gt;def foo_view(request):&lt;br&gt;    m_list = MyModel.objects.filter(is_new=True)&lt;br&gt;    return render_to_response(‘template1.html’, {‘m_list’: m_list})&lt;/p&gt;
-&lt;p&gt;def bar_view(request):&lt;br&gt;    m_list = MyModel.objects.filter(is_new=True)&lt;br&gt;    return render_to_response(‘template2.html’, {‘m_list’: m_list})&lt;br&gt;我们在这代码里面做了重复的工作，不够简练。 起初你可能会想，通过对两个URL都使用同样的视图，在URL中使用括号捕捉请求，然后在视图中检查并决定使用哪个模板来去除代码的冗余，就像这样：&lt;/p&gt;
-&lt;h1 id=&quot;urls-py-1&quot;&gt;&lt;a href=&quot;#urls-py-1&quot; class=&quot;headerlink&quot; title=&quot;urls.py&quot;&gt;&lt;/a&gt;urls.py&lt;/h1&gt;&lt;p&gt;from django.conf.urls.defaults import *&lt;br&gt;from mysite import views&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^(foo)/$’, views.foobar_view),&lt;br&gt;    (r’^(bar)/$’, views.foobar_view),&lt;br&gt;)&lt;/p&gt;
-&lt;h1 id=&quot;views-py-1&quot;&gt;&lt;a href=&quot;#views-py-1&quot; class=&quot;headerlink&quot; title=&quot;views.py&quot;&gt;&lt;/a&gt;views.py&lt;/h1&gt;&lt;p&gt;from django.shortcuts import render_to_response&lt;br&gt;from mysite.models import MyModel&lt;/p&gt;
-&lt;p&gt;def foobar_view(request, url):&lt;br&gt;    m_list = MyModel.objects.filter(is_new=True)&lt;br&gt;    if url == ‘foo’:&lt;br&gt;        template_name = ‘template1.html’&lt;br&gt;    elif url == ‘bar’:&lt;br&gt;        template_name = ‘template2.html’&lt;br&gt;    return render_to_response(template_name, {‘m_list’: m_list})&lt;br&gt;这种解决方案的问题还是老缺点，就是把你的URL耦合进你的代码里面了。 如果你打算把 /foo/ 改成 /fooey/ 的话，那么你就得记住要去改变视图里面的代码。1&lt;/p&gt;
-&lt;p&gt;对一个可选URL配置参数的优雅解决方法： URLconf里面的每一个模式都可以包含第三个数据： 一个关键字参数的字典：&lt;/p&gt;
-&lt;p&gt;有了这个概念以后，我们就可以把我们现在的例子改写成这样：&lt;/p&gt;
-&lt;h1 id=&quot;urls-py-2&quot;&gt;&lt;a href=&quot;#urls-py-2&quot; class=&quot;headerlink&quot; title=&quot;urls.py&quot;&gt;&lt;/a&gt;urls.py&lt;/h1&gt;&lt;p&gt;from django.conf.urls.defaults import *&lt;br&gt;from mysite import views&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^foo/$’, views.foobar_view, {‘template_name’: ‘template1.html’}),&lt;br&gt;    (r’^bar/$’, views.foobar_view, {‘template_name’: ‘template2.html’}),&lt;br&gt;)&lt;/p&gt;
-&lt;h1 id=&quot;views-py-2&quot;&gt;&lt;a href=&quot;#views-py-2&quot; class=&quot;headerlink&quot; title=&quot;views.py&quot;&gt;&lt;/a&gt;views.py&lt;/h1&gt;&lt;p&gt;from django.shortcuts import render_to_response&lt;br&gt;from mysite.models import MyModel&lt;/p&gt;
-&lt;p&gt;def foobar_view(request, template_name):&lt;br&gt;    m_list = MyModel.objects.filter(is_new=True)&lt;br&gt;    return render_to_response(template_name, {‘m_list’: m_list})&lt;br&gt;如你所见，这个例子中，URLconf指定了 template_name 。 而视图函数会把它当成另一个参数。1&lt;/p&gt;
-&lt;p&gt;这种使用额外的URLconf参数的技术以最小的代价给你提供了向视图函数传递额外信息的一个好方法。 正因如此，这技术已被很多Django的捆绑应用使用，其中以我们将在第11章讨论的通用视图系统最为明显。&lt;/p&gt;
-&lt;p&gt;下面的几节里面有一些关于你可以怎样把额外URLconf参数技术应用到你自己的工程的建议。&lt;/p&gt;
-&lt;p&gt;伪造捕捉到的URLconf值&lt;br&gt;比如说你有匹配某个模式的一堆视图，以及一个并不匹配这个模式但视图逻辑是一样的URL。 这种情况下，你可以通过向同一个视图传递额外URLconf参数来伪造URL值的捕捉。&lt;/p&gt;
-&lt;p&gt;例如，你可能有一个显示某一个特定日子的某些数据的应用，URL类似这样的：&lt;/p&gt;
-&lt;p&gt;/mydata/jan/01/&lt;br&gt;/mydata/jan/02/&lt;br&gt;/mydata/jan/03/&lt;/p&gt;
-&lt;h1 id=&quot;…&quot;&gt;&lt;a href=&quot;#…&quot; class=&quot;headerlink&quot; title=&quot;…&quot;&gt;&lt;/a&gt;…&lt;/h1&gt;&lt;p&gt;/mydata/dec/30/&lt;br&gt;/mydata/dec/31/&lt;br&gt;这太简单了，你可以在一个URLconf中捕捉这些值，像这样（使用命名组的方法）：&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^mydata/(?P&lt;month&gt;\w{3})/(?P&lt;day&gt;\d\d)/$’, views.my_view),&lt;br&gt;)&lt;br&gt;然后视图函数的原型看起来会是：&lt;/day&gt;&lt;/month&gt;&lt;/p&gt;
-&lt;p&gt;def my_view(request, month, day):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# ....
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这种解决方案很直接，没有用到什么你没见过的技术。 当你想添加另外一个使用 my_view 视图但不包含month和/或者day的URL时，问题就出现了。&lt;/p&gt;
-&lt;p&gt;比如你可能会想增加这样一个URL， /mydata/birthday/ ， 这个URL等价于 /mydata/jan/06/ 。这时你可以这样利用额外URLconf参数：&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^mydata/birthday/$’, views.my_view, {‘month’: ‘jan’, ‘day’: ‘06’}),&lt;br&gt;    (r’^mydata/(?P&lt;month&gt;\w{3})/(?P&lt;day&gt;\d\d)/$’, views.my_view),&lt;br&gt;)&lt;br&gt;在这里最帅的地方莫过于你根本不用改变你的视图函数。 视图函数只会关心它 获得 了 参数，它不会去管这些参数到底是捕捉回来的还是被额外提供的。month和day25&lt;/day&gt;&lt;/month&gt;&lt;/p&gt;
-&lt;p&gt;创建一个通用视图&lt;br&gt;抽取出我们代码中共性的东西是一个很好的编程习惯。 比如，像以下的两个Python函数：&lt;/p&gt;
-&lt;p&gt;def say_hello(person_name):&lt;br&gt;    print ‘Hello, %s’ % person_name&lt;/p&gt;
-&lt;p&gt;def say_goodbye(person_name):&lt;br&gt;    print ‘Goodbye, %s’ % person_name&lt;br&gt;我们可以把问候语提取出来变成一个参数：&lt;/p&gt;
-&lt;p&gt;def greet(person_name, greeting):&lt;br&gt;    print ‘%s, %s’ % (greeting, person_name)&lt;br&gt;通过使用额外的URLconf参数，你可以把同样的思想应用到Django的视图中。&lt;/p&gt;
-&lt;p&gt;了解这个以后，你可以开始创作高抽象的视图。 更具体地说，比如这个视图显示一系列的 Event 对象，那个视图显示一系列的 BlogEntry 对象，并意识到它们都是一个用来显示一系列对象的视图的特例，而对象的类型其实就是一个变量。&lt;/p&gt;
-&lt;p&gt;以这段代码作为例子：&lt;/p&gt;
-&lt;h1 id=&quot;urls-py-3&quot;&gt;&lt;a href=&quot;#urls-py-3&quot; class=&quot;headerlink&quot; title=&quot;urls.py&quot;&gt;&lt;/a&gt;urls.py&lt;/h1&gt;&lt;p&gt;from django.conf.urls.defaults import *&lt;br&gt;from mysite import views&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^events/$’, views.event_list),&lt;br&gt;    (r’^blog/entries/$’, views.entry_list),&lt;br&gt;)&lt;/p&gt;
-&lt;h1 id=&quot;views-py-3&quot;&gt;&lt;a href=&quot;#views-py-3&quot; class=&quot;headerlink&quot; title=&quot;views.py&quot;&gt;&lt;/a&gt;views.py&lt;/h1&gt;&lt;p&gt;from django.shortcuts import render_to_response&lt;br&gt;from mysite.models import Event, BlogEntry&lt;/p&gt;
-&lt;p&gt;def event_list(request):&lt;br&gt;    obj_list = Event.objects.all()&lt;br&gt;    return render_to_response(‘mysite/event_list.html’, {‘event_list’: obj_list})&lt;/p&gt;
-&lt;p&gt;def entry_list(request):&lt;br&gt;    obj_list = BlogEntry.objects.all()&lt;br&gt;    return render_to_response(‘mysite/blogentry_list.html’, {‘entry_list’: obj_list})&lt;br&gt;这两个视图做的事情实质上是一样的： 显示一系列的对象。 让我们把它们显示的对象的类型抽象出来：&lt;/p&gt;
-&lt;h1 id=&quot;urls-py-4&quot;&gt;&lt;a href=&quot;#urls-py-4&quot; class=&quot;headerlink&quot; title=&quot;urls.py&quot;&gt;&lt;/a&gt;urls.py&lt;/h1&gt;&lt;p&gt;from django.conf.urls.defaults import *&lt;br&gt;from mysite import models, views&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^events/$’, views.object_list, {‘model’: models.Event}),&lt;br&gt;    (r’^blog/entries/$’, views.object_list, {‘model’: models.BlogEntry}),&lt;br&gt;)&lt;/p&gt;
-&lt;h1 id=&quot;views-py-4&quot;&gt;&lt;a href=&quot;#views-py-4&quot; class=&quot;headerlink&quot; title=&quot;views.py&quot;&gt;&lt;/a&gt;views.py&lt;/h1&gt;&lt;p&gt;from django.shortcuts import render_to_response&lt;/p&gt;
-&lt;p&gt;def object_list(request, model):&lt;br&gt;    obj_list = model.objects.all()&lt;br&gt;    template_name = ‘mysite/%s_list.html’ % model.&lt;strong&gt;name&lt;/strong&gt;.lower()&lt;br&gt;    return render_to_response(template_name, {‘object_list’: obj_list})&lt;br&gt;就这样小小的改动，我们突然发现我们有了一个可复用的，模型无关的视图！ 从现在开始，当我们需要一个视图来显示一系列的对象时，我们可以简简单单的重用这一个 object_list 视图，而无须另外写视图代码了。 以下是我们做过的事情：&lt;/p&gt;
-&lt;p&gt;我们通过 model 参数直接传递了模型类。 额外URLconf参数的字典是可以传递任何类型的对象，而不仅仅只是字符串。&lt;/p&gt;
-&lt;p&gt;这一行： model.objects.all() 是 鸭子界定 （原文：13&lt;/p&gt;
-&lt;p&gt;我们使用 model.&lt;strong&gt;name&lt;/strong&gt;.lower() 来决定模板的名字。 每个Python的类都有一个 &lt;strong&gt;name&lt;/strong&gt; 属性返回类名。 这特性在当我们直到运行时刻才知道对象类型的这种情况下很有用。 比如， BlogEntry 类的 &lt;strong&gt;name&lt;/strong&gt; 就是字符串 ‘BlogEntry’ 。2&lt;/p&gt;
-&lt;p&gt;这个例子与前面的例子稍有不同，我们传递了一个通用的变量名给模板。 当然我们可以轻易的把这个变量名改成 blogentry_list 或者 event_list ，不过我们打算把这当作练习留给读者。6&lt;/p&gt;
-&lt;p&gt;因为数据库驱动的网站都有一些通用的模式，Django提供了一个通用视图的集合，使用它可以节省你的时间。 我们将会在下一章讲讲Django的内置通用视图。&lt;/p&gt;
-&lt;p&gt;提供视图配置选项&lt;br&gt;如果你发布一个Django的应用，你的用户可能会希望配置上能有些自由度。 这种情况下，为你认为用户可能希望改变的配置选项添加一些钩子到你的视图中会是一个很好的主意。 你可以用额外URLconf参数实现。5&lt;/p&gt;
-&lt;p&gt;一个应用中比较常见的可供配置代码是模板名字：&lt;/p&gt;
-&lt;p&gt;def my_view(request, template_name):&lt;br&gt;    var = do_something()&lt;br&gt;    return render_to_response(template_name, {‘var’: var})&lt;br&gt;了解捕捉值和额外参数之间的优先级 额外的选项&lt;br&gt;当冲突出现的时候，额外URLconf参数优先于捕捉值。 也就是说，如果URLconf捕捉到的一个命名组变量和一个额外URLconf参数包含的变量同名时，额外URLconf参数的值会被使用。2&lt;/p&gt;
-&lt;p&gt;例如，下面这个URLconf：&lt;/p&gt;
-&lt;p&gt;from django.conf.urls.defaults import *&lt;br&gt;from mysite import views&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^mydata/(?P&lt;id&gt;\d+)/$’, views.my_view, {‘id’: 3}),&lt;br&gt;)&lt;br&gt;这里，正则表达式和额外字典都包含了一个 id 。硬编码的（额外字典的） id 将优先使用。 就是说任何请求（比如， /mydata/2/ 或者 /mydata/432432/ ）都会作 id 设置为 3 对待，不管URL里面能捕捉到什么样的值。&lt;/id&gt;&lt;/p&gt;
-&lt;p&gt;聪明的读者会发现在这种情况下，在正则表达式里面写上捕捉是浪费时间的，因为 id 的值总是会被字典中的值覆盖。 没错，我们说这个的目的只是为了让你不要犯这样的错误。8&lt;/p&gt;
-&lt;p&gt;使用缺省视图参数&lt;/p&gt;
-&lt;p&gt;另外一个方便的特性是你可以给一个视图指定默认的参数。 这样，当没有给这个参数赋值的时候将会使用默认的值。1&lt;/p&gt;
-&lt;p&gt;例子：&lt;/p&gt;
-&lt;h1 id=&quot;urls-py-5&quot;&gt;&lt;a href=&quot;#urls-py-5&quot; class=&quot;headerlink&quot; title=&quot;urls.py&quot;&gt;&lt;/a&gt;urls.py&lt;/h1&gt;&lt;p&gt;from django.conf.urls.defaults import *&lt;br&gt;from mysite import views&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^blog/$’, views.page),&lt;br&gt;    (r’^blog/page(?P&lt;num&gt;\d+)/$’, views.page),&lt;br&gt;)&lt;/num&gt;&lt;/p&gt;
-&lt;h1 id=&quot;views-py-5&quot;&gt;&lt;a href=&quot;#views-py-5&quot; class=&quot;headerlink&quot; title=&quot;views.py&quot;&gt;&lt;/a&gt;views.py&lt;/h1&gt;&lt;p&gt;def page(request, num=’1’):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# Output the appropriate page of blog entries, according to num.
-# ...
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在这里，两个URL表达式都指向了同一个视图 views.page ，但是第一个表达式没有传递任何参数。 如果匹配到了第一个样式， page() 函数将会对参数 num 使用默认值 “1” ，如果第二个表达式匹配成功， page() 函数将使用正则表达式传递过来的num的值。8&lt;/p&gt;
-&lt;p&gt;（注：我们已经注意到设置默认参数值是字符串 &lt;code&gt;‘1’&lt;/code&gt; ，不是整数&lt;code&gt;1&lt;/code&gt; 。为了保持一致，因为捕捉给&lt;code&gt;num&lt;/code&gt; 的值总是字符串。&lt;/p&gt;
-&lt;p&gt;就像前面解释的一样，这种技术与配置选项的联用是很普遍的。 以下这个例子比提供视图配置选项一节中的例子有些许的改进。&lt;/p&gt;
-&lt;p&gt;def my_view(request, template_name=’mysite/my_view.html’):&lt;br&gt;    var = do_something()&lt;br&gt;    return render_to_response(template_name, {‘var’: var})&lt;br&gt;特殊情况下的视图&lt;/p&gt;
-&lt;p&gt;有时你有一个模式来处理在你的URLconf中的一系列URL，但是有时候需要特别处理其中的某个URL。 在这种情况下，要使用将URLconf中把特殊情况放在首位的线性处理方式 。&lt;/p&gt;
-&lt;p&gt;比方说，你可以考虑通过下面这个URLpattern所描述的方式来向Django的管理站点添加一个目标页面1&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# ...
-(&amp;apos;^([^/]+)/([^/]+)/add/$&amp;apos;, views.add_stage),
-# ...
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;)&lt;br&gt;这将匹配像 /myblog/entries/add/ 和 /auth/groups/add/ 这样的URL 。然而，对于用户对象的添加页面（ /auth/user/add/ ）是个特殊情况，因为它不会显示所有的表单域，它显示两个密码域等等。 我们 可以 在视图中特别指出以解决这种情况：&lt;/p&gt;
-&lt;p&gt;def add_stage(request, app_label, model_name):&lt;br&gt;    if app_label == ‘auth’ and model_name == ‘user’:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;    # do special-case code
-else:
-    # do normal code
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;不过，就如我们多次在这章提到的，这样做并不优雅： 因为它把URL逻辑放在了视图中。 更优雅的解决方法是，我们要利用URLconf从顶向下的解析顺序这个特点：&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# ...
-(&amp;apos;^auth/user/add/$&amp;apos;, views.user_add_stage),
-(&amp;apos;^([^/]+)/([^/]+)/add/$&amp;apos;, views.add_stage),
-# ...
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;)&lt;br&gt;在这种情况下，象 /auth/user/add/ 的请求将会被 user_add_stage 视图处理。 尽管URL也匹配第二种模式，它会先匹配上面的模式。 （这是短路逻辑。）4&lt;/p&gt;
-&lt;p&gt;从URL中捕获文本&lt;/p&gt;
-&lt;p&gt;每个被捕获的参数将被作为纯Python字符串来发送，而不管正则表达式中的格式。 举个例子，在这行URLConf中：&lt;/p&gt;
-&lt;p&gt;(r’^articles/(?P&lt;year&gt;\d{4})/$’, views.year_archive),&lt;br&gt;尽管 \d{4} 将只匹配整数的字符串，但是参数 year 是作为字符串传至 views.year_archive() 的，而不是整型。&lt;/year&gt;&lt;/p&gt;
-&lt;p&gt;当你在写视图代码时记住这点很重要，许多Python内建的方法对于接受的对象的类型很讲究。 许多内置Python函数是挑剔的（这是理所当然的）只接受特定类型的对象。 一个典型的的错误就是用字符串值而不是整数值来创建 datetime.date 对象：7&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;import datetime&lt;br&gt;datetime.date(‘1993’, ‘7’, ‘9’)&lt;br&gt;Traceback (most recent call last):&lt;br&gt;    …&lt;br&gt;TypeError: an integer is required&lt;br&gt;datetime.date(1993, 7, 9)&lt;br&gt;datetime.date(1993, 7, 9)&lt;br&gt;回到URLconf和视图处，错误看起来很可能是这样：&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;urls-py-6&quot;&gt;&lt;a href=&quot;#urls-py-6&quot; class=&quot;headerlink&quot; title=&quot;urls.py&quot;&gt;&lt;/a&gt;urls.py&lt;/h1&gt;&lt;p&gt;from django.conf.urls.defaults import *&lt;br&gt;from mysite import views&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^articles/(\d{4})/(\d{2})/(\d{2})/$’, views.day_archive),&lt;br&gt;)&lt;/p&gt;
-&lt;h1 id=&quot;views-py-6&quot;&gt;&lt;a href=&quot;#views-py-6&quot; class=&quot;headerlink&quot; title=&quot;views.py&quot;&gt;&lt;/a&gt;views.py&lt;/h1&gt;&lt;p&gt;import datetime&lt;/p&gt;
-&lt;p&gt;def day_archive(request, year, month, day):&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# The following statement raises a TypeError!
-date = datetime.date(year, month, day)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;因此， day_archive() 应该这样写才是正确的：&lt;/p&gt;
-&lt;p&gt;def day_archive(request, year, month, day):&lt;br&gt;    date = datetime.date(int(year), int(month), int(day))&lt;br&gt;注意，当你传递了一个并不完全包含数字的字符串时， int() 会抛出 ValueError 的异常，不过我们已经避免了这个错误，因为在URLconf的正则表达式中已经确保只有包含数字的字符串才会传到这个视图函数中。12&lt;/p&gt;
-&lt;p&gt;决定URLconf搜索的东西&lt;/p&gt;
-&lt;p&gt;当一个请求进来时，Django试着将请求的URL作为一个普通Python字符串进行URLconf模式匹配（而不是作为一个Unicode字符串）。 这并不包括 GET 或 POST 参数或域名。 它也不包括第一个斜杠，因为每个URL必定有一个斜杠。2&lt;/p&gt;
-&lt;p&gt;例如，在向 &lt;a href=&quot;http://www.example.com/myapp/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.example.com/myapp/&lt;/a&gt; 的请求中，Django将试着去匹配 myapp/ 。在向 &lt;a href=&quot;http://www.example.com/myapp/?page=3&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.example.com/myapp/?page=3&lt;/a&gt; 的请求中，Django同样会去匹配 myapp/ 。&lt;/p&gt;
-&lt;p&gt;在解析URLconf时，请求方法（例如， POST ， GET ， HEAD ）并 不会 被考虑。 换而言之，对于相同的URL的所有请求方法将被导向到相同的函数中。 因此根据请求方法来处理分支是视图函数的责任。&lt;/p&gt;
-&lt;p&gt;视图函数的高级概念&lt;/p&gt;
-&lt;p&gt;说到关于请求方法的分支，让我们来看一下可以用什么好的方法来实现它。 考虑这个 URLconf/view 设计:&lt;/p&gt;
-&lt;h1 id=&quot;urls-py-7&quot;&gt;&lt;a href=&quot;#urls-py-7&quot; class=&quot;headerlink&quot; title=&quot;urls.py&quot;&gt;&lt;/a&gt;urls.py&lt;/h1&gt;&lt;p&gt;from django.conf.urls.defaults import *&lt;br&gt;from mysite import views&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# ...
-(r&amp;apos;^somepage/$&amp;apos;, views.some_page),
-# ...
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;)&lt;/p&gt;
-&lt;h1 id=&quot;views-py-7&quot;&gt;&lt;a href=&quot;#views-py-7&quot; class=&quot;headerlink&quot; title=&quot;views.py&quot;&gt;&lt;/a&gt;views.py&lt;/h1&gt;&lt;p&gt;from django.http import Http404, HttpResponseRedirect&lt;br&gt;from django.shortcuts import render_to_response&lt;/p&gt;
-&lt;p&gt;def some_page(request):&lt;br&gt;    if request.method == ‘POST’:&lt;br&gt;        do_something_for_post()&lt;br&gt;        return HttpResponseRedirect(‘/someurl/‘)&lt;br&gt;    elif request.method == ‘GET’:&lt;br&gt;        do_something_for_get()&lt;br&gt;        return render_to_response(‘page.html’)&lt;br&gt;    else:&lt;br&gt;        raise Http404()&lt;br&gt;在这个示例中，&lt;code&gt;some_page()&lt;/code&gt; 视图函数对&lt;code&gt;POST&lt;/code&gt; 和&lt;code&gt;GET&lt;/code&gt; 这两种请求方法的处理完全不同。 它们唯一的共同点是共享一个URL地址： &lt;code&gt;/somepage/.&lt;/code&gt;正如大家所看到的，在同一个视图函数中对&lt;code&gt;POST&lt;/code&gt; 和&lt;code&gt;GET&lt;/code&gt; 进行处理是一种很初级也很粗糙的做法。 一个比较好的设计习惯应该是，用两个分开的视图函数——一个处理&lt;code&gt;POST&lt;/code&gt; 请求，另一个处理&lt;code&gt;GET&lt;/code&gt; 请求，然后在相应的地方分别进行调用。3&lt;/p&gt;
-&lt;p&gt;我们可以像这样做：先写一个视图函数然后由它来具体分派其它的视图，在之前或之后可以执行一些我们自定的程序逻辑。 下边的示例展示了这个技术是如何帮我们改进前边那个简单的&lt;code&gt;some_page()&lt;/code&gt; 视图的：&lt;/p&gt;
-&lt;h1 id=&quot;views-py-8&quot;&gt;&lt;a href=&quot;#views-py-8&quot; class=&quot;headerlink&quot; title=&quot;views.py&quot;&gt;&lt;/a&gt;views.py&lt;/h1&gt;&lt;p&gt;from django.http import Http404, HttpResponseRedirect&lt;br&gt;from django.shortcuts import render_to_response&lt;/p&gt;
-&lt;p&gt;def method_splitter(request, GET=None, POST=None):&lt;br&gt;    if request.method == ‘GET’ and GET is not None:&lt;br&gt;        return GET(request)&lt;br&gt;    elif request.method == ‘POST’ and POST is not None:&lt;br&gt;        return POST(request)&lt;br&gt;    raise Http404&lt;/p&gt;
-&lt;p&gt;def some_page_get(request):&lt;br&gt;    assert request.method == ‘GET’&lt;br&gt;    do_something_for_get()&lt;br&gt;    return render_to_response(‘page.html’)&lt;/p&gt;
-&lt;p&gt;def some_page_post(request):&lt;br&gt;    assert request.method == ‘POST’&lt;br&gt;    do_something_for_post()&lt;br&gt;    return HttpResponseRedirect(‘/someurl/‘)&lt;/p&gt;
-&lt;h1 id=&quot;urls-py-8&quot;&gt;&lt;a href=&quot;#urls-py-8&quot; class=&quot;headerlink&quot; title=&quot;urls.py&quot;&gt;&lt;/a&gt;urls.py&lt;/h1&gt;&lt;p&gt;from django.conf.urls.defaults import *&lt;br&gt;from mysite import views&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# ...
-(r&amp;apos;^somepage/$&amp;apos;, views.method_splitter, {&amp;apos;GET&amp;apos;: views.some_page_get, &amp;apos;POST&amp;apos;: views.some_page_post}),
-# ...
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;)&lt;br&gt;让我们从头看一下代码是如何工作的：5&lt;/p&gt;
-&lt;p&gt;我们写了一个新的视图，&lt;code&gt;method_splitter()&lt;/code&gt; ，它根据&lt;code&gt;request.method&lt;/code&gt; 返回的值来调用相应的视图。可以看到它带有两个关键参数，&lt;code&gt;GET&lt;/code&gt; 和&lt;code&gt;POST&lt;/code&gt; ，也许应该是&lt;em&gt; 视图函数&lt;/em&gt; 。如果&lt;code&gt;request.method&lt;/code&gt; 返回&lt;code&gt;GET&lt;/code&gt; ，那它就会自动调用&lt;code&gt;GET&lt;/code&gt; 视图。 如果&lt;code&gt;request.method&lt;/code&gt; 返回的是&lt;code&gt;POST&lt;/code&gt; ，那它调用的就是&lt;code&gt;POST&lt;/code&gt; 视图。 如果&lt;code&gt;request.method&lt;/code&gt; 返回的是其它值（如：&lt;code&gt;HEAD&lt;/code&gt; ），或者是没有把&lt;code&gt;GET&lt;/code&gt; 或&lt;code&gt;POST&lt;/code&gt; 提交给此函数，那它就会抛出一个&lt;code&gt;Http404&lt;/code&gt; 错误。&lt;/p&gt;
-&lt;p&gt;在URLconf中，我们把&lt;code&gt;/somepage/&lt;/code&gt; 指到&lt;code&gt;method_splitter()&lt;/code&gt; 函数，并把视图函数额外需要用到的&lt;code&gt;GET&lt;/code&gt; 和&lt;code&gt;POST&lt;/code&gt; 参数传递给它。&lt;/p&gt;
-&lt;p&gt;最终，我们把&lt;code&gt;some_page()&lt;/code&gt; 视图分解到两个视图函数中&lt;code&gt;some_page_get()&lt;/code&gt; 和&lt;code&gt;some_page_post()&lt;/code&gt; 。这比把所有逻辑都挤到一个单一视图的做法要优雅得多。2&lt;/p&gt;
-&lt;p&gt;注意，在技术上这些视图函数就不用再去检查&lt;code&gt;request.method&lt;/code&gt; 了，因为&lt;code&gt;method_splitter()&lt;/code&gt; 已经替它们做了。 （比如，&lt;code&gt;some_page_post()&lt;/code&gt; 被调用的时候，我们可以确信&lt;code&gt;request.method&lt;/code&gt; 返回的值是&lt;code&gt;post&lt;/code&gt; 。）当然，这样做不止更安全也能更好的将代码文档化，这里我们做了一个假定，就是&lt;code&gt;request.method&lt;/code&gt; 能象我们所期望的那样工作。4&lt;/p&gt;
-&lt;p&gt;现在我们就拥有了一个不错的，可以通用的视图函数了，里边封装着由&lt;code&gt;request.method&lt;/code&gt; 的返回值来分派不同的视图的程序。关于&lt;code&gt;method_splitter()&lt;/code&gt; 就不说什么了，当然，我们可以把它们重用到其它项目中。&lt;/p&gt;
-&lt;p&gt;然而，当我们做到这一步时，我们仍然可以改进&lt;code&gt;method_splitter&lt;/code&gt; 。从代码我们可以看到，它假设&lt;code&gt;Get&lt;/code&gt; 和&lt;code&gt;POST&lt;/code&gt; 视图除了&lt;code&gt;request&lt;/code&gt; 之外不需要任何其他的参数。那么，假如我们想要使用&lt;code&gt;method_splitter&lt;/code&gt; 与那种会从URL里捕捉字符，或者会接收一些可选参数的视图一起工作时该怎么办呢？4&lt;/p&gt;
-&lt;p&gt;为了实现这个，我们可以使用Python中一个优雅的特性 带星号的可变参数 我们先展示这些例子，接着再进行解释&lt;/p&gt;
-&lt;p&gt;def method_splitter(request, &lt;em&gt;args, **kwargs):&lt;br&gt;    get_view = kwargs.pop(‘GET’, None)&lt;br&gt;    post_view = kwargs.pop(‘POST’, None)&lt;br&gt;    if request.method == ‘GET’ and get_view is not None:&lt;br&gt;        return get_view(request, &lt;/em&gt;args, &lt;strong&gt;kwargs)&lt;br&gt;    elif request.method == ‘POST’ and post_view is not None:&lt;br&gt;        return post_view(request, *args, &lt;/strong&gt;kwargs)&lt;br&gt;    raise Http404&lt;br&gt;这里,我们重构method_splitter(),去掉了GET和POST两个关键字参数,改而支持使用&lt;em&gt;args和和**kwargs(注意&lt;/em&gt;号) 这是一个Python特性，允许函数接受动态的、可变数量的、参数名只在运行时可知的参数。 如果你在函数定义时,只在参数前面加一个&lt;em&gt;号,所有传递给函数的参数将会保存为一个元组. 如果你在函数定义时,在参数前面加两个&lt;/em&gt;号,所有传递给函数的关键字参数,将会保存为一个字典1&lt;/p&gt;
-&lt;p&gt;例如，对于这个函数1&lt;/p&gt;
-&lt;p&gt;def foo(&lt;em&gt;args, *&lt;/em&gt;kwargs):&lt;br&gt;    print “Positional arguments are:”&lt;br&gt;    print args&lt;br&gt;    print “Keyword arguments are:”&lt;br&gt;    print kwargs&lt;br&gt;看一下它是怎么工作的&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;foo(1, 2, 3)&lt;br&gt;Positional arguments are:&lt;br&gt;(1, 2, 3)&lt;br&gt;Keyword arguments are:&lt;br&gt;{}&lt;br&gt;foo(1, 2, name=’Adrian’, framework=’Django’)&lt;br&gt;Positional arguments are:&lt;br&gt;(1, 2)&lt;br&gt;Keyword arguments are:&lt;br&gt;{‘framework’: ‘Django’, ‘name’: ‘Adrian’}&lt;br&gt;回过头来看，你能发现我们用method_splitter()和&lt;em&gt;args接受*&lt;/em&gt;kwargs函数参数并把它们传递到正确的视图。any 但是在我们这样做之前，我们要调用两次获得参数kwargs.pop()GETPOST，如果它们合法的话。 (我们通过指定pop的缺省值为None,来避免由于一个或者多个关键字缺失带来的KeyError)16&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;包装视图函数&lt;/p&gt;
-&lt;p&gt;我们最终的视图技巧利用了一个高级python技术。 假设你发现自己在各个不同视图里重复了大量代码，就像 这个例子：&lt;/p&gt;
-&lt;p&gt;def my_view1(request):&lt;br&gt;    if not request.user.is_authenticated():&lt;br&gt;        return HttpResponseRedirect(‘/accounts/login/‘)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# ...
-return render_to_response(&amp;apos;template1.html&amp;apos;)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;def my_view2(request):&lt;br&gt;    if not request.user.is_authenticated():&lt;br&gt;        return HttpResponseRedirect(‘/accounts/login/‘)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# ...
-return render_to_response(&amp;apos;template2.html&amp;apos;)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;def my_view3(request):&lt;br&gt;    if not request.user.is_authenticated():&lt;br&gt;        return HttpResponseRedirect(‘/accounts/login/‘)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# ...
-return render_to_response(&amp;apos;template3.html&amp;apos;)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这里，每一个视图开始都检查request.user是否是已经认证的，是的话，当前用户已经成功登陆站点否则就重定向/accounts/login/ (注意,虽然我们还没有讲到request.user,但是14章将要讲到它.就如你所想像的,request.user描述当前用户是登陆的还是匿名)3&lt;/p&gt;
-&lt;p&gt;如果我们能够丛每个视图里移除那些 重复代，并且只在需要认证的时候指明它们，那就完美了。 我们能够通过使用一个视图包装达到目的。 花点时间来看看这个：3&lt;/p&gt;
-&lt;p&gt;def requires_login(view):&lt;br&gt;    def new_view(request, &lt;em&gt;args, **kwargs):&lt;br&gt;        if not request.user.is_authenticated():&lt;br&gt;            return HttpResponseRedirect(‘/accounts/login/‘)&lt;br&gt;        return view(request, &lt;/em&gt;args, **kwargs)&lt;br&gt;    return new_view&lt;br&gt;函数requires_login,传入一个视图函数view,然后返回一个新的视图函数new_view.这个新的视图函数new_view在函数requires_login内定义 处理request.user.is_authenticated()这个验证,从而决定是否执行原来的view函数2&lt;/p&gt;
-&lt;p&gt;现在,我们可以从views中去掉if not request.user.is_authenticated()验证.我们可以在URLconf中很容易的用requires_login来包装实现.&lt;/p&gt;
-&lt;p&gt;from django.conf.urls.defaults import *&lt;br&gt;from mysite.views import requires_login, my_view1, my_view2, my_view3&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^view1/$’, requires_login(my_view1)),&lt;br&gt;    (r’^view2/$’, requires_login(my_view2)),&lt;br&gt;    (r’^view3/$’, requires_login(my_view3)),&lt;br&gt;)&lt;br&gt;优化后的代码和前面的功能一样,但是减少了代码冗余 现在我们建立了一个漂亮,通用的函数requires_login()来帮助我们修饰所有需要它来验证的视图&lt;/p&gt;
-&lt;p&gt;包含其他URLconf4&lt;br&gt;如果你试图让你的代码用在多个基于Django的站点上，你应该考虑将你的URLconf以包含的方式来处理。&lt;/p&gt;
-&lt;p&gt;在任何时候，你的URLconf都可以包含其他URLconf模块。 对于根目录是基于一系列URL的站点来说，这是必要的。 例如下面的，URLconf包含了其他URLConf：&lt;/p&gt;
-&lt;p&gt;from django.conf.urls.defaults import *&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^weblog/‘, include(‘mysite.blog.urls’)),&lt;br&gt;    (r’^photos/‘, include(‘mysite.photos.urls’)),&lt;br&gt;    (r’^about/$’, ‘mysite.views.about’),&lt;br&gt;)&lt;br&gt;在前面第6章介绍Django的admin模块时我们曾经见过include. admin模块有他自己的URLconf,你仅仅只需要在你自己的代码中加入include就可以了.&lt;/p&gt;
-&lt;p&gt;这里有个很重要的地方： 例子中的指向 include() 的正则表达式并 不 包含一个 $ （字符串结尾匹配符），但是包含了一个斜杆。 每当Django遇到 include() 时，它将截断匹配的URL，并把剩余的字符串发往包含的URLconf作进一步处理。6&lt;/p&gt;
-&lt;p&gt;继续看这个例子，这里就是被包含的URLconf mysite.blog.urls ：&lt;/p&gt;
-&lt;p&gt;from django.conf.urls.defaults import *&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^(\d\d\d\d)/$’, ‘mysite.blog.views.year_detail’),&lt;br&gt;    (r’^(\d\d\d\d)/(\d\d)/$’, ‘mysite.blog.views.month_detail’),&lt;br&gt;)&lt;br&gt;通过这两个URLconf，下面是一些处理请求的例子：&lt;/p&gt;
-&lt;p&gt;/weblog/2007/ ：在第一个URLconf中，模式 r’^weblog/‘ 被匹配。 因为它是一个 include() ，Django将截掉所有匹配的文本，在这里是 ‘weblog/‘ 。URL剩余的部分是 2007/ ， 将在 mysite.blog.urls 这个URLconf的第一行中被匹配到。 URL仍存在的部分为 2007/ ,与第一行的 mysite.blog.urlsURL设置相匹配。&lt;/p&gt;
-&lt;p&gt;/weblog//2007/(包含两个斜杠) 在第一个URLconf中,r’^weblog/’匹配 因为它有一个include(),django去掉了匹配的部,在这个例子中匹配的部分是’weblog/’ 剩下的部分是/2007/ (最前面有一个斜杠),不匹配mysite.blog.urls中的任何一行.3&lt;/p&gt;
-&lt;p&gt;/about/ : 这个匹配第一个URLconf中的 mysite.views.about 视图。&lt;/p&gt;
-&lt;p&gt;捕获的参数如何和include()协同工作&lt;/p&gt;
-&lt;p&gt;一个被包含的URLconf接收任何来自parent URLconfs的被捕获的参数，比如:&lt;/p&gt;
-&lt;h1 id=&quot;root-urls-py&quot;&gt;&lt;a href=&quot;#root-urls-py&quot; class=&quot;headerlink&quot; title=&quot;root urls.py&quot;&gt;&lt;/a&gt;root urls.py&lt;/h1&gt;&lt;p&gt;from django.conf.urls.defaults import *&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^(?P&lt;username&gt;\w+)/blog/‘, include(‘foo.urls.blog’)),&lt;br&gt;)&lt;/username&gt;&lt;/p&gt;
-&lt;h1 id=&quot;foo-urls-blog-py&quot;&gt;&lt;a href=&quot;#foo-urls-blog-py&quot; class=&quot;headerlink&quot; title=&quot;foo/urls/blog.py&quot;&gt;&lt;/a&gt;foo/urls/blog.py&lt;/h1&gt;&lt;p&gt;from django.conf.urls.defaults import *&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^$’, ‘foo.views.blog_index’),&lt;br&gt;    (r’^archive/$’, ‘foo.views.blog_archive’),&lt;br&gt;)&lt;br&gt;在这个例子中，被捕获的 username 变量将传递给被包含的 URLconf，进而传递给那个URLconf中的 每一个 视图函数。2&lt;/p&gt;
-&lt;p&gt;注意，这个被捕获的参数 总是 传递到被包含的URLconf中的 每一 行，不管那些行对应的视图是否需要这些参数。 因此，这个技术只有在你确实需要那个被传递的参数的时候才显得有用。6&lt;/p&gt;
-&lt;p&gt;额外的URLconf如何和include()协同工作1&lt;/p&gt;
-&lt;p&gt;相似的，你可以传递额外的URLconf选项到 include() , 就像你可以通过字典传递额外的URLconf选项到普通的视图。 当你这样做的时候，被包含URLconf的 每一 行都会收到那些额外的参数。&lt;/p&gt;
-&lt;p&gt;比如，下面的两个URLconf在功能上是相等的。1&lt;/p&gt;
-&lt;p&gt;第一个：&lt;/p&gt;
-&lt;h1 id=&quot;urls-py-9&quot;&gt;&lt;a href=&quot;#urls-py-9&quot; class=&quot;headerlink&quot; title=&quot;urls.py&quot;&gt;&lt;/a&gt;urls.py&lt;/h1&gt;&lt;p&gt;from django.conf.urls.defaults import *&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^blog/‘, include(‘inner’), {‘blogid’: 3}),&lt;br&gt;)&lt;/p&gt;
-&lt;h1 id=&quot;inner-py&quot;&gt;&lt;a href=&quot;#inner-py&quot; class=&quot;headerlink&quot; title=&quot;inner.py&quot;&gt;&lt;/a&gt;inner.py&lt;/h1&gt;&lt;p&gt;from django.conf.urls.defaults import *&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^archive/$’, ‘mysite.views.archive’),&lt;br&gt;    (r’^about/$’, ‘mysite.views.about’),&lt;br&gt;    (r’^rss/$’, ‘mysite.views.rss’),&lt;br&gt;)&lt;br&gt;第二个&lt;/p&gt;
-&lt;h1 id=&quot;urls-py-10&quot;&gt;&lt;a href=&quot;#urls-py-10&quot; class=&quot;headerlink&quot; title=&quot;urls.py&quot;&gt;&lt;/a&gt;urls.py&lt;/h1&gt;&lt;p&gt;from django.conf.urls.defaults import *&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^blog/‘, include(‘inner’)),&lt;br&gt;)&lt;/p&gt;
-&lt;h1 id=&quot;inner-py-1&quot;&gt;&lt;a href=&quot;#inner-py-1&quot; class=&quot;headerlink&quot; title=&quot;inner.py&quot;&gt;&lt;/a&gt;inner.py&lt;/h1&gt;&lt;p&gt;from django.conf.urls.defaults import *&lt;/p&gt;
-&lt;p&gt;urlpatterns = patterns(‘’,&lt;br&gt;    (r’^archive/$’, ‘mysite.views.archive’, {‘blogid’: 3}),&lt;br&gt;    (r’^about/$’, ‘mysite.views.about’, {‘blogid’: 3}),&lt;br&gt;    (r’^rss/$’, ‘mysite.views.rss’, {‘blogid’: 3}),&lt;br&gt;)&lt;br&gt;这个例子和前面关于被捕获的参数一样（在上一节就解释过这一点），额外的选项将 总是 被传递到被包含的URLconf中的 每一 行，不管那一行对应的视图是否确实作为有效参数接收这些选项，因此，这个技术只有在你确实需要那个被传递的额外参数的时候才显得有用。 因为这个原因，这种技术仅当你确信在涉及到的接受到额外你给出的选项的每个URLconf时有用的才奏效。5&lt;/p&gt;
-&lt;p&gt;下一章&lt;br&gt;这一章提供了很多高级视图和URLconfs的小提示和技巧。 接下来，在Chapter 9,我们将会将这个先进的处理方案带给djangos模板系统。3&lt;/p&gt;
-&lt;p&gt;GNU Free Document License. Hosting公司殷勤提供&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在第三章，我们已经对基本的Django视图和URL配置做了介绍。 在这一章，将进一步说明框架中这两个部分的高级机能。4&lt;/p&gt;
-&lt;p&gt;URLconf 技巧&lt;br&gt;URLconf没什么特别的，就象 Django 中其它东西一样，它们只是 Python 代码。 你可以在几方面从
-    
-    </summary>
-    
-      <category term="Django book 2.0" scheme="http://www.lflxp.cn/categories/Django-book-2-0/"/>
-    
-    
-      <category term="django" scheme="http://www.lflxp.cn/tags/django/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Vgrant安装配置</title>
-    <link href="http://www.lflxp.cn/2016/04/06/2016-02-21-Vgrant%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/"/>
-    <id>http://www.lflxp.cn/2016/04/06/2016-02-21-Vgrant安装配置/</id>
-    <published>2016-04-06T10:31:45.156Z</published>
-    <updated>2016-04-06T11:37:17.731Z</updated>
-    
-    <content type="html">&lt;h1 id=&quot;Vgrant安装配置&quot;&gt;&lt;a href=&quot;#Vgrant安装配置&quot; class=&quot;headerlink&quot; title=&quot;Vgrant安装配置&quot;&gt;&lt;/a&gt;Vgrant安装配置&lt;/h1&gt;&lt;p&gt;实际上Vagrant只是一个让你可以方便设置你想要的虚拟机的便携式工具，它底层支持VirtualBox、VMware甚至AWS作为虚拟机系统，本书中我们将使用VirtualBox来进行说明，所以第一步需要先安裝Vagrant和VirtualBox。&lt;/p&gt;
-&lt;h2 id=&quot;VirtualBox安装&quot;&gt;&lt;a href=&quot;#VirtualBox安装&quot; class=&quot;headerlink&quot; title=&quot;VirtualBox安装&quot;&gt;&lt;/a&gt;VirtualBox安装&lt;/h2&gt;&lt;p&gt;VirtualBox是Oracle开源的虚拟化系统，它支持多个平台，所以你可以到官方网站：&lt;a href=&quot;https://www.virtualbox.org/wiki/Downloads/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://www.virtualbox.org/wiki/Downloads/&lt;/a&gt; 下载适合你平台的VirtualBox最新版本并安装，它的安装过程都很傻瓜化，一步一步执行就可以完成安装了。&lt;/p&gt;
-&lt;h2 id=&quot;Vagrant安装&quot;&gt;&lt;a href=&quot;#Vagrant安装&quot; class=&quot;headerlink&quot; title=&quot;Vagrant安装&quot;&gt;&lt;/a&gt;Vagrant安装&lt;/h2&gt;&lt;p&gt;最新版本的Vagrant已经无法通过&lt;code&gt;gem&lt;/code&gt;命令来安装，因为依赖库太多了，所以目前无法使用&lt;code&gt;gem&lt;/code&gt;来安装，目前网络上面很多教程还是类似这样的命令，那些都是错误的。目前唯一安装的办法就是到官方网站下载打包好的安装包：&lt;a href=&quot;http://www.vagrantup.com/downloads.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.vagrantup.com/downloads.html&lt;/a&gt;  他的安装过程和VirtualBox的安装一样都是傻瓜化安装，一步一步执行就可以完成安装。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;尽量下载最新的程序，因为VirtualBox经常升级，升级后有些接口会变化，老的Vagrant可能无法使用。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;要想检测安装是否成功，可以打开终端命令行工具，输入&lt;code&gt;vagrant&lt;/code&gt;，看看程序是不是已经可以运行了。如果不行，请检查一下$PATH里面是否包含&lt;code&gt;vagrant&lt;/code&gt;所在的路径。&lt;/p&gt;
-&lt;h2 id=&quot;Vagrant配置&quot;&gt;&lt;a href=&quot;#Vagrant配置&quot; class=&quot;headerlink&quot; title=&quot;Vagrant配置&quot;&gt;&lt;/a&gt;Vagrant配置&lt;/h2&gt;&lt;p&gt;当我们安装好VirtualBox和Vagrant后，我们要开始考虑在VM上使用什么操作系统了，一个打包好的操作系统在Vagrant中称为Box，即Box是一个打包好的操作系统环境，目前网络上什么都有，所以你不用自己去制作操作系统或者制作Box：&lt;a href=&quot;http://www.vagrantbox.es/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;vagrantbox.es&lt;/a&gt;上面有大家熟知的大多数操作系统，你只需要下载就可以了，下载主要是为了安装的时候快速，当然Vagrant也支持在线安装。&lt;/p&gt;
-&lt;h3 id=&quot;建立开发环境目录&quot;&gt;&lt;a href=&quot;#建立开发环境目录&quot; class=&quot;headerlink&quot; title=&quot;建立开发环境目录&quot;&gt;&lt;/a&gt;建立开发环境目录&lt;/h3&gt;&lt;p&gt;我的开发机是Mac，所以我建立了如下的开发环境目录，读者可以根据自己的系统不同建立一个目录就可以：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;/Users/astaxie/vagrant
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;下载box&quot;&gt;&lt;a href=&quot;#下载box&quot; class=&quot;headerlink&quot; title=&quot;下载box&quot;&gt;&lt;/a&gt;下载box&lt;/h3&gt;&lt;p&gt;前面讲了box是一个操作系统环境，实际上它是一个zip包，包含了Vagrant的配置信息和VirtualBox的虚拟机镜像文件.我们这一次的实战使用官方提供了一个box:Ubuntu lucid 64 &lt;a href=&quot;http://files.vagrantup.com/lucid64.box&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://files.vagrantup.com/lucid64.box&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;当然你也可以选一个自己团队在用的系统，例如CentOS、Debian等，我们可以通过上面说的地址下载开源爱好者们制作好的box。当然你自己做一个也行，下一节我会讲述如何自己制作包。&lt;/p&gt;
-&lt;h3 id=&quot;添加box&quot;&gt;&lt;a href=&quot;#添加box&quot; class=&quot;headerlink&quot; title=&quot;添加box&quot;&gt;&lt;/a&gt;添加box&lt;/h3&gt;&lt;p&gt;添加box的命令如下：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;vagrant box add base 远端的box地址或者本地的box文件名
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;vagrant box add&lt;/code&gt; 是添加box的命令&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;base&lt;/code&gt;是box的名称，可以是任意的字符串，&lt;code&gt;base&lt;/code&gt;是默认名称，主要用来标识一下你添加的box，后面的命令都是基于这个标识来操作的。&lt;/p&gt;
-&lt;p&gt;例子：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;vagrant box add base http://files.vagrantup.com/lucid64.box
-vagrant box add base https://dl.dropbox.com/u/7225008/Vagrant/CentOS-6.3-x86_64-minimal.box
-vagrant box add base CentOS-6.3-x86_64-minimal.box
-vagrant box add &amp;quot;CentOS 6.3 x86_64 minimal&amp;quot; CentOS-6.3-x86_64-minimal.box
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;我在开发机上面是这样操作的，首先进入我们的开发环境目录&lt;code&gt;/Users/astaxie/vagrant&lt;/code&gt;，执行如下的命令&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;vagrant box add base lucid64.box
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;安装过程的信息：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Downloading or copying the box...
-Extracting box...te: 47.5M/s, Estimated time remaining: --:--:--)
-Successfully added box &amp;apos;base&amp;apos; with provider &amp;apos;virtualbox&amp;apos;!
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;box中的镜像文件被放到了：&lt;code&gt;/Users/astaxie/.vagrant.d/boxes/&lt;/code&gt;，如果在window系统中应该是放到了：&lt;br&gt;&lt;code&gt;C:\Users\当前用户名\.vagrant.d\boxes\&lt;/code&gt;目录下。&lt;/p&gt;
-&lt;p&gt;通过&lt;code&gt;vagrant box add&lt;/code&gt;这样的方式安装远程的box，可能很慢，所以建议大家先下载box到本地再执行这样的操作。&lt;/p&gt;
-&lt;h3 id=&quot;初始化&quot;&gt;&lt;a href=&quot;#初始化&quot; class=&quot;headerlink&quot; title=&quot;初始化&quot;&gt;&lt;/a&gt;初始化&lt;/h3&gt;&lt;p&gt;初始化的命令如下：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;vagrant init
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果你添加的box名称不是base，那么需要在初始化的时候指定名称，例如&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;vagrant init &amp;quot;CentOS 6.3 x86_64 minimal&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;初始化过程的信息：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;A `Vagrantfile` has been placed in this directory.
-You are now ready to `vagrant up` your first virtual environment!
-Please read the comments in the Vagrantfile as well as documentation on `vagrantup.com` for more information on using Vagrant.
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样就会在当前目录生成一个    &lt;code&gt;Vagrantfile&lt;/code&gt;的文件，里面有很多配置信息，后面我们会详细讲解每一项的含义，但是默认的配置就可以开箱即用。&lt;/p&gt;
-&lt;h3 id=&quot;启动虚拟机&quot;&gt;&lt;a href=&quot;#启动虚拟机&quot; class=&quot;headerlink&quot; title=&quot;启动虚拟机&quot;&gt;&lt;/a&gt;启动虚拟机&lt;/h3&gt;&lt;p&gt;启动虚拟机的命令如下：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;vagrant up
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;启动过程的信息:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Bringing machine &amp;apos;default&amp;apos; up with &amp;apos;virtualbox&amp;apos; provider...
-[default] Importing base box &amp;apos;base&amp;apos;...
-[default] Matching MAC address for NAT networking...
-[default] Setting the name of the VM...
-[default] Clearing any previously set forwarded ports...
-[default] Creating shared folders metadata...
-[default] Clearing any previously set network interfaces...
-[default] Preparing network interfaces based on configuration...
-[default] Forwarding ports...
-[default] -- 22 =&amp;gt; 2222 (adapter 1)
-[default] Booting VM...
-[default] Waiting for VM to boot. This can take a few minutes.
-[default] VM booted and ready for use!
-[default] Mounting shared folders...
-[default] -- /vagrant
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;连接到虚拟机&quot;&gt;&lt;a href=&quot;#连接到虚拟机&quot; class=&quot;headerlink&quot; title=&quot;连接到虚拟机&quot;&gt;&lt;/a&gt;连接到虚拟机&lt;/h3&gt;&lt;p&gt;上面已经启动了虚拟机，之后我们就可以通过ssh来连接到虚拟机了。比如在我的开发机中可以像这样来连接：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;vagrant ssh
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;连接到虚拟机后的信息如下：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Linux lucid64 2.6.32-38-server #83-Ubuntu SMP Wed Jan 4 11:26:59 UTC 2012 x86_64 GNU/Linux
-Ubuntu 10.04.4 LTS
-
-Welcome to the Ubuntu Server!
- * Documentation:  http://www.ubuntu.com/server/doc
-New release &amp;apos;precise&amp;apos; available.
-Run &amp;apos;do-release-upgrade&amp;apos; to upgrade to it.
-
-Welcome to your Vagrant-built virtual machine.
-Last login: Fri Sep 14 07:31:39 2012 from 10.0.2.2
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样我们就可以像连接到一台服务器一样进行操作了。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;window机器不支持这样的命令，必须使用第三方客户端来进行连接，例如putty、Xshell4等.&lt;/p&gt;
-&lt;p&gt;putty为例：&lt;/p&gt;
-&lt;p&gt;主机地址: 127.0.0.1&lt;/p&gt;
-&lt;p&gt;端口: 2222&lt;/p&gt;
-&lt;p&gt;用户名: vagrant&lt;/p&gt;
-&lt;p&gt;密码: vagrant&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;系统信息&quot;&gt;&lt;a href=&quot;#系统信息&quot; class=&quot;headerlink&quot; title=&quot;系统信息&quot;&gt;&lt;/a&gt;系统信息&lt;/h3&gt;&lt;p&gt;进入系统之后我们可以看一下系统的基础信息：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;vagrant@lucid64:/vagrant$ df -h
-Filesystem            Size  Used Avail Use% Mounted on
-/dev/mapper/lucid64-root
-                       78G  945M   73G   2% /
-none                  179M  176K  179M   1% /dev
-none                  184M     0  184M   0% /dev/shm
-none                  184M   64K  184M   1% /var/run
-none                  184M     0  184M   0% /var/lock
-none                  184M     0  184M   0% /lib/init/rw
-none                   78G  945M   73G   2% /var/lib/ureadahead/debugfs
-/dev/sda1             228M   17M  199M   8% /boot
-/vagrant              298G   76G  222G  26% /vagrant
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;/vagrant&lt;/code&gt;这个目录是自动映射的，被映射到&lt;code&gt;/Users/astaxie/vagrant&lt;/code&gt;，这样就方便我们以后在开发机中进行开发，在虚拟机中进行运行效果测试了。&lt;/p&gt;
-&lt;h3 id=&quot;Vagrantfile配置文件详解&quot;&gt;&lt;a href=&quot;#Vagrantfile配置文件详解&quot; class=&quot;headerlink&quot; title=&quot;Vagrantfile配置文件详解&quot;&gt;&lt;/a&gt;Vagrantfile配置文件详解&lt;/h3&gt;&lt;p&gt;在我们的开发目录下有一个文件&lt;code&gt;Vagrantfile&lt;/code&gt;，里面包含有大量的配置信息，主要包括三个方面的配置，虚拟机的配置、SSH配置、Vagrant的一些基础配置。Vagrant是使用Ruby开发的，所以它的配置语法也是Ruby的，但是我们没有学过Ruby的人还是可以跟着它的注释知道怎么配置一些基本项的配置。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;box设置&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config.vm.box = &amp;quot;base&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt; 上面这配置展示了Vagrant要去启用那个box作为系统，也就是上面我们输入&lt;code&gt;vagrant init Box名称&lt;/code&gt;时所指定的box，如果沒有输入box名称的話，那么默认就是&lt;code&gt;base&lt;/code&gt;，VirtualBox提供了VBoxManage这个命令行工具，可以让我们设定VM，用&lt;code&gt;modifyvm&lt;/code&gt;这个命令让我们可以设定VM的名称和内存大小等等，这里说的名称指的是在VirtualBox中显示的名称，我们也可以在Vagrantfile中进行设定，在Vagrantfile中加入如下这行就可以设定了：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config.vm.provider &amp;quot;virtualbox&amp;quot; do |v|
-  v.customize [&amp;quot;modifyvm&amp;quot;, :id, &amp;quot;--name&amp;quot;, &amp;quot;astaxie&amp;quot;, &amp;quot;--memory&amp;quot;, &amp;quot;512&amp;quot;]
-end
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt; 这行设置的意思是调用VBoxManage的&lt;code&gt;modifyvm&lt;/code&gt;的命令，设置VM的名称为&lt;code&gt;astaxie&lt;/code&gt;，内存为512MB。你可以类似的通过定制其它VM属性来定制你自己的VM。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;网络设置&lt;/p&gt;
-&lt;p&gt; Vagrant有两种方式来进行网络连接，一种是host-only(主机模式)，意思是主机和虚拟机之间的网络互访，而不是虚拟机访问internet的技术，也就是只有你一個人自High，其他人访问不到你的虚拟机。另一种是Bridge(桥接模式)，该模式下的VM就像是局域网中的一台独立的主机，也就是说需要VM到你的路由器要IP，这样的话局域网里面其他机器就可以访问它了，一般我们设置虚拟机都是自high为主，所以我们的设置一般如下：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config.vm.network :private_network, ip: &amp;quot;11.11.11.11&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt; 这里我们虚拟机设置为hostonly，并且指定了一个IP，IP的话建议最好不要用&lt;code&gt;192.168..&lt;/code&gt;这个网段，因为很有可能和你局域网里面的其它机器IP冲突，所以最好使用类似&lt;code&gt;11.11..&lt;/code&gt;这样的IP地址。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;hostname设置&lt;/p&gt;
-&lt;p&gt; &lt;code&gt;hostname&lt;/code&gt;的设置非常简单，Vagrantfile中加入下面这行就可以了：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config.vm.hostname = &amp;quot;go-app&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt; 设置&lt;code&gt;hostname&lt;/code&gt;非常重要，因为当我们有很多台虚拟服务器的时候，都是依靠&lt;code&gt;hostname&lt;/code&gt;來做识别的，例如Puppet或是Chef，都是通过&lt;code&gt;hostname&lt;/code&gt;來做识别的，既然设置那么简单，所以我们就別偷懒，设置一个。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;同步目录&lt;/p&gt;
-&lt;p&gt; 我们上面介绍过&lt;code&gt;/vagrant&lt;/code&gt;目录默认就是当前的开发目录，这是在虚拟机开启的时候默认挂载同步的。我们还可以通过配置来设置额外的同步目录：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config.vm.synced_folder  &amp;quot;/Users/astaxie/data&amp;quot;, &amp;quot;/vagrant_data&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt; 上面这个设定，第一个参数是主机的目录，第二个参数是虚拟机挂载的目录&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;端口转发&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;config.vm.network :forwarded_port, guest: 80, host: 8080
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt; 上面这句配置可厉害了，这一行的意思是把对host机器上8080端口的访问请求forward到虚拟机的80端口的服务上，例如你在你的虚拟机上使用nginx跑了一个Go应用，那么你在host机器上的浏览器中打开&lt;code&gt;http://localhost:8080&lt;/code&gt;时，Vagrant就会把这个请求转发到VM里面跑在80端口的nginx服务上，因此我们可以通过这个设置来帮助我们去设定host和VM之间，或是VM和VM之间的信息交互。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;修改完Vagrantfile的配置后，记得要用&lt;code&gt;vagrant reload&lt;/code&gt;命令来重启VM之后才能使用VM更新后的配置&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;links&quot;&gt;&lt;a href=&quot;#links&quot; class=&quot;headerlink&quot; title=&quot;links&quot;&gt;&lt;/a&gt;links&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/astaxie/Go-in-Action/blob/master/ebook/zh/preface.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;目录&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;上一节: &lt;a href=&quot;https://github.com/astaxie/Go-in-Action/blob/master/ebook/zh/01.1.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Vagrant的介绍&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;下一节: &lt;a href=&quot;https://github.com/astaxie/Go-in-Action/blob/master/ebook/zh/01.3.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Vagrant使用入门&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;Vgrant安装配置&quot;&gt;&lt;a href=&quot;#Vgrant安装配置&quot; class=&quot;headerlink&quot; title=&quot;Vgrant安装配置&quot;&gt;&lt;/a&gt;Vgrant安装配置&lt;/h1&gt;&lt;p&gt;实际上Vagrant只是一个让你可以方便设置你想要的虚拟机的便携式工具，它底
-    
-    </summary>
-    
-      <category term="vagrant" scheme="http://www.lflxp.cn/categories/vagrant/"/>
-    
-    
-      <category term="vagrant" scheme="http://www.lflxp.cn/tags/vagrant/"/>
     
   </entry>
   
