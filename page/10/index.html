@@ -357,9 +357,7 @@
       
         
           
-          在第三章，我们讲述了用 Django 建造网站的基本途径： 建立视图和 URLConf 。 正如我们所阐述的，视图负责处理一些主观逻辑，然后返回响应结果。 作为例子之一，我们的主观逻辑是要计算当前的日期和时间。
-在当代 Web 应用中，主观逻辑经常牵涉到与数据库的交互。 数据库驱动网站 在后台连接数据库服务器，从中取出一些数据，然后在 Web 页面用漂亮的格式展示这些数据。 这个网站也可能会向访问者提供修改数据库数据的方法。
-许多复杂的网站都提供了以上两个功能的某种结合。 例如 Amazon.com 就是一个数据库驱动站点的良好范例。 本质上，每个产品页面都是数据库中数据以 HTML格式进行的
+          在第三章，我们讲述了用 Django 建造网站的基本途径： 建立视图和 URLConf 。 正如我们所阐述的，视图负责处理一些主观逻
           ...
 
           <div class="post-more-link text-center">
@@ -480,8 +478,7 @@
         
           
           在前一章中，你可能已经注意到我们在例子视图中返回文本的方式有点特别。 也就是说，HTML被直接硬编码在 Python 代码之中。
-1234def current_datetime(request):    now = datetime.datetime.now()    html = &quot;&lt;html&gt;&lt;body&gt;It is now %s.&lt;/body&gt;&lt;/html&gt;&quot; % now    return HttpResponse(html)
-尽管这种技术便于解释视图是如何工作的，但直接将HTML硬编码到你的视图里却并不是一个好主意。
+1
           ...
 
           <div class="post-more-link text-center">
@@ -582,11 +579,7 @@
       
         
           
-          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post1$ hexo new "My New Post"
-More info: Writing
-Run server1$ hexo server
-More in
+          Welcome to Hexo! This is your very first post. Check documentation
           ...
 
           <div class="post-more-link text-center">
