@@ -358,7 +358,9 @@
         
           
           Markdown语法标题  SettingNote:
-StackEdit is accessible offline after t
+StackEdit is accessible offline after the application has been loaded for the first time.
+Your local documents are not shared between different browsers or computers.
+Clearing your browser’s data may delete all your local documents! Make sure your documents are synchronize
           ...
 
           <div class="post-more-link text-center">
@@ -478,7 +480,10 @@ StackEdit is accessible offline after t
       
         
           
-          如何创建一个线程按 Java 语言规范中的说法，创建线程只有一种方式，就是创建一个 Thread 对象。而从 HotSpot 虚拟机
+          如何创建一个线程按 Java 语言规范中的说法，创建线程只有一种方式，就是创建一个 Thread 对象。而从 HotSpot 虚拟机的角度看，创建一个虚拟机线程有两种方式，一种是创建 Thread 对象，另一种是创建 一个本地线程，加入到虚拟机线程中。
+如果从 Java 语法的角度。有两种方法。
+第一是继承 Thread 类，实现 run 方法，并创建子类对象。
+12345678910public void startThreadUseSubClass() &#123;	class MyThread extends Thread &#123;		public void run() &#123;
           ...
 
           <div class="post-more-link text-center">
@@ -598,7 +603,7 @@ StackEdit is accessible offline after t
       
         
           
-          12345678910111213141516171819202122232425262728def test(func):    
+          12345678910111213141516171819202122232425262728def test(func):    s = [3,451,12356,78,3,5,7,8,9,5,321,1]    x=func(s,0,len(s)-1)    print xdef quickSort(L, low, high):    i = low     j = high    if i &gt;= j:        return L    key = L[i]    while i &lt; j:        while i &lt; j and L[j] &gt;= key: 
           ...
 
           <div class="post-more-link text-center">
@@ -718,7 +723,9 @@ StackEdit is accessible offline after t
       
         
           
-          一 婚礼的6个月前，你要做以下8件事：      时间    需要安排的事情        婚礼前6个月    决定婚期    编号
+          一 婚礼的6个月前，你要做以下8件事：      时间    需要安排的事情        婚礼前6个月    决定婚期    编号1    决定婚礼形式和预算编号2  草拟客人名单，最好想的全一点，再进行筛选编号3  择定结婚照地点和摄影师编号4  选择礼服或者采购面料，不妨听听设计师的意见编号5  安排蜜月行程，如果需要办护照，现在应该申请了编号6  婚前检查，并且不妨为自己选择一个健身计划，为了婚礼时的良好感觉而坚持不懈的努力锻炼编号7  着手装修，布置新房，这是你最该花心思的地方编号8
+
+二 结婚3个月前，你要做5件事：      时间    需要安排的事情        结婚前3个月
           ...
 
           <div class="post-more-link text-center">
@@ -845,7 +852,8 @@ apt-get install nginx -y
 
 
 
-配置路径 /etc/nginx/conf.d/dja
+配置路径 /etc/nginx/conf.d/django.conf通过配置nginx可以将一台物理机或者很多太内网的项目通过反向代理的方式通过一个IP的80端口匹配域名进行访问 正好让我的aws主机利用率最大化
+12345678910111213141516171819202122232425262728293031upstream django&#123;server 127.0.0.1:8080;&#125;server &#123;        listen 80;        client_max_b
           ...
 
           <div class="post-more-link text-center">
@@ -965,7 +973,10 @@ apt-get install nginx -y
       
         
           
-          虽然大多数和Django模板语言的交互都是模板作者的工作，但你可能想定制和扩展模板引擎，让它做一些它不能做的事情，或者是以其他方式让
+          虽然大多数和Django模板语言的交互都是模板作者的工作，但你可能想定制和扩展模板引擎，让它做一些它不能做的事情，或者是以其他方式让你的工作更轻松。
+本章深入探讨Django的模板系统。 如果你想扩展模板系统或者只是对它的工作原理感觉到好奇，本章涉及了你需要了解的东西。 它也包含一个自动转意特征，如果你继续使用django，随着时间的推移你一定会注意这个安全考虑。
+如果你想把Django的模版系统作为另外一个应用程序的一部分（就是说，仅使用Django的模板系统而不使用Django框架的其他部分），那你一定要读一下“配置独立模式下的模版系统”这一节。
+模板语言回顾变量 是一个在模板里用来输出值
           ...
 
           <div class="post-more-link text-center">

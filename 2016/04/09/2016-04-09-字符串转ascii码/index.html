@@ -59,19 +59,16 @@
 
 
 
-<meta name="description" content="字符转ASCII码最近在重构python代码，python中转ascii码异常简单 ord() ,ascii码转字符chr()Golang找了好久，最后发现自己以前写的代码写过，记录一下。
-1234567891011121314151617181920package mainimport (    &amp;quot;fmt&amp;quot;)func main() &amp;#123;    fmt.Println(">
+<meta name="description" content="字符转ASCII码最近在重构python代码，python中转ascii码异常简单 ord() ,ascii码转字符chr()Golang找了好久，最后发现自己以前写的代码写过，记录一下。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="字符串转ASCII码">
 <meta property="og:url" content="http://www.lflxp.cn/2016/04/09/2016-04-09-字符串转ascii码/index.html">
 <meta property="og:site_name" content="笑傲江湖">
-<meta property="og:description" content="字符转ASCII码最近在重构python代码，python中转ascii码异常简单 ord() ,ascii码转字符chr()Golang找了好久，最后发现自己以前写的代码写过，记录一下。
-1234567891011121314151617181920package mainimport (    &amp;quot;fmt&amp;quot;)func main() &amp;#123;    fmt.Println(">
-<meta property="og:updated_time" content="2016-04-09T08:14:05.966Z">
+<meta property="og:description" content="字符转ASCII码最近在重构python代码，python中转ascii码异常简单 ord() ,ascii码转字符chr()Golang找了好久，最后发现自己以前写的代码写过，记录一下。">
+<meta property="og:updated_time" content="2016-04-09T10:48:32.823Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="字符串转ASCII码">
-<meta name="twitter:description" content="字符转ASCII码最近在重构python代码，python中转ascii码异常简单 ord() ,ascii码转字符chr()Golang找了好久，最后发现自己以前写的代码写过，记录一下。
-1234567891011121314151617181920package mainimport (    &amp;quot;fmt&amp;quot;)func main() &amp;#123;    fmt.Println(">
+<meta name="twitter:description" content="字符转ASCII码最近在重构python代码，python中转ascii码异常简单 ord() ,ascii码转字符chr()Golang找了好久，最后发现自己以前写的代码写过，记录一下。">
 
 
 
@@ -354,7 +351,7 @@
       
 
       
-        <h1 id="字符转ASCII码"><a href="#字符转ASCII码" class="headerlink" title="字符转ASCII码"></a>字符转ASCII码</h1><p>最近在重构python代码，python中转ascii码异常简单 ord() ,ascii码转字符chr()<br>Golang找了好久，最后发现自己以前写的代码写过，记录一下。</p>
+        <h1 id="字符转ASCII码"><a href="#字符转ASCII码" class="headerlink" title="字符转ASCII码"></a>字符转ASCII码</h1><p>最近在重构python代码，python中转ascii码异常简单 ord() ,ascii码转字符chr()<br>Golang找了好久，最后发现自己以前写的代码写过，记录一下。<br><a id="more"></a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    fmt.Println(charToInt(&quot;lixueping&quot;))</span><br><span class="line">&#125;</span><br><span class="line">var ascToStr map[int]string = map[int]string&#123;32: &quot; &quot;, 56: &quot;8&quot;, 80: &quot;P&quot;, 104: &quot;h&quot;, 33: &quot;!&quot;, 57: &quot;9&quot;, 81: &quot;Q&quot;, 105: &quot;i&quot;, 34: &quot;\&quot;&quot;, 58: &quot;:&quot;, 82: &quot;R&quot;, 106: &quot;j&quot;, 35: &quot;#&quot;, 59: &quot;;&quot;, 83: &quot;S&quot;, 107: &quot;k&quot;, 36: &quot;$&quot;, 60: &quot;&lt;&quot;, 84: &quot;T&quot;, 108: &quot;l&quot;, 37: &quot;%&quot;, 61: &quot;=&quot;, 85: &quot;U&quot;, 109: &quot;m&quot;, 38: &quot;&amp;&quot;, 62: &quot;&gt;&quot;, 86: &quot;V&quot;, 110: &quot;n&quot;, 39: &quot;&apos;&quot;, 63: &quot;?&quot;, 87: &quot;W&quot;, 111: &quot;o&quot;, 40: &quot;(&quot;, 64: &quot;@&quot;, 88: &quot;X&quot;, 112: &quot;p&quot;, 41: &quot;)&quot;, 65: &quot;A&quot;, 89: &quot;Y&quot;, 113: &quot;q&quot;, 42: &quot;*&quot;, 66: &quot;B&quot;, 90: &quot;Z&quot;, 114: &quot;r&quot;, 43: &quot;+&quot;, 67: &quot;C&quot;, 91: &quot;[&quot;, 115: &quot;s&quot;, 44: &quot;,&quot;, 68: &quot;D&quot;, 92: &quot;\\&quot;, 116: &quot;t&quot;, 45: &quot;-&quot;, 69: &quot;E&quot;, 93: &quot;]&quot;, 117: &quot;u&quot;, 46: &quot;.&quot;, 70: &quot;F&quot;, 94: &quot;^&quot;, 118: &quot;v&quot;, 47: &quot;/&quot;, 71: &quot;G&quot;, 95: &quot;_&quot;, 119: &quot;w&quot;, 48: &quot;0&quot;, 72: &quot;H&quot;, 96: &quot;`&quot;, 120: &quot;x&quot;, 49: &quot;1&quot;, 73: &quot;I&quot;, 97: &quot;a&quot;, 121: &quot;y&quot;, 50: &quot;2&quot;, 74: &quot;J&quot;, 98: &quot;b&quot;, 122: &quot;z&quot;, 51: &quot;3&quot;, 75: &quot;K&quot;, 99: &quot;c&quot;, 123: &quot;&#123;&quot;, 52: &quot;4&quot;, 76: &quot;L&quot;, 100: &quot;d&quot;, 124: &quot;|&quot;, 53: &quot;5&quot;, 77: &quot;M&quot;, 101: &quot;e&quot;, 125: &quot;&#125;&quot;, 54: &quot;6&quot;, 78: &quot;N&quot;, 102: &quot;f&quot;, 126: &quot;~&quot;, 55: &quot;7&quot;, 79: &quot;O&quot;, 103: &quot;g&quot;&#125;</span><br><span class="line"></span><br><span class="line">//中文|英文字符串翻译成unicode格式</span><br><span class="line">func charToInt(in string) []int &#123;</span><br><span class="line">    tmp := []rune(in)</span><br><span class="line">    result := make([]int, len(tmp))</span><br><span class="line">    for i := 0; i &lt; len(tmp); i++ &#123;</span><br><span class="line">        result[i] = int(tmp[i])</span><br><span class="line">    &#125;</span><br><span class="line">    return result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>

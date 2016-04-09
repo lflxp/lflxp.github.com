@@ -360,7 +360,13 @@
           数学之美番外篇：平凡而又神奇的贝叶斯方法
 概率论只不过是把常识用数学公式表达了出来。
 ——拉普拉斯
-记得读本科的时候，最喜欢到城里的
+记得读本科的时候，最喜欢到城里的计算机书店里面去闲逛，一逛就是好几个小时；有一次，在书店看到一本书，名叫贝叶斯方法。当时数学系的课程还没有学到概率统计。我心想，一个方法能够专门写出一本书来，肯定很牛逼。后来，我发现当初的那个朴素归纳推理成立了——这果然是个牛逼的方法。
+——题记
+目录
+前言 
+历史 1.1 一个例子：自然语言的二义性 1.2 贝叶斯公式 
+拼写纠正 
+模型比较与贝叶斯奥卡姆剃刀 3.1 再访拼写纠正 3.2 模型比较理论（Model Comparasion）与贝叶斯奥卡姆剃刀（B
           ...
 
           <div class="post-more-link text-center">
@@ -480,7 +486,11 @@
       
         
           
-          利用golang自带包快速搭建静态服务器学习Go语言的一些感受,不一定准确。假如发生战争，JAVA一般都是充当航母战斗群的角色。一旦
+          利用golang自带包快速搭建静态服务器学习Go语言的一些感受,不一定准确。假如发生战争，JAVA一般都是充当航母战斗群的角色。一旦出动,就是护卫舰、巡洋舰、航母舰载机、预警机、电子战飞机、潜艇等等浩浩荡荡,杀将过去。(JVM,数十个JAR包,Tomcat中间件,SSH框架,各种配置文件…天生就是重量级的,专为大规模作战)而GO语言更像F35战斗轰炸机单枪匹马,悄无声息,投下炸弹然后走人。专属轰炸机,空战也会一点点.实在搞不定,就叫它大哥F22。(GO是编译型语言,不需要依赖,不需要虚拟机,可以调用C代码并且它足够简单，却非常全面)计划Go语言学习的知识点
+
+搭建Http服务
+连接数据库
+本地
           ...
 
           <div class="post-more-link text-center">
@@ -599,11 +609,8 @@
 
       
         
-          
-          golang爬虫框架简单的爬虫参考资料网络爬虫基本原理(一)网络爬虫基本原理(二)
-学习Go语言，便用Go移植了那个用Scala写的
-          ...
-
+          <h1 id="golang爬虫框架"><a href="#golang爬虫框架" class="headerlink" title="golang爬虫框架"></a><a href="https://github.com/hu17889/go_spider/wiki/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3">golang爬虫框架</a></h1><h1 id="简单的爬虫"><a href="#简单的爬虫" class="headerlink" title="简单的爬虫"></a><a href="http://www.cnblogs.com/tt-0411/archive/2013/03/13/2958130.html">简单的爬虫</a></h1><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="http://www.cnblogs.com/wawlian/archive/2012/06/18/2553061.html">网络爬虫基本原理(一)</a><br><a href="http://www.cnblogs.com/wawlian/archive/2012/06/18/2554072.html">网络爬虫基本原理(二)</a></p>
+<p>学习Go语言，便用Go移植了那个用Scala写的爬虫，代码如下：<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/04/09/2016-04-09-golang 爬虫/#more" rel="contents">
               阅读全文 &raquo;
@@ -720,11 +727,7 @@
 
       
         
-          
-          golang版rpc之HTTP_RPC直接上代码
-server.go12345678910111213141516171819202
-          ...
-
+          <h1 id="HTTP-RPC"><a href="#HTTP-RPC" class="headerlink" title="HTTP_RPC"></a>HTTP_RPC</h1><p>直接上代码<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/04/09/2016-04-09-golang版rpc之http_rpc/#more" rel="contents">
               阅读全文 &raquo;
@@ -841,11 +844,7 @@ server.go12345678910111213141516171819202
 
       
         
-          
-          golang版rpc之JSON_RPC直接上代码
-server.go12345678910111213141516171819202
-          ...
-
+          <h1 id="JSON-RPC"><a href="#JSON-RPC" class="headerlink" title="JSON_RPC"></a>JSON_RPC</h1><p>直接上代码<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/04/09/2016-04-09-golang版rpc之json_rpc/#more" rel="contents">
               阅读全文 &raquo;
@@ -962,12 +961,11 @@ server.go12345678910111213141516171819202
 
       
         
-          
-          golang版rpc之PROTOBUF_RPC优点
-protobuf自定义方便易读，便于升级，跨平台跨语言支持
-传输内容序列化与反序
-          ...
-
+          <h1 id="PROTOBUF-RPC"><a href="#PROTOBUF-RPC" class="headerlink" title="PROTOBUF_RPC"></a><a href="https://github.com/golang/protobuf">PROTOBUF_RPC</a></h1><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+<li>protobuf自定义方便易读，便于升级，跨平台跨语言支持</li>
+<li>传输内容序列化与反序列化</li>
+</ol>
+<h2 id="安装-goprotobuf"><a href="#安装-goprotobuf" class="headerlink" title="安装 goprotobuf"></a><a href="http://my.oschina.net/ifraincoat/blog/510971">安装 goprotobuf</a></h2><h2 id="现在我们编写一个小程序："><a href="#现在我们编写一个小程序：" class="headerlink" title="现在我们编写一个小程序："></a>现在我们编写一个小程序：</h2>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/04/09/2016-04-09-golang版rpc之protobuf/#more" rel="contents">
               阅读全文 &raquo;

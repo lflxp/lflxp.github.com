@@ -59,19 +59,16 @@
 
 
 
-<meta name="description" content="Golang的md5加密记录golang如何进行md5加密
-12345678910111213141516171819package mainimport (    &amp;quot;fmt&amp;quot;    &amp;quot;crypto/md5&amp;quot;    &amp;quot;encoding/hex&amp;quot;)func main() &amp;#123;    fmt.Println(strToMd5(&amp;quo">
+<meta name="description" content="Golang的md5加密记录golang如何进行md5加密">
 <meta property="og:type" content="article">
 <meta property="og:title" content="md5加密">
 <meta property="og:url" content="http://www.lflxp.cn/2016/04/09/2016-04-09-md5加密/index.html">
 <meta property="og:site_name" content="笑傲江湖">
-<meta property="og:description" content="Golang的md5加密记录golang如何进行md5加密
-12345678910111213141516171819package mainimport (    &amp;quot;fmt&amp;quot;    &amp;quot;crypto/md5&amp;quot;    &amp;quot;encoding/hex&amp;quot;)func main() &amp;#123;    fmt.Println(strToMd5(&amp;quo">
-<meta property="og:updated_time" content="2016-04-09T08:01:58.713Z">
+<meta property="og:description" content="Golang的md5加密记录golang如何进行md5加密">
+<meta property="og:updated_time" content="2016-04-09T10:45:50.654Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="md5加密">
-<meta name="twitter:description" content="Golang的md5加密记录golang如何进行md5加密
-12345678910111213141516171819package mainimport (    &amp;quot;fmt&amp;quot;    &amp;quot;crypto/md5&amp;quot;    &amp;quot;encoding/hex&amp;quot;)func main() &amp;#123;    fmt.Println(strToMd5(&amp;quo">
+<meta name="twitter:description" content="Golang的md5加密记录golang如何进行md5加密">
 
 
 
@@ -354,7 +351,7 @@
       
 
       
-        <h1 id="Golang的md5加密"><a href="#Golang的md5加密" class="headerlink" title="Golang的md5加密"></a>Golang的md5加密</h1><p>记录golang如何进行md5加密</p>
+        <h1 id="Golang的md5加密"><a href="#Golang的md5加密" class="headerlink" title="Golang的md5加密"></a>Golang的md5加密</h1><p>记录golang如何进行md5加密<br><a id="more"></a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">    &quot;crypto/md5&quot;</span><br><span class="line">    &quot;encoding/hex&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    fmt.Println(strToMd5(&quot;xxx&quot;))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func strToMd5(input string) string &#123;</span><br><span class="line">    h := md5.New()</span><br><span class="line">    h.Write([]byte(input)) // 需要加密的字符串input</span><br><span class="line">    cipherStr := h.Sum(nil)</span><br><span class="line">    md5 := hex.EncodeToString(cipherStr)</span><br><span class="line">    return md5</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>

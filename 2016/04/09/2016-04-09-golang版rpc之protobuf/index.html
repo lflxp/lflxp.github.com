@@ -59,28 +59,28 @@
 
 
 
-<meta name="description" content="golang版rpc之PROTOBUF_RPC优点
+<meta name="description" content="PROTOBUF_RPC优点
 protobuf自定义方便易读，便于升级，跨平台跨语言支持
 传输内容序列化与反序列化
 
-安装 goprotobuf现在我们编写一个小程序：123456789101112131415161718192021222324252627package mainimport (    &amp;quot;log&amp;quot;    // 辅助库    &amp;quot;g">
+安装 goprotobuf现在我们编写一个小程序：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="golang版rpc之PROTOBUF_RPC">
 <meta property="og:url" content="http://www.lflxp.cn/2016/04/09/2016-04-09-golang版rpc之protobuf/index.html">
 <meta property="og:site_name" content="笑傲江湖">
-<meta property="og:description" content="golang版rpc之PROTOBUF_RPC优点
+<meta property="og:description" content="PROTOBUF_RPC优点
 protobuf自定义方便易读，便于升级，跨平台跨语言支持
 传输内容序列化与反序列化
 
-安装 goprotobuf现在我们编写一个小程序：123456789101112131415161718192021222324252627package mainimport (    &amp;quot;log&amp;quot;    // 辅助库    &amp;quot;g">
-<meta property="og:updated_time" content="2016-04-09T10:38:51.923Z">
+安装 goprotobuf现在我们编写一个小程序：">
+<meta property="og:updated_time" content="2016-04-09T10:46:55.154Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="golang版rpc之PROTOBUF_RPC">
-<meta name="twitter:description" content="golang版rpc之PROTOBUF_RPC优点
+<meta name="twitter:description" content="PROTOBUF_RPC优点
 protobuf自定义方便易读，便于升级，跨平台跨语言支持
 传输内容序列化与反序列化
 
-安装 goprotobuf现在我们编写一个小程序：123456789101112131415161718192021222324252627package mainimport (    &amp;quot;log&amp;quot;    // 辅助库    &amp;quot;g">
+安装 goprotobuf现在我们编写一个小程序：">
 
 
 
@@ -363,11 +363,12 @@ protobuf自定义方便易读，便于升级，跨平台跨语言支持
       
 
       
-        <h1 id="golang版rpc之PROTOBUF-RPC"><a href="#golang版rpc之PROTOBUF-RPC" class="headerlink" title="golang版rpc之PROTOBUF_RPC"></a><a href="https://github.com/golang/protobuf" target="_blank" rel="external">golang版rpc之PROTOBUF_RPC</a></h1><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+        <h1 id="PROTOBUF-RPC"><a href="#PROTOBUF-RPC" class="headerlink" title="PROTOBUF_RPC"></a><a href="https://github.com/golang/protobuf" target="_blank" rel="external">PROTOBUF_RPC</a></h1><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
 <li>protobuf自定义方便易读，便于升级，跨平台跨语言支持</li>
 <li>传输内容序列化与反序列化</li>
 </ol>
-<h2 id="安装-goprotobuf"><a href="#安装-goprotobuf" class="headerlink" title="安装 goprotobuf"></a><a href="http://my.oschina.net/ifraincoat/blog/510971" target="_blank" rel="external">安装 goprotobuf</a></h2><h2 id="现在我们编写一个小程序："><a href="#现在我们编写一个小程序：" class="headerlink" title="现在我们编写一个小程序："></a>现在我们编写一个小程序：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (    &quot;log&quot;</span><br><span class="line">    // 辅助库</span><br><span class="line">    &quot;github.com/golang/protobuf/proto&quot;</span><br><span class="line">    // test.pb.go 的路径</span><br><span class="line">    &quot;example&quot;)</span><br><span class="line"></span><br><span class="line">func main() &#123;    // 创建一个消息 Test</span><br><span class="line">    test := &amp;example.Test&#123;        // 使用辅助函数设置域的值</span><br><span class="line">        Label: proto.String(&quot;hello&quot;),</span><br><span class="line">        Type:  proto.Int32(17),</span><br><span class="line">        Optionalgroup: &amp;example.Test_OptionalGroup&#123;</span><br><span class="line">            RequiredField: proto.String(&quot;good bye&quot;),</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;    // 进行编码</span><br><span class="line">    data, err := proto.Marshal(test)    if err != nil &#123;</span><br><span class="line">        log.Fatal(&quot;marshaling error: &quot;, err)</span><br><span class="line">    &#125;    // 进行解码</span><br><span class="line">    newTest := &amp;example.Test&#123;&#125;</span><br><span class="line">    err = proto.Unmarshal(data, newTest)    if err != nil &#123;</span><br><span class="line">        log.Fatal(&quot;unmarshaling error: &quot;, err)</span><br><span class="line">    &#125;    // 测试结果</span><br><span class="line">    if test.GetLabel() != newTest.GetLabel() &#123;</span><br><span class="line">        log.Fatalf(&quot;data mismatch %q != %q&quot;, test.GetLabel(), newTest.GetLabel())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="安装-goprotobuf"><a href="#安装-goprotobuf" class="headerlink" title="安装 goprotobuf"></a><a href="http://my.oschina.net/ifraincoat/blog/510971" target="_blank" rel="external">安装 goprotobuf</a></h2><h2 id="现在我们编写一个小程序："><a href="#现在我们编写一个小程序：" class="headerlink" title="现在我们编写一个小程序："></a>现在我们编写一个小程序：</h2><a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (    &quot;log&quot;</span><br><span class="line">    // 辅助库</span><br><span class="line">    &quot;github.com/golang/protobuf/proto&quot;</span><br><span class="line">    // test.pb.go 的路径</span><br><span class="line">    &quot;example&quot;)</span><br><span class="line"></span><br><span class="line">func main() &#123;    // 创建一个消息 Test</span><br><span class="line">    test := &amp;example.Test&#123;        // 使用辅助函数设置域的值</span><br><span class="line">        Label: proto.String(&quot;hello&quot;),</span><br><span class="line">        Type:  proto.Int32(17),</span><br><span class="line">        Optionalgroup: &amp;example.Test_OptionalGroup&#123;</span><br><span class="line">            RequiredField: proto.String(&quot;good bye&quot;),</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;    // 进行编码</span><br><span class="line">    data, err := proto.Marshal(test)    if err != nil &#123;</span><br><span class="line">        log.Fatal(&quot;marshaling error: &quot;, err)</span><br><span class="line">    &#125;    // 进行解码</span><br><span class="line">    newTest := &amp;example.Test&#123;&#125;</span><br><span class="line">    err = proto.Unmarshal(data, newTest)    if err != nil &#123;</span><br><span class="line">        log.Fatal(&quot;unmarshaling error: &quot;, err)</span><br><span class="line">    &#125;    // 测试结果</span><br><span class="line">    if test.GetLabel() != newTest.GetLabel() &#123;</span><br><span class="line">        log.Fatalf(&quot;data mismatch %q != %q&quot;, test.GetLabel(), newTest.GetLabel())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="错误：configure-error-C-preprocessor-lib-cpp-fails-sanity-check"><a href="#错误：configure-error-C-preprocessor-lib-cpp-fails-sanity-check" class="headerlink" title="错误：configure  error  C++ preprocessor   lib cpp  fails sanity check"></a>错误：configure  error  C++ preprocessor   lib cpp  fails sanity check</h2><p>ubuntu 10.04.3 LTS版本安装tigervnc的时候出现如下错误</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">checking how to run the C++ preprocessor... /lib/cpp</span><br><span class="line">configure: error: C++ preprocessor &quot;/lib/cpp&quot; fails sanity check</span><br><span class="line">See `config.log&apos; for more details.</span><br></pre></td></tr></table></figure>
 <p>这是缺少相应的库导致的，所以可能在不同系统，安装不同软件的时候都可能出现。<br>既然缺少相应的库，那解决方法也就简单了，安装相应的库也可。<br>以下是我搜得的一个結果，原文如下：</p>
@@ -838,7 +839,7 @@ protobuf自定义方便易读，便于升级，跨平台跨语言支持
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#golang版rpc之PROTOBUF-RPC"><span class="nav-number">1.</span> <span class="nav-text">golang版rpc之PROTOBUF_RPC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优点"><span class="nav-number">1.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-goprotobuf"><span class="nav-number">1.2.</span> <span class="nav-text">安装 goprotobuf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现在我们编写一个小程序："><span class="nav-number">1.3.</span> <span class="nav-text">现在我们编写一个小程序：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误：configure-error-C-preprocessor-lib-cpp-fails-sanity-check"><span class="nav-number">1.4.</span> <span class="nav-text">错误：configure  error  C++ preprocessor   lib cpp  fails sanity check</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PROTOBUF-RPC"><span class="nav-number">1.</span> <span class="nav-text">PROTOBUF_RPC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优点"><span class="nav-number">1.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-goprotobuf"><span class="nav-number">1.2.</span> <span class="nav-text">安装 goprotobuf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现在我们编写一个小程序："><span class="nav-number">1.3.</span> <span class="nav-text">现在我们编写一个小程序：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误：configure-error-C-preprocessor-lib-cpp-fails-sanity-check"><span class="nav-number">1.4.</span> <span class="nav-text">错误：configure  error  C++ preprocessor   lib cpp  fails sanity check</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
