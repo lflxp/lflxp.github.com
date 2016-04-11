@@ -62,11 +62,11 @@
 <meta name="description" content="python生成可执行文件exe
 用py2exe生成windows可执行文件py2exe安装地址下载32位python2.7进行安装
 
-第一步 编写python脚本hello.py12print &amp;quot;hello&amp;quot;raw_input()
+第一步 编写python脚本hello.py12print &quot;hello&quot;raw_input()
 第二步 可以在任何路径任何位置新建一个名为setup.py的文件，这里把setup.py建在e盘根目录
 setup.py代码如下
 
-1234fro">
+1234from distutil">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python生成exe可执行文件:py2exe">
 <meta property="og:url" content="http://www.lflxp.cn/2016/04/09/2016-04-09-py2exe使用/index.html">
@@ -74,22 +74,22 @@ setup.py代码如下
 <meta property="og:description" content="python生成可执行文件exe
 用py2exe生成windows可执行文件py2exe安装地址下载32位python2.7进行安装
 
-第一步 编写python脚本hello.py12print &amp;quot;hello&amp;quot;raw_input()
+第一步 编写python脚本hello.py12print &quot;hello&quot;raw_input()
 第二步 可以在任何路径任何位置新建一个名为setup.py的文件，这里把setup.py建在e盘根目录
 setup.py代码如下
 
-1234fro">
-<meta property="og:updated_time" content="2016-04-09T08:54:34.909Z">
+1234from distutil">
+<meta property="og:updated_time" content="2016-04-11T04:04:02.458Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python生成exe可执行文件:py2exe">
 <meta name="twitter:description" content="python生成可执行文件exe
 用py2exe生成windows可执行文件py2exe安装地址下载32位python2.7进行安装
 
-第一步 编写python脚本hello.py12print &amp;quot;hello&amp;quot;raw_input()
+第一步 编写python脚本hello.py12print &quot;hello&quot;raw_input()
 第二步 可以在任何路径任何位置新建一个名为setup.py的文件，这里把setup.py建在e盘根目录
 setup.py代码如下
 
-1234fro">
+1234from distutil">
 
 
 
@@ -375,16 +375,16 @@ setup.py代码如下
         <h1 id="python生成可执行文件exe"><a href="#python生成可执行文件exe" class="headerlink" title="python生成可执行文件exe"></a>python生成可执行文件exe</h1><blockquote>
 <p>用py2exe生成windows可执行文件<br><a href="https://sourceforge.net/projects/py2exe/files/py2exe/0.6.9/" target="_blank" rel="external">py2exe安装地址</a>下载32位python2.7进行安装</p>
 </blockquote>
-<h1 id="第一步-编写python脚本hello-py"><a href="#第一步-编写python脚本hello-py" class="headerlink" title="第一步 编写python脚本hello.py"></a>第一步 编写python脚本hello.py</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print &quot;hello&quot;</span><br><span class="line">raw_input()</span><br></pre></td></tr></table></figure>
+<h1 id="第一步-编写python脚本hello-py"><a href="#第一步-编写python脚本hello-py" class="headerlink" title="第一步 编写python脚本hello.py"></a>第一步 编写python脚本hello.py</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> <span class="string">"hello"</span></span><br><span class="line">raw_input()</span><br></pre></td></tr></table></figure>
 <h1 id="第二步-可以在任何路径任何位置新建一个名为setup-py的文件，这里把setup-py建在e盘根目录"><a href="#第二步-可以在任何路径任何位置新建一个名为setup-py的文件，这里把setup-py建在e盘根目录" class="headerlink" title="第二步 可以在任何路径任何位置新建一个名为setup.py的文件，这里把setup.py建在e盘根目录"></a>第二步 可以在任何路径任何位置新建一个名为setup.py的文件，这里把setup.py建在e盘根目录</h1><blockquote>
 <p>setup.py代码如下</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from distutils.core import setup</span><br><span class="line">import py2exe</span><br><span class="line"></span><br><span class="line">setup(console=[r&apos;e:/gopath/src/encry/main/hello.py&apos;])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> distutils.core <span class="keyword">import</span> setup</span><br><span class="line"><span class="keyword">import</span> py2exe</span><br><span class="line"></span><br><span class="line">setup(console=[<span class="string">r'e:/gopath/src/encry/main/hello.py'</span>])</span><br></pre></td></tr></table></figure>
 <h1 id="第三步-打开命令提示符-cmd-。"><a href="#第三步-打开命令提示符-cmd-。" class="headerlink" title="第三步 打开命令提示符(cmd)。"></a>第三步 打开命令提示符(cmd)。</h1><p>注意：不是python解析器，看到网上很多人都把其理解为python解析器，注意：python解析器！！！是cmd</p>
 <blockquote>
 <p>进入setup.py目录下执行以下命令</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python setup.py py2exe</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python setup.py py2exe</span><br></pre></td></tr></table></figure>
 <p>执行结果大体如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">creating D:\gopath\src\encry\main\build\bdist.win32\winexe\collect-2.7\unittest</span><br><span class="line">byte-compiling D:\Python27\lib\unittest\case.py to unittest\case.pyc</span><br><span class="line">byte-compiling D:\Python27\lib\unittest\loader.py to unittest\loader.pyc</span><br><span class="line">byte-compiling D:\Python27\lib\unittest\main.py to unittest\main.pyc</span><br><span class="line">byte-compiling D:\Python27\lib\unittest\result.py to unittest\result.pyc</span><br><span class="line">byte-compiling D:\Python27\lib\unittest\runner.py to unittest\runner.pyc</span><br><span class="line">byte-compiling D:\Python27\lib\unittest\signals.py to unittest\signals.pyc</span><br><span class="line">byte-compiling D:\Python27\lib\unittest\suite.py to unittest\suite.pyc</span><br><span class="line">byte-compiling D:\Python27\lib\unittest\util.py to unittest\util.pyc</span><br><span class="line">byte-compiling D:\Python27\lib\warnings.py to warnings.pyc</span><br><span class="line">byte-compiling D:\Python27\lib\weakref.py to weakref.pyc</span><br><span class="line">byte-compiling D:\gopath\src\encry\main\build\bdist.win32\winexe\temp\_ctypes.py to _ctypes.pyc</span><br><span class="line">byte-compiling D:\gopath\src\encry\main\build\bdist.win32\winexe\temp\_hashlib.py to _hashlib.pyc</span><br><span class="line">byte-compiling D:\gopath\src\encry\main\build\bdist.win32\winexe\temp\bz2.py to bz2.pyc</span><br><span class="line">byte-compiling D:\gopath\src\encry\main\build\bdist.win32\winexe\temp\select.py to select.pyc</span><br><span class="line">byte-compiling D:\gopath\src\encry\main\build\bdist.win32\winexe\temp\unicodedata.py to unicodedata.pyc</span><br><span class="line">*** copy extensions ***</span><br><span class="line">copying D:\Python27\DLLs\_ctypes.pyd -&gt; D:\gopath\src\encry\main\dist</span><br><span class="line">copying D:\Python27\DLLs\_hashlib.pyd -&gt; D:\gopath\src\encry\main\dist</span><br><span class="line">copying D:\Python27\DLLs\bz2.pyd -&gt; D:\gopath\src\encry\main\dist</span><br><span class="line">copying D:\Python27\DLLs\select.pyd -&gt; D:\gopath\src\encry\main\dist</span><br><span class="line">copying D:\Python27\DLLs\unicodedata.pyd -&gt; D:\gopath\src\encry\main\dist</span><br><span class="line">*** copy dlls ***</span><br><span class="line">copying D:\Python27\w9xpopen.exe -&gt; D:\gopath\src\encry\main\dist</span><br><span class="line">copying C:\WINDOWS\system32\python27.dll -&gt; D:\gopath\src\encry\main\dist</span><br><span class="line">setting sys.winver for &apos;D:\gopath\src\encry\main\dist\python27.dll&apos; to &apos;py2exe&apos;</span><br><span class="line">copying D:\Python27\lib\site-packages\py2exe\run.exe -&gt; D:\gopath\src\encry\main\dist\jiajie.exe</span><br><span class="line"></span><br><span class="line">*** binary dependencies ***</span><br><span class="line">Your executable(s) also depend on these dlls which are not included,</span><br><span class="line">you may or may not need to distribute them.</span><br><span class="line"></span><br><span class="line">Make sure you have the license if you distribute any of them, and</span><br><span class="line">make sure you don&apos;t distribute files belonging to the operating system.</span><br><span class="line"></span><br><span class="line">   OLEAUT32.dll - C:\WINDOWS\system32\OLEAUT32.dll</span><br><span class="line">   USER32.dll - C:\WINDOWS\system32\USER32.dll</span><br><span class="line">   SHELL32.dll - C:\WINDOWS\system32\SHELL32.dll</span><br><span class="line">   ole32.dll - C:\WINDOWS\system32\ole32.dll</span><br><span class="line">   ADVAPI32.dll - C:\WINDOWS\system32\ADVAPI32.dll</span><br><span class="line">   WS2_32.dll - C:\WINDOWS\system32\WS2_32.dll</span><br><span class="line">   GDI32.dll - C:\WINDOWS\system32\GDI32.dll</span><br><span class="line">   KERNEL32.dll - C:\WINDOWS\system32\KERNEL32.dll</span><br><span class="line"></span><br><span class="line">D:\gopath\src\encry\main&gt;</span><br></pre></td></tr></table></figure>
 <h1 id="第四步-去setup-py目录下看是否生成了名为dist的文件夹"><a href="#第四步-去setup-py目录下看是否生成了名为dist的文件夹" class="headerlink" title="第四步 去setup.py目录下看是否生成了名为dist的文件夹"></a>第四步 去setup.py目录下看是否生成了名为dist的文件夹</h1><font color="red">进入文件夹dist，点击hello.exe就可以运行你打包的程序了。</font><br><font color="red">而dist文件夹就是你打包好的程序文件夹，记住，发布的时候要把里面的所有文件都一同发布！！！</font>
@@ -535,7 +535,7 @@ setup.py代码如下
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-count">60</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
