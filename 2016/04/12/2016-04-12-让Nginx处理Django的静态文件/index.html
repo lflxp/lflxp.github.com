@@ -67,7 +67,7 @@
 <meta property="og:site_name" content="笑傲江湖">
 <meta property="og:description" content="让Nginx处理Django的静态文件在开发中难免要处理网站的css js image等静态文件，不用顾及性能，安全的问题，交给Django内部处理好了；但如果正式部署到服务器的时候，这样的配置就会影响到性能和安全性了，这时怎么办呢？嗯，交给Nginx处理好了。
 假如项目的目录结构如下：myproject–app1–app2–media—-css—-js—-images–templates–set">
-<meta property="og:updated_time" content="2016-04-12T03:17:22.951Z">
+<meta property="og:updated_time" content="2016-04-12T04:46:27.599Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="让Nginx处理Django的静态文件">
 <meta name="twitter:description" content="让Nginx处理Django的静态文件在开发中难免要处理网站的css js image等静态文件，不用顾及性能，安全的问题，交给Django内部处理好了；但如果正式部署到服务器的时候，这样的配置就会影响到性能和安全性了，这时怎么办呢？嗯，交给Nginx处理好了。
@@ -363,16 +363,14 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> settings.DEBUG:    </span><br><span class="line">    urlpatterns += patterns(<span class="string">''</span>,</span><br><span class="line"> url(<span class="string">r'^media/(?P&lt;path&gt;.*)$'</span>, <span class="string">'django.views.static.serve'</span>,</span><br><span class="line"> &#123;<span class="string">'document_root'</span>: os.path.join(settings.SITE_ROOT,<span class="string">'media'</span>)&#125;,name=<span class="string">"media"</span>),</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
 <p>具体的意思是：如果是开发环境，让Django的django.views.static.serve来处理，而正式部署时，Django不做任何事情，让Nginx来处理，后面会讲到Nginx的配置问题。</p>
 <p>settings.DEBUG其实就是开发和部署的标示变量，部署的时候在settings里给DEBUG变量赋值False，让Django Templates屏蔽一切Debug;赋值True时，相反，是开启Debug，开发中出错以便查看一些错误信息。</p>
-<p>开发环境中，settings的配置如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">DEBUG = <span class="keyword">True</span></span><br><span class="line">TEMPLATE_DEBUG = DEBUG</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">SITE_ROOT=os.path.abspath(os.path.dirname(__file__))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MEDIA_ROOT = os.path.join(SITE_ROOT,<span class="string">'media'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MEDIA_URL = <span class="string">'/media/'</span></span><br></pre></td></tr></table></figure>
+<h2 id="开发环境中，settings的配置如下："><a href="#开发环境中，settings的配置如下：" class="headerlink" title="开发环境中，settings的配置如下："></a>开发环境中，settings的配置如下：</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">DEBUG = <span class="keyword">True</span></span><br><span class="line">TEMPLATE_DEBUG = DEBUG</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">SITE_ROOT=os.path.abspath(os.path.dirname(__file__))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MEDIA_ROOT = os.path.join(SITE_ROOT,<span class="string">'media'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MEDIA_URL = <span class="string">'/media/'</span></span><br></pre></td></tr></table></figure>
 <p>正式部署的时候，把变量DEBUG改成False即可。</p>
 <p>正式部署的时候，Nginx的静态文件配置很关键，先看代码：</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> <span class="regexp">~ ^/media/</span> &#123;         </span><br><span class="line">        <span class="attribute">root</span> /home/http/django_project/myproject/; </span><br><span class="line"> <span class="attribute">expires</span> <span class="number">24h</span>;</span><br><span class="line"> <span class="attribute">access_log</span>   <span class="literal">off</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>如项目实际路径是：/home/http/django_project/myproject/，那以上的配置代码会到 /home/http/django_project/myproject/ 路径找 media文件夹。一两点值得注意的：</p>
 <p>1 刚开始一直没有配置成功，原因是root的没配置正确，写成 root /home/http/django_project/myproject/media/ 了， 导致Nginx老找不到media文件夹。</p>
 <p>2 还有一个值得注意的是：location ~ ^/media/  要和实际的静态文件夹对应哦，如果写成location ~ ^/static/  那肯定不行的</p>
-<p>实际部署脚本</p>
-<blockquote>
+<h2 id="实际部署脚本"><a href="#实际部署脚本" class="headerlink" title="实际部署脚本"></a>实际部署脚本</h2><blockquote>
 <p>DEBUG=False</p>
 </blockquote>
 <p>Django.conf</p>
@@ -427,6 +425,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/12/2016-04-12-Django处理celery时区问题/" rel="prev" title="Django处理celery的时区问题">
+                Django处理celery的时区问题 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -520,7 +522,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">63</span>
+              <span class="site-state-item-count">64</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -833,7 +835,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#让Nginx处理Django的静态文件"><span class="nav-number">1.</span> <span class="nav-text">让Nginx处理Django的静态文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#让Nginx处理Django的静态文件"><span class="nav-number">1.</span> <span class="nav-text">让Nginx处理Django的静态文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开发环境中，settings的配置如下："><span class="nav-number">1.1.</span> <span class="nav-text">开发环境中，settings的配置如下：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实际部署脚本"><span class="nav-number">1.2.</span> <span class="nav-text">实际部署脚本</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
