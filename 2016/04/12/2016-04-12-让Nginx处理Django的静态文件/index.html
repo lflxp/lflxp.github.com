@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="django," />
 
 
 
@@ -59,15 +59,19 @@
 
 
 
-<meta name="description" content="控制自己就能控制世界">
-<meta property="og:type" content="website">
-<meta property="og:title" content="笑傲江湖">
-<meta property="og:url" content="http://www.lflxp.cn/archives/page/9/index.html">
+<meta name="description" content="让Nginx处理Django的静态文件在开发中难免要处理网站的css js image等静态文件，不用顾及性能，安全的问题，交给Django内部处理好了；但如果正式部署到服务器的时候，这样的配置就会影响到性能和安全性了，这时怎么办呢？嗯，交给Nginx处理好了。
+假如项目的目录结构如下：myproject–app1–app2–media—-css—-js—-images–templates–set">
+<meta property="og:type" content="article">
+<meta property="og:title" content="让Nginx处理Django的静态文件">
+<meta property="og:url" content="http://www.lflxp.cn/2016/04/12/2016-04-12-让Nginx处理Django的静态文件/index.html">
 <meta property="og:site_name" content="笑傲江湖">
-<meta property="og:description" content="控制自己就能控制世界">
+<meta property="og:description" content="让Nginx处理Django的静态文件在开发中难免要处理网站的css js image等静态文件，不用顾及性能，安全的问题，交给Django内部处理好了；但如果正式部署到服务器的时候，这样的配置就会影响到性能和安全性了，这时怎么办呢？嗯，交给Nginx处理好了。
+假如项目的目录结构如下：myproject–app1–app2–media—-css—-js—-images–templates–set">
+<meta property="og:updated_time" content="2016-04-12T03:17:22.951Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="笑傲江湖">
-<meta name="twitter:description" content="控制自己就能控制世界">
+<meta name="twitter:title" content="让Nginx处理Django的静态文件">
+<meta name="twitter:description" content="让Nginx处理Django的静态文件在开发中难免要处理网站的css js image等静态文件，不用顾及性能，安全的问题，交给Django内部处理好了；但如果正式部署到服务器的时候，这样的配置就会影响到性能和安全性了，这时怎么办呢？嗯，交给Nginx处理好了。
+假如项目的目录结构如下：myproject–app1–app2–media—-css—-js—-images–templates–set">
 
 
 
@@ -85,7 +89,7 @@
   };
 </script>
 
-  <title> 归档 | 笑傲江湖 </title>
+  <title> 让Nginx处理Django的静态文件 | 笑傲江湖 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -116,7 +120,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -264,261 +268,218 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-       
-        
-      好! 目前共计 63 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/04/06/2016-02-24-bootstrap-table使用/" itemprop="url">
-              
-                <span itemprop="name">bootstrap-table使用</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-04-06T18:31:45+08:00"
-              content="2016-04-06" >
-          04-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/04/06/2016-02-22-第十四章： 会话、用户和注册/" itemprop="url">
-              
-                <span itemprop="name">第十四章： 会话、用户和注册</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-04-06T18:31:45+08:00"
-              content="2016-04-06" >
-          04-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/04/06/2016-02-22-第八章 高级视图和URL配置/" itemprop="url">
-              
-                <span itemprop="name">第八章 高级视图和URL配置</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-04-06T18:31:45+08:00"
-              content="2016-04-06" >
-          04-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/04/06/2016-02-21-Vgrant安装配置/" itemprop="url">
-              
-                <span itemprop="name">Vgrant安装配置</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-04-06T18:31:45+08:00"
-              content="2016-04-06" >
-          04-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/04/06/2016-02-18-vagrant/" itemprop="url">
-              
-                <span itemprop="name">Docker与Vagrant的简单区别</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-04-06T18:31:45+08:00"
-              content="2016-04-06" >
-          04-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/04/06/2016-02-15-第7章 表单/" itemprop="url">
-              
-                <span itemprop="name">第7章 表单</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-04-06T18:31:45+08:00"
-              content="2016-04-06" >
-          04-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
 
   
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/archives/page/10/">10</a><a class="page-number" href="/archives/page/11/">11</a><a class="extend next" rel="next" href="/archives/page/10/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                让Nginx处理Django的静态文件
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-12T11:11:05+08:00" content="2016-04-12">
+              2016-04-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/django/" itemprop="url" rel="index">
+                    <span itemprop="name">django</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/12/2016-04-12-让Nginx处理Django的静态文件/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/12/2016-04-12-让Nginx处理Django的静态文件/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
 
 
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="让Nginx处理Django的静态文件"><a href="#让Nginx处理Django的静态文件" class="headerlink" title="让Nginx处理Django的静态文件"></a><a href="http://my.oschina.net/u/993130/blog/214841" target="_blank" rel="external">让Nginx处理Django的静态文件</a></h1><p>在开发中难免要处理网站的css js image等静态文件，不用顾及性能，安全的问题，交给Django内部处理好了；但如果正式部署到服务器的时候，这样的配置就会影响到性能和安全性了，这时怎么办呢？嗯，交给Nginx处理好了。</p>
+<p>假如项目的目录结构如下：<br>myproject<br>–app1<br>–app2<br>–media<br>—-css<br>—-js<br>—-images<br>–templates<br>–setting.py<br>–urls.py<br>–manage.py</p>
+<p>–…</p>
+<p>解释：通常项目文件夹下有若干个app应用，如app1 app2<br>我们把静态文件方在项目的根目录下，起名为media（这个可以任意起名，但顾名思义，起个明了的名字），media文件夹里分别新建 css，js，images文件夹，用他们放置样式，脚本，图片等用途。<br>剩下的就是Django生成的settings urls manage配置文件了。</p>
+<p>这回计划在开发环境中，使用Django处理静态文件，而正式部署后使用Nginx来处理他们。</p>
+<p>首先在urls.py文件中最后加上以上代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> settings.DEBUG:    </span><br><span class="line">    urlpatterns += patterns(<span class="string">''</span>,</span><br><span class="line"> url(<span class="string">r'^media/(?P&lt;path&gt;.*)$'</span>, <span class="string">'django.views.static.serve'</span>,</span><br><span class="line"> &#123;<span class="string">'document_root'</span>: os.path.join(settings.SITE_ROOT,<span class="string">'media'</span>)&#125;,name=<span class="string">"media"</span>),</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+<p>具体的意思是：如果是开发环境，让Django的django.views.static.serve来处理，而正式部署时，Django不做任何事情，让Nginx来处理，后面会讲到Nginx的配置问题。</p>
+<p>settings.DEBUG其实就是开发和部署的标示变量，部署的时候在settings里给DEBUG变量赋值False，让Django Templates屏蔽一切Debug;赋值True时，相反，是开启Debug，开发中出错以便查看一些错误信息。</p>
+<p>开发环境中，settings的配置如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">DEBUG = <span class="keyword">True</span></span><br><span class="line">TEMPLATE_DEBUG = DEBUG</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">SITE_ROOT=os.path.abspath(os.path.dirname(__file__))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MEDIA_ROOT = os.path.join(SITE_ROOT,<span class="string">'media'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MEDIA_URL = <span class="string">'/media/'</span></span><br></pre></td></tr></table></figure>
+<p>正式部署的时候，把变量DEBUG改成False即可。</p>
+<p>正式部署的时候，Nginx的静态文件配置很关键，先看代码：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> <span class="regexp">~ ^/media/</span> &#123;         </span><br><span class="line">        <span class="attribute">root</span> /home/http/django_project/myproject/; </span><br><span class="line"> <span class="attribute">expires</span> <span class="number">24h</span>;</span><br><span class="line"> <span class="attribute">access_log</span>   <span class="literal">off</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>如项目实际路径是：/home/http/django_project/myproject/，那以上的配置代码会到 /home/http/django_project/myproject/ 路径找 media文件夹。一两点值得注意的：</p>
+<p>1 刚开始一直没有配置成功，原因是root的没配置正确，写成 root /home/http/django_project/myproject/media/ 了， 导致Nginx老找不到media文件夹。</p>
+<p>2 还有一个值得注意的是：location ~ ^/media/  要和实际的静态文件夹对应哦，如果写成location ~ ^/static/  那肯定不行的</p>
+<p>实际部署脚本</p>
+<blockquote>
+<p>DEBUG=False</p>
+</blockquote>
+<p>Django.conf</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /etc/nginx/conf.d/django.conf</span></span><br><span class="line"><span class="attribute">upstream</span> django&#123;</span><br><span class="line"><span class="attribute">server</span> <span class="number">127.0.0.1:8088</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">        <span class="attribute">client_max_body_size</span> <span class="number">50M</span>; </span><br><span class="line">        <span class="attribute">server_name</span> localhost <span class="number">127.0.0.1</span> <span class="number">172.16.4.51</span>; </span><br><span class="line">        <span class="attribute">server_name_in_redirect</span> <span class="literal">off</span>;</span><br><span class="line">    <span class="comment">#   error_log /tmp/error.log debug; </span></span><br><span class="line"></span><br><span class="line">            <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://django/;</span><br><span class="line">            <span class="attribute">proxy_redirect</span> <span class="literal">off</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>; </span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>; </span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host <span class="variable">$http_host</span>; </span><br><span class="line">            &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="attribute">location</span> ~^/static/ &#123;</span><br><span class="line">        <span class="attribute">root</span> /home/go/monitor/;</span><br><span class="line">        <span class="attribute">expires</span> <span class="number">24h</span>;</span><br><span class="line">        <span class="attribute">access_log</span> <span class="literal">off</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+  <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.jpg" alt="爱像水墨青花 WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>微信打赏</p>
+      </div>
+    
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="爱像水墨青花 Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+  </div>
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/django/" rel="tag">#django</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/11/2016-04-11-python-redis操作/" rel="next" title="python-redis操作">
+                <i class="fa fa-chevron-left"></i> python-redis操作
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/04/12/2016-04-12-让Nginx处理Django的静态文件/"
+     data-title="让Nginx处理Django的静态文件"
+     data-content=""
+     data-url="http://www.lflxp.cn/2016/04/12/2016-04-12-让Nginx处理Django的静态文件/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
 
           </div>
           
 
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/12/2016-04-12-让Nginx处理Django的静态文件/"
+           data-title="让Nginx处理Django的静态文件" data-url="http://www.lflxp.cn/2016/04/12/2016-04-12-让Nginx处理Django的静态文件/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -538,8 +499,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/123.jpg"
@@ -857,6 +827,17 @@
       </section>
 
       
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#让Nginx处理Django的静态文件"><span class="nav-number">1.</span> <span class="nav-text">让Nginx处理Django的静态文件</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
 
     </div>
   </aside>
@@ -940,11 +921,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
 
 
   
