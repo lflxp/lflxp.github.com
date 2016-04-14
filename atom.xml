@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>笑傲江湖</title>
+  <title>爱像水墨青花 何惧刹那芳华</title>
   <subtitle>思想与技术的碰撞</subtitle>
   <link href="/atom.xml" rel="self"/>
   
@@ -9,7 +9,7 @@
   <id>http://www.lflxp.cn/</id>
   
   <author>
-    <name>爱像水墨青花</name>
+    <name>LiXUEPING</name>
     <email>382023823@qq.com</email>
   </author>
   
