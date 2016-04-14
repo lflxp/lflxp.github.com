@@ -288,6 +288,134 @@
             
               
                 
+                <a class="post-title-link" href="/2016/04/06/2016-02-26-nginx配置/" itemprop="url">
+                  nginx 一机多实例配置
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-06T18:31:45+08:00" content="2016-04-06">
+              2016-04-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">nginx</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/06/2016-02-26-nginx配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/06/2016-02-26-nginx配置/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          ubuntu 安装
+
+
+apt-get install nginx -y
+
+
+
+配置路径 /etc/nginx/conf.d/django.conf通过配置nginx可以将一台物理机或者很多太内网的项目通过反向代理的方式通过一个IP的80端口匹配域名进行访问 正好让我的aws主机利用率最大化
+12345678910111213141516171819202122232425262728293031upstream django&#123;server 127.0.0.1:8080;&#125;server &#123;        listen 80;        client_max_b
+          ...
+
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/04/06/2016-02-26-nginx配置/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/04/06/2016-02-24-第九章 模板高级进阶/" itemprop="url">
                   第九章 模板高级进阶
                 </a>
@@ -880,130 +1008,6 @@ Vagrant安装最新
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/06/2016-02-18-vagrant/" itemprop="url">
-                  Docker与Vagrant的简单区别
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-06T18:31:45+08:00" content="2016-04-06">
-              2016-04-06
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/vagrant/" itemprop="url" rel="index">
-                    <span itemprop="name">vagrant</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/06/2016-02-18-vagrant/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/06/2016-02-18-vagrant/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          【理解Docker】Docker与Vagrant的简单区别
-【编者的话】本文翻译自Quora上的一个问题：Docker和Vagrant的区别，以及我们何时使用他们。Vagrant和Docker是两只不同的野兽。
-Docker是一个由shell层和management层两部分组成的，用来构建并运行基于lxc的虚拟Linux容器。
-Docker的伟大在于；它是轻量级的（因为它依赖于共享内核的Linux容器），[以及与它的分布无关]。虽然所有实例之间的内核共享（但与主机以及互相之间都是隔离的），不同实例的用户空间可以基于不同的Linux发行版本。
-Vagrant则是一个奇妙的工具，它使用puppet
-          ...
-
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/04/06/2016-02-18-vagrant/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1049,7 +1053,7 @@ Vagrant则是一个奇妙的工具，它使用puppet
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">64</span>
+              <span class="site-state-item-count">65</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
