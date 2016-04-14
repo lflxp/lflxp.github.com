@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="django," />
+  <meta name="keywords" content="rabbitmq," />
 
 
 
@@ -59,22 +59,19 @@
 
 
 
-<meta name="description" content="虽然大多数和Django模板语言的交互都是模板作者的工作，但你可能想定制和扩展模板引擎，让它做一些它不能做的事情，或者是以其他方式让你的工作更轻松。
-本章深入探讨Django的模板系统。 如果你想扩展模板系统或者只是对它的工作原理感觉到好奇，本章涉及了你需要了解的东西。 它也包含一个自动转意特征，如果你继续使用django，随着时间的推移你一定会注意这个安全考虑。
-如果你想把Django的模版系统">
+<meta name="description" content="rabbitmq 添加远程访问功能刚刚安装过的rabbitmq 消息队列，并启用了插件管理功能，3.3.1版中，处于安全的考虑，guest这个默认的用户只能通过http://localhost:15672 来登录，其他的IP无法直接使用这个账号。 这对于服务器上没有安装桌面的情况是无法管理维护的，除非通过在前面添加一层代理向外提供服务，这个又有些麻烦了，这里通过配置文件来实现这个功能。
+只要编辑">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第九章 模板高级进阶">
-<meta property="og:url" content="http://www.lflxp.cn/2016/04/06/2016-02-24-第九章 模板高级进阶/index.html">
+<meta property="og:title" content="rabbitmq 添加远程访问功能">
+<meta property="og:url" content="http://www.lflxp.cn/2016/04/14/2016-04-14-rabbitmq添加远程用户/index.html">
 <meta property="og:site_name" content="爱像水墨青花 何惧刹那芳华">
-<meta property="og:description" content="虽然大多数和Django模板语言的交互都是模板作者的工作，但你可能想定制和扩展模板引擎，让它做一些它不能做的事情，或者是以其他方式让你的工作更轻松。
-本章深入探讨Django的模板系统。 如果你想扩展模板系统或者只是对它的工作原理感觉到好奇，本章涉及了你需要了解的东西。 它也包含一个自动转意特征，如果你继续使用django，随着时间的推移你一定会注意这个安全考虑。
-如果你想把Django的模版系统">
-<meta property="og:updated_time" content="2016-04-11T04:07:20.389Z">
+<meta property="og:description" content="rabbitmq 添加远程访问功能刚刚安装过的rabbitmq 消息队列，并启用了插件管理功能，3.3.1版中，处于安全的考虑，guest这个默认的用户只能通过http://localhost:15672 来登录，其他的IP无法直接使用这个账号。 这对于服务器上没有安装桌面的情况是无法管理维护的，除非通过在前面添加一层代理向外提供服务，这个又有些麻烦了，这里通过配置文件来实现这个功能。
+只要编辑">
+<meta property="og:updated_time" content="2016-04-14T06:36:49.058Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第九章 模板高级进阶">
-<meta name="twitter:description" content="虽然大多数和Django模板语言的交互都是模板作者的工作，但你可能想定制和扩展模板引擎，让它做一些它不能做的事情，或者是以其他方式让你的工作更轻松。
-本章深入探讨Django的模板系统。 如果你想扩展模板系统或者只是对它的工作原理感觉到好奇，本章涉及了你需要了解的东西。 它也包含一个自动转意特征，如果你继续使用django，随着时间的推移你一定会注意这个安全考虑。
-如果你想把Django的模版系统">
+<meta name="twitter:title" content="rabbitmq 添加远程访问功能">
+<meta name="twitter:description" content="rabbitmq 添加远程访问功能刚刚安装过的rabbitmq 消息队列，并启用了插件管理功能，3.3.1版中，处于安全的考虑，guest这个默认的用户只能通过http://localhost:15672 来登录，其他的IP无法直接使用这个账号。 这对于服务器上没有安装桌面的情况是无法管理维护的，除非通过在前面添加一层代理向外提供服务，这个又有些麻烦了，这里通过配置文件来实现这个功能。
+只要编辑">
 
 
 
@@ -92,7 +89,7 @@
   };
 </script>
 
-  <title> 第九章 模板高级进阶 | 爱像水墨青花 何惧刹那芳华 </title>
+  <title> rabbitmq 添加远程访问功能 | 爱像水墨青花 何惧刹那芳华 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -292,7 +289,7 @@
             
             
               
-                第九章 模板高级进阶
+                rabbitmq 添加远程访问功能
               
             
           </h1>
@@ -304,8 +301,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-06T18:31:45+08:00" content="2016-04-06">
-              2016-04-06
+            <time itemprop="dateCreated" datetime="2016-04-14T14:34:12+08:00" content="2016-04-14">
+              2016-04-14
             </time>
           </span>
 
@@ -318,8 +315,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Django-book-2-0/" itemprop="url" rel="index">
-                    <span itemprop="name">Django book 2.0</span>
+                  <a href="/categories/rabbitmq/" itemprop="url" rel="index">
+                    <span itemprop="name">rabbitmq</span>
                   </a>
                 </span>
 
@@ -334,8 +331,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/06/2016-02-24-第九章 模板高级进阶/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/06/2016-02-24-第九章 模板高级进阶/" itemprop="commentsCount"></span>
+                <a href="/2016/04/14/2016-04-14-rabbitmq添加远程用户/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/14/2016-04-14-rabbitmq添加远程用户/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -357,80 +354,16 @@
       
 
       
-        <p>虽然大多数和Django模板语言的交互都是模板作者的工作，但你可能想定制和扩展模板引擎，让它做一些它不能做的事情，或者是以其他方式让你的工作更轻松。</p>
-<p>本章深入探讨Django的模板系统。 如果你想扩展模板系统或者只是对它的工作原理感觉到好奇，本章涉及了你需要了解的东西。 它也包含一个自动转意特征，如果你继续使用django，随着时间的推移你一定会注意这个安全考虑。</p>
-<p>如果你想把Django的模版系统作为另外一个应用程序的一部分（就是说，仅使用Django的模板系统而不使用Django框架的其他部分），那你一定要读一下“配置独立模式下的模版系统”这一节。</p>
-<h1 id="模板语言回顾"><a href="#模板语言回顾" class="headerlink" title="模板语言回顾"></a>模板语言回顾</h1><p>变量 是一个在模板里用来输出值的标记。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">变量标签被 &#123;&#123; 和 &#125;&#125; 包围：</span><br><span class="line"></span><br><span class="line">My first name is &#123;&#123; first_name &#125;&#125;. My last name is &#123;&#123; last_name &#125;&#125;.</span><br></pre></td></tr></table></figure>
-<p>context 是一个传递给模板的名称到值的映射（类似Python字典）。</p>
-<p>模板 渲染 就是是通过从context获取值来替换模板中变量并执行所有的模板标签。</p>
-<p>关于这些基本概念更详细的内容，请参考第四章。</p>
-<p>本章的其余部分讨论了扩展模板引擎的方法。 首先，我们快速的看一下第四章遗留的内容。</p>
-<p>RequestContext和Context处理器<br>你需要一段context来解析模板。 一般情况下，这是一个 django.template.Context 的实例，不过在Django中还可以用一个特殊的子类， django.template.RequestContext ，这个用起来稍微有些不同。 RequestContext 默认地在模板context中加入了一些变量，如 HttpRequest 对象或当前登录用户的相关信息。3</p>
-<p>当你不想在一系例模板中都明确指定一些相同的变量时，你应该使用 RequestContext 。 例如，考虑这两个视图：1</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">from django.template import loader, Context</span><br><span class="line"></span><br><span class="line">def view_1(request):</span><br><span class="line">    # ...</span><br><span class="line">    t = loader.get_template(&apos;template1.html&apos;)</span><br><span class="line">    c = Context(&#123;</span><br><span class="line">        &apos;app&apos;: &apos;My app&apos;,</span><br><span class="line">        &apos;user&apos;: request.user,</span><br><span class="line">        &apos;ip_address&apos;: request.META[&apos;REMOTE_ADDR&apos;],</span><br><span class="line">        &apos;message&apos;: &apos;I am view 1.&apos;</span><br><span class="line">    &#125;)</span><br><span class="line">    return t.render(c)</span><br><span class="line"></span><br><span class="line">def view_2(request):</span><br><span class="line">    # ...</span><br><span class="line">    t = loader.get_template(&apos;template2.html&apos;)</span><br><span class="line">    c = Context(&#123;</span><br><span class="line">        &apos;app&apos;: &apos;My app&apos;,</span><br><span class="line">        &apos;user&apos;: request.user,</span><br><span class="line">        &apos;ip_address&apos;: request.META[&apos;REMOTE_ADDR&apos;],</span><br><span class="line">        &apos;message&apos;: &apos;I am the second view.&apos;</span><br><span class="line">    &#125;)</span><br><span class="line">    return t.render(c)</span><br></pre></td></tr></table></figure>
-<p>（注意，在这些例子中，我们故意 不 使用 render_to_response() 这个快捷方法，而选择手动载入模板，手动构造context对象然后渲染模板。 是为了能够清晰的说明所有步骤。）</p>
-<p>每个视图都给模板传入了三个相同的变量：app、user和ip_address。 如果我们把这些冗余去掉会不会更好？</p>
-<p>创建 RequestContext 和 context处理器 就是为了解决这个问题。 Context处理器允许你设置一些变量，它们会在每个context中自动被设置好，而不必每次调用 render_to_response() 时都指定。 要点就是，当你渲染模板时，你要用 RequestContext 而不是 Context 。4</p>
-<p>最直接的做法是用context处理器来创建一些处理器并传递给 RequestContext 。上面的例子可以用context processors改写如下：</p>
-<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">from django.template import loader, RequestContext</span><br><span class="line"></span><br><span class="line">def custom_proc(request):</span><br><span class="line">    "A context processor that provides 'app', 'user' and 'ip_address'."</span><br><span class="line">    return &#123;</span><br><span class="line">        'app': 'My app',</span><br><span class="line">        'user': request.user,</span><br><span class="line">        'ip_address': request.META['REMOTE_ADDR']</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">def view_1(request):</span><br><span class="line">    # ...</span><br><span class="line">    t = loader.get_template('template1.html')</span><br><span class="line">    c = RequestContext(request, &#123;'message': 'I am view 1.'&#125;,</span><br><span class="line">            processors=[custom_proc])</span><br><span class="line">    return t.render(c)</span><br><span class="line"></span><br><span class="line">def view_2(request):</span><br><span class="line">    # ...</span><br><span class="line">    t = loader.get_template('template2.html')</span><br><span class="line">    c = RequestContext(request, &#123;'message': 'I am the second view.'&#125;,</span><br><span class="line">            processors=[custom_proc])</span><br><span class="line">    return t.render(c)</span></span><br></pre></td></tr></table></figure>
-<p>我们来通读一下代码：</p>
-<p>首先，我们定义一个函数 custom_proc 。这是一个context处理器，它接收一个 HttpRequest 对象，然后返回一个字典，这个字典中包含了可以在模板context中使用的变量。 它就做了这么多。</p>
-<p>我们在这两个视图函数中用 RequestContext 代替了 Context 。在context对象的构建上有两个不同点。 一， RequestContext 的第一个参数需要传递一个 HttpRequest 对象，就是传递给视图函数的第一个参数（ request ）。二， RequestContext 有一个可选的参数 processors ，这是一个包含context处理器函数的列表或者元组。 在这里，我们传递了我们之前定义的处理器函数 curstom_proc 。1</p>
-<p>每个视图的context结构里不再包含 app 、 user 、 ip_address 等变量，因为这些由 custom_proc 函数提供了。</p>
-<p>每个视图 仍然 具有很大的灵活性，可以引入我们需要的任何模板变量。 在这个例子中， message 模板变量在每个视图中都不一样。</p>
-<p>在第四章，我们介绍了 render_to_response() 这个快捷方式，它可以简化调用 loader.get_template() ,然后创建一个 Context 对象，最后再调用模板对象的 render()过程。 为了讲解context处理器底层是如何工作的，在上面的例子中我们没有使用 render_to_response() 。但是建议选择 render_to_response() 作为context的处理器。这就需要用到context_instance参数：1</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">from django.shortcuts import render_to_response</span><br><span class="line">from django.template import RequestContext</span><br><span class="line"></span><br><span class="line">def custom_proc(request):</span><br><span class="line">    &quot;A context processor that provides &apos;app&apos;, &apos;user&apos; and &apos;ip_address&apos;.&quot;</span><br><span class="line">    return &#123;</span><br><span class="line">        &apos;app&apos;: &apos;My app&apos;,</span><br><span class="line">        &apos;user&apos;: request.user,</span><br><span class="line">        &apos;ip_address&apos;: request.META[&apos;REMOTE_ADDR&apos;]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">def view_1(request):</span><br><span class="line">    # ...</span><br><span class="line">    return render_to_response(&apos;template1.html&apos;,</span><br><span class="line">        &#123;&apos;message&apos;: &apos;I am view 1.&apos;&#125;,</span><br><span class="line">        context_instance=RequestContext(request, processors=[custom_proc]))</span><br><span class="line"></span><br><span class="line">def view_2(request):</span><br><span class="line">    # ...</span><br><span class="line">    return render_to_response(&apos;template2.html&apos;,</span><br><span class="line">        &#123;&apos;message&apos;: &apos;I am the second view.&apos;&#125;,</span><br><span class="line">        context_instance=RequestContext(request, processors=[custom_proc]))</span><br></pre></td></tr></table></figure>
-<p>在这，我们将每个视图的模板渲染代码写成了一个单行。</p>
-<p>虽然这是一种改进，但是，请考虑一下这段代码的简洁性，我们现在不得不承认的是在 另外 一方面有些过分了。 我们以代码冗余（在 processors 调用中）的代价消除了数据上的冗余（我们的模板变量）。 由于你不得不一直键入 processors ，所以使用context处理器并没有减少太多的输入量。</p>
-<p>Django因此提供对 全局 context处理器的支持。 TEMPLATE_CONTEXT_PROCESSORS 指定了哪些context processors总是默认被使用。这样就省去了每次使用 RequestContext 都指定 processors 的麻烦。7</p>
-<p>默认情况下， TEMPLATE_CONTEXT_PROCESSORS 设置如下：</p>
-<p>TEMPLATE_CONTEXT_PROCESSORS = (<br>    ‘django.core.context_processors.auth’,<br>    ‘django.core.context_processors.debug’,<br>    ‘django.core.context_processors.i18n’,<br>    ‘django.core.context_processors.media’,<br>)<br>这个设置项是一个可调用函数的元组，其中的每个函数使用了和上文中我们的 custom_proc 相同的接口，它们以request对象作为参数，返回一个会被合并传给context的字典： 接收一个request对象作为参数，返回一个包含了将被合并到context中的项的字典。3</p>
-<p>每个处理器将会按照顺序应用。 也就是说如果你在第一个处理器里面向context添加了一个变量，而第二个处理器添加了同样名字的变量，那么第二个将会覆盖第一个。</p>
-<p>Django提供了几个简单的context处理器，有些在默认情况下被启用的。</p>
-<p>django.core.context_processors.auth3</p>
-<p>如果 TEMPLATE_CONTEXT_PROCESSORS 包含了这个处理器，那么每个 RequestContext 将包含这些变量：</p>
-<p>user ：一个 django.contrib.auth.models.User 实例，描述了当前登录用户（或者一个 AnonymousUser 实例，如果客户端没有登录）。</p>
-<p>messages ：一个当前登录用户的消息列表（字符串）。 在后台，对每一个请求，这个变量都调用 request.user.get_and_delete_messages() 方法。 这个方法收集用户的消息然后把它们从数据库中删除。3</p>
-<p>perms ： django.core.context_processors.PermWrapper 的一个实例，包含了当前登录用户有哪些权限。1</p>
-<p>关于users、permissions和messages的更多内容请参考第14章。</p>
-<p>django.core.context_processors.debug</p>
-<p>这个处理器把调试信息发送到模板层。 如果TEMPLATE_CONTEXT_PROCESSORS包含这个处理器，每一个RequestContext将包含这些变量：</p>
-<p>debug ：你设置的 DEBUG 的值（ True 或 False ）。你可以在模板里面用这个变量测试是否处在debug模式下。1</p>
-<p>sql_queries ：包含类似于 <code>{‘sql’: …, ‘time’:</code> 的字典的一个列表， 记录了这个请求期间的每个SQL查询以及查询所耗费的时间。 这个列表是按照请求顺序进行排列的。2</p>
-<p>System Message: WARNING/2 (<string>, line 315); backlink</string></p>
-<p>Inline literal start-string without end-string.</p>
-<p>由于调试信息比较敏感，所以这个context处理器只有当同时满足下面两个条件的时候才有效：</p>
-<p>DEBUG 参数设置为 True 。</p>
-<p>请求的ip应该包含在 INTERNAL_IPS 的设置里面。</p>
-<p>细心的读者可能会注意到debug模板变量的值永远不可能为False，因为如果DEBUG是False，那么debug模板变量一开始就不会被RequestContext所包含。6</p>
-<p>django.core.context_processors.i18n1</p>
-<p>如果这个处理器启用，每个 RequestContext 将包含下面的变量：</p>
-<p>LANGUAGES ： LANGUAGES 选项的值。</p>
-<p>LANGUAGE_CODE ：如果 request.LANGUAGE_CODE 存在，就等于它；否则，等同于 LANGUAGE_CODE 设置。</p>
-<p>附录E提供了有关这两个设置的更多的信息。</p>
-<p>django.core.context_processors.request3</p>
-<p>如果启用这个处理器，每个 RequestContext 将包含变量 request ， 也就是当前的 HttpRequest 对象。 注意这个处理器默认是不启用的，你需要激活它。</p>
-<p>如果你发现你的模板需要访问当前的HttpRequest你就需要使用它:7</p>
-
-<p>写Context处理器的一些建议1</p>
-<p>编写处理器的一些建议：</p>
-<p>使每个context处理器完成尽可能小的功能。 使用多个处理器是很容易的，所以你可以根据逻辑块来分解功能以便将来复用。</p>
-<p>要注意 TEMPLATE_CONTEXT_PROCESSORS 里的context processor 将会在基于这个settings.py的每个 模板中有效，所以变量的命名不要和模板的变量冲突。 变量名是大小写敏感的，所以processor的变量全用大写是个不错的主意。1</p>
-<p>不论它们存放在哪个物理路径下，只要在你的Python搜索路径中，你就可以在 TEMPLATE_CONTEXT_PROCESSORS 设置里指向它们。 建议你把它们放在应用或者工程目录下名为 context_processors.py 的文件里。18</p>
-<p>html自动转意4<br>从模板生成html的时候，总是有一个风险——变量包了含会影响结果html的字符。 例如，考虑这个模板片段：</p>
-<p>Hello, .<br>一开始，这看起来是显示用户名的一个无害的途径，但是考虑如果用户输入如下的名字将会发生什么：</p>
-<p><script>alert(‘hello’)</script><br>用这个用户名，模板将被渲染成：</p>
-<p>Hello, <script>alert(‘hello’)</script><br>这意味着浏览器将弹出JavaScript警告框！</p>
-<p>类似的，如果用户名包含小于符号，就像这样：</p>
-<p>用户名2</p>
-<p>那样的话模板结果被翻译成这样：</p>
-<p>Hello, <b>username<br>页面的剩余部分变成了粗体！</b></p>
-<p>显然，用户提交的数据不应该被盲目信任，直接插入到你的页面中。因为一个潜在的恶意的用户能够利用这类漏洞做坏事。 这类漏洞称为被跨域脚本 (XSS) 攻击。 关于安全的更多内容，请看20章6</p>
-<p>为了避免这个问题，你有两个选择：</p>
-<p>一是你可以确保每一个不被信任的变量都被escape过滤器处理一遍，把潜在有害的html字符转换为无害的。 这是最初几年Django的默认方案，但是这样做的问题是它把责任推给你（开发者、模版作者）自己，来确保把所有东西转意。 很容易就忘记转意数据。</p>
-<p>二是，你可以利用Django的自动html转意。 这一章的剩余部分描述自动转意是如何工作的。</p>
-<p>在django里默认情况下，每一个模板自动转意每一个变量标签的输出。 尤其是这五个字符。1</p>
+        <p><a href="http://blog.haohtml.com/archives/15249" target="_blank" rel="external">rabbitmq 添加远程访问功能</a><br>刚刚安装过的rabbitmq 消息队列，并启用了插件管理功能，3.3.1版中，处于安全的考虑，guest这个默认的用户只能通过<a href="http://localhost:15672" target="_blank" rel="external">http://localhost:15672</a> 来登录，其他的IP无法直接使用这个账号。 这对于服务器上没有安装桌面的情况是无法管理维护的，除非通过在前面添加一层代理向外提供服务，这个又有些麻烦了，这里通过配置文件来实现这个功能。</p>
+<p>只要编辑 /etc/rabbitmq/rabbitmq.config 文件，添加以下配置就可以了。</p>
+<p>[<br>{rabbit, [{tcp_listeners, [5672]}, {loopback_users, [“asdf”]}]}<br>].</p>
+<p>现在添加了一个新授权用户asdf，可以通过外网使用这个用户名和密码访问.(记得要先用命令添加这个命令才行,  #rabbitmqctl  add_user asdf pwd123456)我是通过在管理平台里直接添加的用户和密码的，我的测试环境装有桌面的。<br>参考文档：<a href="http://www.rabbitmq.com/access-control.html" target="_blank" rel="external">http://www.rabbitmq.com/access-control.html</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># rabbitmqctl add_user asdf pwd123456</span><br><span class="line"></span><br><span class="line"># rabbitmqctl list_users</span><br><span class="line">Listing users ...</span><br><span class="line">asdf</span><br><span class="line">guest   [administrator]</span><br></pre></td></tr></table></figure></p>
+<p>Setting permissions for user “asdf” in vhost “/“ …</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># rabbitmqctl set_permissions -p &quot;/&quot; asdf &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;</span><br><span class="line"></span><br><span class="line"># rabbitmqctl list_permissions -p /</span><br><span class="line">Listing permissions in vhost &quot;/&quot; ...</span><br><span class="line">asdf .* .* .*</span><br><span class="line">guest .* .* .*</span><br></pre></td></tr></table></figure>
+<p>可以看到添加用户成功了，但不是administrator角色，这里我们也将asdf用户设置为administrator角色.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># rabbitmqctl set_user_tags asdf administrator</span><br><span class="line">Setting tags for user &quot;asdf&quot; to [administrator] ..</span><br><span class="line"> </span><br><span class="line"># rabbitmqctl list_users</span><br><span class="line">Listing users ...</span><br><span class="line">asdf [administrator]</span><br><span class="line">guest [administrator]</span><br></pre></td></tr></table></figure>
+<p>我用rpm包安装的rabbitmq，所以提供默认的配置参考文件(/usr/share/doc/rabbitmq-server-3.5.0/rabbitmq.config.example),如果你使用源码编译的话，可以找到一个默认的配置文件rabbitmq.config.example,点击这里下载此文件rabbitmq.config<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> rabbitmqctl <span class="built_in">set</span>_permissions -p /vhost1 user_admin <span class="string">'.*'</span> <span class="string">'.*'</span> <span class="string">'.*'</span></span><br></pre></td></tr></table></figure></p>
+<p>该命令使用户user_admin具有/vhost1这个virtual host中所有资源的配置、写、读权限以便管理其中的资源</p>
 
       
     </div>
@@ -466,7 +399,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/django/" rel="tag">#django</a>
+            <a href="/tags/rabbitmq/" rel="tag">#rabbitmq</a>
           
         </div>
       
@@ -475,17 +408,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/06/2016-02-24-bootstrap-table使用/" rel="next" title="bootstrap-table使用">
-                <i class="fa fa-chevron-left"></i> bootstrap-table使用
+              <a href="/2016/04/14/2016-04-14-Redis的三种启动方式/" rel="next" title="Redis的三种启动方式">
+                <i class="fa fa-chevron-left"></i> Redis的三种启动方式
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/06/2016-02-26-nginx配置/" rel="prev" title="nginx 一机多实例配置">
-                nginx 一机多实例配置 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -500,10 +429,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/04/06/2016-02-24-第九章 模板高级进阶/"
-     data-title="第九章 模板高级进阶"
+        <div class="ds-share flat" data-thread-key="2016/04/14/2016-04-14-rabbitmq添加远程用户/"
+     data-title="rabbitmq 添加远程访问功能"
      data-content=""
-     data-url="http://www.lflxp.cn/2016/04/06/2016-02-24-第九章 模板高级进阶/">
+     data-url="http://www.lflxp.cn/2016/04/14/2016-04-14-rabbitmq添加远程用户/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -533,8 +462,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/06/2016-02-24-第九章 模板高级进阶/"
-           data-title="第九章 模板高级进阶" data-url="http://www.lflxp.cn/2016/04/06/2016-02-24-第九章 模板高级进阶/">
+      <div class="ds-thread" data-thread-key="2016/04/14/2016-04-14-rabbitmq添加远程用户/"
+           data-title="rabbitmq 添加远程访问功能" data-url="http://www.lflxp.cn/2016/04/14/2016-04-14-rabbitmq添加远程用户/">
       </div>
     
   </div>
@@ -892,7 +821,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模板语言回顾"><span class="nav-number">1.</span> <span class="nav-text">模板语言回顾</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
