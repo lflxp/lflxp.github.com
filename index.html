@@ -361,8 +361,8 @@
 RabbitMQ提供了四种Exchange：fanout,direct,topic,header
 header模式在实际使用中较少，本文只对前三种模式进行比较。
 性能排序：fanout &gt; direct &gt;&gt; topic。比例大约为11：10：6
-一.Direct Exchange0ec0f465-49c6-361c-ae2b-dd951a6ed1a9任何发送到Direct Exchange的消息都会被转发到RouteKey中指定的Queue。
-1.
+一.Direct Exchange任何发送到Direct Exchange的消息都会被转发到RouteKey中指定的Queue。
+1.一般情况可以使用rabbitMQ自带的Exchange：””(该Exch
           ...
 
           <div class="post-more-link text-center">

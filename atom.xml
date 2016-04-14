@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.lflxp.cn/"/>
-  <updated>2016-04-14T07:27:13.485Z</updated>
+  <updated>2016-04-14T07:30:12.301Z</updated>
   <id>http://www.lflxp.cn/</id>
   
   <author>
@@ -20,24 +20,24 @@
     <link href="http://www.lflxp.cn/2016/04/14/2016-04-14-rabbitmq%E6%80%A7%E8%83%BD%E6%8E%92%E5%BA%8F/"/>
     <id>http://www.lflxp.cn/2016/04/14/2016-04-14-rabbitmq性能排序/</id>
     <published>2016-04-14T07:24:54.362Z</published>
-    <updated>2016-04-14T07:27:13.485Z</updated>
+    <updated>2016-04-14T07:30:12.301Z</updated>
     
     <content type="html">&lt;p&gt;&lt;a href=&quot;http://hwcrazy.com/34195c9068c811e38a44000d601c5586/be62fc2668c811e3adba000d601c5586/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;RabbitMQ中，所有生产者提交的消息都由Exchange来接受，然后Exchange按照特定的策略&lt;/a&gt;转发到Queue进行存储&lt;/p&gt;
 &lt;p&gt;RabbitMQ提供了四种Exchange：fanout,direct,topic,header&lt;/p&gt;
 &lt;p&gt;header模式在实际使用中较少，本文只对前三种模式进行比较。&lt;/p&gt;
 &lt;p&gt;性能排序：fanout &amp;gt; direct &amp;gt;&amp;gt; topic。比例大约为11：10：6&lt;/p&gt;
-&lt;h1 id=&quot;一-Direct-Exchange&quot;&gt;&lt;a href=&quot;#一-Direct-Exchange&quot; class=&quot;headerlink&quot; title=&quot;一.Direct Exchange&quot;&gt;&lt;/a&gt;一.Direct Exchange&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://hwcrazy.com/ckeditor/image/show?idblog=34195c9068c811e38a44000d601c5586&amp;amp;idimage=1d4c37890a191e85098216c117ff938c&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;0ec0f465-49c6-361c-ae2b-dd951a6ed1a9&lt;/a&gt;&lt;br&gt;任何发送到Direct Exchange的消息都会被转发到RouteKey中指定的Queue。&lt;/p&gt;
+&lt;h1 id=&quot;一-Direct-Exchange&quot;&gt;&lt;a href=&quot;#一-Direct-Exchange&quot; class=&quot;headerlink&quot; title=&quot;一.Direct Exchange&quot;&gt;&lt;/a&gt;一.Direct Exchange&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;http://hwcrazy.com/ckeditor/image/show?idblog=34195c9068c811e38a44000d601c5586&amp;amp;idimage=1d4c37890a191e85098216c117ff938c&quot; alt=&quot;0ec0f465-49c6-361c-ae2b-dd951a6ed1a9&quot;&gt;&lt;br&gt;任何发送到Direct Exchange的消息都会被转发到RouteKey中指定的Queue。&lt;/p&gt;
 &lt;p&gt;1.一般情况可以使用rabbitMQ自带的Exchange：””(该Exchange的名字为空字符串，下文称其为default Exchange)。&lt;/p&gt;
 &lt;p&gt;2.这种模式下不需要将Exchange进行任何绑定(binding)操作&lt;/p&gt;
 &lt;p&gt;3.消息传递时需要一个“RouteKey”，可以简单的理解为要发送到的队列名字。&lt;/p&gt;
 &lt;p&gt;4.如果vhost中不存在RouteKey中指定的队列名，则该消息会被抛弃。&lt;/p&gt;
-&lt;h1 id=&quot;二-Fanout-Exchange&quot;&gt;&lt;a href=&quot;#二-Fanout-Exchange&quot; class=&quot;headerlink&quot; title=&quot;二.Fanout Exchange&quot;&gt;&lt;/a&gt;二.Fanout Exchange&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://hwcrazy.com/ckeditor/image/show?idblog=34195c9068c811e38a44000d601c5586&amp;amp;idimage=b10b9a82c7dc35d61b53986fdf2d8505&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;0bbdcd3d-9fc6-3107-b7e0-db67c174d46a&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;二-Fanout-Exchange&quot;&gt;&lt;a href=&quot;#二-Fanout-Exchange&quot; class=&quot;headerlink&quot; title=&quot;二.Fanout Exchange&quot;&gt;&lt;/a&gt;二.Fanout Exchange&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;http://hwcrazy.com/ckeditor/image/show?idblog=34195c9068c811e38a44000d601c5586&amp;amp;idimage=b10b9a82c7dc35d61b53986fdf2d8505&quot; alt=&quot;0bbdcd3d-9fc6-3107-b7e0-db67c174d46a&quot;&gt;&lt;/p&gt;
 &lt;p&gt;任何发送到Fanout Exchange的消息都会被转发到与该Exchange绑定(Binding)的所有Queue上。&lt;/p&gt;
 &lt;p&gt;1.可以理解为路由表的模式&lt;/p&gt;
 &lt;p&gt;2.这种模式不需要RouteKey&lt;/p&gt;
 &lt;p&gt;3.这种模式需要提前将Exchange与Queue进行绑定，一个Exchange可以绑定多个Queue，一个Queue可以同多个Exchange进行绑定。&lt;/p&gt;
 &lt;p&gt;4.如果接受到消息的Exchange没有与任何Queue绑定，则消息会被抛弃。&lt;/p&gt;
-&lt;h1 id=&quot;三-Topic-Exchange&quot;&gt;&lt;a href=&quot;#三-Topic-Exchange&quot; class=&quot;headerlink&quot; title=&quot;三.Topic Exchange&quot;&gt;&lt;/a&gt;三.Topic Exchange&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://hwcrazy.com/ckeditor/image/show?idblog=34195c9068c811e38a44000d601c5586&amp;amp;idimage=542bc306364e7ead17d41c0a07c749fe&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;11171ab4-af07-3ff6-bdf6-d1febda679c3&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;三-Topic-Exchange&quot;&gt;&lt;a href=&quot;#三-Topic-Exchange&quot; class=&quot;headerlink&quot; title=&quot;三.Topic Exchange&quot;&gt;&lt;/a&gt;三.Topic Exchange&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;http://hwcrazy.com/ckeditor/image/show?idblog=34195c9068c811e38a44000d601c5586&amp;amp;idimage=542bc306364e7ead17d41c0a07c749fe&quot; alt=&quot;11171ab4-af07-3ff6-bdf6-d1febda679c3&quot;&gt;&lt;/p&gt;
 &lt;p&gt;任何发送到Topic Exchange的消息都会被转发到所有关心RouteKey中指定话题的Queue上&lt;/p&gt;
 &lt;p&gt;1.这种模式较为复杂，简单来说，就是每个队列都有其关心的主题，所有的消息都带有一个“标题”(RouteKey)，Exchange会将消息转发到所有关注主题能与RouteKey模糊匹配的队列。&lt;/p&gt;
 &lt;p&gt;2.这种模式需要RouteKey，也许要提前绑定Exchange与Queue。&lt;/p&gt;
