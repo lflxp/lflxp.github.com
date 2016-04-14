@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="rabbitmq," />
 
 
 
@@ -59,15 +59,28 @@
 
 
 
-<meta name="description" content="控制自己就能控制世界">
-<meta property="og:type" content="website">
-<meta property="og:title" content="爱像水墨青花 何惧刹那芳华">
-<meta property="og:url" content="http://www.lflxp.cn/tags/debian/index.html">
+<meta name="description" content="RabbitMQ中，所有生产者提交的消息都由Exchange来接受，然后Exchange按照特定的策略转发到Queue进行存储
+RabbitMQ提供了四种Exchange：fanout,direct,topic,header
+header模式在实际使用中较少，本文只对前三种模式进行比较。
+性能排序：fanout &amp;gt; direct &amp;gt;&amp;gt; topic。比例大约为11：10：6
+一.D">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rabbitmq 性能排序">
+<meta property="og:url" content="http://www.lflxp.cn/2016/04/14/2016-04-14-rabbitmq性能排序/index.html">
 <meta property="og:site_name" content="爱像水墨青花 何惧刹那芳华">
-<meta property="og:description" content="控制自己就能控制世界">
+<meta property="og:description" content="RabbitMQ中，所有生产者提交的消息都由Exchange来接受，然后Exchange按照特定的策略转发到Queue进行存储
+RabbitMQ提供了四种Exchange：fanout,direct,topic,header
+header模式在实际使用中较少，本文只对前三种模式进行比较。
+性能排序：fanout &amp;gt; direct &amp;gt;&amp;gt; topic。比例大约为11：10：6
+一.D">
+<meta property="og:updated_time" content="2016-04-14T07:27:13.485Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="爱像水墨青花 何惧刹那芳华">
-<meta name="twitter:description" content="控制自己就能控制世界">
+<meta name="twitter:title" content="rabbitmq 性能排序">
+<meta name="twitter:description" content="RabbitMQ中，所有生产者提交的消息都由Exchange来接受，然后Exchange按照特定的策略转发到Queue进行存储
+RabbitMQ提供了四种Exchange：fanout,direct,topic,header
+header模式在实际使用中较少，本文只对前三种模式进行比较。
+性能排序：fanout &amp;gt; direct &amp;gt;&amp;gt; topic。比例大约为11：10：6
+一.D">
 
 
 
@@ -85,7 +98,7 @@
   };
 </script>
 
-  <title> 标签: debian | 爱像水墨青花 何惧刹那芳华 </title>
+  <title> rabbitmq 性能排序 | 爱像水墨青花 何惧刹那芳华 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -116,7 +129,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -264,53 +277,218 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        debian
-        <small>标签</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                rabbitmq 性能排序
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-14T15:24:54+08:00" content="2016-04-14">
+              2016-04-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/rabbitmq/" itemprop="url" rel="index">
+                    <span itemprop="name">rabbitmq</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/14/2016-04-14-rabbitmq性能排序/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/14/2016-04-14-rabbitmq性能排序/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p><a href="http://hwcrazy.com/34195c9068c811e38a44000d601c5586/be62fc2668c811e3adba000d601c5586/" target="_blank" rel="external">RabbitMQ中，所有生产者提交的消息都由Exchange来接受，然后Exchange按照特定的策略</a>转发到Queue进行存储</p>
+<p>RabbitMQ提供了四种Exchange：fanout,direct,topic,header</p>
+<p>header模式在实际使用中较少，本文只对前三种模式进行比较。</p>
+<p>性能排序：fanout &gt; direct &gt;&gt; topic。比例大约为11：10：6</p>
+<h1 id="一-Direct-Exchange"><a href="#一-Direct-Exchange" class="headerlink" title="一.Direct Exchange"></a>一.Direct Exchange</h1><p><a href="http://hwcrazy.com/ckeditor/image/show?idblog=34195c9068c811e38a44000d601c5586&amp;idimage=1d4c37890a191e85098216c117ff938c" target="_blank" rel="external">0ec0f465-49c6-361c-ae2b-dd951a6ed1a9</a><br>任何发送到Direct Exchange的消息都会被转发到RouteKey中指定的Queue。</p>
+<p>1.一般情况可以使用rabbitMQ自带的Exchange：””(该Exchange的名字为空字符串，下文称其为default Exchange)。</p>
+<p>2.这种模式下不需要将Exchange进行任何绑定(binding)操作</p>
+<p>3.消息传递时需要一个“RouteKey”，可以简单的理解为要发送到的队列名字。</p>
+<p>4.如果vhost中不存在RouteKey中指定的队列名，则该消息会被抛弃。</p>
+<h1 id="二-Fanout-Exchange"><a href="#二-Fanout-Exchange" class="headerlink" title="二.Fanout Exchange"></a>二.Fanout Exchange</h1><p><a href="http://hwcrazy.com/ckeditor/image/show?idblog=34195c9068c811e38a44000d601c5586&amp;idimage=b10b9a82c7dc35d61b53986fdf2d8505" target="_blank" rel="external">0bbdcd3d-9fc6-3107-b7e0-db67c174d46a</a></p>
+<p>任何发送到Fanout Exchange的消息都会被转发到与该Exchange绑定(Binding)的所有Queue上。</p>
+<p>1.可以理解为路由表的模式</p>
+<p>2.这种模式不需要RouteKey</p>
+<p>3.这种模式需要提前将Exchange与Queue进行绑定，一个Exchange可以绑定多个Queue，一个Queue可以同多个Exchange进行绑定。</p>
+<p>4.如果接受到消息的Exchange没有与任何Queue绑定，则消息会被抛弃。</p>
+<h1 id="三-Topic-Exchange"><a href="#三-Topic-Exchange" class="headerlink" title="三.Topic Exchange"></a>三.Topic Exchange</h1><p><a href="http://hwcrazy.com/ckeditor/image/show?idblog=34195c9068c811e38a44000d601c5586&amp;idimage=542bc306364e7ead17d41c0a07c749fe" target="_blank" rel="external">11171ab4-af07-3ff6-bdf6-d1febda679c3</a></p>
+<p>任何发送到Topic Exchange的消息都会被转发到所有关心RouteKey中指定话题的Queue上</p>
+<p>1.这种模式较为复杂，简单来说，就是每个队列都有其关心的主题，所有的消息都带有一个“标题”(RouteKey)，Exchange会将消息转发到所有关注主题能与RouteKey模糊匹配的队列。</p>
+<p>2.这种模式需要RouteKey，也许要提前绑定Exchange与Queue。</p>
+<p>3.在进行绑定时，要提供一个该队列关心的主题，如“#.log.#”表示该队列关心所有涉及log的消息(一个RouteKey为”MQ.log.error”的消息会被转发到该队列)。</p>
+<p>4.“#”表示0个或若干个关键字，“<em>”表示一个关键字。如“log.</em>”能与“log.warn”匹配，无法与“log.warn.timeout”匹配；但是“log.#”能与上述两者匹配。</p>
+<p>5.同样，如果Exchange没有发现能够与RouteKey匹配的Queue，则会抛弃此消息。</p>
 
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/04/06/2016-01-31-debian-qq/" itemprop="url">
-              
-                <span itemprop="name">QQ IN DEBIAN</span>
-              
-            </a>
-        
-      </h1>
+      
+    </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-04-06T18:31:45+08:00"
-              content="2016-04-06" >
-          04-06
-        </time>
+    <div>
+      
+        
+<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+  <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.jpg" alt="LiXUEPING WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>微信打赏</p>
       </div>
+    
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="LiXUEPING Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+  </div>
+</div>
 
-    </header>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/rabbitmq/" rel="tag">#rabbitmq</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/14/2016-04-14-rabbitmq添加远程用户/" rel="next" title="rabbitmq 添加远程访问功能">
+                <i class="fa fa-chevron-left"></i> rabbitmq 添加远程访问功能
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/04/14/2016-04-14-rabbitmq性能排序/"
+     data-title="rabbitmq 性能排序"
+     data-content=""
+     data-url="http://www.lflxp.cn/2016/04/14/2016-04-14-rabbitmq性能排序/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
 
           </div>
           
 
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/14/2016-04-14-rabbitmq性能排序/"
+           data-title="rabbitmq 性能排序" data-url="http://www.lflxp.cn/2016/04/14/2016-04-14-rabbitmq性能排序/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -330,8 +508,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/123.jpg"
@@ -649,6 +836,17 @@
       </section>
 
       
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-Direct-Exchange"><span class="nav-number">1.</span> <span class="nav-text">一.Direct Exchange</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-Fanout-Exchange"><span class="nav-number">2.</span> <span class="nav-text">二.Fanout Exchange</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-Topic-Exchange"><span class="nav-number">3.</span> <span class="nav-text">三.Topic Exchange</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
 
     </div>
   </aside>
@@ -732,6 +930,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
 
   
 
