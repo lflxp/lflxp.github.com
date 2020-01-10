@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title> - 爱像水墨青花</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lflxp" /><meta name="description" content="你的神经网络真的收敛了么？ 1、为什么小模型的作为backbone效果会差？ 在深度学习目标检测(图像分割)领域，我们发现当我们使用层数越深，并且在imagenet上表现越好的分类网络作为backbone时，它的检测和分割效果越好效果越好。比如我们使用resnet101作为backbone时候，faster_rcnn在coco2017检测数据集上的mAP可以达到40.1，而使用resnet50作为backbone时候，mAP只达到37.1。而ssd使用resnet50作为backbone时候，mAP达到30.6，使用mobilenet作为backbone只达到21.7。参看gluoncv公布的训练结果。https://gluon-cv.mxnet.io/model_zoo/detection.html#faster-rcnn
+那为什么使用mobilenet这种小网络会比resnet101这种大网络效果差这么多呢？主流的想法是小网络的容量小、表现效果差，等等。
+**那到底是那么原因呢？**我们可以观察gluoncv官网的ssd_mobilenet[1]和ssd_resnet50[2]在coco上的训练log。我们发现ssd_resnet50[2]的CrossEntropy和SmoothL1最终收敛到2.14&#43;，和1.22&#43;左右，而ssdmobilenet 的CrossEntropy和SmoothL1最终收敛到2.84&#43;，和3.29&#43;左右。同样我们可以去观察gluoncv官网的faster_rcnn分别在resnet50和在resnet101上的训练loss，我们可以发现loss收敛的越小模型在coco 2017的验证集上的mAP越高。并且当backbone使用fpn的方法增大了模型的体积，模型的loss会将的更低，相应的mAP也越高。由此我个人认为使用小模型的作为backbone的迁移学习任务(尤其是目标检测任务)效果差的真正原因是模型欠拟合。
+2、你的神经网络真的收敛了么？
+既然知道小网络作为backbone效果差的真正原因是模型欠拟合，那如果我们要提高小网络的效果，最主要的任务就是降低小网络的loss(当然大网络的loss如果被进一步降低效果自然越好，比如可以观看faster_rcnn&#43;fpn&#43;resnet101就比faster_rcnn&#43;resnet101的loss低一点点,当然效果也就提升一点点)。
+**而我们不妨假设如果小网络最终”收敛“的loss如果可以达到大网络收敛的loss，那小网络能否达到大网络的效果呢？**可能由于小网络的容量小，参数少，很难收敛到大网络的最终收敛的loss。当然方法是人想的，不然怎么能发paper。
+我个人认为降低小网络的loss主要有两种方式：
+1、提高效果的模型体积，如FPN，DLA，shortcut，concat 等等。不过当模型体积增大到一定程度，他所能得到的收益也越小，比如可以观看gluoncv官网的log。faster_rcnn&#43;fpn&#43;resnet101就比faster_rcnn&#43;resnet101的loss低一点点,当然效果也就提升一点点。而faster_rcnn&#43;fpn&#43;resnet50就比faster_rcnn&#43;resnet50的loss低很多,当然效果也就提升也高了很多。
+2、改变训练方式，比如很早提出的知识蒸馏，2018年的cascade rcnn和snip,以及2019年的各种anchor free，都是改变训练方式，虽然他们的动机各不相同，但是我觉得大部分都是进一步降低loss，提高模型的效果。
+​ 第一种方式对于个人觉得对于做模型压缩的人来说不太可取，而第二种方式才是主要考虑方向。对于改变训练方式的方法，读者可以参看我的上一篇文章https://zhuanlan.zhihu.com/p/64138476对抗蒸馏，使用对抗生成网络和cosine attention的机制，将大网络的知识迁移到小网络，进一步降低小网络最终的收敛loss。目前开放的使用ssd_resnet50作为teacher net ssd_mobilenet作为student net在voc数据集上将ssd_mobilenet的CrossEntropy和SmoothL1最终收敛到1.388&#43; 0.659&#43;，mAP达到78.2&#43;，而原始ssd_mobilenet在voc上的CrossEntropy和SmoothL1最终收敛到1.962&#43; 0.944&#43;，mAP达到75.4，由于gpu资源限制目前在coco上还没训练完。训练log地址为，https://github.com/p517332051/GAN-Knowledge-Distillation-SSD/blob/master/ssd_512_mobilenet1_0_resnet50_v1_voc_g_d_new_train.log。
+​ 通过这种方法，我发现小网络并非不是不可以继续收敛，而是训练方式得到改善自然可以继续降低他的loss，而随之loss降低，网络的效果可以进一步提升。期望我的方法能起到抛砖引玉的效果，能推动学术界和工业界神经网络压缩的工作的进展。
+知乎链接https://zhuanlan.zhihu.com/p/68563369
+参考  ^https://raw.githubusercontent.com/dmlc/web-data/master/gluoncv/logs/detection/ssd_512_mobilenet1_0_coco_train.log ^abhttps://raw.githubusercontent.com/dmlc/web-data/master/gluoncv/logs/detection/ssd_512_resnet50_v1_coco_train.log  " /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.lflxp.cn/post/hyperdl-tutorial/10.%E5%AF%B9%E6%8A%97%E8%92%B8%E9%A6%8F/readme/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="" />
+<meta property="og:description" content="你的神经网络真的收敛了么？ 1、为什么小模型的作为backbone效果会差？ 在深度学习目标检测(图像分割)领域，我们发现当我们使用层数越深，并且在imagenet上表现越好的分类网络作为backbone时，它的检测和分割效果越好效果越好。比如我们使用resnet101作为backbone时候，faster_rcnn在coco2017检测数据集上的mAP可以达到40.1，而使用resnet50作为backbone时候，mAP只达到37.1。而ssd使用resnet50作为backbone时候，mAP达到30.6，使用mobilenet作为backbone只达到21.7。参看gluoncv公布的训练结果。https://gluon-cv.mxnet.io/model_zoo/detection.html#faster-rcnn
+那为什么使用mobilenet这种小网络会比resnet101这种大网络效果差这么多呢？主流的想法是小网络的容量小、表现效果差，等等。
+**那到底是那么原因呢？**我们可以观察gluoncv官网的ssd_mobilenet[1]和ssd_resnet50[2]在coco上的训练log。我们发现ssd_resnet50[2]的CrossEntropy和SmoothL1最终收敛到2.14&#43;，和1.22&#43;左右，而ssdmobilenet 的CrossEntropy和SmoothL1最终收敛到2.84&#43;，和3.29&#43;左右。同样我们可以去观察gluoncv官网的faster_rcnn分别在resnet50和在resnet101上的训练loss，我们可以发现loss收敛的越小模型在coco 2017的验证集上的mAP越高。并且当backbone使用fpn的方法增大了模型的体积，模型的loss会将的更低，相应的mAP也越高。由此我个人认为使用小模型的作为backbone的迁移学习任务(尤其是目标检测任务)效果差的真正原因是模型欠拟合。
+2、你的神经网络真的收敛了么？
+既然知道小网络作为backbone效果差的真正原因是模型欠拟合，那如果我们要提高小网络的效果，最主要的任务就是降低小网络的loss(当然大网络的loss如果被进一步降低效果自然越好，比如可以观看faster_rcnn&#43;fpn&#43;resnet101就比faster_rcnn&#43;resnet101的loss低一点点,当然效果也就提升一点点)。
+**而我们不妨假设如果小网络最终”收敛“的loss如果可以达到大网络收敛的loss，那小网络能否达到大网络的效果呢？**可能由于小网络的容量小，参数少，很难收敛到大网络的最终收敛的loss。当然方法是人想的，不然怎么能发paper。
+我个人认为降低小网络的loss主要有两种方式：
+1、提高效果的模型体积，如FPN，DLA，shortcut，concat 等等。不过当模型体积增大到一定程度，他所能得到的收益也越小，比如可以观看gluoncv官网的log。faster_rcnn&#43;fpn&#43;resnet101就比faster_rcnn&#43;resnet101的loss低一点点,当然效果也就提升一点点。而faster_rcnn&#43;fpn&#43;resnet50就比faster_rcnn&#43;resnet50的loss低很多,当然效果也就提升也高了很多。
+2、改变训练方式，比如很早提出的知识蒸馏，2018年的cascade rcnn和snip,以及2019年的各种anchor free，都是改变训练方式，虽然他们的动机各不相同，但是我觉得大部分都是进一步降低loss，提高模型的效果。
+​ 第一种方式对于个人觉得对于做模型压缩的人来说不太可取，而第二种方式才是主要考虑方向。对于改变训练方式的方法，读者可以参看我的上一篇文章https://zhuanlan.zhihu.com/p/64138476对抗蒸馏，使用对抗生成网络和cosine attention的机制，将大网络的知识迁移到小网络，进一步降低小网络最终的收敛loss。目前开放的使用ssd_resnet50作为teacher net ssd_mobilenet作为student net在voc数据集上将ssd_mobilenet的CrossEntropy和SmoothL1最终收敛到1.388&#43; 0.659&#43;，mAP达到78.2&#43;，而原始ssd_mobilenet在voc上的CrossEntropy和SmoothL1最终收敛到1.962&#43; 0.944&#43;，mAP达到75.4，由于gpu资源限制目前在coco上还没训练完。训练log地址为，https://github.com/p517332051/GAN-Knowledge-Distillation-SSD/blob/master/ssd_512_mobilenet1_0_resnet50_v1_voc_g_d_new_train.log。
+​ 通过这种方法，我发现小网络并非不是不可以继续收敛，而是训练方式得到改善自然可以继续降低他的loss，而随之loss降低，网络的效果可以进一步提升。期望我的方法能起到抛砖引玉的效果，能推动学术界和工业界神经网络压缩的工作的进展。
+知乎链接https://zhuanlan.zhihu.com/p/68563369
+参考  ^https://raw.githubusercontent.com/dmlc/web-data/master/gluoncv/logs/detection/ssd_512_mobilenet1_0_coco_train.log ^abhttps://raw.githubusercontent.com/dmlc/web-data/master/gluoncv/logs/detection/ssd_512_resnet50_v1_coco_train.log  " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lflxp.cn/post/hyperdl-tutorial/10.%E5%AF%B9%E6%8A%97%E8%92%B8%E9%A6%8F/readme/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="你的神经网络真的收敛了么？ 1、为什么小模型的作为backbone效果会差？ 在深度学习目标检测(图像分割)领域，我们发现当我们使用层数越深，并且在imagenet上表现越好的分类网络作为backbone时，它的检测和分割效果越好效果越好。比如我们使用resnet101作为backbone时候，faster_rcnn在coco2017检测数据集上的mAP可以达到40.1，而使用resnet50作为backbone时候，mAP只达到37.1。而ssd使用resnet50作为backbone时候，mAP达到30.6，使用mobilenet作为backbone只达到21.7。参看gluoncv公布的训练结果。https://gluon-cv.mxnet.io/model_zoo/detection.html#faster-rcnn
+那为什么使用mobilenet这种小网络会比resnet101这种大网络效果差这么多呢？主流的想法是小网络的容量小、表现效果差，等等。
+**那到底是那么原因呢？**我们可以观察gluoncv官网的ssd_mobilenet[1]和ssd_resnet50[2]在coco上的训练log。我们发现ssd_resnet50[2]的CrossEntropy和SmoothL1最终收敛到2.14&#43;，和1.22&#43;左右，而ssdmobilenet 的CrossEntropy和SmoothL1最终收敛到2.84&#43;，和3.29&#43;左右。同样我们可以去观察gluoncv官网的faster_rcnn分别在resnet50和在resnet101上的训练loss，我们可以发现loss收敛的越小模型在coco 2017的验证集上的mAP越高。并且当backbone使用fpn的方法增大了模型的体积，模型的loss会将的更低，相应的mAP也越高。由此我个人认为使用小模型的作为backbone的迁移学习任务(尤其是目标检测任务)效果差的真正原因是模型欠拟合。
+2、你的神经网络真的收敛了么？
+既然知道小网络作为backbone效果差的真正原因是模型欠拟合，那如果我们要提高小网络的效果，最主要的任务就是降低小网络的loss(当然大网络的loss如果被进一步降低效果自然越好，比如可以观看faster_rcnn&#43;fpn&#43;resnet101就比faster_rcnn&#43;resnet101的loss低一点点,当然效果也就提升一点点)。
+**而我们不妨假设如果小网络最终”收敛“的loss如果可以达到大网络收敛的loss，那小网络能否达到大网络的效果呢？**可能由于小网络的容量小，参数少，很难收敛到大网络的最终收敛的loss。当然方法是人想的，不然怎么能发paper。
+我个人认为降低小网络的loss主要有两种方式：
+1、提高效果的模型体积，如FPN，DLA，shortcut，concat 等等。不过当模型体积增大到一定程度，他所能得到的收益也越小，比如可以观看gluoncv官网的log。faster_rcnn&#43;fpn&#43;resnet101就比faster_rcnn&#43;resnet101的loss低一点点,当然效果也就提升一点点。而faster_rcnn&#43;fpn&#43;resnet50就比faster_rcnn&#43;resnet50的loss低很多,当然效果也就提升也高了很多。
+2、改变训练方式，比如很早提出的知识蒸馏，2018年的cascade rcnn和snip,以及2019年的各种anchor free，都是改变训练方式，虽然他们的动机各不相同，但是我觉得大部分都是进一步降低loss，提高模型的效果。
+​ 第一种方式对于个人觉得对于做模型压缩的人来说不太可取，而第二种方式才是主要考虑方向。对于改变训练方式的方法，读者可以参看我的上一篇文章https://zhuanlan.zhihu.com/p/64138476对抗蒸馏，使用对抗生成网络和cosine attention的机制，将大网络的知识迁移到小网络，进一步降低小网络最终的收敛loss。目前开放的使用ssd_resnet50作为teacher net ssd_mobilenet作为student net在voc数据集上将ssd_mobilenet的CrossEntropy和SmoothL1最终收敛到1.388&#43; 0.659&#43;，mAP达到78.2&#43;，而原始ssd_mobilenet在voc上的CrossEntropy和SmoothL1最终收敛到1.962&#43; 0.944&#43;，mAP达到75.4，由于gpu资源限制目前在coco上还没训练完。训练log地址为，https://github.com/p517332051/GAN-Knowledge-Distillation-SSD/blob/master/ssd_512_mobilenet1_0_resnet50_v1_voc_g_d_new_train.log。
+​ 通过这种方法，我发现小网络并非不是不可以继续收敛，而是训练方式得到改善自然可以继续降低他的loss，而随之loss降低，网络的效果可以进一步提升。期望我的方法能起到抛砖引玉的效果，能推动学术界和工业界神经网络压缩的工作的进展。
+知乎链接https://zhuanlan.zhihu.com/p/68563369
+参考  ^https://raw.githubusercontent.com/dmlc/web-data/master/gluoncv/logs/detection/ssd_512_mobilenet1_0_coco_train.log ^abhttps://raw.githubusercontent.com/dmlc/web-data/master/gluoncv/logs/detection/ssd_512_resnet50_v1_coco_train.log  ">
+
+<meta itemprop="wordCount" content="30">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="你的神经网络真的收敛了么？ 1、为什么小模型的作为backbone效果会差？ 在深度学习目标检测(图像分割)领域，我们发现当我们使用层数越深，并且在imagenet上表现越好的分类网络作为backbone时，它的检测和分割效果越好效果越好。比如我们使用resnet101作为backbone时候，faster_rcnn在coco2017检测数据集上的mAP可以达到40.1，而使用resnet50作为backbone时候，mAP只达到37.1。而ssd使用resnet50作为backbone时候，mAP达到30.6，使用mobilenet作为backbone只达到21.7。参看gluoncv公布的训练结果。https://gluon-cv.mxnet.io/model_zoo/detection.html#faster-rcnn
+那为什么使用mobilenet这种小网络会比resnet101这种大网络效果差这么多呢？主流的想法是小网络的容量小、表现效果差，等等。
+**那到底是那么原因呢？**我们可以观察gluoncv官网的ssd_mobilenet[1]和ssd_resnet50[2]在coco上的训练log。我们发现ssd_resnet50[2]的CrossEntropy和SmoothL1最终收敛到2.14&#43;，和1.22&#43;左右，而ssdmobilenet 的CrossEntropy和SmoothL1最终收敛到2.84&#43;，和3.29&#43;左右。同样我们可以去观察gluoncv官网的faster_rcnn分别在resnet50和在resnet101上的训练loss，我们可以发现loss收敛的越小模型在coco 2017的验证集上的mAP越高。并且当backbone使用fpn的方法增大了模型的体积，模型的loss会将的更低，相应的mAP也越高。由此我个人认为使用小模型的作为backbone的迁移学习任务(尤其是目标检测任务)效果差的真正原因是模型欠拟合。
+2、你的神经网络真的收敛了么？
+既然知道小网络作为backbone效果差的真正原因是模型欠拟合，那如果我们要提高小网络的效果，最主要的任务就是降低小网络的loss(当然大网络的loss如果被进一步降低效果自然越好，比如可以观看faster_rcnn&#43;fpn&#43;resnet101就比faster_rcnn&#43;resnet101的loss低一点点,当然效果也就提升一点点)。
+**而我们不妨假设如果小网络最终”收敛“的loss如果可以达到大网络收敛的loss，那小网络能否达到大网络的效果呢？**可能由于小网络的容量小，参数少，很难收敛到大网络的最终收敛的loss。当然方法是人想的，不然怎么能发paper。
+我个人认为降低小网络的loss主要有两种方式：
+1、提高效果的模型体积，如FPN，DLA，shortcut，concat 等等。不过当模型体积增大到一定程度，他所能得到的收益也越小，比如可以观看gluoncv官网的log。faster_rcnn&#43;fpn&#43;resnet101就比faster_rcnn&#43;resnet101的loss低一点点,当然效果也就提升一点点。而faster_rcnn&#43;fpn&#43;resnet50就比faster_rcnn&#43;resnet50的loss低很多,当然效果也就提升也高了很多。
+2、改变训练方式，比如很早提出的知识蒸馏，2018年的cascade rcnn和snip,以及2019年的各种anchor free，都是改变训练方式，虽然他们的动机各不相同，但是我觉得大部分都是进一步降低loss，提高模型的效果。
+​ 第一种方式对于个人觉得对于做模型压缩的人来说不太可取，而第二种方式才是主要考虑方向。对于改变训练方式的方法，读者可以参看我的上一篇文章https://zhuanlan.zhihu.com/p/64138476对抗蒸馏，使用对抗生成网络和cosine attention的机制，将大网络的知识迁移到小网络，进一步降低小网络最终的收敛loss。目前开放的使用ssd_resnet50作为teacher net ssd_mobilenet作为student net在voc数据集上将ssd_mobilenet的CrossEntropy和SmoothL1最终收敛到1.388&#43; 0.659&#43;，mAP达到78.2&#43;，而原始ssd_mobilenet在voc上的CrossEntropy和SmoothL1最终收敛到1.962&#43; 0.944&#43;，mAP达到75.4，由于gpu资源限制目前在coco上还没训练完。训练log地址为，https://github.com/p517332051/GAN-Knowledge-Distillation-SSD/blob/master/ssd_512_mobilenet1_0_resnet50_v1_voc_g_d_new_train.log。
+​ 通过这种方法，我发现小网络并非不是不可以继续收敛，而是训练方式得到改善自然可以继续降低他的loss，而随之loss降低，网络的效果可以进一步提升。期望我的方法能起到抛砖引玉的效果，能推动学术界和工业界神经网络压缩的工作的进展。
+知乎链接https://zhuanlan.zhihu.com/p/68563369
+参考  ^https://raw.githubusercontent.com/dmlc/web-data/master/gluoncv/logs/detection/ssd_512_mobilenet1_0_coco_train.log ^abhttps://raw.githubusercontent.com/dmlc/web-data/master/gluoncv/logs/detection/ssd_512_resnet50_v1_coco_train.log  "/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">琵琶</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">目录</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">琵琶</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">目录</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title"></h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 0001-01-01 </span>
+        
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="0001-01-01T00:00:00" title="January 1, 0001">January 1, 0001</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
+    <div class="post-content">
+      <h1 id="你的神经网络真的收敛了么">你的神经网络真的收敛了么？</h1>
+<p><em><strong>1、为什么小模型的作为backbone效果会差？</strong></em>
+在深度学习目标检测(图像分割)领域，我们发现当我们使用层数越深，并且在imagenet上表现越好的分类网络作为backbone时，它的检测和分割效果越好效果越好。比如我们使用resnet101作为backbone时候，faster_rcnn在coco2017检测数据集上的mAP可以达到40.1，而使用resnet50作为backbone时候，mAP只达到37.1。而ssd使用resnet50作为backbone时候，mAP达到30.6，使用mobilenet作为backbone只达到21.7。参看gluoncv公布的训练结果。https://gluon-cv.mxnet.io/model_zoo/detection.html#faster-rcnn</p>
+<p>那为什么使用mobilenet这种小网络会比resnet101这种大网络效果差这么多呢？主流的想法是小网络的容量小、表现效果差，等等。</p>
+<p>**那到底是那么原因呢？**我们可以观察gluoncv官网的ssd_mobilenet[<a href="https://zhuanlan.zhihu.com/p/68563369#ref_83831_1">1]</a>和ssd_resnet50[<a href="https://zhuanlan.zhihu.com/p/68563369#ref_83831_2">2]</a>在coco上的训练log。我们发现ssd_resnet50[<a href="https://zhuanlan.zhihu.com/p/68563369#ref_83831_2">2]</a>的CrossEntropy和SmoothL1最终收敛到2.14+，和1.22+左右，而ssdmobilenet 的CrossEntropy和SmoothL1最终收敛到2.84+，和3.29+左右。同样我们可以去观察gluoncv官网的faster_rcnn分别在resnet50和在resnet101上的训练loss，我们可以发现loss收敛的越小模型在coco 2017的验证集上的mAP越高。并且当backbone使用fpn的方法增大了模型的体积，模型的loss会将的更低，相应的mAP也越高。由此我个人认为使用小模型的作为backbone的迁移学习任务(尤其是目标检测任务)效果差的真正原因是模型欠拟合。</p>
+<p><em><strong>2、你的神经网络真的收敛了么？</strong></em></p>
+<p>既然知道小网络作为backbone效果差的真正原因是模型欠拟合，那如果我们要提高小网络的效果，最主要的任务就是降低小网络的loss(当然大网络的loss如果被进一步降低效果自然越好，比如可以观看faster_rcnn+fpn+resnet101就比faster_rcnn+resnet101的loss低一点点,当然效果也就提升一点点)。</p>
+<p>**而我们不妨假设如果小网络最终”收敛“的loss如果可以达到大网络收敛的loss，那小网络能否达到大网络的效果呢？**可能由于小网络的容量小，参数少，很难收敛到大网络的最终收敛的loss。当然方法是人想的，不然怎么能发paper。</p>
+<p>我个人认为降低小网络的loss主要有两种方式：</p>
+<p><strong>1、提高效果的模型体积</strong>，如FPN，DLA，shortcut，concat 等等。不过当模型体积增大到一定程度，他所能得到的收益也越小，比如可以观看gluoncv官网的log。faster_rcnn+fpn+resnet101就比faster_rcnn+resnet101的loss低一点点,当然效果也就提升一点点。而faster_rcnn+fpn+resnet50就比faster_rcnn+resnet50的loss低很多,当然效果也就提升也高了很多。</p>
+<p><strong>2、改变训练方式</strong>，比如很早提出的知识蒸馏，2018年的cascade rcnn和snip,以及2019年的各种anchor free，都是改变训练方式，虽然他们的动机各不相同，但是我觉得大部分都是进一步降低loss，提高模型的效果。</p>
+<p>​        第一种方式对于个人觉得对于做模型压缩的人来说不太可取，而第二种方式才是主要考虑方向。对于改变训练方式的方法，读者可以参看我的上一篇文章<a href="https://zhuanlan.zhihu.com/p/64138476">https://zhuanlan.zhihu.com/p/64138476</a>对抗蒸馏，使用对抗生成网络和cosine attention的机制，将大网络的知识迁移到小网络，进一步降低小网络最终的收敛loss。目前开放的使用ssd_resnet50作为teacher net ssd_mobilenet作为student net在voc数据集上将<strong>ssd_mobilenet</strong>的<strong>CrossEntropy</strong>和<strong>SmoothL1</strong>最终收敛到1.388+ 0.659+，mAP达到78.2+，而<strong>原始ssd_mobilenet</strong>在voc上的<strong>CrossEntropy</strong>和<strong>SmoothL1</strong>最终收敛到1.962+ 0.944+，<strong>mAP</strong>达到75.4，由于gpu资源限制目前在coco上还没训练完。训练log地址为，<a href="https://github.com/p517332051/GAN-Knowledge-Distillation-SSD/blob/master/ssd_512_mobilenet1_0_resnet50_v1_voc_g_d_new_train.log">https://github.com/p517332051/GAN-Knowledge-Distillation-SSD/blob/master/ssd_512_mobilenet1_0_resnet50_v1_voc_g_d_new_train.log</a>。</p>
+<p>​       通过这种方法，我发现小网络并非不是不可以继续收敛，而是训练方式得到改善自然可以继续降低他的loss，而随之loss降低，网络的效果可以进一步提升。期望我的方法能起到抛砖引玉的效果，能推动学术界和工业界神经网络压缩的工作的进展。</p>
+<p>知乎链接<a href="https://zhuanlan.zhihu.com/p/68563369">https://zhuanlan.zhihu.com/p/68563369</a></p>
+<h2 id="参考">参考</h2>
+<ol>
+<li><a href="https://zhuanlan.zhihu.com/p/68563369#ref_83831_1_0">^</a><a href="https://raw.githubusercontent.com/dmlc/web-data/master/gluoncv/logs/detection/ssd_512_mobilenet1_0_coco_train.log">https://raw.githubusercontent.com/dmlc/web-data/master/gluoncv/logs/detection/ssd_512_mobilenet1_0_coco_train.log</a></li>
+<li>^<a href="https://zhuanlan.zhihu.com/p/68563369#ref_83831_2_0">a</a><a href="https://zhuanlan.zhihu.com/p/68563369#ref_83831_2_1">b</a><a href="https://raw.githubusercontent.com/dmlc/web-data/master/gluoncv/logs/detection/ssd_512_resnet50_v1_coco_train.log">https://raw.githubusercontent.com/dmlc/web-data/master/gluoncv/logs/detection/ssd_512_resnet50_v1_coco_train.log</a></li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lflxp</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        0001-01-01
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/hyperdl-tutorial/1.%E5%B8%B8%E8%A7%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/readme/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default"></span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/hyperdl-tutorial/2.%E5%9F%BA%E7%A1%80%E7%BD%91%E7%BB%9C/readme/">
+            <span class="next-text nav-default"></span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="comments-gitment"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitment = new Gitment({
+        id: '0001-01-01 00:00:00 \x2b0000 UTC',
+        title: '',
+        link: decodeURI(location.href),
+        desc: '你的神经网络真的收敛了么？ 1、为什么小模型的作为backbone效果会差？ 在深度学习目标检测(图像分割)领域，我们发现当我们使用层数越深，并且在imagenet上表现越好的分类网络作为backbone时，它的检测和分割效果越好效果越好。比如我们使用resnet101作为backbone时候，faster_rcnn在coco2017检测数据集上的mAP可以达到40.1，而使用resnet50作为backbone时候，mAP只达到37.1。而ssd使用resnet50作为backbone时候，mAP达到30.6，使用mobilenet作为backbone只达到21.7。参看gluoncv公布的训练结果。https:\/\/gluon-cv.mxnet.io\/model_zoo\/detection.html#faster-rcnn\n那为什么使用mobilenet这种小网络会比resnet101这种大网络效果差这么多呢？主流的想法是小网络的容量小、表现效果差，等等。\n**那到底是那么原因呢？**我们可以观察gluoncv官网的ssd_mobilenet[1]和ssd_resnet50[2]在coco上的训练log。我们发现ssd_resnet50[2]的CrossEntropy和SmoothL1最终收敛到2.14\x2b，和1.22\x2b左右，而ssdmobilenet 的CrossEntropy和SmoothL1最终收敛到2.84\x2b，和3.29\x2b左右。同样我们可以去观察gluoncv官网的faster_rcnn分别在resnet50和在resnet101上的训练loss，我们可以发现loss收敛的越小模型在coco 2017的验证集上的mAP越高。并且当backbone使用fpn的方法增大了模型的体积，模型的loss会将的更低，相应的mAP也越高。由此我个人认为使用小模型的作为backbone的迁移学习任务(尤其是目标检测任务)效果差的真正原因是模型欠拟合。\n2、你的神经网络真的收敛了么？\n既然知道小网络作为backbone效果差的真正原因是模型欠拟合，那如果我们要提高小网络的效果，最主要的任务就是降低小网络的loss(当然大网络的loss如果被进一步降低效果自然越好，比如可以观看faster_rcnn\x2bfpn\x2bresnet101就比faster_rcnn\x2bresnet101的loss低一点点,当然效果也就提升一点点)。\n**而我们不妨假设如果小网络最终”收敛“的loss如果可以达到大网络收敛的loss，那小网络能否达到大网络的效果呢？**可能由于小网络的容量小，参数少，很难收敛到大网络的最终收敛的loss。当然方法是人想的，不然怎么能发paper。\n我个人认为降低小网络的loss主要有两种方式：\n1、提高效果的模型体积，如FPN，DLA，shortcut，concat 等等。不过当模型体积增大到一定程度，他所能得到的收益也越小，比如可以观看gluoncv官网的log。faster_rcnn\x2bfpn\x2bresnet101就比faster_rcnn\x2bresnet101的loss低一点点,当然效果也就提升一点点。而faster_rcnn\x2bfpn\x2bresnet50就比faster_rcnn\x2bresnet50的loss低很多,当然效果也就提升也高了很多。\n2、改变训练方式，比如很早提出的知识蒸馏，2018年的cascade rcnn和snip,以及2019年的各种anchor free，都是改变训练方式，虽然他们的动机各不相同，但是我觉得大部分都是进一步降低loss，提高模型的效果。\n​ 第一种方式对于个人觉得对于做模型压缩的人来说不太可取，而第二种方式才是主要考虑方向。对于改变训练方式的方法，读者可以参看我的上一篇文章https:\/\/zhuanlan.zhihu.com\/p\/64138476对抗蒸馏，使用对抗生成网络和cosine attention的机制，将大网络的知识迁移到小网络，进一步降低小网络最终的收敛loss。目前开放的使用ssd_resnet50作为teacher net ssd_mobilenet作为student net在voc数据集上将ssd_mobilenet的CrossEntropy和SmoothL1最终收敛到1.388\x2b 0.659\x2b，mAP达到78.2\x2b，而原始ssd_mobilenet在voc上的CrossEntropy和SmoothL1最终收敛到1.962\x2b 0.944\x2b，mAP达到75.4，由于gpu资源限制目前在coco上还没训练完。训练log地址为，https:\/\/github.com\/p517332051\/GAN-Knowledge-Distillation-SSD\/blob\/master\/ssd_512_mobilenet1_0_resnet50_v1_voc_g_d_new_train.log。\n​ 通过这种方法，我发现小网络并非不是不可以继续收敛，而是训练方式得到改善自然可以继续降低他的loss，而随之loss降低，网络的效果可以进一步提升。期望我的方法能起到抛砖引玉的效果，能推动学术界和工业界神经网络压缩的工作的进展。\n知乎链接https:\/\/zhuanlan.zhihu.com\/p\/68563369\n参考  ^https:\/\/raw.githubusercontent.com\/dmlc\/web-data\/master\/gluoncv\/logs\/detection\/ssd_512_mobilenet1_0_coco_train.log ^abhttps:\/\/raw.githubusercontent.com\/dmlc\/web-data\/master\/gluoncv\/logs\/detection\/ssd_512_resnet50_v1_coco_train.log  ',
+        owner: 'lflxp',
+        repo: 'https:\/\/github.com\/lflxp\/lflxp.github.com',
+        oauth: {
+          client_id: '',
+          client_secret: ''
+        }
+      });
+      gitment.render('comments-gitment');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:382023823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/lflxp" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.lflxp.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">lflxp.cn 版权所有 ICP证：<a href='http://www.beian.miit.gov.cn' target='_blank'>渝ICP备17011066号-1</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '渝ICP备17011066号-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

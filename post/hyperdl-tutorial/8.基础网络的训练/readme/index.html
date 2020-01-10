@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title> - 爱像水墨青花</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lflxp" /><meta name="description" content="基础网络的训练 目前我们常用的神经网络，github上基本都具有较为丰富的训练、测试代码，我们这里选择几种常用，高效的网络推荐给大家，包括与之对应的github工程，涉及一些训练的技巧，旨在让大家能够复现出作者原始的精度。
+我们这里主要介绍以下几个网络的训练与使用:
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  1.MobileNet(分类网络)2.MnasNet(分类网络)3.MTCNN(单一物体检测网络)4.MobileNet-SSD(Single Shot 物体检测网络)5.CTPN(文字定位网络)6.insightface(人脸识别网络)7.VanillaCNN(人脸关键点回归网络)8.YOLO-V3(通用物体检测网络)9.DeepOCR(文字识别网络)  以上这些网络涵盖了日常使用网络设计到的大部分功能，一些相关的应用也可以通过这些网络的变通，修改进行试验。
+1.MobileNet MobileNet是谷歌发布的第一代专为移动端设计的高效网络，其后续版本MobileNet-v2同样优秀，shicai yang大神已经给出了网络的pretrain model，以及caffe的训练、测试代码，利用该网络可以训练其他类似的分类任务，例如我们开源的鉴黄网络.
+2.MnasNet MnasNet同样是谷歌发布的高效移动端分类网络，与Mobilenet不同之处在于网络的设计借助deepmind AI的能力，不是hand craft手动设计的网络，相比于mobilenet，速度快大约1.5倍，准确度提高将近两个点。我们同样复现了该网络，并且提供了该网络再标准ImageNet上的pretrain model，接近了官方的精度。连接地址：https://github.com/zeusees/Mnasnet-Pretrained-Model
+3.MTCNN MTCNN是一个非常优秀的单一物体检测框架，可以用这个框架进行人脸、车辆、行人等单一物体的检测，该网络的主要问题在于单帧图像中包含多个物体时，检测速度下降严重。mtcnn的复现在github上有多个版本，包括caffe、keras、TensorFlow等，我们测试了不同版本，有一些存在问题，https://github.com/AITTSMD/MTCNN-Tensorflow 这个repo能够基本复现作者的精度，训练过程中，一定要注意正负样本保持1:3的比例。其实，mtcnn框架具有一些优化的方法和空间，包括用卷积替代polling，采用dw卷积等等，相关修改可以参考我们的文章: https://blog.csdn.net/Relocy/article/details/84075570 . 我们的工程师同样提供了一个优化的mtcnn模型：https://github.com/szad670401/Fast-MTCNN ，大家可以参考修改。
+4.MobileNet-SSD SSD是Single Shot检测网络的代表结构，其速度快，单帧物体数量对检测速度影响不大，具有很好的工程化指导作用。Mobilenet跟SSD的结合，更能够提高网络的速度。Mobilenet-SSD可以参考：https://github.com/chuanqi305/MobileNet-SSD 这里有数据准备代码，以及网络的训练测试代码。我们采用这个网络进行了车牌检测的实验，效果也不错，能够完成单层、双层、蓝牌、黄牌、绿牌的检测，可以参见我们的博客：https://blog.csdn.net/lsy17096535/article/details/78687728 ，我们开源的车牌检测Mobilenet-SSD模型：https://github.com/zeusees/Mobilenet-SSD-License-Plate-Detection
+5.CTPN 6.insightface insightface是一款高精度的开源人脸识别框架，在我们的测试中，insightface针对一般场景效果不错，“历史脸”效果稍差，有可能因为训练数据历史脸数据不足导致的，算法的作者guojia也将论文提交到了CVPR2019，期待他的好消息。大家可以在这里找到作者的实现：https://github.com/deepinsight/insightface 作者的框架基于MXNET，目前git上已经有基于TensorFlow、caffe等其他框架的实现，大家可以参考。大家在部署阶段，可以利用TVM部署该框架，速度快，也可以将模型转换到caffe model，部署到其他平台。TVM部署方法可以参考我们的博客：insightface模型的TVM框架部署
+7.VanillaCNN VanillaCNN是针对香港中文大学人脸关键点定位网络TCDCN的一个复现，大家可以参考 https://github.com/ishay2b/VanillaCNN 。稠密人脸关键点定位(通常关键点50点以上)同样是一个回归问题，让网络能够通过对人脸边缘特征的提取，回归出准确的定位，这篇文章采用了多任务进行定位，取得了很好的效果，后来几年的的很多算法，在准确度上有提升，但是在速度上不具有优势。大家可以利用高效的网络结构提取特征并加速，取得更好的人脸关键点定位准确度和速度。大家在训练关键点定位的网络时，可以结合可视化的技术，将网络后面基层的feature map显示出来，观察网络对输入人脸边缘提取的效果，改进网络结构。
+8.YOLO-V3 通用物体检测近年来也是研究人员关注的人们领域，从RBG、何凯明大神的RCNN，Fast RCNN，Faster RCNN，MASK RCNN等，Single Shot的Yolo系列、SSD等，以后后来的RetinaNet，我们对这一系列的网络都进行过测试，由于我们算法组在日常使用中主要考虑移动端的部署以及服务器端的效率，推荐了MobileNet-SSD跟YOLO-V3。我们对3000张行车记录仪标注图像以及2000张交通监控图片进行标注，分别在以上网络进行了测试，对于我们的图片，YOLO-V3表现最好，速度也是最快的一档。项目主页：https://pjreddie." /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.lflxp.cn/post/hyperdl-tutorial/8.%E5%9F%BA%E7%A1%80%E7%BD%91%E7%BB%9C%E7%9A%84%E8%AE%AD%E7%BB%83/readme/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="" />
+<meta property="og:description" content="基础网络的训练 目前我们常用的神经网络，github上基本都具有较为丰富的训练、测试代码，我们这里选择几种常用，高效的网络推荐给大家，包括与之对应的github工程，涉及一些训练的技巧，旨在让大家能够复现出作者原始的精度。
+我们这里主要介绍以下几个网络的训练与使用:
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  1.MobileNet(分类网络)2.MnasNet(分类网络)3.MTCNN(单一物体检测网络)4.MobileNet-SSD(Single Shot 物体检测网络)5.CTPN(文字定位网络)6.insightface(人脸识别网络)7.VanillaCNN(人脸关键点回归网络)8.YOLO-V3(通用物体检测网络)9.DeepOCR(文字识别网络)  以上这些网络涵盖了日常使用网络设计到的大部分功能，一些相关的应用也可以通过这些网络的变通，修改进行试验。
+1.MobileNet MobileNet是谷歌发布的第一代专为移动端设计的高效网络，其后续版本MobileNet-v2同样优秀，shicai yang大神已经给出了网络的pretrain model，以及caffe的训练、测试代码，利用该网络可以训练其他类似的分类任务，例如我们开源的鉴黄网络.
+2.MnasNet MnasNet同样是谷歌发布的高效移动端分类网络，与Mobilenet不同之处在于网络的设计借助deepmind AI的能力，不是hand craft手动设计的网络，相比于mobilenet，速度快大约1.5倍，准确度提高将近两个点。我们同样复现了该网络，并且提供了该网络再标准ImageNet上的pretrain model，接近了官方的精度。连接地址：https://github.com/zeusees/Mnasnet-Pretrained-Model
+3.MTCNN MTCNN是一个非常优秀的单一物体检测框架，可以用这个框架进行人脸、车辆、行人等单一物体的检测，该网络的主要问题在于单帧图像中包含多个物体时，检测速度下降严重。mtcnn的复现在github上有多个版本，包括caffe、keras、TensorFlow等，我们测试了不同版本，有一些存在问题，https://github.com/AITTSMD/MTCNN-Tensorflow 这个repo能够基本复现作者的精度，训练过程中，一定要注意正负样本保持1:3的比例。其实，mtcnn框架具有一些优化的方法和空间，包括用卷积替代polling，采用dw卷积等等，相关修改可以参考我们的文章: https://blog.csdn.net/Relocy/article/details/84075570 . 我们的工程师同样提供了一个优化的mtcnn模型：https://github.com/szad670401/Fast-MTCNN ，大家可以参考修改。
+4.MobileNet-SSD SSD是Single Shot检测网络的代表结构，其速度快，单帧物体数量对检测速度影响不大，具有很好的工程化指导作用。Mobilenet跟SSD的结合，更能够提高网络的速度。Mobilenet-SSD可以参考：https://github.com/chuanqi305/MobileNet-SSD 这里有数据准备代码，以及网络的训练测试代码。我们采用这个网络进行了车牌检测的实验，效果也不错，能够完成单层、双层、蓝牌、黄牌、绿牌的检测，可以参见我们的博客：https://blog.csdn.net/lsy17096535/article/details/78687728 ，我们开源的车牌检测Mobilenet-SSD模型：https://github.com/zeusees/Mobilenet-SSD-License-Plate-Detection
+5.CTPN 6.insightface insightface是一款高精度的开源人脸识别框架，在我们的测试中，insightface针对一般场景效果不错，“历史脸”效果稍差，有可能因为训练数据历史脸数据不足导致的，算法的作者guojia也将论文提交到了CVPR2019，期待他的好消息。大家可以在这里找到作者的实现：https://github.com/deepinsight/insightface 作者的框架基于MXNET，目前git上已经有基于TensorFlow、caffe等其他框架的实现，大家可以参考。大家在部署阶段，可以利用TVM部署该框架，速度快，也可以将模型转换到caffe model，部署到其他平台。TVM部署方法可以参考我们的博客：insightface模型的TVM框架部署
+7.VanillaCNN VanillaCNN是针对香港中文大学人脸关键点定位网络TCDCN的一个复现，大家可以参考 https://github.com/ishay2b/VanillaCNN 。稠密人脸关键点定位(通常关键点50点以上)同样是一个回归问题，让网络能够通过对人脸边缘特征的提取，回归出准确的定位，这篇文章采用了多任务进行定位，取得了很好的效果，后来几年的的很多算法，在准确度上有提升，但是在速度上不具有优势。大家可以利用高效的网络结构提取特征并加速，取得更好的人脸关键点定位准确度和速度。大家在训练关键点定位的网络时，可以结合可视化的技术，将网络后面基层的feature map显示出来，观察网络对输入人脸边缘提取的效果，改进网络结构。
+8.YOLO-V3 通用物体检测近年来也是研究人员关注的人们领域，从RBG、何凯明大神的RCNN，Fast RCNN，Faster RCNN，MASK RCNN等，Single Shot的Yolo系列、SSD等，以后后来的RetinaNet，我们对这一系列的网络都进行过测试，由于我们算法组在日常使用中主要考虑移动端的部署以及服务器端的效率，推荐了MobileNet-SSD跟YOLO-V3。我们对3000张行车记录仪标注图像以及2000张交通监控图片进行标注，分别在以上网络进行了测试，对于我们的图片，YOLO-V3表现最好，速度也是最快的一档。项目主页：https://pjreddie." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lflxp.cn/post/hyperdl-tutorial/8.%E5%9F%BA%E7%A1%80%E7%BD%91%E7%BB%9C%E7%9A%84%E8%AE%AD%E7%BB%83/readme/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="基础网络的训练 目前我们常用的神经网络，github上基本都具有较为丰富的训练、测试代码，我们这里选择几种常用，高效的网络推荐给大家，包括与之对应的github工程，涉及一些训练的技巧，旨在让大家能够复现出作者原始的精度。
+我们这里主要介绍以下几个网络的训练与使用:
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  1.MobileNet(分类网络)2.MnasNet(分类网络)3.MTCNN(单一物体检测网络)4.MobileNet-SSD(Single Shot 物体检测网络)5.CTPN(文字定位网络)6.insightface(人脸识别网络)7.VanillaCNN(人脸关键点回归网络)8.YOLO-V3(通用物体检测网络)9.DeepOCR(文字识别网络)  以上这些网络涵盖了日常使用网络设计到的大部分功能，一些相关的应用也可以通过这些网络的变通，修改进行试验。
+1.MobileNet MobileNet是谷歌发布的第一代专为移动端设计的高效网络，其后续版本MobileNet-v2同样优秀，shicai yang大神已经给出了网络的pretrain model，以及caffe的训练、测试代码，利用该网络可以训练其他类似的分类任务，例如我们开源的鉴黄网络.
+2.MnasNet MnasNet同样是谷歌发布的高效移动端分类网络，与Mobilenet不同之处在于网络的设计借助deepmind AI的能力，不是hand craft手动设计的网络，相比于mobilenet，速度快大约1.5倍，准确度提高将近两个点。我们同样复现了该网络，并且提供了该网络再标准ImageNet上的pretrain model，接近了官方的精度。连接地址：https://github.com/zeusees/Mnasnet-Pretrained-Model
+3.MTCNN MTCNN是一个非常优秀的单一物体检测框架，可以用这个框架进行人脸、车辆、行人等单一物体的检测，该网络的主要问题在于单帧图像中包含多个物体时，检测速度下降严重。mtcnn的复现在github上有多个版本，包括caffe、keras、TensorFlow等，我们测试了不同版本，有一些存在问题，https://github.com/AITTSMD/MTCNN-Tensorflow 这个repo能够基本复现作者的精度，训练过程中，一定要注意正负样本保持1:3的比例。其实，mtcnn框架具有一些优化的方法和空间，包括用卷积替代polling，采用dw卷积等等，相关修改可以参考我们的文章: https://blog.csdn.net/Relocy/article/details/84075570 . 我们的工程师同样提供了一个优化的mtcnn模型：https://github.com/szad670401/Fast-MTCNN ，大家可以参考修改。
+4.MobileNet-SSD SSD是Single Shot检测网络的代表结构，其速度快，单帧物体数量对检测速度影响不大，具有很好的工程化指导作用。Mobilenet跟SSD的结合，更能够提高网络的速度。Mobilenet-SSD可以参考：https://github.com/chuanqi305/MobileNet-SSD 这里有数据准备代码，以及网络的训练测试代码。我们采用这个网络进行了车牌检测的实验，效果也不错，能够完成单层、双层、蓝牌、黄牌、绿牌的检测，可以参见我们的博客：https://blog.csdn.net/lsy17096535/article/details/78687728 ，我们开源的车牌检测Mobilenet-SSD模型：https://github.com/zeusees/Mobilenet-SSD-License-Plate-Detection
+5.CTPN 6.insightface insightface是一款高精度的开源人脸识别框架，在我们的测试中，insightface针对一般场景效果不错，“历史脸”效果稍差，有可能因为训练数据历史脸数据不足导致的，算法的作者guojia也将论文提交到了CVPR2019，期待他的好消息。大家可以在这里找到作者的实现：https://github.com/deepinsight/insightface 作者的框架基于MXNET，目前git上已经有基于TensorFlow、caffe等其他框架的实现，大家可以参考。大家在部署阶段，可以利用TVM部署该框架，速度快，也可以将模型转换到caffe model，部署到其他平台。TVM部署方法可以参考我们的博客：insightface模型的TVM框架部署
+7.VanillaCNN VanillaCNN是针对香港中文大学人脸关键点定位网络TCDCN的一个复现，大家可以参考 https://github.com/ishay2b/VanillaCNN 。稠密人脸关键点定位(通常关键点50点以上)同样是一个回归问题，让网络能够通过对人脸边缘特征的提取，回归出准确的定位，这篇文章采用了多任务进行定位，取得了很好的效果，后来几年的的很多算法，在准确度上有提升，但是在速度上不具有优势。大家可以利用高效的网络结构提取特征并加速，取得更好的人脸关键点定位准确度和速度。大家在训练关键点定位的网络时，可以结合可视化的技术，将网络后面基层的feature map显示出来，观察网络对输入人脸边缘提取的效果，改进网络结构。
+8.YOLO-V3 通用物体检测近年来也是研究人员关注的人们领域，从RBG、何凯明大神的RCNN，Fast RCNN，Faster RCNN，MASK RCNN等，Single Shot的Yolo系列、SSD等，以后后来的RetinaNet，我们对这一系列的网络都进行过测试，由于我们算法组在日常使用中主要考虑移动端的部署以及服务器端的效率，推荐了MobileNet-SSD跟YOLO-V3。我们对3000张行车记录仪标注图像以及2000张交通监控图片进行标注，分别在以上网络进行了测试，对于我们的图片，YOLO-V3表现最好，速度也是最快的一档。项目主页：https://pjreddie.">
+
+<meta itemprop="wordCount" content="82">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="基础网络的训练 目前我们常用的神经网络，github上基本都具有较为丰富的训练、测试代码，我们这里选择几种常用，高效的网络推荐给大家，包括与之对应的github工程，涉及一些训练的技巧，旨在让大家能够复现出作者原始的精度。
+我们这里主要介绍以下几个网络的训练与使用:
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  1.MobileNet(分类网络)2.MnasNet(分类网络)3.MTCNN(单一物体检测网络)4.MobileNet-SSD(Single Shot 物体检测网络)5.CTPN(文字定位网络)6.insightface(人脸识别网络)7.VanillaCNN(人脸关键点回归网络)8.YOLO-V3(通用物体检测网络)9.DeepOCR(文字识别网络)  以上这些网络涵盖了日常使用网络设计到的大部分功能，一些相关的应用也可以通过这些网络的变通，修改进行试验。
+1.MobileNet MobileNet是谷歌发布的第一代专为移动端设计的高效网络，其后续版本MobileNet-v2同样优秀，shicai yang大神已经给出了网络的pretrain model，以及caffe的训练、测试代码，利用该网络可以训练其他类似的分类任务，例如我们开源的鉴黄网络.
+2.MnasNet MnasNet同样是谷歌发布的高效移动端分类网络，与Mobilenet不同之处在于网络的设计借助deepmind AI的能力，不是hand craft手动设计的网络，相比于mobilenet，速度快大约1.5倍，准确度提高将近两个点。我们同样复现了该网络，并且提供了该网络再标准ImageNet上的pretrain model，接近了官方的精度。连接地址：https://github.com/zeusees/Mnasnet-Pretrained-Model
+3.MTCNN MTCNN是一个非常优秀的单一物体检测框架，可以用这个框架进行人脸、车辆、行人等单一物体的检测，该网络的主要问题在于单帧图像中包含多个物体时，检测速度下降严重。mtcnn的复现在github上有多个版本，包括caffe、keras、TensorFlow等，我们测试了不同版本，有一些存在问题，https://github.com/AITTSMD/MTCNN-Tensorflow 这个repo能够基本复现作者的精度，训练过程中，一定要注意正负样本保持1:3的比例。其实，mtcnn框架具有一些优化的方法和空间，包括用卷积替代polling，采用dw卷积等等，相关修改可以参考我们的文章: https://blog.csdn.net/Relocy/article/details/84075570 . 我们的工程师同样提供了一个优化的mtcnn模型：https://github.com/szad670401/Fast-MTCNN ，大家可以参考修改。
+4.MobileNet-SSD SSD是Single Shot检测网络的代表结构，其速度快，单帧物体数量对检测速度影响不大，具有很好的工程化指导作用。Mobilenet跟SSD的结合，更能够提高网络的速度。Mobilenet-SSD可以参考：https://github.com/chuanqi305/MobileNet-SSD 这里有数据准备代码，以及网络的训练测试代码。我们采用这个网络进行了车牌检测的实验，效果也不错，能够完成单层、双层、蓝牌、黄牌、绿牌的检测，可以参见我们的博客：https://blog.csdn.net/lsy17096535/article/details/78687728 ，我们开源的车牌检测Mobilenet-SSD模型：https://github.com/zeusees/Mobilenet-SSD-License-Plate-Detection
+5.CTPN 6.insightface insightface是一款高精度的开源人脸识别框架，在我们的测试中，insightface针对一般场景效果不错，“历史脸”效果稍差，有可能因为训练数据历史脸数据不足导致的，算法的作者guojia也将论文提交到了CVPR2019，期待他的好消息。大家可以在这里找到作者的实现：https://github.com/deepinsight/insightface 作者的框架基于MXNET，目前git上已经有基于TensorFlow、caffe等其他框架的实现，大家可以参考。大家在部署阶段，可以利用TVM部署该框架，速度快，也可以将模型转换到caffe model，部署到其他平台。TVM部署方法可以参考我们的博客：insightface模型的TVM框架部署
+7.VanillaCNN VanillaCNN是针对香港中文大学人脸关键点定位网络TCDCN的一个复现，大家可以参考 https://github.com/ishay2b/VanillaCNN 。稠密人脸关键点定位(通常关键点50点以上)同样是一个回归问题，让网络能够通过对人脸边缘特征的提取，回归出准确的定位，这篇文章采用了多任务进行定位，取得了很好的效果，后来几年的的很多算法，在准确度上有提升，但是在速度上不具有优势。大家可以利用高效的网络结构提取特征并加速，取得更好的人脸关键点定位准确度和速度。大家在训练关键点定位的网络时，可以结合可视化的技术，将网络后面基层的feature map显示出来，观察网络对输入人脸边缘提取的效果，改进网络结构。
+8.YOLO-V3 通用物体检测近年来也是研究人员关注的人们领域，从RBG、何凯明大神的RCNN，Fast RCNN，Faster RCNN，MASK RCNN等，Single Shot的Yolo系列、SSD等，以后后来的RetinaNet，我们对这一系列的网络都进行过测试，由于我们算法组在日常使用中主要考虑移动端的部署以及服务器端的效率，推荐了MobileNet-SSD跟YOLO-V3。我们对3000张行车记录仪标注图像以及2000张交通监控图片进行标注，分别在以上网络进行了测试，对于我们的图片，YOLO-V3表现最好，速度也是最快的一档。项目主页：https://pjreddie."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">琵琶</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">目录</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">琵琶</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">目录</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title"></h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 0001-01-01 </span>
+        
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="0001-01-01T00:00:00" title="January 1, 0001">January 1, 0001</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
+    <div class="post-content">
+      <h4 id="基础网络的训练">基础网络的训练</h4>
+<p>目前我们常用的神经网络，github上基本都具有较为丰富的训练、测试代码，我们这里选择几种常用，高效的网络推荐给大家，包括与之对应的github工程，涉及一些训练的技巧，旨在让大家能够复现出作者原始的精度。</p>
+<p>我们这里主要介绍以下几个网络的训练与使用:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">1.MobileNet(分类网络)
+
+2.MnasNet(分类网络)
+
+3.MTCNN(单一物体检测网络)
+
+4.MobileNet-SSD(Single Shot 物体检测网络)
+
+5.CTPN(文字定位网络)
+
+6.insightface(人脸识别网络)
+
+7.VanillaCNN(人脸关键点回归网络)
+
+8.YOLO-V3(通用物体检测网络)
+
+9.DeepOCR(文字识别网络)
+
+</code></pre></td></tr></table>
+</div>
+</div><p>以上这些网络涵盖了日常使用网络设计到的大部分功能，一些相关的应用也可以通过这些网络的变通，修改进行试验。</p>
+<h4 id="1mobilenet">1.MobileNet</h4>
+<p>MobileNet是谷歌发布的第一代专为移动端设计的高效网络，其后续版本MobileNet-v2同样优秀，shicai yang大神已经给出了网络的pretrain model，以及caffe的<a href="https://github.com/shicai/MobileNet-Caffe">训练、测试代码</a>，利用该网络可以训练其他类似的分类任务，例如我们开源的<a href="https://github.com/zeusees/HyperNSFW">鉴黄网络</a>.</p>
+<h4 id="2mnasnet">2.MnasNet</h4>
+<p>MnasNet同样是谷歌发布的高效移动端分类网络，与Mobilenet不同之处在于网络的设计借助deepmind AI的能力，不是hand craft手动设计的网络，相比于mobilenet，速度快大约1.5倍，准确度提高将近两个点。我们同样复现了该网络，并且提供了该网络再标准ImageNet上的pretrain model，接近了官方的精度。连接地址：https://github.com/zeusees/Mnasnet-Pretrained-Model</p>
+<h4 id="3mtcnn">3.MTCNN</h4>
+<p>MTCNN是一个非常优秀的单一物体检测框架，可以用这个框架进行人脸、车辆、行人等单一物体的检测，该网络的主要问题在于单帧图像中包含多个物体时，检测速度下降严重。mtcnn的复现在github上有多个版本，包括caffe、keras、TensorFlow等，我们测试了不同版本，有一些存在问题，https://github.com/AITTSMD/MTCNN-Tensorflow 这个repo能够基本复现作者的精度，训练过程中，一定要注意正负样本保持1:3的比例。其实，mtcnn框架具有一些优化的方法和空间，包括用卷积替代polling，采用dw卷积等等，相关修改可以参考我们的文章: <a href="https://blog.csdn.net/Relocy/article/details/84075570">https://blog.csdn.net/Relocy/article/details/84075570</a> . 我们的工程师同样提供了一个优化的mtcnn模型：https://github.com/szad670401/Fast-MTCNN ，大家可以参考修改。</p>
+<h4 id="4mobilenet-ssd">4.MobileNet-SSD</h4>
+<p>SSD是Single Shot检测网络的代表结构，其速度快，单帧物体数量对检测速度影响不大，具有很好的工程化指导作用。Mobilenet跟SSD的结合，更能够提高网络的速度。Mobilenet-SSD可以参考：https://github.com/chuanqi305/MobileNet-SSD 这里有数据准备代码，以及网络的训练测试代码。我们采用这个网络进行了车牌检测的实验，效果也不错，能够完成单层、双层、蓝牌、黄牌、绿牌的检测，可以参见我们的博客：https://blog.csdn.net/lsy17096535/article/details/78687728 ，我们开源的车牌检测Mobilenet-SSD模型：https://github.com/zeusees/Mobilenet-SSD-License-Plate-Detection</p>
+<h4 id="5ctpn">5.CTPN</h4>
+<h4 id="6insightface">6.insightface</h4>
+<p>insightface是一款高精度的开源人脸识别框架，在我们的测试中，insightface针对一般场景效果不错，“历史脸”效果稍差，有可能因为训练数据历史脸数据不足导致的，算法的作者guojia也将论文提交到了CVPR2019，期待他的好消息。大家可以在这里找到作者的实现：https://github.com/deepinsight/insightface 作者的框架基于MXNET，目前git上已经有基于TensorFlow、caffe等其他框架的实现，大家可以参考。大家在部署阶段，可以利用TVM部署该框架，速度快，也可以将模型转换到caffe model，部署到其他平台。TVM部署方法可以参考我们的博客：<a href="https://github.com/zeusees/HyperDL-Tutorial/blob/master/5.%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%83%A8%E7%BD%B2/%E5%9C%A8CPP%E4%B8%8B%E4%BD%BF%E7%94%A8TVM%E6%9D%A5%E9%83%A8%E7%BD%B2mxnet%E6%A8%A1%E5%9E%8B%EF%BC%88%E4%BB%A5Insightface%E4%B8%BA%E4%BE%8B%EF%BC%89.md">insightface模型的TVM框架部署</a></p>
+<h4 id="7vanillacnn">7.VanillaCNN</h4>
+<p>VanillaCNN是针对香港中文大学人脸关键点定位网络TCDCN的一个复现，大家可以参考 <a href="https://github.com/ishay2b/VanillaCNN">https://github.com/ishay2b/VanillaCNN</a> 。稠密人脸关键点定位(通常关键点50点以上)同样是一个回归问题，让网络能够通过对人脸边缘特征的提取，回归出准确的定位，这篇文章采用了多任务进行定位，取得了很好的效果，后来几年的的很多算法，在准确度上有提升，但是在速度上不具有优势。大家可以利用高效的网络结构提取特征并加速，取得更好的人脸关键点定位准确度和速度。大家在训练关键点定位的网络时，可以结合可视化的技术，将网络后面基层的feature map显示出来，观察网络对输入人脸边缘提取的效果，改进网络结构。</p>
+<h4 id="8yolo-v3">8.YOLO-V3</h4>
+<p>通用物体检测近年来也是研究人员关注的人们领域，从RBG、何凯明大神的RCNN，Fast RCNN，Faster RCNN，MASK RCNN等，Single Shot的Yolo系列、SSD等，以后后来的RetinaNet，我们对这一系列的网络都进行过测试，由于我们算法组在日常使用中主要考虑移动端的部署以及服务器端的效率，推荐了MobileNet-SSD跟YOLO-V3。我们对3000张行车记录仪标注图像以及2000张交通监控图片进行标注，分别在以上网络进行了测试，对于我们的图片，YOLO-V3表现最好，速度也是最快的一档。项目主页：https://pjreddie.com/darknet/yolo/</p>
+<h4 id="9deepocr">9.DeepOCR</h4>
+<p>DeepOCR这里我们泛指利用深度学习进行文字识别的方法，目前网上开源的算法较好的有 <a href="https://github.com/YCG09/chinese_ocr">https://github.com/YCG09/chinese_ocr</a> 以及 <a href="https://github.com/chineseocr/chineseocr">https://github.com/chineseocr/chineseocr</a> ， 前一个方法利用CTPN网络作为文字检测网络，然后利用DenseNet + CTC 进行文字识别。后面的方法利用YOLOv3作文文字检测网络，利用CRNN进行文字识别。两个网络都提供了训练代码，直接使用已有的模型对黑白打印文字识别效果还可以，但是对于自然文字场景，文字颜色不为黑色的情况下，识别率较差，使用者可以利用 <a href="https://github.com/yanhaiming56/SynthText_Chinese_py3">https://github.com/yanhaiming56/SynthText_Chinese_py3</a> 这个工具生成自己需要的字体及颜色的样本（我们观察了一下，生成的样本质量一般），或者自己标注新的数据，重新训练模型，取得好的效果。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lflxp</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        0001-01-01
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/hyperdl-tutorial/7.%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF/readme/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default"></span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/hyperdl-tutorial/9.%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98/readme/">
+            <span class="next-text nav-default"></span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="comments-gitment"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitment = new Gitment({
+        id: '0001-01-01 00:00:00 \x2b0000 UTC',
+        title: '',
+        link: decodeURI(location.href),
+        desc: '基础网络的训练 目前我们常用的神经网络，github上基本都具有较为丰富的训练、测试代码，我们这里选择几种常用，高效的网络推荐给大家，包括与之对应的github工程，涉及一些训练的技巧，旨在让大家能够复现出作者原始的精度。\n我们这里主要介绍以下几个网络的训练与使用:\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  1.MobileNet(分类网络)\r2.MnasNet(分类网络)\r3.MTCNN(单一物体检测网络)\r4.MobileNet-SSD(Single Shot 物体检测网络)\r5.CTPN(文字定位网络)\r6.insightface(人脸识别网络)\r7.VanillaCNN(人脸关键点回归网络)\r8.YOLO-V3(通用物体检测网络)\r9.DeepOCR(文字识别网络)\r  以上这些网络涵盖了日常使用网络设计到的大部分功能，一些相关的应用也可以通过这些网络的变通，修改进行试验。\n1.MobileNet MobileNet是谷歌发布的第一代专为移动端设计的高效网络，其后续版本MobileNet-v2同样优秀，shicai yang大神已经给出了网络的pretrain model，以及caffe的训练、测试代码，利用该网络可以训练其他类似的分类任务，例如我们开源的鉴黄网络.\n2.MnasNet MnasNet同样是谷歌发布的高效移动端分类网络，与Mobilenet不同之处在于网络的设计借助deepmind AI的能力，不是hand craft手动设计的网络，相比于mobilenet，速度快大约1.5倍，准确度提高将近两个点。我们同样复现了该网络，并且提供了该网络再标准ImageNet上的pretrain model，接近了官方的精度。连接地址：https:\/\/github.com\/zeusees\/Mnasnet-Pretrained-Model\n3.MTCNN MTCNN是一个非常优秀的单一物体检测框架，可以用这个框架进行人脸、车辆、行人等单一物体的检测，该网络的主要问题在于单帧图像中包含多个物体时，检测速度下降严重。mtcnn的复现在github上有多个版本，包括caffe、keras、TensorFlow等，我们测试了不同版本，有一些存在问题，https:\/\/github.com\/AITTSMD\/MTCNN-Tensorflow 这个repo能够基本复现作者的精度，训练过程中，一定要注意正负样本保持1:3的比例。其实，mtcnn框架具有一些优化的方法和空间，包括用卷积替代polling，采用dw卷积等等，相关修改可以参考我们的文章: https:\/\/blog.csdn.net\/Relocy\/article\/details\/84075570 . 我们的工程师同样提供了一个优化的mtcnn模型：https:\/\/github.com\/szad670401\/Fast-MTCNN ，大家可以参考修改。\n4.MobileNet-SSD SSD是Single Shot检测网络的代表结构，其速度快，单帧物体数量对检测速度影响不大，具有很好的工程化指导作用。Mobilenet跟SSD的结合，更能够提高网络的速度。Mobilenet-SSD可以参考：https:\/\/github.com\/chuanqi305\/MobileNet-SSD 这里有数据准备代码，以及网络的训练测试代码。我们采用这个网络进行了车牌检测的实验，效果也不错，能够完成单层、双层、蓝牌、黄牌、绿牌的检测，可以参见我们的博客：https:\/\/blog.csdn.net\/lsy17096535\/article\/details\/78687728 ，我们开源的车牌检测Mobilenet-SSD模型：https:\/\/github.com\/zeusees\/Mobilenet-SSD-License-Plate-Detection\n5.CTPN 6.insightface insightface是一款高精度的开源人脸识别框架，在我们的测试中，insightface针对一般场景效果不错，“历史脸”效果稍差，有可能因为训练数据历史脸数据不足导致的，算法的作者guojia也将论文提交到了CVPR2019，期待他的好消息。大家可以在这里找到作者的实现：https:\/\/github.com\/deepinsight\/insightface 作者的框架基于MXNET，目前git上已经有基于TensorFlow、caffe等其他框架的实现，大家可以参考。大家在部署阶段，可以利用TVM部署该框架，速度快，也可以将模型转换到caffe model，部署到其他平台。TVM部署方法可以参考我们的博客：insightface模型的TVM框架部署\n7.VanillaCNN VanillaCNN是针对香港中文大学人脸关键点定位网络TCDCN的一个复现，大家可以参考 https:\/\/github.com\/ishay2b\/VanillaCNN 。稠密人脸关键点定位(通常关键点50点以上)同样是一个回归问题，让网络能够通过对人脸边缘特征的提取，回归出准确的定位，这篇文章采用了多任务进行定位，取得了很好的效果，后来几年的的很多算法，在准确度上有提升，但是在速度上不具有优势。大家可以利用高效的网络结构提取特征并加速，取得更好的人脸关键点定位准确度和速度。大家在训练关键点定位的网络时，可以结合可视化的技术，将网络后面基层的feature map显示出来，观察网络对输入人脸边缘提取的效果，改进网络结构。\n8.YOLO-V3 通用物体检测近年来也是研究人员关注的人们领域，从RBG、何凯明大神的RCNN，Fast RCNN，Faster RCNN，MASK RCNN等，Single Shot的Yolo系列、SSD等，以后后来的RetinaNet，我们对这一系列的网络都进行过测试，由于我们算法组在日常使用中主要考虑移动端的部署以及服务器端的效率，推荐了MobileNet-SSD跟YOLO-V3。我们对3000张行车记录仪标注图像以及2000张交通监控图片进行标注，分别在以上网络进行了测试，对于我们的图片，YOLO-V3表现最好，速度也是最快的一档。项目主页：https:\/\/pjreddie.',
+        owner: 'lflxp',
+        repo: 'https:\/\/github.com\/lflxp\/lflxp.github.com',
+        oauth: {
+          client_id: '',
+          client_secret: ''
+        }
+      });
+      gitment.render('comments-gitment');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:382023823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/lflxp" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.lflxp.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">lflxp.cn 版权所有 ICP证：<a href='http://www.beian.miit.gov.cn' target='_blank'>渝ICP备17011066号-1</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '渝ICP备17011066号-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

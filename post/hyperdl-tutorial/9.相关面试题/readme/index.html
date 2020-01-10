@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title> - 爱像水墨青花</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lflxp" /><meta name="description" content="相关问题 说是面试题，并不是为了读者去利用这个去参加面试，只是为了一些图像算法相关问题的深入理解，这里面的一些问题，除了参考网上的解答，也包含了 部分我们自己的理解，不当之处欢迎指出。
+1.CNN的特点以及优势 改变全连接为局部连接，这是由于图片的特殊性造成的（图像的一部分的统计特性与其他部分是一样的），通过局部连接和参数共享大范围的减少参数值。可以通过使用多个filter来提取图片的不同特征（多卷积核）。
+CNN使用范围是具有局部空间相关性的数据，比如图像，自然语言，语音
+1.局部连接：可以提取局部特征。2.权值共享：减少参数数量，因此降低训练难度（空间、时间消耗都少了）。 3.可以完全共享，也可以局部共享（比如对人脸，眼睛鼻子嘴由于位置和样式相对固定，可以用和脸部不一样的卷积核）4.降维：通过池化或卷积stride实现。5.多层次结构：将低层次的局部特征组合成为较高层次的特征。不同层级的特征可以对应不同任务。 2.deconv的作用 1.unsupervised learning： 重构图像2.CNN可视化：将conv中得到的feature map还原到像素空间，来观察特定的feature map对哪些pattern的图片敏感3.Upsampling：上采样。 3.dropout作用以及实现机制 (参考:https://blog.csdn.net/nini_coded/article/details/79302800) 1.dropout是指在深度学习网络的训练过程中，对于神经网络单元，按照一定的概率将其暂时从网络中丢弃。注意是暂时，对于随机梯度下降来说，由于是随机丢弃，故而每一个mini-batch都在训练不同的网络。2.dropout是一种CNN训练过程中防止过拟合提高效果的方法3.dropout带来的缺点是可能减慢收敛速度：由于每次迭代只有一部分参数更新，可能导致梯度下降变慢4.测试时，需要每个权值乘以P 4.深度学习中有什么加快收敛/降低训练难度的方法： 1.瓶颈结构2.残差3.学习率、步长、动量4.优化方法5.预训练 5.什么造成过拟合，如何防止过拟合 1.data agumentation2.early stop3.参数规则化4.用更简单模型5.dropout6.加噪声7.预训练网络freeze某几层 6.LSTM防止梯度弥散和爆炸 LSTM用加和的方式取代了乘积，使得很难出现梯度弥散。但是相应的更大的几率会出现梯度爆炸，但是可以通过给梯度加门限解决这一问题 7.为什么很多做人脸的Paper会最后加入一个Local Connected Conv? 在一些研究成果中，作者通过实验表明：人脸在不同的区域存在不同的特征（眼睛／鼻子／嘴的分布位置相对固定），当不存在全局的局部特征分布时，Local-Conv更适合特征的提取。
+8.神经网络权值初始化方式以及不同方式的区别? 权值初始化的方法主要有：常量初始化（constant）、高斯分布初始化（gaussian）、positive_unitball初始化、均匀分布初始化（uniform）、xavier初始化、msra初始化、双线性初始化（bilinear）
+9.Convolution、 pooling、 Normalization是卷积神经网络中十分重要的三个步骤，分别简述Convolution、 pooling和Normalization在卷积神经网络中的作用。 10.dilated conv(空洞卷积)优缺点以及应用场景 基于FCN的语义分割问题中，需保持输入图像与输出特征图的size相同。若使用池化层，则降低了特征图size,需在高层阶段使用上采样，由于池化会损失信息，所以此方法会影响导致精度降低；若使用较小的卷积核尺寸，虽可以实现输入输出特征图的size相同，但输出特征图的各个节点感受野小；若使用较大的卷积核尺寸，由于需增加特征图通道数，此方法会导致计算量较大；所以，引入空洞卷积(dilatedconvolution),在卷积后的特征图上进行0填充扩大特征图size，这样既因为有卷积核增大感受野，也因为0填充保持计算点不变。 11.判别模型和生成模型解释 监督学习方法又分生成方法（Generative approach）和判别方法（Discriminative approach），所学到的模型分别称为生成模型（Generative Model）和判别模型（Discriminative Model）。" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.lflxp.cn/post/hyperdl-tutorial/9.%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98/readme/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="" />
+<meta property="og:description" content="相关问题 说是面试题，并不是为了读者去利用这个去参加面试，只是为了一些图像算法相关问题的深入理解，这里面的一些问题，除了参考网上的解答，也包含了 部分我们自己的理解，不当之处欢迎指出。
+1.CNN的特点以及优势 改变全连接为局部连接，这是由于图片的特殊性造成的（图像的一部分的统计特性与其他部分是一样的），通过局部连接和参数共享大范围的减少参数值。可以通过使用多个filter来提取图片的不同特征（多卷积核）。
+CNN使用范围是具有局部空间相关性的数据，比如图像，自然语言，语音
+1.局部连接：可以提取局部特征。2.权值共享：减少参数数量，因此降低训练难度（空间、时间消耗都少了）。 3.可以完全共享，也可以局部共享（比如对人脸，眼睛鼻子嘴由于位置和样式相对固定，可以用和脸部不一样的卷积核）4.降维：通过池化或卷积stride实现。5.多层次结构：将低层次的局部特征组合成为较高层次的特征。不同层级的特征可以对应不同任务。 2.deconv的作用 1.unsupervised learning： 重构图像2.CNN可视化：将conv中得到的feature map还原到像素空间，来观察特定的feature map对哪些pattern的图片敏感3.Upsampling：上采样。 3.dropout作用以及实现机制 (参考:https://blog.csdn.net/nini_coded/article/details/79302800) 1.dropout是指在深度学习网络的训练过程中，对于神经网络单元，按照一定的概率将其暂时从网络中丢弃。注意是暂时，对于随机梯度下降来说，由于是随机丢弃，故而每一个mini-batch都在训练不同的网络。2.dropout是一种CNN训练过程中防止过拟合提高效果的方法3.dropout带来的缺点是可能减慢收敛速度：由于每次迭代只有一部分参数更新，可能导致梯度下降变慢4.测试时，需要每个权值乘以P 4.深度学习中有什么加快收敛/降低训练难度的方法： 1.瓶颈结构2.残差3.学习率、步长、动量4.优化方法5.预训练 5.什么造成过拟合，如何防止过拟合 1.data agumentation2.early stop3.参数规则化4.用更简单模型5.dropout6.加噪声7.预训练网络freeze某几层 6.LSTM防止梯度弥散和爆炸 LSTM用加和的方式取代了乘积，使得很难出现梯度弥散。但是相应的更大的几率会出现梯度爆炸，但是可以通过给梯度加门限解决这一问题 7.为什么很多做人脸的Paper会最后加入一个Local Connected Conv? 在一些研究成果中，作者通过实验表明：人脸在不同的区域存在不同的特征（眼睛／鼻子／嘴的分布位置相对固定），当不存在全局的局部特征分布时，Local-Conv更适合特征的提取。
+8.神经网络权值初始化方式以及不同方式的区别? 权值初始化的方法主要有：常量初始化（constant）、高斯分布初始化（gaussian）、positive_unitball初始化、均匀分布初始化（uniform）、xavier初始化、msra初始化、双线性初始化（bilinear）
+9.Convolution、 pooling、 Normalization是卷积神经网络中十分重要的三个步骤，分别简述Convolution、 pooling和Normalization在卷积神经网络中的作用。 10.dilated conv(空洞卷积)优缺点以及应用场景 基于FCN的语义分割问题中，需保持输入图像与输出特征图的size相同。若使用池化层，则降低了特征图size,需在高层阶段使用上采样，由于池化会损失信息，所以此方法会影响导致精度降低；若使用较小的卷积核尺寸，虽可以实现输入输出特征图的size相同，但输出特征图的各个节点感受野小；若使用较大的卷积核尺寸，由于需增加特征图通道数，此方法会导致计算量较大；所以，引入空洞卷积(dilatedconvolution),在卷积后的特征图上进行0填充扩大特征图size，这样既因为有卷积核增大感受野，也因为0填充保持计算点不变。 11.判别模型和生成模型解释 监督学习方法又分生成方法（Generative approach）和判别方法（Discriminative approach），所学到的模型分别称为生成模型（Generative Model）和判别模型（Discriminative Model）。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lflxp.cn/post/hyperdl-tutorial/9.%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98/readme/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="相关问题 说是面试题，并不是为了读者去利用这个去参加面试，只是为了一些图像算法相关问题的深入理解，这里面的一些问题，除了参考网上的解答，也包含了 部分我们自己的理解，不当之处欢迎指出。
+1.CNN的特点以及优势 改变全连接为局部连接，这是由于图片的特殊性造成的（图像的一部分的统计特性与其他部分是一样的），通过局部连接和参数共享大范围的减少参数值。可以通过使用多个filter来提取图片的不同特征（多卷积核）。
+CNN使用范围是具有局部空间相关性的数据，比如图像，自然语言，语音
+1.局部连接：可以提取局部特征。2.权值共享：减少参数数量，因此降低训练难度（空间、时间消耗都少了）。 3.可以完全共享，也可以局部共享（比如对人脸，眼睛鼻子嘴由于位置和样式相对固定，可以用和脸部不一样的卷积核）4.降维：通过池化或卷积stride实现。5.多层次结构：将低层次的局部特征组合成为较高层次的特征。不同层级的特征可以对应不同任务。 2.deconv的作用 1.unsupervised learning： 重构图像2.CNN可视化：将conv中得到的feature map还原到像素空间，来观察特定的feature map对哪些pattern的图片敏感3.Upsampling：上采样。 3.dropout作用以及实现机制 (参考:https://blog.csdn.net/nini_coded/article/details/79302800) 1.dropout是指在深度学习网络的训练过程中，对于神经网络单元，按照一定的概率将其暂时从网络中丢弃。注意是暂时，对于随机梯度下降来说，由于是随机丢弃，故而每一个mini-batch都在训练不同的网络。2.dropout是一种CNN训练过程中防止过拟合提高效果的方法3.dropout带来的缺点是可能减慢收敛速度：由于每次迭代只有一部分参数更新，可能导致梯度下降变慢4.测试时，需要每个权值乘以P 4.深度学习中有什么加快收敛/降低训练难度的方法： 1.瓶颈结构2.残差3.学习率、步长、动量4.优化方法5.预训练 5.什么造成过拟合，如何防止过拟合 1.data agumentation2.early stop3.参数规则化4.用更简单模型5.dropout6.加噪声7.预训练网络freeze某几层 6.LSTM防止梯度弥散和爆炸 LSTM用加和的方式取代了乘积，使得很难出现梯度弥散。但是相应的更大的几率会出现梯度爆炸，但是可以通过给梯度加门限解决这一问题 7.为什么很多做人脸的Paper会最后加入一个Local Connected Conv? 在一些研究成果中，作者通过实验表明：人脸在不同的区域存在不同的特征（眼睛／鼻子／嘴的分布位置相对固定），当不存在全局的局部特征分布时，Local-Conv更适合特征的提取。
+8.神经网络权值初始化方式以及不同方式的区别? 权值初始化的方法主要有：常量初始化（constant）、高斯分布初始化（gaussian）、positive_unitball初始化、均匀分布初始化（uniform）、xavier初始化、msra初始化、双线性初始化（bilinear）
+9.Convolution、 pooling、 Normalization是卷积神经网络中十分重要的三个步骤，分别简述Convolution、 pooling和Normalization在卷积神经网络中的作用。 10.dilated conv(空洞卷积)优缺点以及应用场景 基于FCN的语义分割问题中，需保持输入图像与输出特征图的size相同。若使用池化层，则降低了特征图size,需在高层阶段使用上采样，由于池化会损失信息，所以此方法会影响导致精度降低；若使用较小的卷积核尺寸，虽可以实现输入输出特征图的size相同，但输出特征图的各个节点感受野小；若使用较大的卷积核尺寸，由于需增加特征图通道数，此方法会导致计算量较大；所以，引入空洞卷积(dilatedconvolution),在卷积后的特征图上进行0填充扩大特征图size，这样既因为有卷积核增大感受野，也因为0填充保持计算点不变。 11.判别模型和生成模型解释 监督学习方法又分生成方法（Generative approach）和判别方法（Discriminative approach），所学到的模型分别称为生成模型（Generative Model）和判别模型（Discriminative Model）。">
+
+<meta itemprop="wordCount" content="198">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="相关问题 说是面试题，并不是为了读者去利用这个去参加面试，只是为了一些图像算法相关问题的深入理解，这里面的一些问题，除了参考网上的解答，也包含了 部分我们自己的理解，不当之处欢迎指出。
+1.CNN的特点以及优势 改变全连接为局部连接，这是由于图片的特殊性造成的（图像的一部分的统计特性与其他部分是一样的），通过局部连接和参数共享大范围的减少参数值。可以通过使用多个filter来提取图片的不同特征（多卷积核）。
+CNN使用范围是具有局部空间相关性的数据，比如图像，自然语言，语音
+1.局部连接：可以提取局部特征。2.权值共享：减少参数数量，因此降低训练难度（空间、时间消耗都少了）。 3.可以完全共享，也可以局部共享（比如对人脸，眼睛鼻子嘴由于位置和样式相对固定，可以用和脸部不一样的卷积核）4.降维：通过池化或卷积stride实现。5.多层次结构：将低层次的局部特征组合成为较高层次的特征。不同层级的特征可以对应不同任务。 2.deconv的作用 1.unsupervised learning： 重构图像2.CNN可视化：将conv中得到的feature map还原到像素空间，来观察特定的feature map对哪些pattern的图片敏感3.Upsampling：上采样。 3.dropout作用以及实现机制 (参考:https://blog.csdn.net/nini_coded/article/details/79302800) 1.dropout是指在深度学习网络的训练过程中，对于神经网络单元，按照一定的概率将其暂时从网络中丢弃。注意是暂时，对于随机梯度下降来说，由于是随机丢弃，故而每一个mini-batch都在训练不同的网络。2.dropout是一种CNN训练过程中防止过拟合提高效果的方法3.dropout带来的缺点是可能减慢收敛速度：由于每次迭代只有一部分参数更新，可能导致梯度下降变慢4.测试时，需要每个权值乘以P 4.深度学习中有什么加快收敛/降低训练难度的方法： 1.瓶颈结构2.残差3.学习率、步长、动量4.优化方法5.预训练 5.什么造成过拟合，如何防止过拟合 1.data agumentation2.early stop3.参数规则化4.用更简单模型5.dropout6.加噪声7.预训练网络freeze某几层 6.LSTM防止梯度弥散和爆炸 LSTM用加和的方式取代了乘积，使得很难出现梯度弥散。但是相应的更大的几率会出现梯度爆炸，但是可以通过给梯度加门限解决这一问题 7.为什么很多做人脸的Paper会最后加入一个Local Connected Conv? 在一些研究成果中，作者通过实验表明：人脸在不同的区域存在不同的特征（眼睛／鼻子／嘴的分布位置相对固定），当不存在全局的局部特征分布时，Local-Conv更适合特征的提取。
+8.神经网络权值初始化方式以及不同方式的区别? 权值初始化的方法主要有：常量初始化（constant）、高斯分布初始化（gaussian）、positive_unitball初始化、均匀分布初始化（uniform）、xavier初始化、msra初始化、双线性初始化（bilinear）
+9.Convolution、 pooling、 Normalization是卷积神经网络中十分重要的三个步骤，分别简述Convolution、 pooling和Normalization在卷积神经网络中的作用。 10.dilated conv(空洞卷积)优缺点以及应用场景 基于FCN的语义分割问题中，需保持输入图像与输出特征图的size相同。若使用池化层，则降低了特征图size,需在高层阶段使用上采样，由于池化会损失信息，所以此方法会影响导致精度降低；若使用较小的卷积核尺寸，虽可以实现输入输出特征图的size相同，但输出特征图的各个节点感受野小；若使用较大的卷积核尺寸，由于需增加特征图通道数，此方法会导致计算量较大；所以，引入空洞卷积(dilatedconvolution),在卷积后的特征图上进行0填充扩大特征图size，这样既因为有卷积核增大感受野，也因为0填充保持计算点不变。 11.判别模型和生成模型解释 监督学习方法又分生成方法（Generative approach）和判别方法（Discriminative approach），所学到的模型分别称为生成模型（Generative Model）和判别模型（Discriminative Model）。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">琵琶</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">目录</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">琵琶</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">目录</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title"></h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 0001-01-01 </span>
+        
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#相关问题">相关问题</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="0001-01-01T00:00:00" title="January 1, 0001">January 1, 0001</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
+    <div class="post-content">
+      <h3 id="相关问题">相关问题</h3>
+<p>说是面试题，并不是为了读者去利用这个去参加面试，只是为了一些图像算法相关问题的深入理解，这里面的一些问题，除了参考网上的解答，也包含了
+部分我们自己的理解，不当之处欢迎指出。</p>
+<h5 id="1cnn的特点以及优势">1.CNN的特点以及优势</h5>
+<p>改变全连接为局部连接，这是由于图片的特殊性造成的（图像的一部分的统计特性与其他部分是一样的），通过局部连接和参数共享大范围的减少参数值。可以通过使用多个filter来提取图片的不同特征（多卷积核）。</p>
+<p>CNN使用范围是具有局部空间相关性的数据，比如图像，自然语言，语音</p>
+<pre><code>1.局部连接：可以提取局部特征。
+2.权值共享：减少参数数量，因此降低训练难度（空间、时间消耗都少了）。 
+3.可以完全共享，也可以局部共享（比如对人脸，眼睛鼻子嘴由于位置和样式相对固定，可以用和脸部不一样的卷积核）
+4.降维：通过池化或卷积stride实现。
+5.多层次结构：将低层次的局部特征组合成为较高层次的特征。不同层级的特征可以对应不同任务。
+</code></pre>
+<h5 id="2deconv的作用">2.deconv的作用</h5>
+<pre><code>1.unsupervised learning： 重构图像
+2.CNN可视化：将conv中得到的feature map还原到像素空间，来观察特定的feature map对哪些pattern的图片敏感
+3.Upsampling：上采样。
+</code></pre>
+<h5 id="3dropout作用以及实现机制-参考httpsblogcsdnnetnini_codedarticledetails79302800">3.dropout作用以及实现机制 (参考:https://blog.csdn.net/nini_coded/article/details/79302800)</h5>
+<pre><code>1.dropout是指在深度学习网络的训练过程中，对于神经网络单元，按照一定的概率将其暂时从网络中丢弃。注意是暂时，
+  对于随机梯度下降来说，由于是随机丢弃，故而每一个mini-batch都在训练不同的网络。
+2.dropout是一种CNN训练过程中防止过拟合提高效果的方法
+3.dropout带来的缺点是可能减慢收敛速度：由于每次迭代只有一部分参数更新，可能导致梯度下降变慢
+4.测试时，需要每个权值乘以P
+</code></pre>
+<h5 id="4深度学习中有什么加快收敛降低训练难度的方法">4.深度学习中有什么加快收敛/降低训练难度的方法：</h5>
+<pre><code>1.瓶颈结构
+2.残差
+3.学习率、步长、动量
+4.优化方法
+5.预训练
+</code></pre>
+<h5 id="5什么造成过拟合如何防止过拟合">5.什么造成过拟合，如何防止过拟合</h5>
+<pre><code>1.data agumentation
+2.early stop
+3.参数规则化
+4.用更简单模型
+5.dropout
+6.加噪声
+7.预训练网络freeze某几层
+</code></pre>
+<h5 id="6lstm防止梯度弥散和爆炸">6.LSTM防止梯度弥散和爆炸</h5>
+<pre><code>LSTM用加和的方式取代了乘积，使得很难出现梯度弥散。但是相应的更大的几率会出现梯度爆炸，但是可以通过给梯度加门限解决这一问题
+</code></pre>
+<h5 id="7为什么很多做人脸的paper会最后加入一个local-connected-conv">7.为什么很多做人脸的Paper会最后加入一个Local Connected Conv?</h5>
+<p>在一些研究成果中，作者通过实验表明：人脸在不同的区域存在不同的特征（眼睛／鼻子／嘴的分布位置相对固定），当不存在全局的局部特征分布时，Local-Conv更适合特征的提取。</p>
+<h5 id="8神经网络权值初始化方式以及不同方式的区别">8.神经网络权值初始化方式以及不同方式的区别?</h5>
+<p>权值初始化的方法主要有：常量初始化（constant）、高斯分布初始化（gaussian）、positive_unitball初始化、均匀分布初始化（uniform）、xavier初始化、msra初始化、双线性初始化（bilinear）</p>
+<h5 id="9convolution-pooling-normalization是卷积神经网络中十分重要的三个步骤分别简述convolution-pooling和normalization在卷积神经网络中的作用">9.Convolution、 pooling、 Normalization是卷积神经网络中十分重要的三个步骤，分别简述Convolution、 pooling和Normalization在卷积神经网络中的作用。</h5>
+<h5 id="10dilated-conv空洞卷积优缺点以及应用场景">10.dilated conv(空洞卷积)优缺点以及应用场景</h5>
+<pre><code>基于FCN的语义分割问题中，需保持输入图像与输出特征图的size相同。
+若使用池化层，则降低了特征图size,需在高层阶段使用上采样，由于池化会损失信息，所以此方法会影响导致精度降低；
+若使用较小的卷积核尺寸，虽可以实现输入输出特征图的size相同，但输出特征图的各个节点感受野小；
+若使用较大的卷积核尺寸，由于需增加特征图通道数，此方法会导致计算量较大；
+所以，引入空洞卷积(dilatedconvolution),在卷积后的特征图上进行0填充扩大特征图size，这样既因为有卷积核增大感受野，也因为0填充保持计算点不变。
+</code></pre>
+<h5 id="11判别模型和生成模型解释">11.判别模型和生成模型解释</h5>
+<p>监督学习方法又分生成方法（Generative approach）和判别方法（Discriminative approach），所学到的模型分别称为生成模型（Generative Model）和判别模型（Discriminative Model）。</p>
+<pre><code>从概率分布的角度考虑，对于一堆样本数据，每个均有特征Xi对应分类标记yi。
+
+生成模型：学习得到联合概率分布P(x,y)，即特征x和标记y共同出现的概率，然后求条件概率分布。能够学习到数据生成的机制。
+
+判别模型：学习得到条件概率分布P(y|x)，即在特征x出现的情况下标记y出现的概率。
+
+数据要求：生成模型需要的数据量比较大，能够较好地估计概率密度；而判别模型对数据样本量的要求没有那么多。
+</code></pre>
+<p>由生成模型可以得到判别模型，但由判别模型得不到生成模型。</p>
+<h5 id="12如何判断是否收敛">12.如何判断是否收敛</h5>
+<h5 id="13正则化方法以及特点">13.正则化方法以及特点</h5>
+<p>正则化方法包括： L1 regularization 、 L2 regularization 、 数据集扩增 、 dropout 等，其特点分别为：</p>
+<pre><code>1.
+</code></pre>
+<h5 id="14常用的激活函数-参考httpsblogcsdnnetyshihuiarticledetails80540070">14.常用的激活函数 (参考:https://blog.csdn.net/Yshihui/article/details/80540070)</h5>
+<table>
+<thead>
+<tr>
+<th>激活函数</th>
+<th>公式</th>
+<th>缺点</th>
+<th>优点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sigmoid</td>
+<td>σ(x)=1/(1+e−x)</td>
+<td>1、会有梯度弥散<!-- raw HTML omitted -->2、不是关于原点对称<!-- raw HTML omitted -->3、计算exp比较耗时</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Tanh</td>
+<td>tanh(x)=2σ(2x)−1</td>
+<td>梯度弥散没解决</td>
+<td>1、解决了原点对称问题<!-- raw HTML omitted -->2、比sigmoid更快</td>
+</tr>
+<tr>
+<td>ReLU</td>
+<td>f(x)=max(0,x)</td>
+<td>梯度弥散没完全解决</td>
+<td>1、解决了部分梯度弥散问题<!-- raw HTML omitted -->2、收敛速度更快</td>
+</tr>
+<tr>
+<td>Leaky ReLU</td>
+<td>f(x)=αx(x&lt;=0) α固定  <!-- raw HTML omitted -->f(x)=x(x&lt;0)</td>
+<td>-</td>
+<td>解决了神经死亡问题</td>
+</tr>
+<tr>
+<td>pRelu</td>
+<td>f(x)=αx(x&lt;=0) α可学习 <!-- raw HTML omitted -->f(x)=x(x&lt;0)</td>
+<td>增加了极少量的参数,<!-- raw HTML omitted -->降低过拟合风险</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Maxout</td>
+<td>max(wT1x+b1,wT2x+b2)</td>
+<td>参数比较多,本质上是在输出结果上又增加了一层</td>
+<td>克服了ReLU的缺点，比较提倡使用</td>
+</tr>
+</tbody>
+</table>
+<h5 id="151x1卷积的作用">15.1x1卷积的作用</h5>
+<pre><code>1. 实现跨通道的信息交互和整合。1x1卷积核只有一个参数，当它作用在多通道的feature map上时，相当于不同通道上的一个线性组合，
+   实际上就是加起来再乘以一个系数，但是这样输出的feature map就是多个通道的整合信息了，能够使网络提取的特征更加丰富。
+2. feature map通道数上的降维。降维这个作用在GoogLeNet和ResNet能够很好的体现。举个例子：假设输入的特征维度为100x100x128，
+   卷积核大小为5x5（stride=1，padding=2），通道数为256，则经过卷积后输出的特征维度为100x100x256，卷积参数量为
+   128x5x5x256=819200。此时在5x5卷积前使用一个64通道的1x1卷积，最终的输出特征维度依然是100x100x256，但是此时的卷积参数
+   量为128x1x1x64 + 64x5x5x256=417792，大约减少一半的参数量。
+3. 增加非线性映射次数。1x1卷积后通常加一个非线性激活函数，使网络提取更加具有判别信息的特征，同时网络也能做的越来越深。
+</code></pre>
+<h5 id="16无监督学习方法有哪些">16.无监督学习方法有哪些</h5>
+<pre><code>强化学习、K-means 聚类、自编码、受限波尔兹曼机
+</code></pre>
+<h5 id="17增大感受野的方法">17.增大感受野的方法？</h5>
+<pre><code>空洞卷积、池化操作、较大卷积核尺寸的卷积操作
+</code></pre>
+<h5 id="18目标检测领域的常见算法">18.目标检测领域的常见算法？</h5>
+<pre><code>1.两阶段检测器：R-CNN、Fast R-CNN、Faster R-CNN
+2.单阶段检测器：YOLO、YOLO9000、SSD、DSSD、RetinaNet
+</code></pre>
+<h5 id="19回归问题的评价指标">19.回归问题的评价指标</h5>
+<pre><code>1.平均绝对值误差(MAE)
+2.均方差(MSE)
+</code></pre>
+<h5 id="20卷积层和全连接层的区别">20.卷积层和全连接层的区别</h5>
+<pre><code>1.卷积层是局部连接，所以提取的是局部信息；全连接层是全局连接，所以提取的是全局信息；
+2.当卷积层的局部连接是全局连接时，全连接层是卷积层的特例；
+</code></pre>
+<h5 id="21反卷积的棋盘效应及解决方案">21.反卷积的棋盘效应及解决方案</h5>
+<p>图像生成网络的上采样部分通常用反卷积网络，不合理的卷积核大小和步长会使反卷积操作产生棋盘效应</p>
+<p>解决方案:</p>
+<h5 id="22分类的预训练模型如何应用到语义分割上">22.分类的预训练模型如何应用到语义分割上</h5>
+<pre><code>1.参考论文: Fully Convolutional Networks for Semantic Segmentation
+</code></pre>
+<h5 id="23ssd和yolo的区别">23.SSD和YOLO的区别</h5>
+<h5 id="24交叉熵和softmax还有它的bp">24.交叉熵和softmax，还有它的BP</h5>
+<h4 id="实践部分">实践部分</h4>
+<p>1.python中range和xrange有什么不同</p>
+<pre><code>两者的区别是xrange返回的是一个可迭代的对象；range返回的则是一个列表，同时效率更高，更快。
+</code></pre>
+<p>2.python中带类和main函数的程序执行顺序</p>
+<pre><code>1)对于  if __name__ == '__main__': 的解释相关博客已经给出了说明，意思就是当此文件当做模块被调用时，不会从这里执行，
+  因为此时name属性就成了模块的名字，而不是main。当此文件当做单独执行的程序运行时，就会从main开始执行。
+  
+2)对于带有类的程序，会先执行类及类内函数，或者其他类外函数。这里可以总结为，对于没有缩进的程序段，按照顺序执行。然后，才
+  到main函数。然后才按照main内函数的执行顺序执行。如果main内对类进行了实例化，那么执行到此处时，只会对类内成员进行初始
+  化，然后再返回到main 函数中。 执行其他实例化之后对象的成员函数调用。
+</code></pre>
+<p>3.神经网络的参数量计算</p>
+<p>4.计算空洞卷积的感受野</p>
+<p>5.mAP的计算</p>
+<p>6.Python tuple和list的区别</p>
+<p>7.Python的多线程和多进程，Python伪多线程，什么时候应该用它</p>
+<p>8.tensorflow while_loop和python for循环的区别，什么情况下for更优？</p>
+<pre><code>while loop的循环次数不确定的情况下效率低，因为要不断重新建图
+</code></pre>
+<h4 id="参考文献">参考文献</h4>
+<p>[1] <a href="https://blog.csdn.net/u014722627/article/details/77938703">https://blog.csdn.net/u014722627/article/details/77938703</a></p>
+<p>[2] <a href="https://www.cnblogs.com/houjun/p/8535471.html">https://www.cnblogs.com/houjun/p/8535471.html</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lflxp</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        0001-01-01
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/hyperdl-tutorial/8.%E5%9F%BA%E7%A1%80%E7%BD%91%E7%BB%9C%E7%9A%84%E8%AE%AD%E7%BB%83/readme/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default"></span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/hyperdl-tutorial/9.%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E9%A2%981-5/">
+            <span class="next-text nav-default"></span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="comments-gitment"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitment = new Gitment({
+        id: '0001-01-01 00:00:00 \x2b0000 UTC',
+        title: '',
+        link: decodeURI(location.href),
+        desc: '相关问题 说是面试题，并不是为了读者去利用这个去参加面试，只是为了一些图像算法相关问题的深入理解，这里面的一些问题，除了参考网上的解答，也包含了 部分我们自己的理解，不当之处欢迎指出。\n1.CNN的特点以及优势 改变全连接为局部连接，这是由于图片的特殊性造成的（图像的一部分的统计特性与其他部分是一样的），通过局部连接和参数共享大范围的减少参数值。可以通过使用多个filter来提取图片的不同特征（多卷积核）。\nCNN使用范围是具有局部空间相关性的数据，比如图像，自然语言，语音\n1.局部连接：可以提取局部特征。\r2.权值共享：减少参数数量，因此降低训练难度（空间、时间消耗都少了）。 3.可以完全共享，也可以局部共享（比如对人脸，眼睛鼻子嘴由于位置和样式相对固定，可以用和脸部不一样的卷积核）\r4.降维：通过池化或卷积stride实现。\r5.多层次结构：将低层次的局部特征组合成为较高层次的特征。不同层级的特征可以对应不同任务。\r 2.deconv的作用 1.unsupervised learning： 重构图像\r2.CNN可视化：将conv中得到的feature map还原到像素空间，来观察特定的feature map对哪些pattern的图片敏感\r3.Upsampling：上采样。\r 3.dropout作用以及实现机制 (参考:https:\/\/blog.csdn.net\/nini_coded\/article\/details\/79302800) 1.dropout是指在深度学习网络的训练过程中，对于神经网络单元，按照一定的概率将其暂时从网络中丢弃。注意是暂时，\r对于随机梯度下降来说，由于是随机丢弃，故而每一个mini-batch都在训练不同的网络。\r2.dropout是一种CNN训练过程中防止过拟合提高效果的方法\r3.dropout带来的缺点是可能减慢收敛速度：由于每次迭代只有一部分参数更新，可能导致梯度下降变慢\r4.测试时，需要每个权值乘以P\r 4.深度学习中有什么加快收敛\/降低训练难度的方法： 1.瓶颈结构\r2.残差\r3.学习率、步长、动量\r4.优化方法\r5.预训练\r 5.什么造成过拟合，如何防止过拟合 1.data agumentation\r2.early stop\r3.参数规则化\r4.用更简单模型\r5.dropout\r6.加噪声\r7.预训练网络freeze某几层\r 6.LSTM防止梯度弥散和爆炸 LSTM用加和的方式取代了乘积，使得很难出现梯度弥散。但是相应的更大的几率会出现梯度爆炸，但是可以通过给梯度加门限解决这一问题\r 7.为什么很多做人脸的Paper会最后加入一个Local Connected Conv? 在一些研究成果中，作者通过实验表明：人脸在不同的区域存在不同的特征（眼睛／鼻子／嘴的分布位置相对固定），当不存在全局的局部特征分布时，Local-Conv更适合特征的提取。\n8.神经网络权值初始化方式以及不同方式的区别? 权值初始化的方法主要有：常量初始化（constant）、高斯分布初始化（gaussian）、positive_unitball初始化、均匀分布初始化（uniform）、xavier初始化、msra初始化、双线性初始化（bilinear）\n9.Convolution、 pooling、 Normalization是卷积神经网络中十分重要的三个步骤，分别简述Convolution、 pooling和Normalization在卷积神经网络中的作用。 10.dilated conv(空洞卷积)优缺点以及应用场景 基于FCN的语义分割问题中，需保持输入图像与输出特征图的size相同。\r若使用池化层，则降低了特征图size,需在高层阶段使用上采样，由于池化会损失信息，所以此方法会影响导致精度降低；\r若使用较小的卷积核尺寸，虽可以实现输入输出特征图的size相同，但输出特征图的各个节点感受野小；\r若使用较大的卷积核尺寸，由于需增加特征图通道数，此方法会导致计算量较大；\r所以，引入空洞卷积(dilatedconvolution),在卷积后的特征图上进行0填充扩大特征图size，这样既因为有卷积核增大感受野，也因为0填充保持计算点不变。\r 11.判别模型和生成模型解释 监督学习方法又分生成方法（Generative approach）和判别方法（Discriminative approach），所学到的模型分别称为生成模型（Generative Model）和判别模型（Discriminative Model）。',
+        owner: 'lflxp',
+        repo: 'https:\/\/github.com\/lflxp\/lflxp.github.com',
+        oauth: {
+          client_id: '',
+          client_secret: ''
+        }
+      });
+      gitment.render('comments-gitment');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:382023823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/lflxp" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.lflxp.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">lflxp.cn 版权所有 ICP证：<a href='http://www.beian.miit.gov.cn' target='_blank'>渝ICP备17011066号-1</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '渝ICP备17011066号-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title> - 爱像水墨青花</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lflxp" /><meta name="description" content="本文的演练环境为基于Virtualbox搭建的Kubernetes集群，具体搭建步骤可以参考kubeadm安装kubernetes V1.11.1 集群
+ 1. 基本概念 1.1 Pod是什么 Pod是Kubernetes中能够创建和部署的最小单元，是Kubernetes集群中的一个应用实例，总是部署在同一个节点Node上。Pod中包含了一个或多个容器，还包括了存储、网络等各个容器共享的资源。Pod支持多种容器环境，Docker则是最流行的容器环境。
+ 单容器Pod，最常见的应用方式。 多容器Pod，对于多容器Pod，Kubernetes会保证所有的容器都在同一台物理主机或虚拟主机中运行。多容器Pod是相对高阶的使用方式，除非应用耦合特别严重，一般不推荐使用这种方式。一个Pod内的容器共享IP地址和端口范围，容器之间可以通过 localhost 互相访问。   Pod并不提供保证正常运行的能力，因为可能遭受Node节点的物理故障、网络分区等等的影响，整体的高可用是Kubernetes集群通过在集群内调度Node来实现的。通常情况下我们不要直接创建Pod，一般都是通过Controller来进行管理，但是了解Pod对于我们熟悉控制器非常有好处。
+1.2 Pod带来的好处 Pod带来的好处
+ Pod做为一个可以独立运行的服务单元，简化了应用部署的难度，以更高的抽象层次为应用部署管提供了极大的方便。 Pod做为最小的应用实例可以独立运行，因此可以方便的进行部署、水平扩展和收缩、方便进行调度管理与资源的分配。 Pod中的容器共享相同的数据和网络地址空间，Pod之间也进行了统一的资源管理与分配。  1.3 常用Pod管理命令 Pod的配置信息中有几个重要部分，apiVersion、kind、metadata、spec以及status。其中apiVersion和kind是比较固定的，status是运行时的状态，所以最重要的就是metadata和spec两个部分。
+先来看一个典型的配置文件，命名为 first-pod.yml
+1 2 3 4 5 6 7 8 9 10 11 12  apiVersion:v1kind:Podmetadata:name:first-podlabels:app:bashtir:backendspec:containers:-name:bash-containerimage:docker.io/busyboxcommand:[&amp;#39;sh&amp;#39;,&amp;#39;-c&amp;#39;,&amp;#39;echo Hello Kubernetes! &amp;amp;&amp;amp; sleep 3600&amp;#39;]  在编写配置文件时，可以通过API Reference来参考，也可以通过命令查看。
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57  [root@devops-101 ~]# kubectl explain pod KIND: Pod VERSION: v1 DESCRIPTION: Pod is a collection of containers that can run on a host." /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.lflxp.cn/post/k8s-go/pod/readme/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="" />
+<meta property="og:description" content="本文的演练环境为基于Virtualbox搭建的Kubernetes集群，具体搭建步骤可以参考kubeadm安装kubernetes V1.11.1 集群
+ 1. 基本概念 1.1 Pod是什么 Pod是Kubernetes中能够创建和部署的最小单元，是Kubernetes集群中的一个应用实例，总是部署在同一个节点Node上。Pod中包含了一个或多个容器，还包括了存储、网络等各个容器共享的资源。Pod支持多种容器环境，Docker则是最流行的容器环境。
+ 单容器Pod，最常见的应用方式。 多容器Pod，对于多容器Pod，Kubernetes会保证所有的容器都在同一台物理主机或虚拟主机中运行。多容器Pod是相对高阶的使用方式，除非应用耦合特别严重，一般不推荐使用这种方式。一个Pod内的容器共享IP地址和端口范围，容器之间可以通过 localhost 互相访问。   Pod并不提供保证正常运行的能力，因为可能遭受Node节点的物理故障、网络分区等等的影响，整体的高可用是Kubernetes集群通过在集群内调度Node来实现的。通常情况下我们不要直接创建Pod，一般都是通过Controller来进行管理，但是了解Pod对于我们熟悉控制器非常有好处。
+1.2 Pod带来的好处 Pod带来的好处
+ Pod做为一个可以独立运行的服务单元，简化了应用部署的难度，以更高的抽象层次为应用部署管提供了极大的方便。 Pod做为最小的应用实例可以独立运行，因此可以方便的进行部署、水平扩展和收缩、方便进行调度管理与资源的分配。 Pod中的容器共享相同的数据和网络地址空间，Pod之间也进行了统一的资源管理与分配。  1.3 常用Pod管理命令 Pod的配置信息中有几个重要部分，apiVersion、kind、metadata、spec以及status。其中apiVersion和kind是比较固定的，status是运行时的状态，所以最重要的就是metadata和spec两个部分。
+先来看一个典型的配置文件，命名为 first-pod.yml
+1 2 3 4 5 6 7 8 9 10 11 12  apiVersion:v1kind:Podmetadata:name:first-podlabels:app:bashtir:backendspec:containers:-name:bash-containerimage:docker.io/busyboxcommand:[&#39;sh&#39;,&#39;-c&#39;,&#39;echo Hello Kubernetes! &amp;&amp; sleep 3600&#39;]  在编写配置文件时，可以通过API Reference来参考，也可以通过命令查看。
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57  [root@devops-101 ~]# kubectl explain pod KIND: Pod VERSION: v1 DESCRIPTION: Pod is a collection of containers that can run on a host." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lflxp.cn/post/k8s-go/pod/readme/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="本文的演练环境为基于Virtualbox搭建的Kubernetes集群，具体搭建步骤可以参考kubeadm安装kubernetes V1.11.1 集群
+ 1. 基本概念 1.1 Pod是什么 Pod是Kubernetes中能够创建和部署的最小单元，是Kubernetes集群中的一个应用实例，总是部署在同一个节点Node上。Pod中包含了一个或多个容器，还包括了存储、网络等各个容器共享的资源。Pod支持多种容器环境，Docker则是最流行的容器环境。
+ 单容器Pod，最常见的应用方式。 多容器Pod，对于多容器Pod，Kubernetes会保证所有的容器都在同一台物理主机或虚拟主机中运行。多容器Pod是相对高阶的使用方式，除非应用耦合特别严重，一般不推荐使用这种方式。一个Pod内的容器共享IP地址和端口范围，容器之间可以通过 localhost 互相访问。   Pod并不提供保证正常运行的能力，因为可能遭受Node节点的物理故障、网络分区等等的影响，整体的高可用是Kubernetes集群通过在集群内调度Node来实现的。通常情况下我们不要直接创建Pod，一般都是通过Controller来进行管理，但是了解Pod对于我们熟悉控制器非常有好处。
+1.2 Pod带来的好处 Pod带来的好处
+ Pod做为一个可以独立运行的服务单元，简化了应用部署的难度，以更高的抽象层次为应用部署管提供了极大的方便。 Pod做为最小的应用实例可以独立运行，因此可以方便的进行部署、水平扩展和收缩、方便进行调度管理与资源的分配。 Pod中的容器共享相同的数据和网络地址空间，Pod之间也进行了统一的资源管理与分配。  1.3 常用Pod管理命令 Pod的配置信息中有几个重要部分，apiVersion、kind、metadata、spec以及status。其中apiVersion和kind是比较固定的，status是运行时的状态，所以最重要的就是metadata和spec两个部分。
+先来看一个典型的配置文件，命名为 first-pod.yml
+1 2 3 4 5 6 7 8 9 10 11 12  apiVersion:v1kind:Podmetadata:name:first-podlabels:app:bashtir:backendspec:containers:-name:bash-containerimage:docker.io/busyboxcommand:[&#39;sh&#39;,&#39;-c&#39;,&#39;echo Hello Kubernetes! &amp;&amp; sleep 3600&#39;]  在编写配置文件时，可以通过API Reference来参考，也可以通过命令查看。
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57  [root@devops-101 ~]# kubectl explain pod KIND: Pod VERSION: v1 DESCRIPTION: Pod is a collection of containers that can run on a host.">
+
+<meta itemprop="wordCount" content="1234">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="本文的演练环境为基于Virtualbox搭建的Kubernetes集群，具体搭建步骤可以参考kubeadm安装kubernetes V1.11.1 集群
+ 1. 基本概念 1.1 Pod是什么 Pod是Kubernetes中能够创建和部署的最小单元，是Kubernetes集群中的一个应用实例，总是部署在同一个节点Node上。Pod中包含了一个或多个容器，还包括了存储、网络等各个容器共享的资源。Pod支持多种容器环境，Docker则是最流行的容器环境。
+ 单容器Pod，最常见的应用方式。 多容器Pod，对于多容器Pod，Kubernetes会保证所有的容器都在同一台物理主机或虚拟主机中运行。多容器Pod是相对高阶的使用方式，除非应用耦合特别严重，一般不推荐使用这种方式。一个Pod内的容器共享IP地址和端口范围，容器之间可以通过 localhost 互相访问。   Pod并不提供保证正常运行的能力，因为可能遭受Node节点的物理故障、网络分区等等的影响，整体的高可用是Kubernetes集群通过在集群内调度Node来实现的。通常情况下我们不要直接创建Pod，一般都是通过Controller来进行管理，但是了解Pod对于我们熟悉控制器非常有好处。
+1.2 Pod带来的好处 Pod带来的好处
+ Pod做为一个可以独立运行的服务单元，简化了应用部署的难度，以更高的抽象层次为应用部署管提供了极大的方便。 Pod做为最小的应用实例可以独立运行，因此可以方便的进行部署、水平扩展和收缩、方便进行调度管理与资源的分配。 Pod中的容器共享相同的数据和网络地址空间，Pod之间也进行了统一的资源管理与分配。  1.3 常用Pod管理命令 Pod的配置信息中有几个重要部分，apiVersion、kind、metadata、spec以及status。其中apiVersion和kind是比较固定的，status是运行时的状态，所以最重要的就是metadata和spec两个部分。
+先来看一个典型的配置文件，命名为 first-pod.yml
+1 2 3 4 5 6 7 8 9 10 11 12  apiVersion:v1kind:Podmetadata:name:first-podlabels:app:bashtir:backendspec:containers:-name:bash-containerimage:docker.io/busyboxcommand:[&#39;sh&#39;,&#39;-c&#39;,&#39;echo Hello Kubernetes! &amp;&amp; sleep 3600&#39;]  在编写配置文件时，可以通过API Reference来参考，也可以通过命令查看。
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57  [root@devops-101 ~]# kubectl explain pod KIND: Pod VERSION: v1 DESCRIPTION: Pod is a collection of containers that can run on a host."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">琵琶</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">目录</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">琵琶</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">目录</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title"></h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 0001-01-01 </span>
+        
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-基本概念">1. 基本概念</a>
+      <ul>
+        <li><a href="#11-pod是什么">1.1 Pod是什么</a></li>
+        <li><a href="#12-pod带来的好处">1.2 Pod带来的好处</a></li>
+        <li><a href="#13-常用pod管理命令">1.3 常用Pod管理命令</a></li>
+        <li><a href="#14-pod的生命周期">1.4 Pod的生命周期</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-如何对pod进行健康检查">2. 如何对Pod进行健康检查</a></li>
+    <li><a href="#3-init-containers">3. Init Containers</a>
+      <ul>
+        <li><a href="#31-好处">3.1 好处</a></li>
+        <li><a href="#32-语法">3.2 语法</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-pod-preset">4. Pod Preset</a>
+      <ul>
+        <li><a href="#41-对个别pod停用">4.1 对个别Pod停用</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-中断">5. 中断</a>
+      <ul>
+        <li><a href="#51-计划内中断">5.1 计划内中断</a></li>
+        <li><a href="#52-计划外中断">5.2 计划外中断</a></li>
+        <li><a href="#53-pdb-disruption-budgets">5.3 PDB Disruption Budgets</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考资料">参考资料</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="0001-01-01T00:00:00" title="January 1, 0001">January 1, 0001</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
+    <div class="post-content">
+      <blockquote>
+<p>本文的演练环境为基于Virtualbox搭建的Kubernetes集群，具体搭建步骤可以参考<a href="https://www.cnblogs.com/cocowool/p/kubeadm_install_kubernetes.html">kubeadm安装kubernetes V1.11.1 集群</a></p>
+</blockquote>
+<h2 id="1-基本概念">1. 基本概念</h2>
+<h3 id="11-pod是什么">1.1 Pod是什么</h3>
+<p>Pod是Kubernetes中能够创建和部署的最小单元，是Kubernetes集群中的一个应用实例，总是部署在同一个节点Node上。Pod中包含了一个或多个容器，还包括了存储、网络等各个容器共享的资源。Pod支持多种容器环境，Docker则是最流行的容器环境。</p>
+<ul>
+<li>单容器Pod，最常见的应用方式。</li>
+<li>多容器Pod，对于多容器Pod，Kubernetes会保证所有的容器都在同一台物理主机或虚拟主机中运行。多容器Pod是相对高阶的使用方式，除非应用耦合特别严重，一般不推荐使用这种方式。一个Pod内的容器共享IP地址和端口范围，容器之间可以通过 localhost 互相访问。
+<img src="https://d33wubrfki0l68.cloudfront.net/aecab1f649bc640ebef1f05581bfcc91a48038c4/728d6/images/docs/pod.svg" alt="多容器Pod示意图"></li>
+</ul>
+<p>Pod并不提供保证正常运行的能力，因为可能遭受Node节点的物理故障、网络分区等等的影响，整体的高可用是Kubernetes集群通过在集群内调度Node来实现的。通常情况下我们不要直接创建Pod，一般都是通过Controller来进行管理，但是了解Pod对于我们熟悉控制器非常有好处。</p>
+<h3 id="12-pod带来的好处">1.2 Pod带来的好处</h3>
+<p>Pod带来的好处</p>
+<ul>
+<li>Pod做为一个可以独立运行的服务单元，简化了应用部署的难度，以更高的抽象层次为应用部署管提供了极大的方便。</li>
+<li>Pod做为最小的应用实例可以独立运行，因此可以方便的进行部署、水平扩展和收缩、方便进行调度管理与资源的分配。</li>
+<li>Pod中的容器共享相同的数据和网络地址空间，Pod之间也进行了统一的资源管理与分配。</li>
+</ul>
+<h3 id="13-常用pod管理命令">1.3 常用Pod管理命令</h3>
+<p>Pod的配置信息中有几个重要部分，apiVersion、kind、metadata、spec以及status。其中<code>apiVersion</code>和<code>kind</code>是比较固定的，<code>status</code>是运行时的状态，所以最重要的就是<code>metadata</code>和<code>spec</code>两个部分。</p>
+<p>先来看一个典型的配置文件，命名为 first-pod.yml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>first-pod<span class="w">
+</span><span class="w">  </span>labels<span class="p">:</span><span class="w">
+</span><span class="w">    </span>app<span class="p">:</span><span class="w"> </span>bash<span class="w">
+</span><span class="w">    </span>tir<span class="p">:</span><span class="w"> </span>backend<span class="w">
+</span><span class="w"></span>spec<span class="p">:</span><span class="w">
+</span><span class="w">  </span>containers<span class="p">:</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>bash-container<span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>docker.io/busybox<span class="w">
+</span><span class="w">    </span>command<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-c&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;echo Hello Kubernetes! &amp;&amp; sleep 3600&#39;</span><span class="p">]</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>在编写配置文件时，可以通过<a href="https://kubernetes.io/docs/reference/">API Reference</a>来参考，也可以通过命令查看。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@devops-101 ~<span class="o">]</span><span class="c1"># kubectl explain pod</span>
+KIND:     Pod
+VERSION:  v1
+
+DESCRIPTION:
+     Pod is a collection of containers that can run on a host. This resource is
+     created by clients and scheduled onto hosts.
+
+FIELDS:
+   apiVersion	&lt;string&gt;
+     APIVersion defines the versioned schema of this representation of an
+     object. Servers should convert recognized schemas to the latest internal
+     value, and may reject unrecognized values. More info:
+     https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+
+   kind	&lt;string&gt;
+     Kind is a string value representing the REST resource this object
+     represents. Servers may infer this from the endpoint the client submits
+     requests to. Cannot be updated. In CamelCase. More info:
+     https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+
+   metadata	&lt;Object&gt;
+     Standard object<span class="s1">&#39;s metadata. More info:
+</span><span class="s1">     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+</span><span class="s1">
+</span><span class="s1">   spec	&lt;Object&gt;
+</span><span class="s1">     Specification of the desired behavior of the pod. More info:
+</span><span class="s1">     https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+</span><span class="s1">
+</span><span class="s1">   status	&lt;Object&gt;
+</span><span class="s1">     Most recently observed status of the pod. This data may not be up to date.
+</span><span class="s1">     Populated by the system. Read-only. More info:
+</span><span class="s1">     https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+</span><span class="s1">[root@devops-101 ~]# kubectl explain pod.spec
+</span><span class="s1">KIND:     Pod
+</span><span class="s1">VERSION:  v1
+</span><span class="s1">
+</span><span class="s1">RESOURCE: spec &lt;Object&gt;
+</span><span class="s1">
+</span><span class="s1">DESCRIPTION:
+</span><span class="s1">     Specification of the desired behavior of the pod. More info:
+</span><span class="s1">     https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+</span><span class="s1">
+</span><span class="s1">     PodSpec is a description of a pod.
+</span><span class="s1">
+</span><span class="s1">FIELDS:
+</span><span class="s1">   activeDeadlineSeconds	&lt;integer&gt;
+</span><span class="s1">     Optional duration in seconds the pod may be active on the node relative to
+</span><span class="s1">     StartTime before the system will actively try to mark it failed and kill
+</span><span class="s1">     associated containers. Value must be a positive integer.
+</span><span class="s1">
+</span><span class="s1">   affinity	&lt;Object&gt;
+</span><span class="s1">     If specified, the pod&#39;</span>s scheduling constraints
+
+   automountServiceAccountToken	&lt;boolean&gt;
+     AutomountServiceAccountToken indicates whether a service account token
+     should be automatically mounted.
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="131-创建">1.3.1 创建</h4>
+<p>利用kubectl命令行管理工具，我们可以直接在命令行通过配置文件创建。如果安装了Dashboard图形管理界面，还可以通过图形界面创建Pod。因为最终Pod的创建都是落在命令上的，这里只介绍如何使用kubectl管理工具来创建。</p>
+<p>使用配置文件的方式创建Pod。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">$ kubectl create -f first-pod.yml 
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="132-查看配置">1.3.2 查看配置</h4>
+<p>如果想了解一个正在运行的Pod的配置，可以通过以下命令获取。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@devops-101 ~<span class="o">]</span><span class="c1"># kubectl get pod first-pod -o yaml</span>
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: 2018-08-08T01:45:16Z
+  labels:
+    app: bash
+  name: first-pod
+  namespace: default
+  resourceVersion: <span class="s2">&#34;184988&#34;</span>
+  selfLink: /api/v1/namespaces/default/pods/first-pod
+  uid: b2d3d2b7-9aac-11e8-84f4-080027b7c4e9
+spec:
+  containers:
+  - command:
+    - sh
+    - -c
+    - <span class="nb">echo</span> Hello Kubernetes! <span class="o">&amp;&amp;</span> sleep <span class="m">3600</span>
+    image: docker.io/busybox
+    imagePullPolicy: Always
+    name: bash-container
+    resources: <span class="o">{</span><span class="o">}</span>
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: default-token-trvqv
+      readOnly: <span class="nb">true</span>
+  dnsPolicy: ClusterFirst
+  nodeName: devops-102
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: <span class="o">{</span><span class="o">}</span>
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: <span class="m">30</span>
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: <span class="m">300</span>
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: <span class="m">300</span>
+  volumes:
+  - name: default-token-trvqv
+    secret:
+      defaultMode: <span class="m">420</span>
+      secretName: default-token-trvqv
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: 2018-08-08T01:45:16Z
+    status: <span class="s2">&#34;True&#34;</span>
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: 2018-08-08T01:45:16Z
+    message: <span class="s1">&#39;containers with unready status: [bash-container]&#39;</span>
+    reason: ContainersNotReady
+    status: <span class="s2">&#34;False&#34;</span>
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: null
+    message: <span class="s1">&#39;containers with unready status: [bash-container]&#39;</span>
+    reason: ContainersNotReady
+    status: <span class="s2">&#34;False&#34;</span>
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: 2018-08-08T01:45:16Z
+    status: <span class="s2">&#34;True&#34;</span>
+    type: PodScheduled
+  containerStatuses:
+  - image: docker.io/busybox
+    imageID: <span class="s2">&#34;&#34;</span>
+    lastState: <span class="o">{</span><span class="o">}</span>
+    name: bash-container
+    ready: <span class="nb">false</span>
+    restartCount: <span class="m">0</span>
+    state:
+      waiting:
+        reason: ContainerCreating
+  hostIP: 192.168.0.102
+  phase: Pending
+  qosClass: BestEffort
+  startTime: 2018-08-08T01:45:16Z
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="133-查看日志">1.3.3 查看日志</h4>
+<p>可以查看命令行标准输出的日志。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@devops-101 ~<span class="o">]</span><span class="c1"># kubectl logs first-pod</span>
+Hello Kubernetes!
+</code></pre></td></tr></table>
+</div>
+</div><p>如果Pod中有多个容器，查看特定容器的日志需要指定容器名称<code>kubectl logs pod-name -c container-name</code>。</p>
+<h4 id="134-标签管理">1.3.4 标签管理</h4>
+<p>标签是Kubernetes管理Pod的重要依据，我们可以在Pod yaml文件中 metadata 中指定，也可以通过命令行进行管理。</p>
+<p>显示Pod的标签</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@devops-101 ~<span class="o">]</span><span class="c1"># kubectl get pods --show-labels</span>
+NAME        READY     STATUS    RESTARTS   AGE       LABELS
+first-pod   1/1       Running   <span class="m">0</span>          15m       <span class="nv">app</span><span class="o">=</span>bash
+</code></pre></td></tr></table>
+</div>
+</div><p>使用 second-pod.yml 我们再创建一个包含两个标签的Pod。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@devops-101 ~<span class="o">]</span><span class="c1"># kubectl create -f first-pod.yml</span> 
+pod/second-pod created
+<span class="o">[</span>root@devops-101 ~<span class="o">]</span><span class="c1"># kubectl get pods --show-labels</span>
+NAME         READY     STATUS              RESTARTS   AGE       LABELS
+first-pod    1/1       Running             <span class="m">0</span>          17m       <span class="nv">app</span><span class="o">=</span>bash
+second-pod   0/1       ContainerCreating   <span class="m">0</span>          20s       <span class="nv">app</span><span class="o">=</span>bash,tir<span class="o">=</span>backend
+</code></pre></td></tr></table>
+</div>
+</div><p>根据标签来查询Pod。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@devops-101 ~<span class="o">]</span><span class="c1"># kubectl get pods -l tir=backend --show-labels</span>
+NAME         READY     STATUS    RESTARTS   AGE       LABELS
+second-pod   1/1       Running   <span class="m">0</span>          1m        <span class="nv">app</span><span class="o">=</span>bash,tir<span class="o">=</span>backend
+</code></pre></td></tr></table>
+</div>
+</div><p>增加标签</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@devops-101 ~<span class="o">]</span><span class="c1"># kubectl label pod first-pod tir=frontend</span>
+pod/first-pod labeled
+<span class="o">[</span>root@devops-101 ~<span class="o">]</span><span class="c1"># kubectl get pods --show-labels</span>
+NAME         READY     STATUS    RESTARTS   AGE       LABELS
+first-pod    1/1       Running   <span class="m">0</span>          24m       <span class="nv">app</span><span class="o">=</span>bash,tir<span class="o">=</span>frontend
+second-pod   1/1       Running   <span class="m">0</span>          7m        <span class="nv">app</span><span class="o">=</span>bash,tir<span class="o">=</span>backend
+</code></pre></td></tr></table>
+</div>
+</div><p>修改标签</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@devops-101 ~<span class="o">]</span><span class="c1"># kubectl label pod first-pod tir=unkonwn --overwrite</span>
+pod/first-pod labeled
+<span class="o">[</span>root@devops-101 ~<span class="o">]</span><span class="c1"># kubectl get pods --show-labels</span>
+NAME         READY     STATUS    RESTARTS   AGE       LABELS
+first-pod    1/1       Running   <span class="m">0</span>          25m       <span class="nv">app</span><span class="o">=</span>bash,tir<span class="o">=</span>unkonwn
+second-pod   1/1       Running   <span class="m">0</span>          8m        <span class="nv">app</span><span class="o">=</span>bash,tir<span class="o">=</span>backend
+</code></pre></td></tr></table>
+</div>
+</div><p>可以将标签显示为列</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@devops-101 ~<span class="o">]</span><span class="c1"># kubectl get pods -L app,tir</span>
+NAME         READY     STATUS    RESTARTS   AGE       APP       TIR
+first-pod    1/1       Running   <span class="m">0</span>          26m       bash      unkonwn
+second-pod   1/1       Running   <span class="m">0</span>          9m        bash      backend
+</code></pre></td></tr></table>
+</div>
+</div><p>标签是Kubernetes中非常强大的一个功能，Node节点也可以增加标签，再利用Pod的标签选择器，可以将Pod分配到不同类型的Node上。</p>
+<h4 id="135-删除pod">1.3.5 删除Pod</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@devops-101 ~<span class="o">]</span><span class="c1"># kubectl delete pods first-pod</span>
+pod <span class="s2">&#34;first-pod&#34;</span> deleted
+</code></pre></td></tr></table>
+</div>
+</div><p>也可以根据标签选择器删除。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@devops-101 ~<span class="o">]</span><span class="c1"># kubectl delete pods -l tir=backend</span>
+pod <span class="s2">&#34;second-pod&#34;</span> deleted
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="14-pod的生命周期">1.4 Pod的生命周期</h3>
+<p>像单独的容器应用一样，Pod并不是持久运行的。Pod创建后，Kubernetes为其分配一个UID，并且通过Controller调度到Node中运行，然后Pod一直保持运行状态直到运行正常结束或者被删除。在Node发生故障时，Controller负责将其调度到其他的Node中。Kubernetes为Pod定义了几种状态，分别如下：</p>
+<ul>
+<li>Pending，Pod已创建，正在等待容器创建。经常是正在下载镜像，因为这一步骤最耗费时间。</li>
+<li>Running，Pod已经绑定到某个Node并且正在运行。或者可能正在进行意外中断后的重启。</li>
+<li>Succeeded，表示Pod中的容器已经正常结束并且不需要重启。</li>
+<li>Failed，表示Pod中的容器遇到了错误而终止。</li>
+<li>Unknown，因为网络或其他原因，无法获取Pod的状态。</li>
+</ul>
+<h2 id="2-如何对pod进行健康检查">2. 如何对Pod进行健康检查</h2>
+<p>Kubernetes利用<a href="https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler">Handler</a>功能，可以对容器的状况进行探测，有以下三种形式。</p>
+<ul>
+<li>ExecAction：在容器中执行特定的命令。</li>
+<li>TCPSocketAction：检查容器端口是否可以连接。</li>
+<li>HTTPGetAction：检查HTTP请求状态是否正常。</li>
+</ul>
+<p>这部分内容展开来也比较多，后续计划单独写一篇来介绍。</p>
+<h2 id="3-init-containers">3. Init Containers</h2>
+<p>Pod中可以包含一到多个Init Container，在其他容器之前开始运行。Init Container 只能是运行到完成状态，即不能够一直存在。Init Container必须依次执行。在App Container运行前，所有的Init Container必须全部正常结束。</p>
+<p>在Pod启动过程中，Init Container在网络和存储初始化完成后开始按顺序启动。Pod重启的时候，所有的Init Container都会重新执行。</p>
+<blockquote>
+<p>However, if the Pod restartPolicy is set to Always, the Init Containers use RestartPolicy OnFailure.</p>
+</blockquote>
+<h3 id="31-好处">3.1 好处</h3>
+<ul>
+<li>运行一些不希望在 App Container 中运行的命令或工具</li>
+<li>包含一些App Image中没有的工具或特定代码</li>
+<li>应用镜像构建人员和部署人员可以独立工作而不需要依赖对方</li>
+<li>拥有与App Container不同的命名空间</li>
+<li>因为在App Container运行前必须运行结束，适合做一些前置条件的检查和配置</li>
+</ul>
+<h3 id="32-语法">3.2 语法</h3>
+<p>先看一下解释</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@devops-101 ~<span class="o">]</span><span class="c1"># kubectl explain pod.spec.initContainers</span>
+KIND:     Pod
+VERSION:  v1
+
+RESOURCE: initContainers &lt;<span class="o">[</span><span class="o">]</span>Object&gt;
+
+DESCRIPTION:
+     List of initialization containers belonging to the pod. Init containers are
+     executed in order prior to containers being started. If any init container
+     fails, the pod is considered to have failed and is handled according to its
+     restartPolicy. The name <span class="k">for</span> an init container or normal container must be
+     unique among all containers. Init containers may not have Lifecycle
+     actions, Readiness probes, or Liveness probes. The resourceRequirements of
+     an init container are taken into account during scheduling by finding the
+     highest request/limit <span class="k">for</span> each resource type, and <span class="k">then</span> using the max of of
+     that value or the sum of the normal containers. Limits are applied to init
+     containers in a similar fashion. Init containers cannot currently be added
+     or removed. Cannot be updated. More info:
+     https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+
+     A single application container that you want to run within a pod.
+</code></pre></td></tr></table>
+</div>
+</div><p>具体语法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>myapp-pod<span class="w">
+</span><span class="w">  </span>labels<span class="p">:</span><span class="w">
+</span><span class="w">    </span>app<span class="p">:</span><span class="w"> </span>myapp<span class="w">
+</span><span class="w"></span>spec<span class="p">:</span><span class="w">
+</span><span class="w">  </span>containers<span class="p">:</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>myapp-container<span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>docker.io/busybox<span class="w">
+</span><span class="w">    </span>command<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-c&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;echo The app is running! &amp;&amp; sleep 3600&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span>initContainers<span class="p">:</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>init-myservice<span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>docker.io/busybox<span class="w">
+</span><span class="w">    </span>command<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-c&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;echo init-service &amp;&amp; sleep 2&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>init-mydb<span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>docker.io/busybox<span class="w">
+</span><span class="w">    </span>command<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-c&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;echo init-mydb &amp;&amp; sleep 2&#39;</span><span class="p">]</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>兼容性问题
+1.5之前的语法都写在 annotation 中，1.6 以上的版本使用 <code>.spec.initContainers</code> 字段。建议还是使用 1.6 版本的语法。1.6、1.7的版本还兼容1.5以下的版本，1.8之后就不再兼容老版本了。</p>
+</blockquote>
+<h2 id="4-pod-preset">4. Pod Preset</h2>
+<p>利用这个特性，可以在Pod启动过程中向Pod中注入密码 Secrets、存储 Volumes、挂载点 Volume Mounts和环境变量。通过标签选择器来指定Pod。利用这个特性，Pod Template的维护人员就不需要为每个Pod显示的提供相关的属性。</p>
+<p>具体的工作步骤</p>
+<ul>
+<li>检查所有可用的ProdPresets</li>
+<li>检查是否有ProdPreset的标签与即将创建的Pod相匹配</li>
+<li>将PodPreset中定义的参数与Pod定义合并</li>
+<li>如果参数合并出错，则丢弃ProPreset参数，继续创建Pod</li>
+<li>为Pod增加注解，表示层被ProdPreset修改过，形式为 <code>podpreset.admission.kubernetes.io/podpreset-&lt;pod-preset name&gt;: &quot;&lt;resource version&gt;&quot;</code></li>
+</ul>
+<p>对于 <code>Env</code>、<code>EnvFrom</code>、<code>VolumeMounts</code> Kubernetes修改Container Spec，对于<code>Volume</code>修改Pod Spec。</p>
+<h3 id="41-对个别pod停用">4.1 对个别Pod停用</h3>
+<p>在Spec中增加注解：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">podpreset.admission.kubernetes.io/exclude<span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="5-中断">5. 中断</h2>
+<p>Pod会因为各种各样的原因发生中断。</p>
+<h3 id="51-计划内中断">5.1 计划内中断</h3>
+<ul>
+<li>删除部署 Deployment或者其他控制器</li>
+<li>更新部署模版导致的Pod重启</li>
+<li>直接删除Pod</li>
+<li>集群的缩容</li>
+<li>手工移除</li>
+</ul>
+<h3 id="52-计划外中断">5.2 计划外中断</h3>
+<ul>
+<li>硬件故障、物理节点宕机</li>
+<li>集群管理员误删VM</li>
+<li>云供应商故障导致的主机不可用</li>
+<li>Kernel panic</li>
+<li>集群网络分区导致节点消失</li>
+<li>资源耗尽导致的节点剔除</li>
+</ul>
+<h3 id="53-pdb-disruption-budgets">5.3 PDB Disruption Budgets</h3>
+<blockquote>
+<p>Kubernetes offers features to help run highly available applications at the same time as frequent voluntary disruptions. We call this set of features Disruption Budgets.</p>
+</blockquote>
+<p>Kubernetes允许我们创建一个PDB对象，来确保一个RS中运行的Pod不会在一个预算（个数）之下。
+Eviction API。</p>
+<p>PDB是用来解决集群管理和应用管理职责分离的情况，如果你的单位不存在这种情况，就可以不使用PDB。</p>
+<h2 id="参考资料">参考资料</h2>
+<ol>
+<li><a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/">Pods</a></li>
+<li><a href="#">Kubernetes in action</a></li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lflxp</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        0001-01-01
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/k8s-go/pod-probe/readme/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default"></span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/k8s-go/readme/">
+            <span class="next-text nav-default"></span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="comments-gitment"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitment = new Gitment({
+        id: '0001-01-01 00:00:00 \x2b0000 UTC',
+        title: '',
+        link: decodeURI(location.href),
+        desc: '本文的演练环境为基于Virtualbox搭建的Kubernetes集群，具体搭建步骤可以参考kubeadm安装kubernetes V1.11.1 集群\n 1. 基本概念 1.1 Pod是什么 Pod是Kubernetes中能够创建和部署的最小单元，是Kubernetes集群中的一个应用实例，总是部署在同一个节点Node上。Pod中包含了一个或多个容器，还包括了存储、网络等各个容器共享的资源。Pod支持多种容器环境，Docker则是最流行的容器环境。\n 单容器Pod，最常见的应用方式。 多容器Pod，对于多容器Pod，Kubernetes会保证所有的容器都在同一台物理主机或虚拟主机中运行。多容器Pod是相对高阶的使用方式，除非应用耦合特别严重，一般不推荐使用这种方式。一个Pod内的容器共享IP地址和端口范围，容器之间可以通过 localhost 互相访问。   Pod并不提供保证正常运行的能力，因为可能遭受Node节点的物理故障、网络分区等等的影响，整体的高可用是Kubernetes集群通过在集群内调度Node来实现的。通常情况下我们不要直接创建Pod，一般都是通过Controller来进行管理，但是了解Pod对于我们熟悉控制器非常有好处。\n1.2 Pod带来的好处 Pod带来的好处\n Pod做为一个可以独立运行的服务单元，简化了应用部署的难度，以更高的抽象层次为应用部署管提供了极大的方便。 Pod做为最小的应用实例可以独立运行，因此可以方便的进行部署、水平扩展和收缩、方便进行调度管理与资源的分配。 Pod中的容器共享相同的数据和网络地址空间，Pod之间也进行了统一的资源管理与分配。  1.3 常用Pod管理命令 Pod的配置信息中有几个重要部分，apiVersion、kind、metadata、spec以及status。其中apiVersion和kind是比较固定的，status是运行时的状态，所以最重要的就是metadata和spec两个部分。\n先来看一个典型的配置文件，命名为 first-pod.yml\n1 2 3 4 5 6 7 8 9 10 11 12  apiVersion:v1kind:Podmetadata:name:first-podlabels:app:bashtir:backendspec:containers:-name:bash-containerimage:docker.io\/busyboxcommand:[\x26#39;sh\x26#39;,\x26#39;-c\x26#39;,\x26#39;echo Hello Kubernetes! \x26amp;\x26amp; sleep 3600\x26#39;]  在编写配置文件时，可以通过API Reference来参考，也可以通过命令查看。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57  [root@devops-101 ~]# kubectl explain pod KIND: Pod VERSION: v1 DESCRIPTION: Pod is a collection of containers that can run on a host.',
+        owner: 'lflxp',
+        repo: 'https:\/\/github.com\/lflxp\/lflxp.github.com',
+        oauth: {
+          client_id: '',
+          client_secret: ''
+        }
+      });
+      gitment.render('comments-gitment');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:382023823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/lflxp" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.lflxp.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">lflxp.cn 版权所有 ICP证：<a href='http://www.beian.miit.gov.cn' target='_blank'>渝ICP备17011066号-1</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '渝ICP备17011066号-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
