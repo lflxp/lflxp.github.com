@@ -65,14 +65,14 @@
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/categories/theme-preview/</loc>
+    <loc>https://www.lflxp.cn/tags/theme-preview/</loc>
     <lastmod>2018-07-10T00:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/tags/theme-preview/</loc>
+    <loc>https://www.lflxp.cn/categories/theme-preview/</loc>
     <lastmod>2018-07-10T00:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -100,14 +100,14 @@
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/tags/english/</loc>
+    <loc>https://www.lflxp.cn/categories/english/</loc>
     <lastmod>2017-08-31T15:43:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/categories/english/</loc>
+    <loc>https://www.lflxp.cn/tags/english/</loc>
     <lastmod>2017-08-31T15:43:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -163,14 +163,14 @@
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/categories/%E4%B8%AD%E6%96%87/</loc>
+    <loc>https://www.lflxp.cn/tags/%E4%B8%AD%E6%96%87/</loc>
     <lastmod>2017-08-30T01:37:56+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/tags/%E4%B8%AD%E6%96%87/</loc>
+    <loc>https://www.lflxp.cn/categories/%E4%B8%AD%E6%96%87/</loc>
     <lastmod>2017-08-30T01:37:56+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -476,6 +476,71 @@
   
   <url>
     <loc>https://www.lflxp.cn/post/soldierassault/summary/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/tags/notebook/1/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/tags/notebook/2/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/tags/notebook/3/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/tags/notebook/996/io/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/tags/notebook/china/1/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/tags/notebook/china/2/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/tags/notebook/china/chongqing/readme/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/tags/notebook/china/io/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/tags/notebook/deploy/k8s-node/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/tags/notebook/docker/storage-driver/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/tags/notebook/flutter/web-exception/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/tags/notebook/readme/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/tags/readme/</loc>
     <priority>0</priority>
   </url>
   

@@ -1,0 +1,146 @@
+```
+[root@ai-dev-cicd03 redis]# cat redis-operator.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: redisoperator
+  name: redisoperator
+  namespace: af
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redisoperator
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: redisoperator
+    spec:
+      serviceAccountName: redisoperator
+      containers:
+      - image: harbor.cloudwalk.work/cmdb/redis-operator:latest
+        imagePullPolicy: IfNotPresent
+        name: app
+        resources:
+          limits:
+            cpu: 100m
+            memory: 50Mi
+          requests:
+            cpu: 10m
+            memory: 50Mi
+      restartPolicy: Always
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: redisoperator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: redisoperator
+subjects:
+- kind: ServiceAccount
+  name: redisoperator
+  namespace: af
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: redisoperator
+  namespace: af
+rules:
+- apiGroups:
+    - storage.spotahome.com
+  resources:
+    - redisfailovers
+  verbs:
+    - "*"
+- apiGroups:
+    - apiextensions.k8s.io
+  resources:
+    - customresourcedefinitions
+  verbs:
+    - "*"
+- apiGroups:
+    - ""
+  resources:
+    - pods
+    - services
+    - endpoints
+    - events
+    - configmaps
+  verbs:
+    - "*"
+- apiGroups:
+    - apps
+  resources:
+    - deployments
+    - statefulsets
+  verbs:
+    - "*"
+- apiGroups:
+    - policy
+  resources:
+    - poddisruptionbudgets
+  verbs:
+    - "*"
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: redisoperator
+  namespace: af
+[root@ai-dev-cicd03 redis]#
+[root@ai-dev-cicd03 redis]#
+[root@ai-dev-cicd03 redis]#
+[root@ai-dev-cicd03 redis]# cat
+basic.yaml           redis-operator.yaml  service.yaml
+[root@ai-dev-cicd03 redis]# cat basic.yaml
+apiVersion: storage.spotahome.com/v1alpha2
+kind: RedisFailover
+metadata:
+  name: redisfailover
+  namespace: af
+spec:
+  sentinel:
+    replicas: 3
+    resources:
+      requests:
+        cpu: 100m
+      limits:
+        memory: 100Mi
+  redis:
+    replicas: 3
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+      limits:
+        cpu: 400m
+        memory: 500Mi
+
+[root@ai-dev-cicd03 redis]# cat service.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: af
+spec:
+  ports:
+  - name: redis
+    port: 6379
+    targetPort: 6379
+  selector:
+    app: redis-failover
+    component: redis
+    creator: redisfailover
+    redis: redisfailover
+    redisfailover: redisfailover
+    statefulset.kubernetes.io/pod-name: rfr-redisfailover-0
+
+[root@ai-dev-cicd03 redis]#
+```
