@@ -44,7 +44,7 @@
 <meta property="og:description" content="私人私塾" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.lflxp.cn/" />
-
+<meta property="og:updated_time" content="2018-07-10T00:00:00+08:00" />
 <meta itemprop="name" content="爱像水墨青花">
 <meta itemprop="description" content="私人私塾"><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="爱像水墨青花"/>
@@ -81,6 +81,8 @@
         <li class="mobile-menu-item">标签</li>
       </a><a href="/categories/">
         <li class="mobile-menu-item">目录</li>
+      </a><a href="/post/about/">
+        <li class="mobile-menu-item">About</li>
       </a>
   </ul>
 </nav>
@@ -100,6 +102,8 @@
         <a class="menu-item-link" href="/tags/">标签</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/categories/">目录</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about/">About</a>
       </li>
   </ul>
 </nav>
@@ -111,7 +115,7 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/hyperdl-tutorial/8.%E5%9F%BA%E7%A1%80%E7%BD%91%E7%BB%9C%E7%9A%84%E8%AE%AD%E7%BB%83/readme/"></a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/hyperdl-tutorial/10.%E5%AF%B9%E6%8A%97%E8%92%B8%E9%A6%8F/readme/"></a></h1>
     <div class="post-meta">
       <span class="post-time"> 0001-01-01 </span>
       
@@ -120,26 +124,29 @@
   
   <div class="post-content">
     <div class="post-summary">
-      基础网络的训练 目前我们常用的神经网络，github上基本都具有较为丰富的训练、测试代码，我们这里选择几种常用，高效的网络推荐给大家，包括与之对应的github工程，涉及一些训练的技巧，旨在让大家能够复现出作者原始的精度。
-我们这里主要介绍以下几个网络的训练与使用:
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  1.MobileNet(分类网络)2.MnasNet(分类网络)3.MTCNN(单一物体检测网络)4.MobileNet-SSD(Single Shot 物体检测网络)5.CTPN(文字定位网络)6.insightface(人脸识别网络)7.VanillaCNN(人脸关键点回归网络)8.YOLO-V3(通用物体检测网络)9.DeepOCR(文字识别网络)  以上这些网络涵盖了日常使用网络设计到的大部分功能，一些相关的应用也可以通过这些网络的变通，修改进行试验。
-1.MobileNet MobileNet是谷歌发布的第一代专为移动端设计的高效网络，其后续版本MobileNet-v2同样优秀，shicai yang大神已经给出了网络的pretrain model，以及caffe的训练、测试代码，利用该网络可以训练其他类似的分类任务，例如我们开源的鉴黄网络.
-2.MnasNet MnasNet同样是谷歌发布的高效移动端分类网络，与Mobilenet不同之处在于网络的设计借助deepmind AI的能力，不是hand craft手动设计的网络，相比于mobilenet，速度快大约1.5倍，准确度提高将近两个点。我们同样复现了该网络，并且提供了该网络再标准ImageNet上的pretrain model，接近了官方的精度。连接地址：https://github.com/zeusees/Mnasnet-Pretrained-Model
-3.MTCNN MTCNN是一个非常优秀的单一物体检测框架，可以用这个框架进行人脸、车辆、行人等单一物体的检测，该网络的主要问题在于单帧图像中包含多个物体时，检测速度下降严重。mtcnn的复现在github上有多个版本，包括caffe、keras、TensorFlow等，我们测试了不同版本，有一些存在问题，https://github.com/AITTSMD/MTCNN-Tensorflow 这个repo能够基本复现作者的精度，训练过程中，一定要注意正负样本保持1:3的比例。其实，mtcnn框架具有一些优化的方法和空间，包括用卷积替代polling，采用dw卷积等等，相关修改可以参考我们的文章: https://blog.csdn.net/Relocy/article/details/84075570 . 我们的工程师同样提供了一个优化的mtcnn模型：https://github.com/szad670401/Fast-MTCNN ，大家可以参考修改。
-4.MobileNet-SSD SSD是Single Shot检测网络的代表结构，其速度快，单帧物体数量对检测速度影响不大，具有很好的工程化指导作用。Mobilenet跟SSD的结合，更能够提高网络的速度。Mobilenet-SSD可以参考：https://github.com/chuanqi305/MobileNet-SSD 这里有数据准备代码，以及网络的训练测试代码。我们采用这个网络进行了车牌检测的实验，效果也不错，能够完成单层、双层、蓝牌、黄牌、绿牌的检测，可以参见我们的博客：https://blog.csdn.net/lsy17096535/article/details/78687728 ，我们开源的车牌检测Mobilenet-SSD模型：https://github.com/zeusees/Mobilenet-SSD-License-Plate-Detection
-5.CTPN 6.insightface insightface是一款高精度的开源人脸识别框架，在我们的测试中，insightface针对一般场景效果不错，“历史脸”效果稍差，有可能因为训练数据历史脸数据不足导致的，算法的作者guojia也将论文提交到了CVPR2019，期待他的好消息。大家可以在这里找到作者的实现：https://github.com/deepinsight/insightface 作者的框架基于MXNET，目前git上已经有基于TensorFlow、caffe等其他框架的实现，大家可以参考。大家在部署阶段，可以利用TVM部署该框架，速度快，也可以将模型转换到caffe model，部署到其他平台。TVM部署方法可以参考我们的博客：insightface模型的TVM框架部署
-7.VanillaCNN VanillaCNN是针对香港中文大学人脸关键点定位网络TCDCN的一个复现，大家可以参考 https://github.com/ishay2b/VanillaCNN 。稠密人脸关键点定位(通常关键点50点以上)同样是一个回归问题，让网络能够通过对人脸边缘特征的提取，回归出准确的定位，这篇文章采用了多任务进行定位，取得了很好的效果，后来几年的的很多算法，在准确度上有提升，但是在速度上不具有优势。大家可以利用高效的网络结构提取特征并加速，取得更好的人脸关键点定位准确度和速度。大家在训练关键点定位的网络时，可以结合可视化的技术，将网络后面基层的feature map显示出来，观察网络对输入人脸边缘提取的效果，改进网络结构。
-8.YOLO-V3 通用物体检测近年来也是研究人员关注的人们领域，从RBG、何凯明大神的RCNN，Fast RCNN，Faster RCNN，MASK RCNN等，Single Shot的Yolo系列、SSD等，以后后来的RetinaNet，我们对这一系列的网络都进行过测试，由于我们算法组在日常使用中主要考虑移动端的部署以及服务器端的效率，推荐了MobileNet-SSD跟YOLO-V3。我们对3000张行车记录仪标注图像以及2000张交通监控图片进行标注，分别在以上网络进行了测试，对于我们的图片，YOLO-V3表现最好，速度也是最快的一档。项目主页：https://pjreddie.
+      你的神经网络真的收敛了么？ 1、为什么小模型的作为backbone效果会差？ 在深度学习目标检测(图像分割)领域，我们发现当我们使用层数越深，并且在imagenet上表现越好的分类网络作为backbone时，它的检测和分割效果越好效果越好。比如我们使用resnet101作为backbone时候，faster_rcnn在coco2017检测数据集上的mAP可以达到40.1，而使用resnet50作为backbone时候，mAP只达到37.1。而ssd使用resnet50作为backbone时候，mAP达到30.6，使用mobilenet作为backbone只达到21.7。参看gluoncv公布的训练结果。https://gluon-cv.mxnet.io/model_zoo/detection.html#faster-rcnn
+那为什么使用mobilenet这种小网络会比resnet101这种大网络效果差这么多呢？主流的想法是小网络的容量小、表现效果差，等等。
+**那到底是那么原因呢？**我们可以观察gluoncv官网的ssd_mobilenet[1]和ssd_resnet50[2]在coco上的训练log。我们发现ssd_resnet50[2]的CrossEntropy和SmoothL1最终收敛到2.14+，和1.22+左右，而ssdmobilenet 的CrossEntropy和SmoothL1最终收敛到2.84+，和3.29+左右。同样我们可以去观察gluoncv官网的faster_rcnn分别在resnet50和在resnet101上的训练loss，我们可以发现loss收敛的越小模型在coco 2017的验证集上的mAP越高。并且当backbone使用fpn的方法增大了模型的体积，模型的loss会将的更低，相应的mAP也越高。由此我个人认为使用小模型的作为backbone的迁移学习任务(尤其是目标检测任务)效果差的真正原因是模型欠拟合。
+2、你的神经网络真的收敛了么？
+既然知道小网络作为backbone效果差的真正原因是模型欠拟合，那如果我们要提高小网络的效果，最主要的任务就是降低小网络的loss(当然大网络的loss如果被进一步降低效果自然越好，比如可以观看faster_rcnn+fpn+resnet101就比faster_rcnn+resnet101的loss低一点点,当然效果也就提升一点点)。
+**而我们不妨假设如果小网络最终”收敛“的loss如果可以达到大网络收敛的loss，那小网络能否达到大网络的效果呢？**可能由于小网络的容量小，参数少，很难收敛到大网络的最终收敛的loss。当然方法是人想的，不然怎么能发paper。
+我个人认为降低小网络的loss主要有两种方式：
+1、提高效果的模型体积，如FPN，DLA，shortcut，concat 等等。不过当模型体积增大到一定程度，他所能得到的收益也越小，比如可以观看gluoncv官网的log。faster_rcnn+fpn+resnet101就比faster_rcnn+resnet101的loss低一点点,当然效果也就提升一点点。而faster_rcnn+fpn+resnet50就比faster_rcnn+resnet50的loss低很多,当然效果也就提升也高了很多。
+2、改变训练方式，比如很早提出的知识蒸馏，2018年的cascade rcnn和snip,以及2019年的各种anchor free，都是改变训练方式，虽然他们的动机各不相同，但是我觉得大部分都是进一步降低loss，提高模型的效果。
+​ 第一种方式对于个人觉得对于做模型压缩的人来说不太可取，而第二种方式才是主要考虑方向。对于改变训练方式的方法，读者可以参看我的上一篇文章https://zhuanlan.zhihu.com/p/64138476对抗蒸馏，使用对抗生成网络和cosine attention的机制，将大网络的知识迁移到小网络，进一步降低小网络最终的收敛loss。目前开放的使用ssd_resnet50作为teacher net ssd_mobilenet作为student net在voc数据集上将ssd_mobilenet的CrossEntropy和SmoothL1最终收敛到1.388+ 0.659+，mAP达到78.2+，而原始ssd_mobilenet在voc上的CrossEntropy和SmoothL1最终收敛到1.962+ 0.944+，mAP达到75.4，由于gpu资源限制目前在coco上还没训练完。训练log地址为，https://github.com/p517332051/GAN-Knowledge-Distillation-SSD/blob/master/ssd_512_mobilenet1_0_resnet50_v1_voc_g_d_new_train.log。
+​ 通过这种方法，我发现小网络并非不是不可以继续收敛，而是训练方式得到改善自然可以继续降低他的loss，而随之loss降低，网络的效果可以进一步提升。期望我的方法能起到抛砖引玉的效果，能推动学术界和工业界神经网络压缩的工作的进展。
+知乎链接https://zhuanlan.zhihu.com/p/68563369
+参考  ^https://raw.githubusercontent.com/dmlc/web-data/master/gluoncv/logs/detection/ssd_512_mobilenet1_0_coco_train.log ^abhttps://raw.githubusercontent.com/dmlc/web-data/master/gluoncv/logs/detection/ssd_512_resnet50_v1_coco_train.log  
     </div>
     <div class="read-more">
-      <a href="/post/hyperdl-tutorial/8.%E5%9F%BA%E7%A1%80%E7%BD%91%E7%BB%9C%E7%9A%84%E8%AE%AD%E7%BB%83/readme/" class="read-more-link">阅读更多</a>
+      <a href="/post/hyperdl-tutorial/10.%E5%AF%B9%E6%8A%97%E8%92%B8%E9%A6%8F/readme/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
 
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/hyperdl-tutorial/9.%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98/readme/"></a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/hyperdl-tutorial/2.%E5%9F%BA%E7%A1%80%E7%BD%91%E7%BB%9C/readme/"></a></h1>
     <div class="post-meta">
       <span class="post-time"> 0001-01-01 </span>
       
@@ -148,22 +155,26 @@
   
   <div class="post-content">
     <div class="post-summary">
-      相关问题 说是面试题，并不是为了读者去利用这个去参加面试，只是为了一些图像算法相关问题的深入理解，这里面的一些问题，除了参考网上的解答，也包含了 部分我们自己的理解，不当之处欢迎指出。
-1.CNN的特点以及优势 改变全连接为局部连接，这是由于图片的特殊性造成的（图像的一部分的统计特性与其他部分是一样的），通过局部连接和参数共享大范围的减少参数值。可以通过使用多个filter来提取图片的不同特征（多卷积核）。
-CNN使用范围是具有局部空间相关性的数据，比如图像，自然语言，语音
-1.局部连接：可以提取局部特征。2.权值共享：减少参数数量，因此降低训练难度（空间、时间消耗都少了）。 3.可以完全共享，也可以局部共享（比如对人脸，眼睛鼻子嘴由于位置和样式相对固定，可以用和脸部不一样的卷积核）4.降维：通过池化或卷积stride实现。5.多层次结构：将低层次的局部特征组合成为较高层次的特征。不同层级的特征可以对应不同任务。 2.deconv的作用 1.unsupervised learning： 重构图像2.CNN可视化：将conv中得到的feature map还原到像素空间，来观察特定的feature map对哪些pattern的图片敏感3.Upsampling：上采样。 3.dropout作用以及实现机制 (参考:https://blog.csdn.net/nini_coded/article/details/79302800) 1.dropout是指在深度学习网络的训练过程中，对于神经网络单元，按照一定的概率将其暂时从网络中丢弃。注意是暂时，对于随机梯度下降来说，由于是随机丢弃，故而每一个mini-batch都在训练不同的网络。2.dropout是一种CNN训练过程中防止过拟合提高效果的方法3.dropout带来的缺点是可能减慢收敛速度：由于每次迭代只有一部分参数更新，可能导致梯度下降变慢4.测试时，需要每个权值乘以P 4.深度学习中有什么加快收敛/降低训练难度的方法： 1.瓶颈结构2.残差3.学习率、步长、动量4.优化方法5.预训练 5.什么造成过拟合，如何防止过拟合 1.data agumentation2.early stop3.参数规则化4.用更简单模型5.dropout6.加噪声7.预训练网络freeze某几层 6.LSTM防止梯度弥散和爆炸 LSTM用加和的方式取代了乘积，使得很难出现梯度弥散。但是相应的更大的几率会出现梯度爆炸，但是可以通过给梯度加门限解决这一问题 7.为什么很多做人脸的Paper会最后加入一个Local Connected Conv? 在一些研究成果中，作者通过实验表明：人脸在不同的区域存在不同的特征（眼睛／鼻子／嘴的分布位置相对固定），当不存在全局的局部特征分布时，Local-Conv更适合特征的提取。
-8.神经网络权值初始化方式以及不同方式的区别? 权值初始化的方法主要有：常量初始化（constant）、高斯分布初始化（gaussian）、positive_unitball初始化、均匀分布初始化（uniform）、xavier初始化、msra初始化、双线性初始化（bilinear）
-9.Convolution、 pooling、 Normalization是卷积神经网络中十分重要的三个步骤，分别简述Convolution、 pooling和Normalization在卷积神经网络中的作用。 10.dilated conv(空洞卷积)优缺点以及应用场景 基于FCN的语义分割问题中，需保持输入图像与输出特征图的size相同。若使用池化层，则降低了特征图size,需在高层阶段使用上采样，由于池化会损失信息，所以此方法会影响导致精度降低；若使用较小的卷积核尺寸，虽可以实现输入输出特征图的size相同，但输出特征图的各个节点感受野小；若使用较大的卷积核尺寸，由于需增加特征图通道数，此方法会导致计算量较大；所以，引入空洞卷积(dilatedconvolution),在卷积后的特征图上进行0填充扩大特征图size，这样既因为有卷积核增大感受野，也因为0填充保持计算点不变。 11.判别模型和生成模型解释 监督学习方法又分生成方法（Generative approach）和判别方法（Discriminative approach），所学到的模型分别称为生成模型（Generative Model）和判别模型（Discriminative Model）。
+      深度学习经典卷积神经网络 随着深度学习的发展，研究人员提出了很多模型，这其中一些设计方式，在当时取得了很好的效果，也为其他科研工作者提供了很好的思路。CNN 的经典结构始于1998年的LeNet-5，成于2012年历史性的AlexNet，从此广泛用于图像相关领域，主要包括：
+1.LeNet-5, 1998年2.AlexNet, 2012年3.ZF-Net, 2013年4.GoogleNet, 2014年5.VGG, 2014年6.ResNet, 2015年 经过科研工作者的反复验证及广泛使用，这些模型逐渐成为经典，我们这里收集了一些常用的模型进行介绍。
+1. VGG 论文地址
+VGGNet是牛津大学计算机视觉组（Visual Geometry Group）和 Google DeepMind 公司的研究员一起研发的的深度卷积神经网络。VGGNet 探索了卷积神经网络的深度与其性能之间的关系，一共有六种不同的网络结构，但是每种结构都有含有５组卷积，每组卷积都使用３ｘ３的卷积核，每组卷积后进行一个２ｘ２最大池化，接下来是三个全连接层。在训练高级别的网络时，可以先训练低级别的网络，用前者获得的权重初始化高级别的网络，可以加速网络的收敛。VGGNet 相比之前state-of-the-art的网络结构，错误率大幅下降，并取得了ILSVRC 2014比赛分类项目的第2名和定位项目的第1名。同时VGGNet的拓展性很强，迁移到其他图片数据上的泛化性非常好。VGGNet的结构非常简洁，整个网络都使用了同样大小的卷积核尺寸（33）和最大池化尺寸（22）。 到目前为止，VGGNet依然经常被用来提取图像特征。
+经典卷积神经网络之VGGNet
+VGG模型核心拆解
+2. GoogLeNet [v1] Going Deeper with Convolutions
+[v2] Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift
+[v3] Rethinking the Inception Architecture for Computer Vision
+[v4] Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning
     </div>
     <div class="read-more">
-      <a href="/post/hyperdl-tutorial/9.%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98/readme/" class="read-more-link">阅读更多</a>
+      <a href="/post/hyperdl-tutorial/2.%E5%9F%BA%E7%A1%80%E7%BD%91%E7%BB%9C/readme/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
 
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/hyperdl-tutorial/9.%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E9%A2%981-5/"></a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/hyperdl-tutorial/3.%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E4%BC%98%E5%8C%96/readme/"></a></h1>
     <div class="post-meta">
       <span class="post-time"> 0001-01-01 </span>
       
@@ -172,37 +183,29 @@ CNN使用范围是具有局部空间相关性的数据，比如图像，自然�
   
   <div class="post-content">
     <div class="post-summary">
-      1.CNN的卷积核是单层还是多层的？
-描述网络模型中某层的厚度，通常用名词通道channel数或者特征图feature map数。不过人们更习惯把作为数据输入的前层的厚度称之为通道数（比如RGB三色图层称为输入通道数为3），把作为卷积输出的后层的厚度称之为特征图数。
-卷积核的厚度H, 一般等于前层厚度M(输入通道数或feature map数). 特殊情况M &gt; H。
-卷积核的个数N, 一般等于后层厚度(后层feature maps数，因为相等所以也用N表示)。
-卷积核通常从属于后层，为后层提供了各种查看前层特征的视角，这个视角是自动形成的。
-卷积核厚度等于1时为2D卷积，对应平面点相乘然后把结果加起来，相当于点积运算；
-卷积核厚度大于1时为3D卷积，每片分别平面点求卷积，然后把每片结果加起来，作为3D卷积结果；
-1x1卷积属于3D卷积的一个特例，有厚度无面积, 直接把每片单个点乘以权重再相加。
-归纳之，卷积的意思就是把一个区域，不管是一维线段，二维方阵，还是三维长方块，全部按照卷积核的维度形状，对应逐点相乘再求和，浓缩成一个标量值也就是降到零维度，作为下一层的一个feature map的一个点的值！ 可以比喻一群渔夫坐一个渔船撒网打鱼，鱼塘是多层水域，每层鱼儿不同。 船每次移位一个stride到一个地方，每个渔夫撒一网，得到收获，然后换一个距离stride再撒，如此重复直到遍历鱼塘。 A渔夫盯着鱼的品种，遍历鱼塘后该渔夫描绘了鱼塘的鱼品种分布； B渔夫盯着鱼的重量，遍历鱼塘后该渔夫描绘了鱼塘的鱼重量分布； 还有N-2个渔夫，各自兴趣各干各的； 最后得到N个特征图，描述了鱼塘的一切！
-2.什么是卷积？
-对图像（不同的数据窗口数据）和滤波矩阵（一组固定的权重：因为每个神经元的多个权重固定，所以又可以看做一个恒定的滤波器filter）做内积（逐个元素相乘再求和）的操作就是所谓的『卷积』操作，也是卷积神经网络的名字来源。
-3.什么是CNN的池化
-池化，简言之，即取区域平均或最大，如下图所示（图引自cs231n）
-上图所展示的是取区域最大，即上图左边部分中 左上角2x2的矩阵中6最大，右上角2x2的矩阵中8最大，左下角2x2的矩阵中3最大，右下角2x2的矩阵中4最大，所以得到上图右边部分的结果：6 8 3 4。
-4.简述下什么是生成对抗网络？
-GAN之所以是对抗的，是因为GAN的内部是竞争关系，一方叫generator，它的主要工作是生成图片，并且尽量使得其看上去是来自于训练样本的。另一方是discriminator，其目标是判断输入图片是否属于真实训练样本。 更直白的讲，将generator想象成假币制造商，而discriminator是警察。generator目的是尽可能把假币造的跟真的一样，从而能够骗过discriminator，即生成样本并使它看上去好像来自于真实训练样本一样。
-5.请介绍下tensorflow的计算图
-Tensorflow是一个通过计算图的形式来表述计算的编程系统，计算图也叫数据流图，可以把计算图看做是一种有向图，Tensorflow中的每一个节点都是计算图上的一个Tensor, 也就是张量，而节点之间的边描述了计算之间的依赖关系(定义时)和数学操作(运算时)。如下两图表示：
-a=x*y;
-b=a+z;
-c=tf.reduce_sum(b);
+      神经网络的优化 网络的优化分为几个方面：包括网络准确率的优化、网络速度的优化、模型大小的优化，有些时候我们最求其中的某一方面，有些时候我们需要综合考虑 各个方面，选取一个适合自己的方案。我们这里引用几个讲解详细的博客，加入我们自己的实际经验，记录一下我们在模型优化方面一些理解。
+参考文献 [1] https://zhuanlan.zhihu.com/p/55846103
+[2] https://github.com/Ewenwan/MVision/blob/master/CNN/Deep_Compression/readme.md
+1.准确率的优化 主要优化方法有：数据增强(Data Augmentation)，权重初始化(weight initialization)，随机梯度下降法（Stochastic Gradient descent），批规范化（Batch normalization) ，Dropout 等。
+简单的思想，我们可以采用高准确率的模型，例如任务准确率在VGG16上不高，那我们可以采用Resnet50，densenet121等。这是一个再简单不过的做法，但是在特定模型下，针对具体任务，同样具有很多的优化方式。
+模型合适的初始化参数设置，当我们从0开始训练一个模型的时候，选择合适的初始化参数方式，对后续的准确率具有一定影响，这个可以根据实验、经验测试选择。
+加载预训练模型，例如我们在做OCR的时候，直接进行CTC文字识别，很多时候得到的准确率不高，但是如果我们采用imagenet预训练好的模型，进行文字识别的训练，往往效果会得到提升。
+合适的学习率，通常训练我们初始学习率较大，然后逐渐降低学习率，防止过拟合，但是在有些模型下，并不完全这样操作。例如在Mnasnet的训练下，初始学习率从0到0.25做一个warming up，然后继续训练降低学习率。
+不同框架也具有一定差异，例如resnet50，利用mxnet结合mixup，能够做到79%以上的准确率。所以大家在训练自己的模型的时候，要综合考虑多个方面，进行模型的优化。
+2.网络速度的优化 模型速度优化，我们这里只讨论前向计算的速度。在模型不变的情况下，需要对前向计算框架进行优化，包括利用SIMD、NEON等指令集加速，特殊的计算方式，如winnograd 卷积计算方式等。
+在网络设计上，可以考虑高效的计算模型，如mobilenetv1/v2,shufflenetv1/v2,mnasnet等。这些网络中高效计算的block单元是我们值得参考借鉴的地方。这种网络在设计之初，就考虑了速度与准确率的平衡，这是高效网络设计的很有效的方式。
+另外可以考虑采用剪枝，量化等方式，参考链接：
+3.模型大小的优化 模型压缩的主要分为在设计之初的模型优化，以及针对已有模型的压缩。
     </div>
     <div class="read-more">
-      <a href="/post/hyperdl-tutorial/9.%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E9%A2%981-5/" class="read-more-link">阅读更多</a>
+      <a href="/post/hyperdl-tutorial/3.%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E4%BC%98%E5%8C%96/readme/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
 
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/hyperdl-tutorial/9.%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E9%A2%9811-15/"></a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/hyperdl-tutorial/4.%E6%A8%A1%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2/readme/"></a></h1>
     <div class="post-meta">
       <span class="post-time"> 0001-01-01 </span>
       
@@ -211,33 +214,32 @@ c=tf.reduce_sum(b);
   
   <div class="post-content">
     <div class="post-summary">
-      11.relu为何好过sigmoid和tanh？
-先看sigmoid、tanh和RelU的函数图：
-第一，采用sigmoid等函数，算激活函数时（指数运算），计算量大，反向传播求误差梯度时，求导涉及除法和指数运算，计算量相对大，而采用Relu激活函数，整个过程的计算量节省很多。
-第二，对于深层网络，sigmoid函数反向传播时，很容易就会出现梯度消失的情况（在sigmoid接近饱和区时，变换太缓慢，导数趋于0，这种情况会造成信息丢失），这种现象称为饱和，从而无法完成深层网络的训练。而ReLU就不会有饱和倾向，不会有特别小的梯度出现。
-第三，Relu会使一部分神经元的输出为0，这样就造成了网络的稀疏性，并且减少了参数的相互依存关系，缓解了过拟合问题的发生（以及一些人的生物解释balabala）。当然现在也有一些对relu的改进，比如prelu，random relu等，在不同的数据集上会有一些训练速度上或者准确率上的改进。
-12.为什么LSTM中既存在tanh和sigmoid，而不同意采用一样的。
-sigmoid 用在了各种gate上，产生0~1之间的值，这个一般只有sigmoid最直接了。 tanh 用在了状态和输出上，是对数据的处理，这个用其他激活函数或许也可以。
-13.如何解决RNN梯度消失和弥散的情况？
-为了解决梯度爆炸问题，Thomas Mikolov首先提出了一个简单的启发性的解决方案，就是当梯度大于一定阈值的的时候，将它截断为一个较小的数。具体如算法1所述： 算法：当梯度爆炸时截断梯度（伪代码）
-下图可视化了梯度截断的效果。它展示了一个小的rnn（其中W为权值矩阵，b为bias项）的决策面。这个模型是一个一小段时间的rnn单元组成；实心箭头表明每步梯度下降的训练过程。当梯度下降过程中，模型的目标函数取得了较高的误差时，梯度将被送到远离决策面的位置。截断模型产生了一个虚线，它将误差梯度拉回到离原始梯度接近的位置。
-梯度爆炸，梯度截断可视化 为了解决梯度弥散的问题，我们介绍了两种方法。第一种方法是将随机初始化改为一个有关联的矩阵初始化。第二种方法是使用ReLU（Rectified Linear Units）代替sigmoid函数。ReLU的导数不是0就是1.因此，神经元的梯度将始终为1，而不会当梯度传播了一定时间之后变小。
-14.什么样的资料集不适合深度学习？
-1、数据集太小，数据样本不足时，深度学习相对其它机器学习算法，没有明显优势。
-2、数据集没有局部相关特性，目前深度学习表现比较好的领域主要是图像／语音／自然语言处理等领域，这些领域的一个共性是局部相关性。图像中像素组成物体，语音信号中音位组合成单词，文本数据中单词组合成句子，这些特征元素的组合一旦被打乱，表示的含义同时也被改变。对于没有这样的局部相关性的数据集，不适于使用深度学习算法进行处理。举个例子：预测一个人的健康状况，相关的参数会有年龄、职业、收入、家庭状况等各种元素，将这些元素打乱，并不会影响相关的结果。
-15.如何解决梯度消失和梯度爆炸？
-（1）梯度消失： 根据链式法则，如果每一层神经元对上一层的输出的偏导乘上权重结果都小于1的话，那么即使这个结果是0.99，在经过足够多层传播之后，误差对输入层的偏导会趋于0 可以采用ReLU激活函数有效的解决梯度消失的情况，也可以用Batch Normalization解决这个问题。关于深度学习中 Batch Normalization为什么效果好？参见：https://www.zhihu.com/question/38102762
-（2）梯度膨胀 ：根据链式法则，如果每一层神经元对上一层的输出的偏导乘上权重结果都大于1的话，在经过足够多层传播之后，误差对输入层的偏导会趋于无穷大 可以通过RELU激活函数来解决，或用Batch Normalization解决这个问题。
+      深度学习模型的转换 由于各种深度学习框架的层出不穷，我们在进行算法开发到算法部署的过程中，往往都需要用到不同的框架。例如我们很有可能使用tensorflow,pytorch等进行算法开发和调试，在早期工程inference的时候我们往往使用较为轻量的caffe或者魔改后的caffe。到了移动端部署我们可能会使用feather CNN nihui的NCNN或者小米的mace等框架。facebook ONNX的出现为模型的转换提供了一种思路，但除了pytorch等框架能很好的支持ONNX。其他等框架并未很好的对接ONNX。在MMdnn出现之前，大家都把caffemodel作为一个中间体来进行转换。
+我们会逐步讲一下转换工具，包括MMdnn,keras2onnx,keras2caffe,tf2coreml,coreml2onnx,mxnet2caffe等。我们利用这些工具大多数用来转到onnx或者caffe，利于模型在移动端部署，无论转到ncnn，mace，都是比较方便的中间模型。
+其实就模型转换而言只是个填参数的过程，把模型结构搭好，把参数填进去就即可，但是实践过的朋友大家一定会知道这其中存在不少坑，但是我们更希望有一种自动化的模型转换方案来进行模型转换。
+1.MMdnn的使用 MMdnn的出现为模型转换带来了不少的福音，MMdnn提供了一种IR(中间表示)来来衔接各个模型之间的转换。他囊括并支持了主流的DNN框架。
+下面我就简要讲一下几个的简单模型转换
+在此我推荐一个查看模型结构的工具Netron 支持数种主流深度学习框架(Caffe,Tensorflow,ONNX等)的模型结构查看。
+例如下图是MTCNN Pnet的模型结构图
+MMdnn的安装 MMdnn的安装非常简单
+1  pip install mmdnn  转换中的一些坑 1.并不是所有Layer和所有网络都支持转换 由于各个深度学习框架之间的设计模式不同有的是基于命令式的有的是基于符号形式的。各个框架之间的op的粒度不同，又由于没有一个统一的标准，支持所有框架之间的转换是一件非常难的事情。MMdnn也只是把一些提供的常用的op，如conv,pooling等常规op。
+2.Tensorflow与caffe的padding方式并不相同 这个问题会出现在MobileNet在转换的过程中，因为Tensorflow的padding方式和其他框架是不同的。Tensorflow标准的卷积操作通常采用非对称的padding，而caffe等其他框架的卷积操作则是采用对称的padding。
+如下图 ，比如当 卷积核的大小为3x3 stride为2的时候。尽管他们的padding方式不同，但卷积之后的尺寸确是一样的。
+转换步骤 例如现在我们想把MTCNN的Keras Pnet转化成caffeodel用于部署。
+1  mmtoir -f keras -w pnet.h5 -o pnet  把keras模型转化成MMdnn IR中间表示，在当然目录下会生成一个.npy 的weights文件和一个.pb文件。接着使用
+1  mmtomodel -f caffe -in pnet -iw pnet.npy -o pnet  2.keras2onnx 3.tf2coreml 4.mxnet2caffe 5.tf2ncnn ncnn作为开源中较为流行的移动端前向计算框架，我们在训练完模型后，需要将对应的模型转换的ncnn支持的模型，ncnn提供了onnx2ncnn，caffe2ncnn，tf2ncnn，等工具，在我们测试用，caffe2ncnn与onnx2ncnn支持较好，绝大多数模型都可以部署，但是很多时候使用者喜欢用keras或者tf作为训练框架，这时我们要做tf到ncnn的转换，特别是一些特殊层的处理，这里我们给出一些参考方式。
+如果采用keras训练模型，可以先用keras2onnx将模型转到onnx，然后再利用ncnn提供的onnx2ncnn转化到ncnn的模型。
+对于tf训练的模型，可以参考：https://github.com/Tencent/ncnn/issues/5#issuecomment-472258072 ，这种方式同样可以解决模型转换的问题。
     </div>
     <div class="read-more">
-      <a href="/post/hyperdl-tutorial/9.%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E9%A2%9811-15/" class="read-more-link">阅读更多</a>
+      <a href="/post/hyperdl-tutorial/4.%E6%A8%A1%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2/readme/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
 
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/hyperdl-tutorial/9.%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E9%A2%9816-20/"></a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/hyperdl-tutorial/5.%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%83%A8%E7%BD%B2/readme/"></a></h1>
     <div class="post-meta">
       <span class="post-time"> 0001-01-01 </span>
       
@@ -246,19 +248,12 @@ sigmoid 用在了各种gate上，产生0~1之间的值，这个一般只有sigmo
   
   <div class="post-content">
     <div class="post-summary">
-      16.CNN常用的几个简单模型
-见基础网络
-17.梯度爆炸会引发什么？
-在深度多层感知机网络中，梯度爆炸会引起网络不稳定，最好的结果是无法从训练数据中学习，而最坏的结果是出现无法再更新的 NaN 权重值。 梯度爆炸导致学习过程不稳定。—《深度学习》，2016. 在循环神经网络中，梯度爆炸会导致网络不稳定，无法利用训练数据学习，最好的结果是网络无法学习长的输入序列数据。
-有很多方法可以解决梯度爆炸问题，本节列举了一些最佳实验方法。
-1. 重新设计网络模型 在深度神经网络中，梯度爆炸可以通过重新设计层数更少的网络来解决。 使用更小的批尺寸对网络训练也有好处。 在循环神经网络中，训练过程中在更少的先前时间步上进行更新（沿时间的截断反向传播，truncated Backpropagation through time）可以缓解梯度爆炸问题。
-2. 使用 ReLU 激活函数 在深度多层感知机神经网络中，梯度爆炸的发生可能是因为激活函数，如之前很流行的 Sigmoid 和 Tanh 函数。 使用 ReLU 激活函数可以减少梯度爆炸。采用 ReLU 激活函数是最适合隐藏层的新实践。
-3. 使用长短期记忆网络 在循环神经网络中，梯度爆炸的发生可能是因为某种网络的训练本身就存在不稳定性，如随时间的反向传播本质上将循环网络转换成深度多层感知机神经网络。 使用长短期记忆（LSTM）单元和相关的门类型神经元结构可以减少梯度爆炸问题。 采用 LSTM 单元是适合循环神经网络的序列预测的最新最好实践。
-4. 使用梯度截断（Gradient Clipping） 在非常深且批尺寸较大的多层感知机网络和输入序列较长的 LSTM 中，仍然有可能出现梯度爆炸。如果梯度爆炸仍然出现，你可以在训练过程中检查和限制梯度的大小。这就是梯度截断。 处理梯度爆炸有一个简单有效的解决方案：如果梯度超过阈值，就截断它们。 ——《Neural Network Methods in Natural Language Processing》，2017. 具体来说，检查误差梯度的值是否超过阈值，如果超过，则截断梯度，将梯度设置为阈值。 梯度截断可以一定程度上缓解梯度爆炸问题（梯度截断，即在执行梯度下降步骤之前将梯度设置为阈值）。 ——《深度学习》，2016. 在 Keras 深度学习库中，你可以在训练之前设置优化器上的 clipnorm 或 clipvalue 参数，来使用梯度截断。 默认值为 clipnorm=1.0 、clipvalue=0.5。详见：https://keras.io/optimizers/。
-5. 使用权重正则化（Weight Regularization） 如果梯度爆炸仍然存在，可以尝试另一种方法，即检查网络权重的大小，并惩罚产生较大权重值的损失函数。该过程被称为权重正则化，通常使用的是 L1 惩罚项（权重绝对值）或 L2 惩罚项（权重平方）。 对循环权重使用 L1 或 L2 惩罚项有助于缓解梯度爆炸。 ——On the difficulty of training recurrent neural networks，2013.
+      一、常用移动端深度学习框架 深度学习发展很快，最近又出现了几个新的移动端前向框架，例如Tengine和 TVM. 我们还没有对这两个框架进行深入研究，但是在对应的wiki中，可以看到这两个框架的速度对于现有框架都具有一定优势，通过短暂的了解，Tengine还是很不错的，支持op跟模型种类都比较丰富，还支持GPU运算。感兴趣的读者可以多了解一下。
+&mdash;&mdash;&mdash;&mdash;&mdash;- 2019.10.16 分割线 &mdash;&mdash;&mdash;&mdash;&mdash;- 各大公司开源了自己的移动端深度学习框架，其中包括TensorFlow Lite、Caffe2、MACE、paddle-mobile(MDL)、FeatherCNN、NCNN等。我们参考开源的测试结果，结合自己整理的数据，针对主流的移动端深度学习框架进行简单对比及介绍。
+   框架 机构 支持平台 Stars Forks     Caffe2 Facebook ARM     TF_lite Google ARM * *   MACE Xiaomi ARM/DSP/GPU     paddle-mobile Baidu ARM/GPU     FeatherCNN Tencent ARM     NCNN Tencent ARM/GPU     MNN Alibaba ARM/GPU      二、性能对比 (截至2018.
     </div>
     <div class="read-more">
-      <a href="/post/hyperdl-tutorial/9.%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E9%A2%9816-20/" class="read-more-link">阅读更多</a>
+      <a href="/post/hyperdl-tutorial/5.%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%83%A8%E7%BD%B2/readme/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
