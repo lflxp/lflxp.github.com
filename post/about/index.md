@@ -1,5 +1,5 @@
 
-Hugo is a static site engine written in Go.
+我的博客，主要记录平时工作的经验、思考和总结以及对于宇宙的认识和自己改变世界的一点想法！
 
 
 It makes use of a variety of open source projects including:
@@ -9,5 +9,5 @@ It makes use of a variety of open source projects including:
 * [J Walter Weatherman](https://github.com/spf13/jWalterWeatherman)
 * [Cast](https://github.com/spf13/cast)
 
-Learn more and contribute on [GitHub](https://github.com/gohugoio).
+Learn more and contribute on [GitHub](https://github.com/lflxp).
 

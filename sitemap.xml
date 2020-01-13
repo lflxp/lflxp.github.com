@@ -10,7 +10,21 @@
   
   <url>
     <loc>https://www.lflxp.cn/post/about/</loc>
-    <lastmod>2017-08-28T21:41:52+08:00</lastmod>
+    <lastmod>2020-01-13T11:23:52+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/</loc>
+    <lastmod>2020-01-13T11:23:52+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/</loc>
+    <lastmod>2020-01-13T11:23:52+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -37,13 +51,6 @@
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/post/</loc>
-    <lastmod>2018-11-05T16:01:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://www.lflxp.cn/tags/preview/</loc>
     <lastmod>2018-11-05T16:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -65,13 +72,6 @@
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/tags/theme-preview/</loc>
-    <lastmod>2018-07-10T00:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://www.lflxp.cn/categories/theme-preview/</loc>
     <lastmod>2018-07-10T00:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -79,8 +79,8 @@
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/</loc>
-    <lastmod>2018-11-05T16:01:23+08:00</lastmod>
+    <loc>https://www.lflxp.cn/tags/theme-preview/</loc>
+    <lastmod>2018-07-10T00:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -100,14 +100,14 @@
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/tags/english/</loc>
+    <loc>https://www.lflxp.cn/categories/english/</loc>
     <lastmod>2017-08-31T15:43:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/categories/english/</loc>
+    <loc>https://www.lflxp.cn/tags/english/</loc>
     <lastmod>2017-08-31T15:43:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -212,14 +212,14 @@
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/categories/syntax-highlighting/</loc>
+    <loc>https://www.lflxp.cn/tags/syntax-highlighting/</loc>
     <lastmod>2018-11-05T16:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/tags/syntax-highlighting/</loc>
+    <loc>https://www.lflxp.cn/categories/syntax-highlighting/</loc>
     <lastmod>2018-11-05T16:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -237,246 +237,6 @@
     <lastmod>2018-11-05T16:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/hyperdl-tutorial/1.%E5%B8%B8%E8%A7%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/hyperdl-tutorial/10.%E5%AF%B9%E6%8A%97%E8%92%B8%E9%A6%8F/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/hyperdl-tutorial/2.%E5%9F%BA%E7%A1%80%E7%BD%91%E7%BB%9C/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/hyperdl-tutorial/3.%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E4%BC%98%E5%8C%96/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/hyperdl-tutorial/4.%E6%A8%A1%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/hyperdl-tutorial/5.%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%83%A8%E7%BD%B2/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/hyperdl-tutorial/5.%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%83%A8%E7%BD%B2/%E5%9C%A8cpp%E4%B8%8B%E4%BD%BF%E7%94%A8tvm%E6%9D%A5%E9%83%A8%E7%BD%B2mxnet%E6%A8%A1%E5%9E%8B%E4%BB%A5insightface%E4%B8%BA%E4%BE%8B/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/hyperdl-tutorial/6.%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E8%AE%BE%E8%AE%A1/mtcnn-%E4%BC%98%E5%8C%96/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/hyperdl-tutorial/6.%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E8%AE%BE%E8%AE%A1/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/hyperdl-tutorial/7.%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/hyperdl-tutorial/8.%E5%9F%BA%E7%A1%80%E7%BD%91%E7%BB%9C%E7%9A%84%E8%AE%AD%E7%BB%83/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/hyperdl-tutorial/9.%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/hyperdl-tutorial/9.%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E9%A2%981-5/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/hyperdl-tutorial/9.%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E9%A2%9811-15/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/hyperdl-tutorial/9.%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E9%A2%9816-20/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/hyperdl-tutorial/9.%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E9%A2%9821-26/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/hyperdl-tutorial/9.%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E9%A2%986-10/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/hyperdl-tutorial/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/k8s-go/controller/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/k8s-go/elk/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/k8s-go/install/offline-binary/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/k8s-go/metadata/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/k8s-go/pod-probe/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/k8s-go/pod/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/k8s-go/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/k8s-go/statefulset/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/k8s-go/storage/configmap/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/k8s-go/storage/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/chapter01/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/chapter02/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/chapter03/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/chapter04/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/chapter05/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/chapter06/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/chapter07/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/chapter08/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/chapter09/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/chapter10/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/chapter11/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/chapter12/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/chapter13/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/chapter14/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/chapter15/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/chapter16/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/chapter17/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/chapter18/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/readme/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/soldierassault/summary/</loc>
-    <priority>0</priority>
   </url>
   
 </urlset>
