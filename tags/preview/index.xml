@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 10 Jul 2018 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 13 Jan 2020 15:43:48 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/tags/preview/index.xml" rel="self" type="application/rss+xml" />
     
@@ -19,6 +19,15 @@
       
       <guid>https://www.lflxp.cn/post/nice/even-preview/</guid>
       <description>Based on MarkdownPreview test.md. Markdown 1 2 3 4 5 6 7 8 # H1 ## H2 ### H3 #### H4 ##### H5 ###### H6 ### Duplicate Header ### Duplicate Header H1 H2 H3 H4 H5 H6 Duplicate Header Duplicate Header Paragraphs 1 2 3 4 This is a paragraph. I am still part of the paragraph. New paragraph. This is a paragraph. I am still part of the paragraph.</description>
+    </item>
+    
+    <item>
+      <title>[中文] 个人笔记</title>
+      <link>https://www.lflxp.cn/post/notebook/notebook/</link>
+      <pubDate>Mon, 13 Jan 2020 15:43:48 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/notebook/notebook/</guid>
+      <description>介绍 琵琶，无已无求 随欲而安 工作内容 devops software enginer k8s flutter middlewares ai experence</description>
     </item>
     
     <item>

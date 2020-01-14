@@ -1,1 +1,0 @@
-## StatefulSet 介绍

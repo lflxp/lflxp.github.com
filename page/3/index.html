@@ -44,7 +44,7 @@
 <meta property="og:description" content="私人私塾" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.lflxp.cn/" />
-<meta property="og:updated_time" content="2018-07-10T00:00:00+08:00" />
+<meta property="og:updated_time" content="2020-01-14T01:37:56+08:00" />
 <meta itemprop="name" content="爱像水墨青花">
 <meta itemprop="description" content="私人私塾"><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="爱像水墨青花"/>
@@ -82,7 +82,7 @@
       </a><a href="/categories/">
         <li class="mobile-menu-item">目录</li>
       </a><a href="/post/about/">
-        <li class="mobile-menu-item">About</li>
+        <li class="mobile-menu-item">关于</li>
       </a>
   </ul>
 </nav>
@@ -103,7 +103,7 @@
       </li><li class="menu-item">
         <a class="menu-item-link" href="/categories/">目录</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/about/">About</a>
+        <a class="menu-item-link" href="/post/about/">关于</a>
       </li>
   </ul>
 </nav>
@@ -115,145 +115,33 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/hyperdl-tutorial/10.%E5%AF%B9%E6%8A%97%E8%92%B8%E9%A6%8F/readme/"></a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/nice/syntax-highlighting/">Syntax Highlighting</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 0001-01-01 </span>
-      
+      <span class="post-time"> 2011-08-30 </span>
+      <div class="post-category">
+          <a href="/categories/syntax-highlighting/"> Syntax Highlighting </a>
+          </div>
     </div>
   </header>
   
   <div class="post-content">
     <div class="post-summary">
-      你的神经网络真的收敛了么？ 1、为什么小模型的作为backbone效果会差？ 在深度学习目标检测(图像分割)领域，我们发现当我们使用层数越深，并且在imagenet上表现越好的分类网络作为backbone时，它的检测和分割效果越好效果越好。比如我们使用resnet101作为backbone时候，faster_rcnn在coco2017检测数据集上的mAP可以达到40.1，而使用resnet50作为backbone时候，mAP只达到37.1。而ssd使用resnet50作为backbone时候，mAP达到30.6，使用mobilenet作为backbone只达到21.7。参看gluoncv公布的训练结果。https://gluon-cv.mxnet.io/model_zoo/detection.html#faster-rcnn
-那为什么使用mobilenet这种小网络会比resnet101这种大网络效果差这么多呢？主流的想法是小网络的容量小、表现效果差，等等。
-**那到底是那么原因呢？**我们可以观察gluoncv官网的ssd_mobilenet[1]和ssd_resnet50[2]在coco上的训练log。我们发现ssd_resnet50[2]的CrossEntropy和SmoothL1最终收敛到2.14+，和1.22+左右，而ssdmobilenet 的CrossEntropy和SmoothL1最终收敛到2.84+，和3.29+左右。同样我们可以去观察gluoncv官网的faster_rcnn分别在resnet50和在resnet101上的训练loss，我们可以发现loss收敛的越小模型在coco 2017的验证集上的mAP越高。并且当backbone使用fpn的方法增大了模型的体积，模型的loss会将的更低，相应的mAP也越高。由此我个人认为使用小模型的作为backbone的迁移学习任务(尤其是目标检测任务)效果差的真正原因是模型欠拟合。
-2、你的神经网络真的收敛了么？
-既然知道小网络作为backbone效果差的真正原因是模型欠拟合，那如果我们要提高小网络的效果，最主要的任务就是降低小网络的loss(当然大网络的loss如果被进一步降低效果自然越好，比如可以观看faster_rcnn+fpn+resnet101就比faster_rcnn+resnet101的loss低一点点,当然效果也就提升一点点)。
-**而我们不妨假设如果小网络最终”收敛“的loss如果可以达到大网络收敛的loss，那小网络能否达到大网络的效果呢？**可能由于小网络的容量小，参数少，很难收敛到大网络的最终收敛的loss。当然方法是人想的，不然怎么能发paper。
-我个人认为降低小网络的loss主要有两种方式：
-1、提高效果的模型体积，如FPN，DLA，shortcut，concat 等等。不过当模型体积增大到一定程度，他所能得到的收益也越小，比如可以观看gluoncv官网的log。faster_rcnn+fpn+resnet101就比faster_rcnn+resnet101的loss低一点点,当然效果也就提升一点点。而faster_rcnn+fpn+resnet50就比faster_rcnn+resnet50的loss低很多,当然效果也就提升也高了很多。
-2、改变训练方式，比如很早提出的知识蒸馏，2018年的cascade rcnn和snip,以及2019年的各种anchor free，都是改变训练方式，虽然他们的动机各不相同，但是我觉得大部分都是进一步降低loss，提高模型的效果。
-​ 第一种方式对于个人觉得对于做模型压缩的人来说不太可取，而第二种方式才是主要考虑方向。对于改变训练方式的方法，读者可以参看我的上一篇文章https://zhuanlan.zhihu.com/p/64138476对抗蒸馏，使用对抗生成网络和cosine attention的机制，将大网络的知识迁移到小网络，进一步降低小网络最终的收敛loss。目前开放的使用ssd_resnet50作为teacher net ssd_mobilenet作为student net在voc数据集上将ssd_mobilenet的CrossEntropy和SmoothL1最终收敛到1.388+ 0.659+，mAP达到78.2+，而原始ssd_mobilenet在voc上的CrossEntropy和SmoothL1最终收敛到1.962+ 0.944+，mAP达到75.4，由于gpu资源限制目前在coco上还没训练完。训练log地址为，https://github.com/p517332051/GAN-Knowledge-Distillation-SSD/blob/master/ssd_512_mobilenet1_0_resnet50_v1_voc_g_d_new_train.log。
-​ 通过这种方法，我发现小网络并非不是不可以继续收敛，而是训练方式得到改善自然可以继续降低他的loss，而随之loss降低，网络的效果可以进一步提升。期望我的方法能起到抛砖引玉的效果，能推动学术界和工业界神经网络压缩的工作的进展。
-知乎链接https://zhuanlan.zhihu.com/p/68563369
-参考  ^https://raw.githubusercontent.com/dmlc/web-data/master/gluoncv/logs/detection/ssd_512_mobilenet1_0_coco_train.log ^abhttps://raw.githubusercontent.com/dmlc/web-data/master/gluoncv/logs/detection/ssd_512_resnet50_v1_coco_train.log  
+      <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">helloWorld</span> <span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="s2">&#34;Hello, World!&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
     </div>
     <div class="read-more">
-      <a href="/post/hyperdl-tutorial/10.%E5%AF%B9%E6%8A%97%E8%92%B8%E9%A6%8F/readme/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/hyperdl-tutorial/2.%E5%9F%BA%E7%A1%80%E7%BD%91%E7%BB%9C/readme/"></a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 0001-01-01 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      深度学习经典卷积神经网络 随着深度学习的发展，研究人员提出了很多模型，这其中一些设计方式，在当时取得了很好的效果，也为其他科研工作者提供了很好的思路。CNN 的经典结构始于1998年的LeNet-5，成于2012年历史性的AlexNet，从此广泛用于图像相关领域，主要包括：
-1.LeNet-5, 1998年2.AlexNet, 2012年3.ZF-Net, 2013年4.GoogleNet, 2014年5.VGG, 2014年6.ResNet, 2015年 经过科研工作者的反复验证及广泛使用，这些模型逐渐成为经典，我们这里收集了一些常用的模型进行介绍。
-1. VGG 论文地址
-VGGNet是牛津大学计算机视觉组（Visual Geometry Group）和 Google DeepMind 公司的研究员一起研发的的深度卷积神经网络。VGGNet 探索了卷积神经网络的深度与其性能之间的关系，一共有六种不同的网络结构，但是每种结构都有含有５组卷积，每组卷积都使用３ｘ３的卷积核，每组卷积后进行一个２ｘ２最大池化，接下来是三个全连接层。在训练高级别的网络时，可以先训练低级别的网络，用前者获得的权重初始化高级别的网络，可以加速网络的收敛。VGGNet 相比之前state-of-the-art的网络结构，错误率大幅下降，并取得了ILSVRC 2014比赛分类项目的第2名和定位项目的第1名。同时VGGNet的拓展性很强，迁移到其他图片数据上的泛化性非常好。VGGNet的结构非常简洁，整个网络都使用了同样大小的卷积核尺寸（33）和最大池化尺寸（22）。 到目前为止，VGGNet依然经常被用来提取图像特征。
-经典卷积神经网络之VGGNet
-VGG模型核心拆解
-2. GoogLeNet [v1] Going Deeper with Convolutions
-[v2] Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift
-[v3] Rethinking the Inception Architecture for Computer Vision
-[v4] Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning
-    </div>
-    <div class="read-more">
-      <a href="/post/hyperdl-tutorial/2.%E5%9F%BA%E7%A1%80%E7%BD%91%E7%BB%9C/readme/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/hyperdl-tutorial/3.%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E4%BC%98%E5%8C%96/readme/"></a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 0001-01-01 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      神经网络的优化 网络的优化分为几个方面：包括网络准确率的优化、网络速度的优化、模型大小的优化，有些时候我们最求其中的某一方面，有些时候我们需要综合考虑 各个方面，选取一个适合自己的方案。我们这里引用几个讲解详细的博客，加入我们自己的实际经验，记录一下我们在模型优化方面一些理解。
-参考文献 [1] https://zhuanlan.zhihu.com/p/55846103
-[2] https://github.com/Ewenwan/MVision/blob/master/CNN/Deep_Compression/readme.md
-1.准确率的优化 主要优化方法有：数据增强(Data Augmentation)，权重初始化(weight initialization)，随机梯度下降法（Stochastic Gradient descent），批规范化（Batch normalization) ，Dropout 等。
-简单的思想，我们可以采用高准确率的模型，例如任务准确率在VGG16上不高，那我们可以采用Resnet50，densenet121等。这是一个再简单不过的做法，但是在特定模型下，针对具体任务，同样具有很多的优化方式。
-模型合适的初始化参数设置，当我们从0开始训练一个模型的时候，选择合适的初始化参数方式，对后续的准确率具有一定影响，这个可以根据实验、经验测试选择。
-加载预训练模型，例如我们在做OCR的时候，直接进行CTC文字识别，很多时候得到的准确率不高，但是如果我们采用imagenet预训练好的模型，进行文字识别的训练，往往效果会得到提升。
-合适的学习率，通常训练我们初始学习率较大，然后逐渐降低学习率，防止过拟合，但是在有些模型下，并不完全这样操作。例如在Mnasnet的训练下，初始学习率从0到0.25做一个warming up，然后继续训练降低学习率。
-不同框架也具有一定差异，例如resnet50，利用mxnet结合mixup，能够做到79%以上的准确率。所以大家在训练自己的模型的时候，要综合考虑多个方面，进行模型的优化。
-2.网络速度的优化 模型速度优化，我们这里只讨论前向计算的速度。在模型不变的情况下，需要对前向计算框架进行优化，包括利用SIMD、NEON等指令集加速，特殊的计算方式，如winnograd 卷积计算方式等。
-在网络设计上，可以考虑高效的计算模型，如mobilenetv1/v2,shufflenetv1/v2,mnasnet等。这些网络中高效计算的block单元是我们值得参考借鉴的地方。这种网络在设计之初，就考虑了速度与准确率的平衡，这是高效网络设计的很有效的方式。
-另外可以考虑采用剪枝，量化等方式，参考链接：
-3.模型大小的优化 模型压缩的主要分为在设计之初的模型优化，以及针对已有模型的压缩。
-    </div>
-    <div class="read-more">
-      <a href="/post/hyperdl-tutorial/3.%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E4%BC%98%E5%8C%96/readme/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/hyperdl-tutorial/4.%E6%A8%A1%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2/readme/"></a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 0001-01-01 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      深度学习模型的转换 由于各种深度学习框架的层出不穷，我们在进行算法开发到算法部署的过程中，往往都需要用到不同的框架。例如我们很有可能使用tensorflow,pytorch等进行算法开发和调试，在早期工程inference的时候我们往往使用较为轻量的caffe或者魔改后的caffe。到了移动端部署我们可能会使用feather CNN nihui的NCNN或者小米的mace等框架。facebook ONNX的出现为模型的转换提供了一种思路，但除了pytorch等框架能很好的支持ONNX。其他等框架并未很好的对接ONNX。在MMdnn出现之前，大家都把caffemodel作为一个中间体来进行转换。
-我们会逐步讲一下转换工具，包括MMdnn,keras2onnx,keras2caffe,tf2coreml,coreml2onnx,mxnet2caffe等。我们利用这些工具大多数用来转到onnx或者caffe，利于模型在移动端部署，无论转到ncnn，mace，都是比较方便的中间模型。
-其实就模型转换而言只是个填参数的过程，把模型结构搭好，把参数填进去就即可，但是实践过的朋友大家一定会知道这其中存在不少坑，但是我们更希望有一种自动化的模型转换方案来进行模型转换。
-1.MMdnn的使用 MMdnn的出现为模型转换带来了不少的福音，MMdnn提供了一种IR(中间表示)来来衔接各个模型之间的转换。他囊括并支持了主流的DNN框架。
-下面我就简要讲一下几个的简单模型转换
-在此我推荐一个查看模型结构的工具Netron 支持数种主流深度学习框架(Caffe,Tensorflow,ONNX等)的模型结构查看。
-例如下图是MTCNN Pnet的模型结构图
-MMdnn的安装 MMdnn的安装非常简单
-1  pip install mmdnn  转换中的一些坑 1.并不是所有Layer和所有网络都支持转换 由于各个深度学习框架之间的设计模式不同有的是基于命令式的有的是基于符号形式的。各个框架之间的op的粒度不同，又由于没有一个统一的标准，支持所有框架之间的转换是一件非常难的事情。MMdnn也只是把一些提供的常用的op，如conv,pooling等常规op。
-2.Tensorflow与caffe的padding方式并不相同 这个问题会出现在MobileNet在转换的过程中，因为Tensorflow的padding方式和其他框架是不同的。Tensorflow标准的卷积操作通常采用非对称的padding，而caffe等其他框架的卷积操作则是采用对称的padding。
-如下图 ，比如当 卷积核的大小为3x3 stride为2的时候。尽管他们的padding方式不同，但卷积之后的尺寸确是一样的。
-转换步骤 例如现在我们想把MTCNN的Keras Pnet转化成caffeodel用于部署。
-1  mmtoir -f keras -w pnet.h5 -o pnet  把keras模型转化成MMdnn IR中间表示，在当然目录下会生成一个.npy 的weights文件和一个.pb文件。接着使用
-1  mmtomodel -f caffe -in pnet -iw pnet.npy -o pnet  2.keras2onnx 3.tf2coreml 4.mxnet2caffe 5.tf2ncnn ncnn作为开源中较为流行的移动端前向计算框架，我们在训练完模型后，需要将对应的模型转换的ncnn支持的模型，ncnn提供了onnx2ncnn，caffe2ncnn，tf2ncnn，等工具，在我们测试用，caffe2ncnn与onnx2ncnn支持较好，绝大多数模型都可以部署，但是很多时候使用者喜欢用keras或者tf作为训练框架，这时我们要做tf到ncnn的转换，特别是一些特殊层的处理，这里我们给出一些参考方式。
-如果采用keras训练模型，可以先用keras2onnx将模型转到onnx，然后再利用ncnn提供的onnx2ncnn转化到ncnn的模型。
-对于tf训练的模型，可以参考：https://github.com/Tencent/ncnn/issues/5#issuecomment-472258072 ，这种方式同样可以解决模型转换的问题。
-    </div>
-    <div class="read-more">
-      <a href="/post/hyperdl-tutorial/4.%E6%A8%A1%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2/readme/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/hyperdl-tutorial/5.%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%83%A8%E7%BD%B2/readme/"></a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 0001-01-01 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      一、常用移动端深度学习框架 深度学习发展很快，最近又出现了几个新的移动端前向框架，例如Tengine和 TVM. 我们还没有对这两个框架进行深入研究，但是在对应的wiki中，可以看到这两个框架的速度对于现有框架都具有一定优势，通过短暂的了解，Tengine还是很不错的，支持op跟模型种类都比较丰富，还支持GPU运算。感兴趣的读者可以多了解一下。
-&mdash;&mdash;&mdash;&mdash;&mdash;- 2019.10.16 分割线 &mdash;&mdash;&mdash;&mdash;&mdash;- 各大公司开源了自己的移动端深度学习框架，其中包括TensorFlow Lite、Caffe2、MACE、paddle-mobile(MDL)、FeatherCNN、NCNN等。我们参考开源的测试结果，结合自己整理的数据，针对主流的移动端深度学习框架进行简单对比及介绍。
-   框架 机构 支持平台 Stars Forks     Caffe2 Facebook ARM     TF_lite Google ARM * *   MACE Xiaomi ARM/DSP/GPU     paddle-mobile Baidu ARM/GPU     FeatherCNN Tencent ARM     NCNN Tencent ARM/GPU     MNN Alibaba ARM/GPU      二、性能对比 (截至2018.
-    </div>
-    <div class="read-more">
-      <a href="/post/hyperdl-tutorial/5.%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%83%A8%E7%BD%B2/readme/" class="read-more-link">阅读更多</a>
+      <a href="/post/nice/syntax-highlighting/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
@@ -265,10 +153,7 @@ MMdnn的安装 MMdnn的安装非常简单
         <i class="iconfont icon-left"></i>
         <span class="prev-text">上一页</span>
       </a>
-    <a class="next" href="/page/4/">
-        <span class="next-text">下一页</span>
-        <i class="iconfont icon-right"></i>
-      </a>
+    
   </nav>
         </div>
         

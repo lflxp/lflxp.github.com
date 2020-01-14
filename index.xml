@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 13 Jan 2020 11:23:52 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jan 2020 01:37:56 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/index.xml" rel="self" type="application/rss+xml" />
     
@@ -28,6 +28,24 @@
       
       <guid>https://www.lflxp.cn/post/about/</guid>
       <description>我的博客，主要记录平时工作的经验、思考和总结以及对于宇宙的认识和自己改变世界的一点想法！ It makes use of a variety of open source projects including: Cobra Viper J Walter Weatherman Cast Learn more and contribute on GitHub.</description>
+    </item>
+    
+    <item>
+      <title>helm重要操作记录</title>
+      <link>https://www.lflxp.cn/post/notebook/helm/</link>
+      <pubDate>Tue, 14 Jan 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/notebook/helm/</guid>
+      <description>helm重要操作 helm tiller安装 helm init helm init &amp;ndash;tiller-image=daocloud.io/liukuan73/tiller-lk:v2.9.1 &amp;ndash;tiller-namespace=kube-system helm init &amp;ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.5.1 &amp;ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts helm init &amp;ndash;tiller-image=harbor.hub.cn/bigdata-dev/tiller:v2.10.0 &amp;ndash;tiller-namespace=kube-system &amp;ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 1 2 3 helm init 在缺省配置下， Helm 会利用 &amp;#34;gcr.io/kubernetes-helm/tiller&amp;#34; 镜像在Kubernetes集群上安</description>
+    </item>
+    
+    <item>
+      <title>[中文] 个人笔记</title>
+      <link>https://www.lflxp.cn/post/notebook/notebook/</link>
+      <pubDate>Mon, 13 Jan 2020 15:43:48 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/notebook/notebook/</guid>
+      <description>介绍 琵琶，无已无求 随欲而安 工作内容 devops software enginer k8s flutter middlewares ai experence</description>
     </item>
     
     <item>
