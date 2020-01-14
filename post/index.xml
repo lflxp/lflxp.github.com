@@ -31,12 +31,21 @@
     </item>
     
     <item>
+      <title>Dgraph 图数据库试用</title>
+      <link>https://www.lflxp.cn/post/notebook/dgraph/first/</link>
+      <pubDate>Tue, 14 Jan 2020 01:37:56 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/notebook/dgraph/first/</guid>
+      <description>Fast, Transactional, Distributed Graph Database. 简介 Dgraph is a horizontally scalable and distributed graph database, providing ACID transactions, consistent replication and linearizable reads. It&#39;s built from ground up to perform for a rich set of queries. Being a native graph database, it tightly controls how the data is arranged on disk to optimize for query performance and throughput, reducing disk seeks and network calls in a cluster. Dgraph&#39;s goal</description>
+    </item>
+    
+    <item>
       <title>helm重要操作记录</title>
       <link>https://www.lflxp.cn/post/notebook/helm/</link>
       <pubDate>Tue, 14 Jan 2020 01:37:56 +0800</pubDate>
       
       <guid>https://www.lflxp.cn/post/notebook/helm/</guid>
-      <description>helm重要操作 helm tiller安装 helm init helm init &amp;ndash;tiller-image=daocloud.io/liukuan73/tiller-lk:v2.9.1 &amp;ndash;tiller-namespace=kube-system helm init &amp;ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.5.1 &amp;ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts helm init &amp;ndash;tiller-image=harbor.hub.cn/bigdata-dev/tiller:v2.10.0 &amp;ndash;tiller-namespace=kube-system &amp;ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 1 2 3 helm init 在缺省配置下， Helm 会利用 &amp;#34;gcr.io/kubernetes-helm/tiller&amp;#34; 镜像在Kubernetes集群上安</description>
+      <description>helm tiller安装 helm init helm init &amp;ndash;tiller-image=daocloud.io/liukuan73/tiller-lk:v2.9.1 &amp;ndash;tiller-namespace=kube-system helm init &amp;ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.5.1 &amp;ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts helm init &amp;ndash;tiller-image=harbor.hub.cn/bigdata-dev/tiller:v2.10.0 &amp;ndash;tiller-namespace=kube-system &amp;ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 1 2 3 helm init 在缺省配置下， Helm 会利用 &amp;#34;gcr.io/kubernetes-helm/tiller&amp;#34; 镜像在Kubernetes集群上安装配置 Tille</description>
     </item>
     
     <item>

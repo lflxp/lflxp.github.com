@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="lxp" /><meta name="description" content="helm重要操作 helm tiller安装 helm init helm init &amp;ndash;tiller-image=daocloud.io/liukuan73/tiller-lk:v2.9.1 &amp;ndash;tiller-namespace=kube-system helm init &amp;ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.5.1 &amp;ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts helm init &amp;ndash;tiller-image=harbor.hub.cn/bigdata-dev/tiller:v2.10.0 &amp;ndash;tiller-namespace=kube-system &amp;ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 1 2 3 helm init 在缺省配置下， Helm 会利用 &amp;#34;gcr.io/kubernetes-helm/tiller&amp;#34; 镜像在Kubernetes集群上安" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="lxp" /><meta name="description" content="helm tiller安装 helm init helm init &amp;ndash;tiller-image=daocloud.io/liukuan73/tiller-lk:v2.9.1 &amp;ndash;tiller-namespace=kube-system helm init &amp;ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.5.1 &amp;ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts helm init &amp;ndash;tiller-image=harbor.hub.cn/bigdata-dev/tiller:v2.10.0 &amp;ndash;tiller-namespace=kube-system &amp;ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 1 2 3 helm init 在缺省配置下， Helm 会利用 &amp;#34;gcr.io/kubernetes-helm/tiller&amp;#34; 镜像在Kubernetes集群上安装配置 Tille" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -39,22 +39,22 @@
 
 
 <meta property="og:title" content="helm重要操作记录" />
-<meta property="og:description" content="helm重要操作 helm tiller安装 helm init helm init &ndash;tiller-image=daocloud.io/liukuan73/tiller-lk:v2.9.1 &ndash;tiller-namespace=kube-system helm init &ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.5.1 &ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts helm init &ndash;tiller-image=harbor.hub.cn/bigdata-dev/tiller:v2.10.0 &ndash;tiller-namespace=kube-system &ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 1 2 3 helm init 在缺省配置下， Helm 会利用 &#34;gcr.io/kubernetes-helm/tiller&#34; 镜像在Kubernetes集群上安" />
+<meta property="og:description" content="helm tiller安装 helm init helm init &ndash;tiller-image=daocloud.io/liukuan73/tiller-lk:v2.9.1 &ndash;tiller-namespace=kube-system helm init &ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.5.1 &ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts helm init &ndash;tiller-image=harbor.hub.cn/bigdata-dev/tiller:v2.10.0 &ndash;tiller-namespace=kube-system &ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 1 2 3 helm init 在缺省配置下， Helm 会利用 &#34;gcr.io/kubernetes-helm/tiller&#34; 镜像在Kubernetes集群上安装配置 Tille" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.lflxp.cn/post/notebook/helm/" />
 <meta property="article:published_time" content="2020-01-14T01:37:56+08:00" />
-<meta property="article:modified_time" content="2020-01-14T01:37:56+08:00" />
+<meta property="article:modified_time" content="2020-01-14T14:34:14+08:00" />
 <meta itemprop="name" content="helm重要操作记录">
-<meta itemprop="description" content="helm重要操作 helm tiller安装 helm init helm init &ndash;tiller-image=daocloud.io/liukuan73/tiller-lk:v2.9.1 &ndash;tiller-namespace=kube-system helm init &ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.5.1 &ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts helm init &ndash;tiller-image=harbor.hub.cn/bigdata-dev/tiller:v2.10.0 &ndash;tiller-namespace=kube-system &ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 1 2 3 helm init 在缺省配置下， Helm 会利用 &#34;gcr.io/kubernetes-helm/tiller&#34; 镜像在Kubernetes集群上安">
+<meta itemprop="description" content="helm tiller安装 helm init helm init &ndash;tiller-image=daocloud.io/liukuan73/tiller-lk:v2.9.1 &ndash;tiller-namespace=kube-system helm init &ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.5.1 &ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts helm init &ndash;tiller-image=harbor.hub.cn/bigdata-dev/tiller:v2.10.0 &ndash;tiller-namespace=kube-system &ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 1 2 3 helm init 在缺省配置下， Helm 会利用 &#34;gcr.io/kubernetes-helm/tiller&#34; 镜像在Kubernetes集群上安装配置 Tille">
 <meta itemprop="datePublished" content="2020-01-14T01:37:56&#43;08:00" />
-<meta itemprop="dateModified" content="2020-01-14T01:37:56&#43;08:00" />
-<meta itemprop="wordCount" content="1782">
+<meta itemprop="dateModified" content="2020-01-14T14:34:14&#43;08:00" />
+<meta itemprop="wordCount" content="1774">
 
 
 
 <meta itemprop="keywords" content="k8s,helm," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="helm重要操作记录"/>
-<meta name="twitter:description" content="helm重要操作 helm tiller安装 helm init helm init &ndash;tiller-image=daocloud.io/liukuan73/tiller-lk:v2.9.1 &ndash;tiller-namespace=kube-system helm init &ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.5.1 &ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts helm init &ndash;tiller-image=harbor.hub.cn/bigdata-dev/tiller:v2.10.0 &ndash;tiller-namespace=kube-system &ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 1 2 3 helm init 在缺省配置下， Helm 会利用 &#34;gcr.io/kubernetes-helm/tiller&#34; 镜像在Kubernetes集群上安"/>
+<meta name="twitter:description" content="helm tiller安装 helm init helm init &ndash;tiller-image=daocloud.io/liukuan73/tiller-lk:v2.9.1 &ndash;tiller-namespace=kube-system helm init &ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.5.1 &ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts helm init &ndash;tiller-image=harbor.hub.cn/bigdata-dev/tiller:v2.10.0 &ndash;tiller-namespace=kube-system &ndash;stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 1 2 3 helm init 在缺省配置下， Helm 会利用 &#34;gcr.io/kubernetes-helm/tiller&#34; 镜像在Kubernetes集群上安装配置 Tille"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -167,8 +167,7 @@
   </div>
 </div>
     <div class="post-content">
-      <h1 id="helm重要操作">helm重要操作</h1>
-<h2 id="helm-tiller安装">helm tiller安装</h2>
+      <h2 id="helm-tiller安装">helm tiller安装</h2>
 <p>helm init</p>
 <p>helm init &ndash;tiller-image=daocloud.io/liukuan73/tiller-lk:v2.9.1 &ndash;tiller-namespace=kube-system</p>
 <p>helm init &ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.5.1 &ndash;stable-repo-url <a href="https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts">https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts</a></p>
@@ -353,7 +352,7 @@ helm dependency build [flags] CHART
     <span class="item-title">上次更新</span>
     <span class="item-content">
         2020-01-14
-        
+        <a href="https://github.com/lflxp/commit/a81e1ebcdd02b19a8f85328b96db3b5525ba18cc" title="new helm">(a81e1eb)</a>
     </span>
   </p>
   
@@ -365,9 +364,9 @@ helm dependency build [flags] CHART
           <a href="/tags/helm/">helm</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/about/">
+        <a class="prev" href="/post/notebook/dgraph/first/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">关于</span>
+            <span class="prev-text nav-default">Dgraph 图数据库试用</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
         <a class="next" href="/post/notebook/notebook/">
@@ -387,7 +386,7 @@ helm dependency build [flags] CHART
         id: '2020-01-14 01:37:56 \x2b0800 CST',
         title: 'helm重要操作记录',
         link: decodeURI(location.href),
-        desc: 'helm重要操作 helm tiller安装 helm init helm init \x26ndash;tiller-image=daocloud.io\/liukuan73\/tiller-lk:v2.9.1 \x26ndash;tiller-namespace=kube-system helm init \x26ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com\/google_containers\/tiller:v2.5.1 \x26ndash;stable-repo-url https:\/\/kubernetes.oss-cn-hangzhou.aliyuncs.com\/charts helm init \x26ndash;tiller-image=harbor.hub.cn\/bigdata-dev\/tiller:v2.10.0 \x26ndash;tiller-namespace=kube-system \x26ndash;stable-repo-url https:\/\/kubernetes.oss-cn-hangzhou.aliyuncs.com\/charts 1 2 3 helm init 在缺省配置下， Helm 会利用 \x26#34;gcr.io\/kubernetes-helm\/tiller\x26#34; 镜像在Kubernetes集群上安',
+        desc: 'helm tiller安装 helm init helm init \x26ndash;tiller-image=daocloud.io\/liukuan73\/tiller-lk:v2.9.1 \x26ndash;tiller-namespace=kube-system helm init \x26ndash;upgrade -i registry.cn-hangzhou.aliyuncs.com\/google_containers\/tiller:v2.5.1 \x26ndash;stable-repo-url https:\/\/kubernetes.oss-cn-hangzhou.aliyuncs.com\/charts helm init \x26ndash;tiller-image=harbor.hub.cn\/bigdata-dev\/tiller:v2.10.0 \x26ndash;tiller-namespace=kube-system \x26ndash;stable-repo-url https:\/\/kubernetes.oss-cn-hangzhou.aliyuncs.com\/charts 1 2 3 helm init 在缺省配置下， Helm 会利用 \x26#34;gcr.io\/kubernetes-helm\/tiller\x26#34; 镜像在Kubernetes集群上安装配置 Tille',
         owner: 'lflxp',
         repo: 'https:\/\/github.com\/lflxp\/lflxp.github.com',
         oauth: {
