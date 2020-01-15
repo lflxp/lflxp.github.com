@@ -7,10 +7,46 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 14 Jan 2020 01:37:56 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 15 Jan 2020 11:08:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>deployment</title>
+      <link>https://www.lflxp.cn/tags/deployment/</link>
+      <pubDate>Wed, 15 Jan 2020 11:08:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/tags/deployment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>k8s</title>
+      <link>https://www.lflxp.cn/tags/k8s/</link>
+      <pubDate>Wed, 15 Jan 2020 11:08:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/tags/k8s/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pod</title>
+      <link>https://www.lflxp.cn/tags/pod/</link>
+      <pubDate>Wed, 15 Jan 2020 11:08:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/tags/pod/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>yaml</title>
+      <link>https://www.lflxp.cn/tags/yaml/</link>
+      <pubDate>Wed, 15 Jan 2020 11:08:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/tags/yaml/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>go</title>
@@ -36,15 +72,6 @@
       <pubDate>Tue, 14 Jan 2020 01:37:56 +0800</pubDate>
       
       <guid>https://www.lflxp.cn/tags/helm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>k8s</title>
-      <link>https://www.lflxp.cn/tags/k8s/</link>
-      <pubDate>Tue, 14 Jan 2020 01:37:56 +0800</pubDate>
-      
-      <guid>https://www.lflxp.cn/tags/k8s/</guid>
       <description></description>
     </item>
     
