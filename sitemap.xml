@@ -16,8 +16,113 @@
   </url>
   
   <url>
+    <loc>https://www.lflxp.cn/tags/ai/</loc>
+    <lastmod>2020-01-15T23:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://www.lflxp.cn/categories/</loc>
-    <lastmod>2020-01-15T11:21:59+08:00</lastmod>
+    <lastmod>2020-01-15T23:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/tags/face_recognition/</loc>
+    <lastmod>2020-01-15T23:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/ai/app/</loc>
+    <lastmod>2020-01-15T23:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/tags/ml/</loc>
+    <lastmod>2020-01-15T23:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/tags/ocr/</loc>
+    <lastmod>2020-01-15T23:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/categories/ocr/</loc>
+    <lastmod>2020-01-15T23:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/</loc>
+    <lastmod>2020-01-15T23:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/tags/</loc>
+    <lastmod>2020-01-15T23:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/tags/tesseract/</loc>
+    <lastmod>2020-01-15T23:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/categories/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/</loc>
+    <lastmod>2020-01-15T23:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/tags/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/</loc>
+    <lastmod>2020-01-15T23:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/ai/face-recognition/</loc>
+    <lastmod>2020-01-15T23:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/ai/ocr/</loc>
+    <lastmod>2020-01-15T23:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/tags/%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB/</loc>
+    <lastmod>2020-01-15T23:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/</loc>
+    <lastmod>2020-01-15T23:11:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -58,20 +163,6 @@
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/post/</loc>
-    <lastmod>2020-01-15T11:21:59+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/tags/</loc>
-    <lastmod>2020-01-15T11:21:59+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://www.lflxp.cn/tags/yaml/</loc>
     <lastmod>2020-01-15T11:21:59+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -80,13 +171,6 @@
   
   <url>
     <loc>https://www.lflxp.cn/categories/yaml/</loc>
-    <lastmod>2020-01-15T11:21:59+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/</loc>
     <lastmod>2020-01-15T11:21:59+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

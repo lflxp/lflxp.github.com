@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 15 Jan 2020 11:08:22 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 15 Jan 2020 23:11:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/post/index.xml" rel="self" type="application/rss+xml" />
     
@@ -28,6 +28,33 @@
       
       <guid>https://www.lflxp.cn/post/about/</guid>
       <description>我的博客，主要记录平时工作的经验、思考和总结以及对于宇宙的认识和自己改变世界的一点想法！ It makes use of a variety of open source projects including: Cobra Viper J Walter Weatherman Cast Learn more and contribute on GitHub.</description>
+    </item>
+    
+    <item>
+      <title>face_recognition-实际应用(附代码)</title>
+      <link>https://www.lflxp.cn/post/ai/app/</link>
+      <pubDate>Wed, 15 Jan 2020 23:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/ai/app/</guid>
+      <description>本文记录了通过开源人脸识别引擎face_recognition进行人脸识别，并封装成django的utils进行服务化。 里面用到了dlib的</description>
+    </item>
+    
+    <item>
+      <title>利用face_recognition进行人脸识别</title>
+      <link>https://www.lflxp.cn/post/ai/face-recognition/</link>
+      <pubDate>Wed, 15 Jan 2020 23:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/ai/face-recognition/</guid>
+      <description>https://github.com/ageitgey/face_recognition Face Recognition 人脸识别 译者注： 本项目face_recognition是一个强大、简单、易上手的人脸识别开源项目，并且配备了完整的开发文档和应用案例，</description>
+    </item>
+    
+    <item>
+      <title>利用tesseract-ocr进行中文识别</title>
+      <link>https://www.lflxp.cn/post/ai/ocr/</link>
+      <pubDate>Wed, 15 Jan 2020 23:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/ai/ocr/</guid>
+      <description>https://github.com/tesseract-ocr/tesseract 介绍 tesseract是用c++编写的OCR engine- libtesseract 并且带有命令执行文件 - tesseract 未来可以集成在系统中进行信息转换和数据抓取，封装成api对外提供服</description>
     </item>
     
     <item>

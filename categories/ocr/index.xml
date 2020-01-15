@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ocr on 爱像水墨青花</title>
+    <link>https://www.lflxp.cn/categories/ocr/</link>
+    <description>Recent content in ocr on 爱像水墨青花</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 15 Jan 2020 23:11:22 +0800</lastBuildDate>
+    
+	<atom:link href="https://www.lflxp.cn/categories/ocr/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>利用tesseract-ocr进行中文识别</title>
+      <link>https://www.lflxp.cn/post/ai/ocr/</link>
+      <pubDate>Wed, 15 Jan 2020 23:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/ai/ocr/</guid>
+      <description>https://github.com/tesseract-ocr/tesseract 介绍 tesseract是用c++编写的OCR engine- libtesseract 并且带有命令执行文件 - tesseract 未来可以集成在系统中进行信息转换和数据抓取，封装成api对外提供服</description>
+    </item>
+    
+  </channel>
+</rss>
