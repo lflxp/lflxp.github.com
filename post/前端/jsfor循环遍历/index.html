@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>This is a hidden post. - 爱像水墨青花</title>
+  <title>js实现vue v-for功能 - 爱像水墨青花</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,8 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Halulu" /><meta name="description" content="This post is hidden from the home page.
-" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="lixueping" /><meta name="description" content="问题描述 使用原生js&#43;bootstrap&#43;jquery想实现vue v-for功能去循环生成一个块，发现无从下手，现在记录一下解决方案 解决方案" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -27,7 +26,7 @@
 <meta name="generator" content="Hugo 0.62.2 with theme even" />
 
 
-<link rel="canonical" href="https://www.lflxp.cn/post/nice/hidden-post/" />
+<link rel="canonical" href="https://www.lflxp.cn/post/%E5%89%8D%E7%AB%AF/jsfor%E5%BE%AA%E7%8E%AF%E9%81%8D%E5%8E%86/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -39,23 +38,23 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="This is a hidden post." />
-<meta property="og:description" content="This post is hidden from the home page." />
+<meta property="og:title" content="js实现vue v-for功能" />
+<meta property="og:description" content="问题描述 使用原生js&#43;bootstrap&#43;jquery想实现vue v-for功能去循环生成一个块，发现无从下手，现在记录一下解决方案 解决方案" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.lflxp.cn/post/nice/hidden-post/" />
-<meta property="article:published_time" content="2018-03-08T17:40:19+08:00" />
-<meta property="article:modified_time" content="2020-01-13T15:32:12+08:00" />
-<meta itemprop="name" content="This is a hidden post.">
-<meta itemprop="description" content="This post is hidden from the home page.">
-<meta itemprop="datePublished" content="2018-03-08T17:40:19&#43;08:00" />
-<meta itemprop="dateModified" content="2020-01-13T15:32:12&#43;08:00" />
-<meta itemprop="wordCount" content="19">
+<meta property="og:url" content="https://www.lflxp.cn/post/%E5%89%8D%E7%AB%AF/jsfor%E5%BE%AA%E7%8E%AF%E9%81%8D%E5%8E%86/" />
+<meta property="article:published_time" content="2020-01-16T17:22:22+08:00" />
+<meta property="article:modified_time" content="2020-01-16T17:22:22+08:00" />
+<meta itemprop="name" content="js实现vue v-for功能">
+<meta itemprop="description" content="问题描述 使用原生js&#43;bootstrap&#43;jquery想实现vue v-for功能去循环生成一个块，发现无从下手，现在记录一下解决方案 解决方案">
+<meta itemprop="datePublished" content="2020-01-16T17:22:22&#43;08:00" />
+<meta itemprop="dateModified" content="2020-01-16T17:22:22&#43;08:00" />
+<meta itemprop="wordCount" content="135">
 
 
 
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="This is a hidden post."/>
-<meta name="twitter:description" content="This post is hidden from the home page."/>
+<meta itemprop="keywords" content="js,vue," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="js实现vue v-for功能"/>
+<meta name="twitter:description" content="问题描述 使用原生js&#43;bootstrap&#43;jquery想实现vue v-for功能去循环生成一个块，发现无从下手，现在记录一下解决方案 解决方案"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -122,11 +121,13 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">This is a hidden post.</h1>
+      <h1 class="post-title">js实现vue v-for功能</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2018-03-08 </span>
-        
+        <span class="post-time"> 2020-01-16 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%89%8D%E7%AB%AF/"> 前端 </a>
+            </div>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
@@ -134,39 +135,97 @@
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">文章目录</h2>
   <div class="post-toc-content">
-    <nav id="TableOfContents"></nav>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#问题描述">问题描述</a></li>
+    <li><a href="#解决方案">解决方案</a></li>
+  </ul>
+</nav>
   </div>
 </div>
     <div class="post-content">
-      <p>This post is hidden from the home page.</p>
-<p>But you can see it in archives, rss or other pages.</p>
+      <h2 id="问题描述">问题描述</h2>
+<p>使用原生js+bootstrap+jquery想实现vue v-for功能去循环生成一个<!-- raw HTML omitted -->块，发现无从下手，现在记录一下解决方案</p>
+<h2 id="解决方案">解决方案</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p"></span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;UTF-8&#34;</span><span class="p"></span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p"></span><span class="p">&gt;</span><span class="p">&lt;</span><span class="p">/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://code.jquery.com/jquery-3.4.1.js&#34;</span><span class="p"></span><span class="p">&gt;</span><span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p"></span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;container&#34;</span><span class="p"></span><span class="p">&gt;</span><span class="p">&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span><span class="p"></span><span class="p">&gt;</span>
+        <span class="kd">var</span> <span class="nx">htmlSeg</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
+        <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">htmlSeg</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;&lt;li class=&#34;cls ls hdl-details&#34; data-id=&#34;idx &#39;</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="s1">&#39;&#34;&gt;&#39;</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="s1">&#39;&lt;/li&gt;&#39;</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">htmlSeg</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="p">)</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.hdl-details&#39;</span><span class="p">)</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span><span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span><span class="p">)</span>
+        <span class="p">}</span><span class="p">)</span>
+    <span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">文章作者</span>
-    <span class="item-content"><a href="https://halu.lu" target="_blank">Halulu</a></span>
+    <span class="item-content">lixueping</span>
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2020-01-13
-        <a href="https://github.com/lflxp/commit/3f3fe79ef1b6a4a4bf63ed065bde9418bfe37f80" title="new">(3f3fe79)</a>
+        2020-01-16
+        
     </span>
   </p>
   
   
 </div>
 <footer class="post-footer">
-      
+      <div class="post-tags">
+          <a href="/tags/js/">js</a>
+          <a href="/tags/vue/">vue</a>
+          </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/about/">
+        <a class="prev" href="/post/nice/even-preview/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">关于</span>
+            <span class="prev-text nav-default">Theme preview</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/nice/english-preview/">
-            <span class="next-text nav-default">[English] Creating a New Theme</span>
+        <a class="next" href="/post/golang/%E9%9A%8F%E6%9C%BA%E5%AF%86%E7%A0%81/">
+            <span class="next-text nav-default">随机密码生成 by Golang</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -179,10 +238,10 @@
     <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
       var gitment = new Gitment({
-        id: '2018-03-08 17:40:19 \x2b0800 CST',
-        title: 'This is a hidden post.',
+        id: '2020-01-16 17:22:22 \x2b0800 CST',
+        title: 'js实现vue v-for功能',
         link: decodeURI(location.href),
-        desc: '\x3cp\x3eThis post is hidden from the home page.\x3c\/p\x3e',
+        desc: '问题描述 使用原生js\x2bbootstrap\x2bjquery想实现vue v-for功能去循环生成一个块，发现无从下手，现在记录一下解决方案 解决方案',
         owner: 'lflxp',
         repo: 'https:\/\/github.com\/lflxp\/lflxp.github.com',
         oauth: {

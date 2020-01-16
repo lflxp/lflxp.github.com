@@ -780,7 +780,7 @@
 	<span class="c1">// log.Debug(&#34;data&#34;, string(body))
 </span><span class="c1"></span>	<span class="c1">// log.Debug(&#34;url&#34;, fmt.Sprintf(&#34;%s/node/?token=%s&#34;, CUrl, token.Token))
 </span><span class="c1"></span>	<span class="nx">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{</span><span class="p">}</span>
-	<span class="nx">request</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewRequest</span><span class="p">(</span><span class="s">&#34;POST&#34;</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%s/node/?token=%s&amp;method=raw&#34;</span><span class="p">,</span> <span class="nx">curl</span><span class="p">,</span> <span class="nx">token</span><span class="p">.</span><span class="nx">Token</span><span class="p">)</span><span class="p">,</span> <span class="nx">bytes</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span><span class="p">)</span>
+	<span class="nx">request</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewRequest</span><span class="p">(</span><span class="s">&#34;POST&#34;</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%s/phy/?token=%s&#34;</span><span class="p">,</span> <span class="nx">curl</span><span class="p">,</span> <span class="nx">token</span><span class="p">.</span><span class="nx">Token</span><span class="p">)</span><span class="p">,</span> <span class="nx">bytes</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span><span class="p">)</span>
 	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 		<span class="k">return</span> <span class="nx">err</span>
 	<span class="p">}</span>
@@ -822,7 +822,10 @@
     </span>
   </p>
   
-  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content">MIT</span>
+  </p>
 </div>
 <footer class="post-footer">
       <div class="post-tags">
@@ -830,13 +833,9 @@
           <a href="/tags/http/">http</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/about/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">关于</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        <a class="next" href="/post/golang/%E9%9A%8F%E6%9C%BA%E5%AF%86%E7%A0%81/">
-            <span class="next-text nav-default">随机密码生成 by Golang</span>
+        
+        <a class="next" href="/post/nice/even-preview/">
+            <span class="next-text nav-default">Theme preview</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
