@@ -7,10 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 16 Jan 2020 17:22:22 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 16 Jan 2020 19:51:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>go</title>
+      <link>https://www.lflxp.cn/tags/go/</link>
+      <pubDate>Thu, 16 Jan 2020 19:51:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>webcam</title>
+      <link>https://www.lflxp.cn/tags/webcam/</link>
+      <pubDate>Thu, 16 Jan 2020 19:51:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/tags/webcam/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>js</title>
@@ -27,15 +45,6 @@
       <pubDate>Thu, 16 Jan 2020 17:22:22 +0800</pubDate>
       
       <guid>https://www.lflxp.cn/tags/vue/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>go</title>
-      <link>https://www.lflxp.cn/tags/go/</link>
-      <pubDate>Thu, 16 Jan 2020 12:57:22 +0800</pubDate>
-      
-      <guid>https://www.lflxp.cn/tags/go/</guid>
       <description></description>
     </item>
     
