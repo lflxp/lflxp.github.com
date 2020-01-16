@@ -30,5 +30,14 @@
       <description>https://github.com/blackjack/webcam/blob/master/examples/http_mjpeg_streamer/webcam.go 功能点 原生Linux抓取摄像头数据进行处理 Golang开发 提供http进行访问 代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28</description>
     </item>
     
+    <item>
+      <title>webcam 摄像头调用 golang版本</title>
+      <link>https://www.lflxp.cn/post/fun/webcam/</link>
+      <pubDate>Thu, 16 Jan 2020 00:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/fun/webcam/</guid>
+      <description>https://github.com/lflxp/webcam-right/blob/master/examples/http_mjpeg_streamer/webcam.go 介绍 用golang实现本地usb摄像头调用并通过http进行流数据访问 代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32</description>
+    </item>
+    
   </channel>
 </rss>
