@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>go on 爱像水墨青花</title>
-    <link>https://www.lflxp.cn/tags/go/</link>
+    <link>https://www.lflxp.cn/categories/go/</link>
     <description>Recent content in go on 爱像水墨青花</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
     <lastBuildDate>Thu, 16 Jan 2020 12:57:22 +0800</lastBuildDate>
     
-	<atom:link href="https://www.lflxp.cn/tags/go/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.lflxp.cn/categories/go/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -28,15 +28,6 @@
       
       <guid>https://www.lflxp.cn/post/golang/%E9%9A%8F%E6%9C%BA%E5%AF%86%E7%A0%81/</guid>
       <description>Talk is too slow Show me the code 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 package main import ( &amp;#34;crypto/md5&amp;#34; &amp;#34;encoding/hex&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;math/rand&amp;#34; &amp;#34;time&amp;#34; ) // 生</description>
-    </item>
-    
-    <item>
-      <title>Dgraph 图数据库试用</title>
-      <link>https://www.lflxp.cn/post/notebook/dgraph/first/</link>
-      <pubDate>Tue, 14 Jan 2020 01:37:56 +0800</pubDate>
-      
-      <guid>https://www.lflxp.cn/post/notebook/dgraph/first/</guid>
-      <description>Fast, Transactional, Distributed Graph Database. 简介 Dgraph is a horizontally scalable and distributed graph database, providing ACID transactions, consistent replication and linearizable reads. It&#39;s built from ground up to perform for a rich set of queries. Being a native graph database, it tightly controls how the data is arranged on disk to optimize for query performance and throughput, reducing disk seeks and network calls in a cluster. Dgraph&#39;s goal</description>
     </item>
     
   </channel>
