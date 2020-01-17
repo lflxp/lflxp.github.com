@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 17 Jan 2020 12:57:22 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 17 Jan 2020 13:57:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Django2自带用户登录注册功能总结</title>
+      <link>https://www.lflxp.cn/post/python/djaong2login/</link>
+      <pubDate>Fri, 17 Jan 2020 13:57:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/python/djaong2login/</guid>
+      <description>之前的登陆什么的都是自己利用数据库查询，form组件，cookie及session保存状态实现的，比较花费时间，而Django自带的登录认证</description>
+    </item>
     
     <item>
       <title>golang中image/jpeg包和image/png包用法</title>
