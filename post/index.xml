@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 17 Jan 2020 18:38:22 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 17 Jan 2020 22:01:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>修改pip源 加速安装</title>
+      <link>https://www.lflxp.cn/post/python/pip%E4%BF%AE%E6%94%B9%E6%BA%90/</link>
+      <pubDate>Fri, 17 Jan 2020 22:01:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/python/pip%E4%BF%AE%E6%94%B9%E6%BA%90/</guid>
+      <description>pip源修改 pip是python很强大的模块安装工具，但是由于官方pypi时常被墙，所以将pip源更换到国内，就可以解决这个问题。 目前有很多</description>
+    </item>
     
     <item>
       <title>Istio BookInfo Application测试案例</title>
