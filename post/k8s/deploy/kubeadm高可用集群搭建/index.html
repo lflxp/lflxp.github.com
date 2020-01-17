@@ -43,12 +43,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.lflxp.cn/post/k8s/deploy/kubeadm%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" />
 <meta property="article:published_time" content="2020-01-17T18:18:22+08:00" />
-<meta property="article:modified_time" content="2020-01-17T18:33:51+08:00" />
+<meta property="article:modified_time" content="2020-01-17T18:43:45+08:00" />
 <meta itemprop="name" content="利用 kubeadm 创建高可用集群">
 <meta itemprop="description" content="利用 kubeadm 创建高可用集群 本文讲述了使用 kubeadm 设置一个高可用的 Kubernetes 集群的两种不同方式： 使用堆控制平面节点。这种方法所需基础设施较少。etcd 成员和控制平">
 <meta itemprop="datePublished" content="2020-01-17T18:18:22&#43;08:00" />
-<meta itemprop="dateModified" content="2020-01-17T18:33:51&#43;08:00" />
-<meta itemprop="wordCount" content="3167">
+<meta itemprop="dateModified" content="2020-01-17T18:43:45&#43;08:00" />
+<meta itemprop="wordCount" content="3837">
 
 
 
@@ -164,6 +164,13 @@
     </li>
     <li><a href="#manual-certs">手动证书分发</a></li>
     <li><a href="#设置aliyun的镜像源">设置aliyun的镜像源</a></li>
+    <li><a href="#其它配置">其它配置</a>
+      <ul>
+        <li><a href="#ssh免秘钥登录">ssh免秘钥登录</a></li>
+        <li><a href="#初始化脚本">初始化脚本</a></li>
+        <li><a href="#haproxy--keepalive配置">Haproxy + Keepalive配置</a></li>
+      </ul>
+    </li>
     <li><a href="#参考">参考</a></li>
   </ul>
 </nav>
@@ -696,7 +703,299 @@ mv /home/<span class="si">${</span><span class="nv">USER</span><span class="si">
 <blockquote>
 <p>kubeadm join 192.168.2.255:6443 &ndash;token b4azax.83k81l0b4ucy82ng     &ndash;discovery-token-ca-cert-hash sha256:e7ee5922caabf15af81886b7075deb367292b7d4bd10a6eaee9ca3e91ac9788f     &ndash;control-plane &ndash;certificate-key debf552eac7379bb795f00ff887a8d377b9a9a8c78bd7f27d0ef163d2c095c42</p>
 </blockquote>
-<h2 id="参考">参考</h2>
+<h2 id="其它配置">其它配置</h2>
+<h3 id="ssh免秘钥登录">ssh免秘钥登录</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ssh-keygen
+ssh-copy-id root@192.168.1.201/202/203
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="初始化脚本">初始化脚本</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat init_env.sh 
+<span class="c1">#!/bin/bash</span>
+<span class="c1">#关闭防火墙 SELINUX</span>
+systemctl stop firewalld <span class="o">&amp;&amp;</span> systemctl disable firewalld
+setenforce <span class="m">0</span>
+sed -i <span class="s1">&#39;s/^SELINUX=enforcing$/SELINUX=disable/&#39;</span> /etc/selinux/config
+<span class="c1">#关闭swap</span>
+swapoff -a <span class="o">&amp;&amp;</span> sysctl -w vm.swappiness<span class="o">=</span><span class="m">0</span>
+sed -i <span class="s1">&#39;s/.*swap.*/#&amp;/g&#39;</span> /etc/fstab
+<span class="c1">#设置Docker所需参数</span>
+cat &gt; /etc/sysctl.d/k8s.conf <span class="s">&lt;&lt; EOF
+</span><span class="s">net.ipv4.ip_forward = 1
+</span><span class="s">net.bridge.bridge-nf-call-ip6tables = 1
+</span><span class="s">net.bridge.bridge-nf-call-iptables = 1
+</span><span class="s">EOF</span>
+modprobe br_netfilter
+sysctl -p /etc/sysctl.d/k8s.conf
+<span class="c1">#加载ip_vs模块</span>
+cat &gt; /etc/sysconfig/modules/ipvs.modules <span class="s">&lt;&lt;EOF
+</span><span class="s">#!/bin/bash
+</span><span class="s">modprobe -- ip_vs
+</span><span class="s">modprobe -- ip_vs_rr
+</span><span class="s">modprobe -- ip_vs_wrr
+</span><span class="s">modprobe -- ip_vs_sh
+</span><span class="s">modprobe -- nf_conntrack_ipv4
+</span><span class="s">EOF</span>
+chmod <span class="m">755</span> /etc/sysconfig/modules/ipvs.modules <span class="o">&amp;&amp;</span> bash /etc/sysconfig/modules/ipvs.modules <span class="o">&amp;&amp;</span> lsmod <span class="p">|</span> grep -e ip_vs -e nf_conntrack_ipv4
+<span class="c1">#安装docker18.06版本</span> 
+yum -y install yum-utils device-mapper-persistent-data lvm2 wget epel-release ipvsadm vim ntpdate
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+yum install -y docker-ce-18.06.1.ce-3.el7
+cat &gt; /etc/docker/daemon.json <span class="s">&lt;&lt;EOF
+</span><span class="s">{
+</span><span class="s">  &#34;exec-opts&#34;: [&#34;native.cgroupdriver=systemd&#34;],
+</span><span class="s">  &#34;registry-mirrors&#34;: [&#34;https://gco4rcsp.mirror.aliyuncs.com&#34;],
+</span><span class="s">  &#34;storage-driver&#34;: &#34;overlay2&#34;,
+</span><span class="s">  &#34;storage-opts&#34;: [
+</span><span class="s">    &#34;overlay2.override_kernel_check=true&#34;
+</span><span class="s">  ],
+</span><span class="s">  &#34;log-driver&#34;: &#34;json-file&#34;,
+</span><span class="s">  &#34;log-opts&#34;: {
+</span><span class="s">    &#34;max-size&#34;: &#34;100m&#34;,
+</span><span class="s">    &#34;max-file&#34;: &#34;3&#34;
+</span><span class="s">  }
+</span><span class="s">}
+</span><span class="s">EOF</span>
+systemctl <span class="nb">enable</span> docker <span class="o">&amp;&amp;</span> systemctl daemon-reload <span class="o">&amp;&amp;</span> systemctl restart docker
+<span class="c1">#安装kube组件</span>
+cat &gt; /etc/yum.repos.d/kubernetes.repo <span class="s">&lt;&lt;EOF
+</span><span class="s">[kubernetes]
+</span><span class="s">name=Kubernetes
+</span><span class="s">baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/
+</span><span class="s">enabled=1
+</span><span class="s">gpgcheck=0
+</span><span class="s">repo_gpgcheck=0
+</span><span class="s">gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+</span><span class="s">EOF</span>
+yum install -y kubelet kubeadm kubectl --disableexcludes<span class="o">=</span>kubernetes
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="haproxy--keepalive配置">Haproxy + Keepalive配置</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#apiserver高可用部署  Haproxy+Keepalived</span>
+<span class="k">for</span> node in k8s-m<span class="o">{</span>1,2,3<span class="o">}</span><span class="p">;</span><span class="k">do</span> ssh root@<span class="nv">$node</span> yum -y install haproxy keepalived<span class="p">;</span><span class="k">done</span>
+<span class="c1">#keepalived配置文件，其余节点修改state为BACKUP，priority小于主节点即可；检查网卡名称并修改</span>
+cat &gt; /etc/keepalived/keepalived.conf <span class="s">&lt;&lt; EOF 
+</span><span class="s">vrrp_script check_haproxy {
+</span><span class="s">    script &#34;/etc/keepalived/check_haproxy.sh&#34;
+</span><span class="s">    interval 3
+</span><span class="s">}
+</span><span class="s">vrrp_instance VI_1 {
+</span><span class="s">    state MASTER
+</span><span class="s">    interface ens192
+</span><span class="s">    virtual_router_id 51
+</span><span class="s">    priority 100
+</span><span class="s">    advert_int 1
+</span><span class="s">    authentication {
+</span><span class="s">        auth_type PASS
+</span><span class="s">        auth_pass 1111
+</span><span class="s">    }
+</span><span class="s">    virtual_ipaddress {
+</span><span class="s">    ${APISERVER_IP}
+</span><span class="s">    }
+</span><span class="s">     track_script {
+</span><span class="s">        check_haproxy
+</span><span class="s">     }
+</span><span class="s">}
+</span><span class="s">EOF</span>
+cat &gt; /etc/keepalived/check_haproxy.sh <span class="s">&lt;&lt;EOF
+</span><span class="s">#!/bin/bash
+</span><span class="s">systemctl status haproxy &gt; /dev/null
+</span><span class="s">if [[ \$? != 0 ]];then
+</span><span class="s">        echo &#34;haproxy is down,close the keepalived&#34;
+</span><span class="s">        systemctl stop keepalived
+</span><span class="s">fi
+</span><span class="s">EOF</span>
+cat &gt; /etc/haproxy/haproxy.cfg <span class="s">&lt;&lt; EOF 
+</span><span class="s">global
+</span><span class="s">    log         127.0.0.1 local2
+</span><span class="s">    chroot      /var/lib/haproxy
+</span><span class="s">    pidfile     /var/run/haproxy.pid
+</span><span class="s">    maxconn     4000
+</span><span class="s">    user        haproxy
+</span><span class="s">    group       haproxy
+</span><span class="s">    daemon
+</span><span class="s">    stats socket /var/lib/haproxy/stats
+</span><span class="s">#---------------------------------------------------------------------
+</span><span class="s">defaults
+</span><span class="s">    mode                    http
+</span><span class="s">    log                     global
+</span><span class="s">    option                  httplog
+</span><span class="s">    option                  dontlognull
+</span><span class="s">    option http-server-close
+</span><span class="s">    option forwardfor       except 127.0.0.0/8
+</span><span class="s">    option                  redispatch
+</span><span class="s">    retries                 3
+</span><span class="s">    timeout http-request    10s
+</span><span class="s">    timeout queue           1m
+</span><span class="s">    timeout connect         10s
+</span><span class="s">    timeout client          1m
+</span><span class="s">    timeout server          1m
+</span><span class="s">    timeout http-keep-alive 10s
+</span><span class="s">    timeout check           10s
+</span><span class="s">    maxconn                 3000
+</span><span class="s">#---------------------------------------------------------------------
+</span><span class="s">frontend  k8s-api 
+</span><span class="s">   bind *:8443
+</span><span class="s">   mode tcp
+</span><span class="s">   default_backend             apiserver
+</span><span class="s">#---------------------------------------------------------------------
+</span><span class="s">backend apiserver
+</span><span class="s">    balance     roundrobin
+</span><span class="s">    mode tcp
+</span><span class="s">    server  k8s-m1 192.168.1.201:6443 check weight 1 maxconn 2000 check inter 2000 rise 2 fall 3
+</span><span class="s">    server  k8s-m2 192.168.1.202:6443 check weight 1 maxconn 2000 check inter 2000 rise 2 fall 3
+</span><span class="s">    server  k8s-m3 192.168.1.203:6443 check weight 1 maxconn 2000 check inter 2000 rise 2 fall 3
+</span><span class="s">EOF</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
 <blockquote>
 <p><a href="https://kubernetes.io/zh/docs/setup/production-environment/tools/kubeadm/high-availability/#%e4%bd%bf%e7%94%a8%e5%a0%86%e6%8e%a7%e5%88%b6%e5%b9%b3%e9%9d%a2%e5%92%8c-etcd-%e8%8a%82%e7%82%b9">https://kubernetes.io/zh/docs/setup/production-environment/tools/kubeadm/high-availability/#%e4%bd%bf%e7%94%a8%e5%a0%86%e6%8e%a7%e5%88%b6%e5%b9%b3%e9%9d%a2%e5%92%8c-etcd-%e8%8a%82%e7%82%b9</a></p>
 </blockquote>
@@ -715,7 +1014,7 @@ mv /home/<span class="si">${</span><span class="nv">USER</span><span class="si">
     <span class="item-title">上次更新</span>
     <span class="item-content">
         2020-01-17
-        <a href="https://github.com/lflxp/commit/af2cd84e480e93b778f77d9a23b6ff7beec592b0" title="2020年 01月 17日 星期五 18:33:51 CST">(af2cd84)</a>
+        <a href="https://github.com/lflxp/commit/3faeccc1f86bad360e3edbad2a6d6ecb6211e133" title="2020年 01月 17日 星期五 18:43:45 CST">(3faeccc)</a>
     </span>
   </p>
   
