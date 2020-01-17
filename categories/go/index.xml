@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 16 Jan 2020 12:57:22 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 17 Jan 2020 12:57:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/categories/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>golang中image/jpeg包和image/png包用法</title>
+      <link>https://www.lflxp.cn/post/golang/image/</link>
+      <pubDate>Fri, 17 Jan 2020 12:57:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/golang/image/</guid>
+      <description>版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。 本文链接：https://blog.csdn.net/ch</description>
+    </item>
     
     <item>
       <title>golang常用的http请求操作</title>
