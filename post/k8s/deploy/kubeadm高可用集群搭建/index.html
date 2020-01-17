@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="lixueping" /><meta name="description" content="利用 kubeadm 创建高可用集群 本文讲述了使用 kubeadm 设置一个高可用的 Kubernetes 集群的两种不同方式： 使用堆控制平面节点。这种方法所需基础设施较少。etcd 成员和控制平" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="lixueping" /><meta name="description" content="本文讲述了使用 kubeadm 设置一个高可用的 Kubernetes 集群的两种不同方式： 使用堆控制平面节点。这种方法所需基础设施较少。etcd 成员和控制平面节点位于同一位置。" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -39,22 +39,22 @@
 
 
 <meta property="og:title" content="利用 kubeadm 创建高可用集群" />
-<meta property="og:description" content="利用 kubeadm 创建高可用集群 本文讲述了使用 kubeadm 设置一个高可用的 Kubernetes 集群的两种不同方式： 使用堆控制平面节点。这种方法所需基础设施较少。etcd 成员和控制平" />
+<meta property="og:description" content="本文讲述了使用 kubeadm 设置一个高可用的 Kubernetes 集群的两种不同方式： 使用堆控制平面节点。这种方法所需基础设施较少。etcd 成员和控制平面节点位于同一位置。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.lflxp.cn/post/k8s/deploy/kubeadm%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" />
 <meta property="article:published_time" content="2020-01-17T18:18:22+08:00" />
-<meta property="article:modified_time" content="2020-01-17T18:43:45+08:00" />
+<meta property="article:modified_time" content="2020-01-17T18:46:44+08:00" />
 <meta itemprop="name" content="利用 kubeadm 创建高可用集群">
-<meta itemprop="description" content="利用 kubeadm 创建高可用集群 本文讲述了使用 kubeadm 设置一个高可用的 Kubernetes 集群的两种不同方式： 使用堆控制平面节点。这种方法所需基础设施较少。etcd 成员和控制平">
+<meta itemprop="description" content="本文讲述了使用 kubeadm 设置一个高可用的 Kubernetes 集群的两种不同方式： 使用堆控制平面节点。这种方法所需基础设施较少。etcd 成员和控制平面节点位于同一位置。">
 <meta itemprop="datePublished" content="2020-01-17T18:18:22&#43;08:00" />
-<meta itemprop="dateModified" content="2020-01-17T18:43:45&#43;08:00" />
-<meta itemprop="wordCount" content="3837">
+<meta itemprop="dateModified" content="2020-01-17T18:46:44&#43;08:00" />
+<meta itemprop="wordCount" content="3827">
 
 
 
 <meta itemprop="keywords" content="部署,kubeadm," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="利用 kubeadm 创建高可用集群"/>
-<meta name="twitter:description" content="利用 kubeadm 创建高可用集群 本文讲述了使用 kubeadm 设置一个高可用的 Kubernetes 集群的两种不同方式： 使用堆控制平面节点。这种方法所需基础设施较少。etcd 成员和控制平"/>
+<meta name="twitter:description" content="本文讲述了使用 kubeadm 设置一个高可用的 Kubernetes 集群的两种不同方式： 使用堆控制平面节点。这种方法所需基础设施较少。etcd 成员和控制平面节点位于同一位置。"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -137,7 +137,6 @@
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#利用-kubeadm-创建高可用集群">利用 kubeadm 创建高可用集群</a></li>
     <li><a href="#准备开始">准备开始</a></li>
     <li><a href="#这两种方法的第一步">这两种方法的第一步</a>
       <ul>
@@ -177,8 +176,7 @@
   </div>
 </div>
     <div class="post-content">
-      <h2 id="利用-kubeadm-创建高可用集群">利用 kubeadm 创建高可用集群</h2>
-<p>本文讲述了使用 kubeadm 设置一个高可用的 Kubernetes 集群的两种不同方式：</p>
+      <p>本文讲述了使用 kubeadm 设置一个高可用的 Kubernetes 集群的两种不同方式：</p>
 <ul>
 <li>使用堆控制平面节点。这种方法所需基础设施较少。etcd 成员和控制平面节点位于同一位置。</li>
 <li>使用外部集群。这种方法所需基础设施较多。控制平面的节点和 etcd 成员是分开的。</li>
@@ -1014,7 +1012,7 @@ cat &gt; /etc/haproxy/haproxy.cfg <span class="s">&lt;&lt; EOF
     <span class="item-title">上次更新</span>
     <span class="item-content">
         2020-01-17
-        <a href="https://github.com/lflxp/commit/3faeccc1f86bad360e3edbad2a6d6ecb6211e133" title="2020年 01月 17日 星期五 18:43:45 CST">(3faeccc)</a>
+        <a href="https://github.com/lflxp/commit/74b956311de8203d62a8f457c579dfaff0010818" title="2020年 01月 17日 星期五 18:46:44 CST">(74b9563)</a>
     </span>
   </p>
   
@@ -1047,7 +1045,7 @@ cat &gt; /etc/haproxy/haproxy.cfg <span class="s">&lt;&lt; EOF
         id: '2020-01-17 18:18:22 \x2b0800 CST',
         title: '利用 kubeadm 创建高可用集群',
         link: decodeURI(location.href),
-        desc: '利用 kubeadm 创建高可用集群 本文讲述了使用 kubeadm 设置一个高可用的 Kubernetes 集群的两种不同方式： 使用堆控制平面节点。这种方法所需基础设施较少。etcd 成员和控制平',
+        desc: '本文讲述了使用 kubeadm 设置一个高可用的 Kubernetes 集群的两种不同方式： 使用堆控制平面节点。这种方法所需基础设施较少。etcd 成员和控制平面节点位于同一位置。',
         owner: 'lflxp',
         repo: 'https:\/\/github.com\/lflxp\/lflxp.github.com',
         oauth: {
