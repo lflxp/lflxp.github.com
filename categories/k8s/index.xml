@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>k8s on 爱像水墨青花</title>
+    <link>https://www.lflxp.cn/categories/k8s/</link>
+    <description>Recent content in k8s on 爱像水墨青花</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
+    <lastBuildDate>Fri, 17 Jan 2020 18:18:22 +0800</lastBuildDate>
+    
+	<atom:link href="https://www.lflxp.cn/categories/k8s/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>利用 kubeadm 创建高可用集群</title>
+      <link>https://www.lflxp.cn/post/k8s/deploy/kubeadm%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Fri, 17 Jan 2020 18:18:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/k8s/deploy/kubeadm%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</guid>
+      <description>利用 kubeadm 创建高可用集群 本文讲述了使用 kubeadm 设置一个高可用的 Kubernetes 集群的两种不同方式： 使用堆控制平面节点。这种方法所需基础设施较少。etcd 成员和控制平</description>
+    </item>
+    
+  </channel>
+</rss>
