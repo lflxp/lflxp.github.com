@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>10分钟写操作系统（一） - 爱像水墨青花</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lixueping" /><meta name="description" content="原文：https://blog.csdn.net/zashizhi3299/article/details/80870073 项目地址： https://github.com/lflxp/lucasOS 想动" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.lflxp.cn/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/10%E5%88%86%E9%92%9F%E5%86%99%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%80/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="10分钟写操作系统（一）" />
+<meta property="og:description" content="原文：https://blog.csdn.net/zashizhi3299/article/details/80870073 项目地址： https://github.com/lflxp/lucasOS 想动" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lflxp.cn/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/10%E5%88%86%E9%92%9F%E5%86%99%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%80/" />
+<meta property="article:published_time" content="2020-01-17T22:01:22+08:00" />
+<meta property="article:modified_time" content="2020-01-17T22:01:22+08:00" />
+<meta itemprop="name" content="10分钟写操作系统（一）">
+<meta itemprop="description" content="原文：https://blog.csdn.net/zashizhi3299/article/details/80870073 项目地址： https://github.com/lflxp/lucasOS 想动">
+<meta itemprop="datePublished" content="2020-01-17T22:01:22&#43;08:00" />
+<meta itemprop="dateModified" content="2020-01-17T22:01:22&#43;08:00" />
+<meta itemprop="wordCount" content="3017">
+
+
+
+<meta itemprop="keywords" content="os," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="10分钟写操作系统（一）"/>
+<meta name="twitter:description" content="原文：https://blog.csdn.net/zashizhi3299/article/details/80870073 项目地址： https://github.com/lflxp/lucasOS 想动"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">琵琶</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">目录</li>
+      </a><a href="/post/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">琵琶</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">目录</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">10分钟写操作系统（一）</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-01-17 </span>
+        <div class="post-category">
+            <a href="/categories/10%E5%88%86%E9%92%9F%E5%86%99%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 10分钟写操作系统 </a>
+            </div>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#第一节-开发环境">第一节 开发环境</a></li>
+    <li><a href="#计算机启动过程">计算机启动过程</a></li>
+    <li><a href="#第三节-主引导记录">第三节 主引导记录</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#第四节-代码解释">第四节 代码解释</a></li>
+    <li><a href="#第五节-制作软盘镜像加入主引导记录">第五节 制作软盘镜像，加入主引导记录</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#第六节-用软盘镜像lucasosimg启动一个空的虚拟机">第六节 用软盘镜像lucasOS.img启动一个空的虚拟机</a></li>
+    <li><a href="#代码获取">代码获取</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>原文：https://blog.csdn.net/zashizhi3299/article/details/80870073</p>
+<p>项目地址： <a href="https://github.com/lflxp/lucasOS">https://github.com/lflxp/lucasOS</a></p>
+<p>想动手，但不知从何入手，是学习一门新知识普遍会遇到的尴尬点。笔者喜欢边实践边学习理论，笔者的写作思路是：入门的文章要避免讲一些高深的理论，而应该先抛出demo，从研究demo入手，逐步加深demo的难度，从而学习这个过程中涉及到的理论知识。下面就让我们花10分钟写个“操作系统”。</p>
+<h2 id="第一节-开发环境">第一节 开发环境</h2>
+<p>我们在linux下制作软盘、编译内核等，因此需要linux开发环境。如果你用windows, 那么在windows下安装VMware, 在VMware中安装ubuntu虚拟机，此ubuntu作为开发环境。</p>
+<p>注：笔者的开发环境是windows&ndash;VMware&ndash;ubuntu14.04.</p>
+<h2 id="计算机启动过程">计算机启动过程</h2>
+<p>写操作系统看似是一个复杂的过程，但只要我们将过程分解，完成每一步，那么完成一个操作系统就是水到渠成的事了。好了，我们就看一下计算机的启动过程，看操作系统何时被启动的。</p>
+<p><em><strong>第一步：读取BIOS</strong></em></p>
+<p>按下电源按钮后，计算机首先读取一块ROM芯片，这块芯片里的程序是&quot;基本输入输出系統&rdquo;（Basic Input/Output System），即BIOS.</p>
+<p><em><strong>第二步：硬件自检</strong></em></p>
+<p>BIOS会检查计算机硬件是否满足运行条件，如果硬件出现问题，主板会发出不同含义的蜂鸣，启动中止。</p>
+<p><em><strong>第三步：启动顺序</strong></em></p>
+<p>硬件检查完成后，BIOS会将控制权交给下一阶段的启动程序，注意，“下一阶段的启动程序”可能存放在硬盘中，也可能存放在CD/DVD中，或者软盘中等等，可以设置BIOS选择从哪个设备启动。</p>
+<p><em><strong>第四步：主引导记录</strong></em></p>
+<p>BIOS找到了“下一阶段的启动程序”所在设备，会读取该设备的第一个扇区，即读取最前面的512字节，称为主引导记录。主引导记录会告诉计算机下一步到哪里去找操作系统。</p>
+<p><em><strong>第五步：bootloader</strong></em></p>
+<p>计算机读取&quot;主引导记录&quot;前面446字节的机器码之后，运行事先安装的“启动管理器”bootloader，由用户选择启动哪个操作系统。如果你安装了多个操作系统，那么就要从这步做出选择了。</p>
+<p><em><strong>第六步：加载内核</strong></em></p>
+<p>好了，选择操作系统（内核）后，会加载内核，下面就交给内核去处理了。</p>
+<h2 id="第三节-主引导记录">第三节 主引导记录</h2>
+<p>我们使用虚拟机来启动操作系统，上面的第一步和第二步我们不做，由虚拟机去完成；第三步“启动顺序”我们选择从软盘启动（我们用镜像代替，并不是真的软盘），需要对虚拟机做下设置，选择从软盘启动。下面重点来看第四步，我们写一下“主引导记录”，让BIOS读取我们写的主引导记录。</p>
+<ol>
+<li>主引导记录代码</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-asm" data-lang="asm"><span class="c">; 文件名 boot.asm
+</span><span class="c"></span> 
+<span class="nf">org</span> <span class="mi">7</span><span class="no">c00h</span>                     <span class="c">; BIOS读入MBR后，从0x7c00h处开始执行
+</span><span class="c"></span> 
+<span class="c">; 下面部分和10h有关中断，10h中断用来显示字符
+</span><span class="c"></span><span class="no">mov</span> <span class="no">ax</span><span class="p">,</span> <span class="no">cs</span>
+<span class="nf">mov</span> <span class="no">es</span><span class="p">,</span> <span class="no">ax</span>
+<span class="nf">mov</span> <span class="no">ax</span><span class="p">,</span> <span class="no">msg</span>
+<span class="nf">mov</span> <span class="no">bp</span><span class="p">,</span> <span class="no">ax</span>                    <span class="c">; ES:BP表示显示字符串的地址
+</span><span class="c"></span><span class="no">mov</span> <span class="no">cx</span><span class="p">,</span> <span class="no">msgLen</span>                <span class="c">; CX存字符长度
+</span><span class="c"></span><span class="no">mov</span> <span class="no">ax</span><span class="p">,</span> <span class="mi">1301</span><span class="no">h</span>                 <span class="c">; AH=13h表示向TTY显示字符，AL=01h表示显示方式（字符串是否包含显示属性，01h表示不包含）
+</span><span class="c"></span><span class="no">mov</span> <span class="no">bx</span><span class="p">,</span> <span class="mi">000</span><span class="no">fh</span>                 <span class="c">; BH=00h表示页号，BL=0fh表示颜色
+</span><span class="c"></span><span class="no">mov</span> <span class="no">dl</span><span class="p">,</span> <span class="mi">0</span>                     <span class="c">; 列
+</span><span class="c"></span><span class="no">int</span> <span class="mi">10</span><span class="no">h</span>
+  
+<span class="nl">msg:</span> <span class="nf">db</span> <span class="err">&#34;</span><span class="no">hello</span> <span class="no">world</span><span class="p">,</span> <span class="no">welcome</span> <span class="no">to</span> <span class="no">OS</span><span class="p">!</span><span class="err">&#34;</span>
+<span class="nl">msgLen:</span> <span class="nf">equ</span> <span class="no">$</span> <span class="p">-</span> <span class="no">msg</span>           <span class="c">; 字符串长度
+</span><span class="c"></span><span class="no">times</span> <span class="mi">510</span> <span class="p">-</span> <span class="p">(</span><span class="no">$</span> <span class="p">-</span> <span class="no">$$</span><span class="p">)</span> <span class="no">db</span> <span class="mi">0</span>     <span class="c">; 填充剩余部分
+</span><span class="c"></span><span class="no">dw</span> <span class="mi">0</span><span class="no">aa55h</span>                     <span class="c">; 魔数，必须有这两个字节BIOS才确认是MBR
+</span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>编译</li>
+</ol>
+<blockquote>
+<h1 id="nasm-bootasm--o-bootbin">nasm boot.asm -o boot.bin</h1>
+</blockquote>
+<p>如果没有nasm，安装它 sudo apt-get install nasm, 执行完上述命令，会生成boot.bin文件，这就是我们的主引导记录二进制。</p>
+<h2 id="第四节-代码解释">第四节 代码解释</h2>
+<p>我们再来看下主引导记录的汇编代码，熟悉汇编的读者可忽略本节。</p>
+<ol>
+<li><em><strong>为什么MBR要从0x7c00h处开始执行？</strong></em></li>
+</ol>
+<p>ORG是伪指令，org 7c00h是告诉编译器，下面代码装入到内存的起始地址0x7c00h处。为什么呢，这是因为BIOS读取主引导记录后，会从0x7c00h处开始执行，那么BIOS为什么会从0x7c00h这个地址开始执行，而不是其他地址呢，这一切都要从大明湖畔的8086cpu说起。</p>
+<p>时光飞逝，容颜易老，8086却还是那个样子，如图所示：</p>
+<p><img src="http://images2015.cnblogs.com/blog/443349/201510/443349-20151005001027293-918243825.jpg" alt=""></p>
+<p>图 8086实物图</p>
+<p><img src="http://images2015.cnblogs.com/blog/443349/201510/443349-20151004234558511-279498399.png" alt=""></p>
+<p>图 8086引脚图</p>
+<p>正如图中所示，8086cpu的地址总线宽度为20（AD0-AD19），可以传送220的地址信息，即可以定位220（1M）的内存地址空间，那么这1M的内存地址空间是如何分配的呢，见下图所示（图是386的，我们目前只关心实模式即1M内存地址空间分配):</p>
+<p><img src="http://images2015.cnblogs.com/blog/443349/201510/443349-20151005002728730-1956827409.png" alt=""></p>
+<p>图 实模式内存地址空间分布</p>
+<p>看到0x7c00h了吗？0x0000h&ndash;0x7c00h这一段存的是BIOS中断向量和一些BIOS数据等，至于到底为什么以0x7c00h为界，本文不做讨论，有兴趣看这里http://www.glamenv-septzen.net/en/view/6。</p>
+<ol start="2">
+<li><em><strong>int 10h是干嘛的?</strong></em></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">当出现int 10h中断时，表示要操作显示器了，此时AH寄存器表示如何显示，代码中的AH为13h，表示要在TTY（伪终端）显示字符，此时其他几个寄存器都有一定的含义，如下所示：
+
+ES:BP -- 显示字符串的地址CX -- 显示字符串的长度
+
+BH -- 页码                      BL -- 属性(若AL=00H或 01H)
+
+DH -- 行  DL -- 列
+
+AL -- 显示输出方式
+
+下面一段代码也就不难理解了：
+
+mov ax, cs
+mov es, ax
+mov ax, msg
+mov bp, ax                    ; ES:BP表示显示字符串的地址
+mov cx, msgLen                ; CX存字符长度
+mov ax, 1301h                 ; AH=13h表示向TTY显示字符，AL=01h表示显示方式（字符串是否包含显示属性，01h表示不包含）
+mov bx, 000fh                 ; BH=00h表示页号，BL=0fh表示颜色
+mov dl, 0                     ; 列
+int 10h
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li><em><strong>$和$$是什么意思？</strong></em></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$   是当前位置
+$$ 是段开始位置
+
+下面两句就不难理解了：
+
+msgLen: equ $ - msg           ; 字符串长度
+times 510 - ($ - $$) db 0     ; 填充剩余部分
+</code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li><em><strong>为什么要有0xaa55h魔数？</strong></em></li>
+</ol>
+<blockquote>
+<p>BIOS检查完硬件后，会寻找下一个设备来启动计算机，BIOS找到一个设备后，会读取该设备的第一个扇区，也就是读取最前面的512个字节。如果这512个字节的最后两个字节是0x55和0xAA，表明这个设备可以用于启动；如果不是，表明设备不能用于启动，控制权于是被转交给&quot;启动顺序&quot;中的下一个设备。</p>
+</blockquote>
+<h2 id="第五节-制作软盘镜像加入主引导记录">第五节 制作软盘镜像，加入主引导记录</h2>
+<p>如何用dd命令制作软盘，自行google之。</p>
+<ol>
+<li><code>首先，我们制作一个空的软盘镜像empty.img：</code></li>
+</ol>
+<blockquote>
+<h1 id="dd-ifdevzero-ofemptyimg-bs512-count2880">dd if=/dev/zero of=empty.img bs=512 count=2880</h1>
+</blockquote>
+<ol start="2">
+<li><code>之后，我们制作一个包含主引导记录boot.bin的镜像文件lucasOS.img:</code></li>
+</ol>
+<blockquote>
+<h1 id="dd-ifbootbin-oflucasosimg-bs512-count1">dd if=boot.bin of=lucasOS.img bs=512 count=1</h1>
+</blockquote>
+<ol start="3">
+<li><code>然后，将empty.img中1个扇区后的数据拷贝到lucasOS.img的后:</code></li>
+</ol>
+<blockquote>
+<h1 id="dd-ifemptyimg-oflucasosimg-skip1-seek1-bs512-count2879">dd if=empty.img of=lucasOS.img skip=1 seek=1 bs=512 count=2879</h1>
+</blockquote>
+<p><code>这样就做成了一个大小为1.44Mb的包含主引导记录的软盘镜像文件lucasOS.img。</code></p>
+<ol start="4">
+<li><code>将虚拟机ubuntu中的文件lucasOS.img拷贝到windows下</code>（鼠标直接拖拽，如果不行google之）。</li>
+</ol>
+<h2 id="第六节-用软盘镜像lucasosimg启动一个空的虚拟机">第六节 用软盘镜像lucasOS.img启动一个空的虚拟机</h2>
+<ol>
+<li><code>VMware创建空的虚拟机，去掉开机从CD/DVD启动选项。</code></li>
+</ol>
+<p><img src="http://images2015.cnblogs.com/blog/443349/201509/443349-20150923172253194-1173963410.png" alt=""></p>
+<ol start="2">
+<li><code>网络选择host-only模式。</code></li>
+</ol>
+<p><img src="http://images2015.cnblogs.com/blog/443349/201509/443349-20150923172306647-546312325.png" alt=""></p>
+<ol start="3">
+<li><code>选择从软盘驱动，路径选择上一节已经拷贝到windows下的镜像lucasOS.img.</code></li>
+</ol>
+<p><img src="http://images2015.cnblogs.com/blog/443349/201510/443349-20151004024039433-679580535.png" alt=""></p>
+<ol start="4">
+<li><code>开启虚拟机电源，看到如下画面，恭喜你，成功了。</code></li>
+</ol>
+<p><img src="http://images2015.cnblogs.com/blog/443349/201510/443349-20151004015658590-1259983837.png" alt=""></p>
+<p>好了，至此，我们完成了主引导记录，后续会讨论载入内核，并进一步讨论进程管理、内存管理、文件系统和中断等等。</p>
+<h2 id="代码获取">代码获取</h2>
+<p>本系列GitHub地址 <a href="https://github.com/lflxp/lucasOS.git">https://github.com/lflxp/lucasOS.git</a></p>
+<p>获取代码:</p>
+<blockquote>
+<h1 id="git-clone-httpsgithubcomlflxplucasosgit">git clone <a href="https://github.com/lflxp/lucasOS.git">https://github.com/lflxp/lucasOS.git</a></h1>
+</blockquote>
+<p>本讲的代码是code/chapter1，笔者已经将上面的命令集成到Makefile中了，读者只需进入目录，按ReadMe.txt执行即可。有问题请留言。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lixueping</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-01-17
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content">MIT</span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/os/">os</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/python/pip%E4%BF%AE%E6%94%B9%E6%BA%90/">
+            <span class="next-text nav-default">修改pip源 加速安装</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="comments-gitment"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitment = new Gitment({
+        id: '2020-01-17 22:01:22 \x2b0800 CST',
+        title: '10分钟写操作系统（一）',
+        link: decodeURI(location.href),
+        desc: '原文：https:\/\/blog.csdn.net\/zashizhi3299\/article\/details\/80870073 项目地址： https:\/\/github.com\/lflxp\/lucasOS 想动',
+        owner: 'lflxp',
+        repo: 'https:\/\/github.com\/lflxp\/lflxp.github.com',
+        oauth: {
+          client_id: '',
+          client_secret: ''
+        }
+      });
+      gitment.render('comments-gitment');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:382023823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/lflxp" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.lflxp.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">lflxp.cn 版权所有 ICP证：<a href='http://www.beian.miit.gov.cn' target='_blank'>渝ICP备17011066号-1</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '渝ICP备17011066号-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
