@@ -431,7 +431,21 @@ yum install tesseract-langpack-deu
     <span class="item-content">MIT</span>
   </p>
 </div>
-<footer class="post-footer">
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/tx.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/ali.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/ocr/">ocr</a>
           <a href="/tags/%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB/">文字识别</a>
@@ -453,29 +467,19 @@ yum install tesseract-langpack-deu
     </footer>
   </article>
         </div>
-        <div id="comments-gitment"></div>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-      var gitment = new Gitment({
-        id: '2020-01-15 23:11:22 \x2b0800 CST',
-        title: '利用tesseract-ocr进行中文识别',
-        link: decodeURI(location.href),
-        desc: 'https:\/\/github.com\/tesseract-ocr\/tesseract 介绍 tesseract是用c\x2b\x2b编写的OCR engine- libtesseract 并且带有命令执行文件 - tesseract 未来可以集成在系统中进行信息转换和数据抓取，封装成api对外提供服',
-        owner: 'lflxp',
-        repo: 'https:\/\/github.com\/lflxp\/lflxp.github.com',
-        oauth: {
-          client_id: '',
-          client_secret: ''
-        }
-      });
-      gitment.render('comments-gitment');
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="lflxp/lflxp.github.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
     </script>
-    <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
-
-  
-
-  
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
 
       </div>
     </main>
@@ -542,7 +546,7 @@ yum install tesseract-langpack-deu
     var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
-  </script>
+  </script><script></script><script src="https://cdn.jsdelivr.net/npm/raphael@2.2.7/raphael.min.js" integrity="sha256-67By+NpOtm9ka1R6xpUefeGOY8kWWHHRAKlvaTJ7ONI=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/flowchart.js@1.8.0/release/flowchart.min.js" integrity="sha256-zNGWjubXoY6rb5MnmpBNefO0RgoVYfle9p0tvOQM+6k=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
