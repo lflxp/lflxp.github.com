@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>install on 爱像水墨青花</title>
+    <link>https://www.lflxp.cn/tags/install/</link>
+    <description>Recent content in install on 爱像水墨青花</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
+    <lastBuildDate>Fri, 17 Jan 2020 18:38:22 +0800</lastBuildDate>
+    
+	<atom:link href="https://www.lflxp.cn/tags/install/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Istio BookInfo Application测试案例</title>
+      <link>https://www.lflxp.cn/post/k8s/istio/bookinfo/</link>
+      <pubDate>Fri, 17 Jan 2020 18:38:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/k8s/istio/bookinfo/</guid>
+      <description>https://istio.io/docs/examples/bookinfo/ Start the application services Change directory to the root of the Istio installation. The default Istio installation uses automatic sidecar injection. Label the namespace that will host the application with istio-injection=enabled: $ kubectl label namespace default istio-injection=enabled 1 If you use OpenShift, make sure to give appropriate permissions to service accounts on the namespace as described in OpenShift setup page. Deploy your application using the kubectl command: $ kubectl</description>
+    </item>
+    
+    <item>
+      <title>Istio Get Start 安装</title>
+      <link>https://www.lflxp.cn/post/k8s/istio/getstart/</link>
+      <pubDate>Fri, 17 Jan 2020 18:38:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/k8s/istio/getstart/</guid>
+      <description>To get started with Istio, just follow these three steps: [Set up your platform](#Set up your platform) [Download the release](#Download the release) [Install Istio] Set up your platform Before you can install Istio, you need a cluster running a compatible version of Kubernetes. Istio 1.4 has been tested with Kubernetes releases 1.13, 1.14, 1.15. Create a cluster by selecting the appropriate platform-specific setup instructions. Some platforms provide a managed control</description>
+    </item>
+    
+  </channel>
+</rss>
