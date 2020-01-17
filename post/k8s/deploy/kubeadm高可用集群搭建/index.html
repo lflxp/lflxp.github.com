@@ -43,12 +43,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.lflxp.cn/post/k8s/deploy/kubeadm%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" />
 <meta property="article:published_time" content="2020-01-17T18:18:22+08:00" />
-<meta property="article:modified_time" content="2020-01-17T18:18:22+08:00" />
+<meta property="article:modified_time" content="2020-01-17T18:33:51+08:00" />
 <meta itemprop="name" content="利用 kubeadm 创建高可用集群">
 <meta itemprop="description" content="利用 kubeadm 创建高可用集群 本文讲述了使用 kubeadm 设置一个高可用的 Kubernetes 集群的两种不同方式： 使用堆控制平面节点。这种方法所需基础设施较少。etcd 成员和控制平">
 <meta itemprop="datePublished" content="2020-01-17T18:18:22&#43;08:00" />
-<meta itemprop="dateModified" content="2020-01-17T18:18:22&#43;08:00" />
-<meta itemprop="wordCount" content="3093">
+<meta itemprop="dateModified" content="2020-01-17T18:33:51&#43;08:00" />
+<meta itemprop="wordCount" content="3167">
 
 
 
@@ -163,6 +163,7 @@
       </ul>
     </li>
     <li><a href="#manual-certs">手动证书分发</a></li>
+    <li><a href="#设置aliyun的镜像源">设置aliyun的镜像源</a></li>
     <li><a href="#参考">参考</a></li>
   </ul>
 </nav>
@@ -682,6 +683,19 @@ mv /home/<span class="si">${</span><span class="nv">USER</span><span class="si">
 </div>
 </div></li>
 </ol>
+<h2 id="设置aliyun的镜像源">设置aliyun的镜像源</h2>
+<p>网络问题不能翻墙的同学改用阿里云的源</p>
+<p><code>初始化节点执行</code></p>
+<blockquote>
+<p>kubeadm init &ndash;kubernetes-version=v1.17.0 &ndash;control-plane-endpoint=192.168.2.255 &ndash;pod-network-cidr=10.244.0.0/16 &ndash;image-repository registry.cn-hangzhou.aliyuncs.com/google_containers &ndash;upload-certs &ndash;v=5</p>
+</blockquote>
+<p><code>其它Master节点执行</code></p>
+<blockquote>
+<p>kubeadm config images pull &ndash;image-repository registry.cn-hangzhou.aliyuncs.com/google_containers</p>
+</blockquote>
+<blockquote>
+<p>kubeadm join 192.168.2.255:6443 &ndash;token b4azax.83k81l0b4ucy82ng     &ndash;discovery-token-ca-cert-hash sha256:e7ee5922caabf15af81886b7075deb367292b7d4bd10a6eaee9ca3e91ac9788f     &ndash;control-plane &ndash;certificate-key debf552eac7379bb795f00ff887a8d377b9a9a8c78bd7f27d0ef163d2c095c42</p>
+</blockquote>
 <h2 id="参考">参考</h2>
 <blockquote>
 <p><a href="https://kubernetes.io/zh/docs/setup/production-environment/tools/kubeadm/high-availability/#%e4%bd%bf%e7%94%a8%e5%a0%86%e6%8e%a7%e5%88%b6%e5%b9%b3%e9%9d%a2%e5%92%8c-etcd-%e8%8a%82%e7%82%b9">https://kubernetes.io/zh/docs/setup/production-environment/tools/kubeadm/high-availability/#%e4%bd%bf%e7%94%a8%e5%a0%86%e6%8e%a7%e5%88%b6%e5%b9%b3%e9%9d%a2%e5%92%8c-etcd-%e8%8a%82%e7%82%b9</a></p>
@@ -701,7 +715,7 @@ mv /home/<span class="si">${</span><span class="nv">USER</span><span class="si">
     <span class="item-title">上次更新</span>
     <span class="item-content">
         2020-01-17
-        
+        <a href="https://github.com/lflxp/commit/af2cd84e480e93b778f77d9a23b6ff7beec592b0" title="2020年 01月 17日 星期五 18:33:51 CST">(af2cd84)</a>
     </span>
   </p>
   
