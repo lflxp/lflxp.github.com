@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>工厂模式 on 爱像水墨青花</title>
+    <link>https://www.lflxp.cn/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</link>
+    <description>Recent content in 工厂模式 on 爱像水墨青花</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
+    <lastBuildDate>Sat, 18 Jan 2020 23:01:22 +0800</lastBuildDate>
+    
+	<atom:link href="https://www.lflxp.cn/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>工厂方法模式</title>
+      <link>https://www.lflxp.cn/post/%E7%AE%97%E6%B3%95/%E5%88%9B%E5%BB%BA%E5%9E%8B/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Sat, 18 Jan 2020 23:01:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/%E7%AE%97%E6%B3%95/%E5%88%9B%E5%BB%BA%E5%9E%8B/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%9E%8B/</guid>
+      <description>工厂方法模式使用子类的方式延迟生成对象到子类中实现。 Go中不存在继承 所以使用匿名组合来实现 模式动机 现在对该系统进行修改，不再设计一个按钮工厂</description>
+    </item>
+    
+    <item>
+      <title>简单工厂模式</title>
+      <link>https://www.lflxp.cn/post/%E7%AE%97%E6%B3%95/%E5%88%9B%E5%BB%BA%E5%9E%8B/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 18 Jan 2020 23:01:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/%E7%AE%97%E6%B3%95/%E5%88%9B%E5%BB%BA%E5%9E%8B/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</guid>
+      <description>go 语言没有构造函数一说，所以一般会定义NewXXX函数来初始化相关类。 NewXXX 函数返回接口时就是简单工厂模式，也就是说Golang的一般推荐做法就</description>
+    </item>
+    
+  </channel>
+</rss>
