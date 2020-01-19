@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 19 Jan 2020 11:01:22 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jan 2020 16:39:25 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/post/index.xml" rel="self" type="application/rss+xml" />
     
@@ -19,6 +19,15 @@
       
       <guid>https://www.lflxp.cn/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%B5%84%E6%96%99/</guid>
       <description>入门教程 如何从零开始写一个简单的操作系统 30天自制操作系统 Stop &amp;amp; 「OS67 」 Start 自制一个小型的linux操作系统 经典教程 Xv6, a simple Unix-like teaching operating system 中文版的 MIT</description>
+    </item>
+    
+    <item>
+      <title>leetcode 206 反转一个SingleListNode</title>
+      <link>https://www.lflxp.cn/post/%E7%AE%97%E6%B3%95/%E9%93%BE%E8%A1%A8/singlelistnode/</link>
+      <pubDate>Sun, 19 Jan 2020 16:39:25 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/%E7%AE%97%E6%B3%95/%E9%93%BE%E8%A1%A8/singlelistnode/</guid>
+      <description>https://github.com/lflxp/accumulation/tree/master/algorithm/reverselinkedlist 题目描述 反转一个SingListNode 示例 1 2 输入: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5-&amp;gt;NULL 输出: 5-&amp;gt;4-&amp;gt;3-&amp;gt;2-&amp;gt;1-&amp;gt;NULL 解决方案 迭代方案 递归方案 测试算法 进阶 你可以迭代或递归地反转链表。你能否用两</description>
     </item>
     
     <item>
