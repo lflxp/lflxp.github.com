@@ -493,5 +493,14 @@ Andrew-&amp;gt;&amp;gt;China: I am good thanks!
 &lt;/div&gt;</description>
     </item>
     
+    <item>
+      <title>运维实用技巧</title>
+      <link>https://www.lflxp.cn/post/python/skill/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/python/skill/</guid>
+      <description>env环境变量取消 ALL_PROXY unset all_proxy &amp;amp;&amp;amp; unset ALL_PROXY http static tool python2 python -m SimpleHTTPServer 8000 python3 python3 -m http.server 8000 showme static wget https://github.com/lflxp/showme/releases/download/v0.5/showme-x86-amd64.tar.gz tar -zxvf ./showme-x86-amd64.tar.gz chmod +x showme showme static rust https://github.com/brson/basic-http-server cargo install basic-http-server basic-http-server -x</description>
+    </item>
+    
   </channel>
 </rss>
