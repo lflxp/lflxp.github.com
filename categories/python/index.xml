@@ -7,6 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
+    <lastBuildDate>Sat, 01 Feb 2020 23:28:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/categories/python/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +15,7 @@
     <item>
       <title>运维实用技巧</title>
       <link>https://www.lflxp.cn/post/python/skill/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 01 Feb 2020 23:28:22 +0800</pubDate>
       
       <guid>https://www.lflxp.cn/post/python/skill/</guid>
       <description>env环境变量取消 ALL_PROXY unset all_proxy &amp;amp;&amp;amp; unset ALL_PROXY http static tool python2 python -m SimpleHTTPServer 8000 python3 python3 -m http.server 8000 showme static wget https://github.com/lflxp/showme/releases/download/v0.5/showme-x86-amd64.tar.gz tar -zxvf ./showme-x86-amd64.tar.gz chmod +x showme showme static rust https://github.com/brson/basic-http-server cargo install basic-http-server basic-http-server -x</description>
