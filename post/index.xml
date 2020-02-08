@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 03 Feb 2020 00:02:22 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 08 Feb 2020 11:01:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/post/index.xml" rel="self" type="application/rss+xml" />
     
@@ -19,6 +19,15 @@
       
       <guid>https://www.lflxp.cn/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%B5%84%E6%96%99/</guid>
       <description>入门教程 如何从零开始写一个简单的操作系统 30天自制操作系统 Stop &amp;amp; 「OS67 」 Start 自制一个小型的linux操作系统 经典教程 Xv6, a simple Unix-like teaching operating system 中文版的 MIT</description>
+    </item>
+    
+    <item>
+      <title>Cargo 使用本地的 crate（本地包代码）</title>
+      <link>https://www.lflxp.cn/post/rust/%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0crate/</link>
+      <pubDate>Sat, 08 Feb 2020 11:01:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/rust/%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0crate/</guid>
+      <description>默认在 Cargo.toml 中指定了包以后，Cargo build 的时候会从 crates.io 上下载远程 的对应包代码。本文将介绍如何在 Cargo.toml 中指定使用本地机器上某个目录下的包， 方便调试本地开</description>
     </item>
     
     <item>

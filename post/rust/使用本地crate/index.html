@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Flutter 环境搭建 下载那些事 - 爱像水墨青花</title>
+  <title>Cargo 使用本地的 crate（本地包代码） - 爱像水墨青花</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="lixueping" /><meta name="description" content="dl.google.com下载曼或不能访问的问题 访问http://ping.chinaz.com/dl.google.com找到访问延迟最小" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="lixueping" /><meta name="description" content="默认在 Cargo.toml 中指定了包以后，Cargo build 的时候会从 crates.io 上下载远程 的对应包代码。本文将介绍如何在 Cargo.toml 中指定使用本地机器上某个目录下的包， 方便调试本地开" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.62.2 with theme even" />
 
 
-<link rel="canonical" href="https://www.lflxp.cn/post/flutter/%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" />
+<link rel="canonical" href="https://www.lflxp.cn/post/rust/%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0crate/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -38,23 +38,23 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Flutter 环境搭建 下载那些事" />
-<meta property="og:description" content="dl.google.com下载曼或不能访问的问题 访问http://ping.chinaz.com/dl.google.com找到访问延迟最小" />
+<meta property="og:title" content="Cargo 使用本地的 crate（本地包代码）" />
+<meta property="og:description" content="默认在 Cargo.toml 中指定了包以后，Cargo build 的时候会从 crates.io 上下载远程 的对应包代码。本文将介绍如何在 Cargo.toml 中指定使用本地机器上某个目录下的包， 方便调试本地开" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.lflxp.cn/post/flutter/%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" />
-<meta property="article:published_time" content="2020-02-03T00:02:22+08:00" />
-<meta property="article:modified_time" content="2020-02-03T00:02:22+08:00" />
-<meta itemprop="name" content="Flutter 环境搭建 下载那些事">
-<meta itemprop="description" content="dl.google.com下载曼或不能访问的问题 访问http://ping.chinaz.com/dl.google.com找到访问延迟最小">
-<meta itemprop="datePublished" content="2020-02-03T00:02:22&#43;08:00" />
-<meta itemprop="dateModified" content="2020-02-03T00:02:22&#43;08:00" />
-<meta itemprop="wordCount" content="265">
+<meta property="og:url" content="https://www.lflxp.cn/post/rust/%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0crate/" />
+<meta property="article:published_time" content="2020-02-08T11:01:22+08:00" />
+<meta property="article:modified_time" content="2020-02-08T11:01:22+08:00" />
+<meta itemprop="name" content="Cargo 使用本地的 crate（本地包代码）">
+<meta itemprop="description" content="默认在 Cargo.toml 中指定了包以后，Cargo build 的时候会从 crates.io 上下载远程 的对应包代码。本文将介绍如何在 Cargo.toml 中指定使用本地机器上某个目录下的包， 方便调试本地开">
+<meta itemprop="datePublished" content="2020-02-08T11:01:22&#43;08:00" />
+<meta itemprop="dateModified" content="2020-02-08T11:01:22&#43;08:00" />
+<meta itemprop="wordCount" content="573">
 
 
 
-<meta itemprop="keywords" content="flutter,android," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Flutter 环境搭建 下载那些事"/>
-<meta name="twitter:description" content="dl.google.com下载曼或不能访问的问题 访问http://ping.chinaz.com/dl.google.com找到访问延迟最小"/>
+<meta itemprop="keywords" content="crate," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Cargo 使用本地的 crate（本地包代码）"/>
+<meta name="twitter:description" content="默认在 Cargo.toml 中指定了包以后，Cargo build 的时候会从 crates.io 上下载远程 的对应包代码。本文将介绍如何在 Cargo.toml 中指定使用本地机器上某个目录下的包， 方便调试本地开"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -121,12 +121,12 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Flutter 环境搭建 下载那些事</h1>
+      <h1 class="post-title">Cargo 使用本地的 crate（本地包代码）</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2020-02-03 </span>
+        <span class="post-time"> 2020-02-08 </span>
         <div class="post-category">
-            <a href="/categories/flutter/"> flutter </a>
+            <a href="/categories/rust/"> rust </a>
             </div>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -137,51 +137,182 @@
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#dlgooglecom下载曼或不能访问的问题">dl.google.com下载曼或不能访问的问题</a></li>
-    <li><a href="#downloading-httpsservicesgradleorgdistributionsgradle-562-allzip-下载慢的问题">Downloading  下载慢的问题</a></li>
-    <li><a href="#android-studio-sdk">android-studio SDK</a></li>
+    <li><a href="#待调用的本地包">待调用的本地包</a></li>
+    <li><a href="#配置使用本地包">配置使用本地包</a></li>
   </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      <h2 id="dlgooglecom下载曼或不能访问的问题">dl.google.com下载曼或不能访问的问题</h2>
-<ol>
-<li>访问<code>http://ping.chinaz.com/dl.google.com</code>找到访问延迟最小的ip</li>
-<li>修改hosts文件</li>
-<li>例子</li>
-</ol>
+      <p>默认在 Cargo.toml 中指定了包以后，Cargo build 的时候会从 crates.io 上下载远程 的对应包代码。本文将介绍如何在 Cargo.toml 中指定使用本地机器上某个目录下的包， 方便调试本地开发的包或者在没网的环境下开发和调试。</p>
+<h2 id="待调用的本地包">待调用的本地包</h2>
+<p>假设我们要使用的包是 hello, 通过<code>cargo new hello</code>创建：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">$ cargo new hello
+ Created library <span class="sb">`</span>hello<span class="sb">`</span> project
+
+$ tree hello
+hello
+├── Cargo.toml
+└── src
+    └── lib.rs
+
+<span class="m">1</span> directory, <span class="m">2</span> files
+</code></pre></td></tr></table>
+</div>
+</div><p>我们给这个包加一个 <code>hi</code> 函数:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">203.208.41.66 dl.google.com
+<pre class="chroma"><code class="language-sh" data-lang="sh">// cat hello/src/lib.rs
+pub fn hi<span class="o">(</span>name: <span class="p">&amp;</span>str<span class="o">)</span> <span class="o">{</span>
+    println!<span class="o">(</span><span class="s2">&#34;hi {}!&#34;</span>, name<span class="o">)</span><span class="p">;</span>
+<span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="downloading-httpsservicesgradleorgdistributionsgradle-562-allzip-下载慢的问题">Downloading <a href="https://services.gradle.org/distributions/gradle-5.6.2-all.zip">https://services.gradle.org/distributions/gradle-5.6.2-all.zip</a> 下载慢的问题</h2>
-<ol>
-<li>先用迅雷或者百度云下载下来</li>
-<li>然后用http static服务启动一个服务,访问路径为:</li>
-</ol>
-<blockquote>
-<p>http://127.0.0.1/gradle-5.6.2-all.zip</p>
-</blockquote>
-<ol start="3">
-<li>修改flutter项目配置<code>$app/android/gradle/wrapper/gradle-wrapper.properties</code>中的<code>distributionUrl</code>配置</li>
-</ol>
+</div><p>现在我们要在别的地方使用 <code>hello</code> 这个包，比如调用<code>hello.hi</code>函数，该如何设置呢？</p>
+<h2 id="配置使用本地包">配置使用本地包</h2>
+<p>假设我们在 hello 的同级目录有一个 <code>demo</code> 项目，这个项目将使用 <code>hello</code> 包里的函数。</p>
+<p>先创建这个 <code>demo</code> 项目:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># distributionUrl=https\://services.gradle.org/distributions/gradle-5.6.2-all.zip
-distributionUrl=http\://127.0.0.1/gradle-5.6.2-all.zip
+<pre class="chroma"><code class="language-sh" data-lang="sh">$ cargo new demo --bin
+ Created binary <span class="o">(</span>application<span class="o">)</span> <span class="sb">`</span>demo<span class="sb">`</span> project
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="android-studio-sdk">android-studio SDK</h2>
-<p>解决<a href="#dlgooglecom%e4%b8%8b%e8%bd%bd%e6%9b%bc%e6%88%96%e4%b8%8d%e8%83%bd%e8%ae%bf%e9%97%ae%e7%9a%84%e9%97%ae%e9%a2%98">网络访问问题</a>的问题后 把SDK和AVD的以来都安装好就可以愉快的玩耍了</p>
+</div><p>然后在项目中增加调用代码:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// cat demo/src/main.rs
+extern crate hello;
+
+fn main() {
+    hello::hi(&#34;mozillazg&#34;);
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>最后关键的一步就是配置 Cargo.toml 使用本地的 <code>hello</code> 包。</p>
+<p>先来看一下当前的目录结构:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">$ tree .
+.
+├── demo
+│   ├── Cargo.toml
+│   └── src
+│       └── main.rs
+└── hello
+    ├── Cargo.toml
+    └── src
+        └── lib.rs
+
+<span class="m">4</span> directories, <span class="m">4</span> files
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看出来， <code>hello</code> 相对于 <code>demo/Cargo.toml </code>的目录位置是<code> ../hello</code> 。 然后我们配置一下 <code>demo/Cargo.toml</code> 指定使用这个目录下的 <code>hello</code> 包:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[dependencies]
+hello = { path = &#34;../hello&#34; }
+</code></pre></td></tr></table>
+</div>
+</div><p>在 <code>demo</code> 项目目录下执行 <code>cargo run</code> 看看效果:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># ~/demo</span>
+$ cargo run
+   Compiling hello v0.1.0 <span class="o">(</span>file:///Users/mozillazg/hello<span class="o">)</span>
+   Compiling demo v0.1.0 <span class="o">(</span>file:///Users/mozillazg/demo<span class="o">)</span>
+    Finished dev <span class="o">[</span>unoptimized + debuginfo<span class="o">]</span> target<span class="o">(</span>s<span class="o">)</span> in 0.47 secs
+     Running <span class="sb">`</span>target/debug/demo<span class="sb">`</span>
+hi mozillazg!
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到 <code>demo</code> 确实使用了本地的 <code>hello</code> 包的代码。👍</p>
+<p>P.S. 上面的:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[dependencies]
+hello = { path = &#34;../hello&#34; }
+</code></pre></td></tr></table>
+</div>
+</div><p>也可以改为:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[dependencies.hello]
+path = &#34;../hello&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>参考资料</p>
+<ul>
+<li><a href="https://github.com/rust-lang/cargo/issues/640">Documentation should include exemples of depending on local modules · Issue #640 · rust-lang/cargo</a></li>
+<li><a href="http://doc.crates.io/specifying-dependencies.html#specifying-path-dependencies">Specifying Dependencies</a></li>
+</ul>
 
     </div>
 
@@ -193,7 +324,7 @@ distributionUrl=http\://127.0.0.1/gradle-5.6.2-all.zip
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2020-02-03
+        2020-02-08
         
     </span>
   </p>
@@ -219,17 +350,16 @@ distributionUrl=http\://127.0.0.1/gradle-5.6.2-all.zip
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/flutter/">flutter</a>
-          <a href="/tags/android/">android</a>
+          <a href="/tags/crate/">crate</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/rust/%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0crate/">
+        <a class="prev" href="/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%B5%84%E6%96%99/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Cargo 使用本地的 crate（本地包代码）</span>
+            <span class="prev-text nav-default">操作系统资料汇总</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/python/skill/">
-            <span class="next-text nav-default">运维实用技巧</span>
+        <a class="next" href="/post/flutter/%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/">
+            <span class="next-text nav-default">Flutter 环境搭建 下载那些事</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
