@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>rust on 爱像水墨青花</title>
-    <link>https://www.lflxp.cn/categories/rust/</link>
-    <description>Recent content in rust on 爱像水墨青花</description>
+    <title>io-fs on 爱像水墨青花</title>
+    <link>https://www.lflxp.cn/tags/io-fs/</link>
+    <description>Recent content in io-fs on 爱像水墨青花</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
     <lastBuildDate>Sat, 08 Feb 2020 17:01:22 +0800</lastBuildDate>
     
-	<atom:link href="https://www.lflxp.cn/categories/rust/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.lflxp.cn/tags/io-fs/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,15 +19,6 @@
       
       <guid>https://www.lflxp.cn/post/rust/%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/</guid>
       <description>这里不得不提一下 Unix 哲学: &amp;ldquo;一切皆文件&amp;rdquo;. 它描述了 Unix 的特性&amp;ndash;所有输入/输出资源, 如文档, 目录, 硬盘驱动器,</description>
-    </item>
-    
-    <item>
-      <title>Cargo 使用本地的 crate（本地包代码）</title>
-      <link>https://www.lflxp.cn/post/rust/%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0crate/</link>
-      <pubDate>Sat, 08 Feb 2020 11:01:22 +0800</pubDate>
-      
-      <guid>https://www.lflxp.cn/post/rust/%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0crate/</guid>
-      <description>默认在 Cargo.toml 中指定了包以后，Cargo build 的时候会从 crates.io 上下载远程 的对应包代码。本文将介绍如何在 Cargo.toml 中指定使用本地机器上某个目录下的包， 方便调试本地开</description>
     </item>
     
   </channel>
