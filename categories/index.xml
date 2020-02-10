@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 08 Feb 2020 17:01:22 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 10 Feb 2020 10:01:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>future</title>
+      <link>https://www.lflxp.cn/categories/future/</link>
+      <pubDate>Mon, 10 Feb 2020 10:01:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/categories/future/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>rust</title>
@@ -63,15 +72,6 @@
       <pubDate>Sun, 19 Jan 2020 11:01:22 +0800</pubDate>
       
       <guid>https://www.lflxp.cn/categories/nlp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>future</title>
-      <link>https://www.lflxp.cn/categories/future/</link>
-      <pubDate>Sat, 18 Jan 2020 23:01:22 +0800</pubDate>
-      
-      <guid>https://www.lflxp.cn/categories/future/</guid>
       <description></description>
     </item>
     
