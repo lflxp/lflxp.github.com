@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>操作系统资料汇总 - 爱像水墨青花</title>
+  <title>Vim 插件开发指南 - 爱像水墨青花</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="lixueping" /><meta name="description" content="入门教程 如何从零开始写一个简单的操作系统 30天自制操作系统 Stop &amp;amp; 「OS67 」 Start 自制一个小型的linux操作系统 经典教程 Xv6, a simple Unix-like teaching operating system 中文版的 MIT" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="lixueping" /><meta name="description" content="转载 简介 Vim 插件开发者无疑是从 Vim 的用户转换而来，而在开发 Vim 插件之前，你需要掌握 Vim 的基本使用技巧，可以先阅读 《Vim 从入门到精通》 ，该文章主要介" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.62.2 with theme even" />
 
 
-<link rel="canonical" href="https://www.lflxp.cn/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%B5%84%E6%96%99/" />
+<link rel="canonical" href="https://www.lflxp.cn/post/vim/vim%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -38,23 +38,23 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="操作系统资料汇总" />
-<meta property="og:description" content="入门教程 如何从零开始写一个简单的操作系统 30天自制操作系统 Stop &amp; 「OS67 」 Start 自制一个小型的linux操作系统 经典教程 Xv6, a simple Unix-like teaching operating system 中文版的 MIT" />
+<meta property="og:title" content="Vim 插件开发指南" />
+<meta property="og:description" content="转载 简介 Vim 插件开发者无疑是从 Vim 的用户转换而来，而在开发 Vim 插件之前，你需要掌握 Vim 的基本使用技巧，可以先阅读 《Vim 从入门到精通》 ，该文章主要介" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.lflxp.cn/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%B5%84%E6%96%99/" />
-<meta property="article:published_time" content="2020-01-18T02:01:22+08:00" />
-<meta property="article:modified_time" content="2020-01-18T02:01:22+08:00" />
-<meta itemprop="name" content="操作系统资料汇总">
-<meta itemprop="description" content="入门教程 如何从零开始写一个简单的操作系统 30天自制操作系统 Stop &amp; 「OS67 」 Start 自制一个小型的linux操作系统 经典教程 Xv6, a simple Unix-like teaching operating system 中文版的 MIT">
-<meta itemprop="datePublished" content="2020-01-18T02:01:22&#43;08:00" />
-<meta itemprop="dateModified" content="2020-01-18T02:01:22&#43;08:00" />
-<meta itemprop="wordCount" content="833">
+<meta property="og:url" content="https://www.lflxp.cn/post/vim/vim%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" />
+<meta property="article:published_time" content="2020-02-18T12:11:22+08:00" />
+<meta property="article:modified_time" content="2020-02-18T12:11:22+08:00" />
+<meta itemprop="name" content="Vim 插件开发指南">
+<meta itemprop="description" content="转载 简介 Vim 插件开发者无疑是从 Vim 的用户转换而来，而在开发 Vim 插件之前，你需要掌握 Vim 的基本使用技巧，可以先阅读 《Vim 从入门到精通》 ，该文章主要介">
+<meta itemprop="datePublished" content="2020-02-18T12:11:22&#43;08:00" />
+<meta itemprop="dateModified" content="2020-02-18T12:11:22&#43;08:00" />
+<meta itemprop="wordCount" content="892">
 
 
 
-<meta itemprop="keywords" content="os," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="操作系统资料汇总"/>
-<meta name="twitter:description" content="入门教程 如何从零开始写一个简单的操作系统 30天自制操作系统 Stop &amp; 「OS67 」 Start 自制一个小型的linux操作系统 经典教程 Xv6, a simple Unix-like teaching operating system 中文版的 MIT"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vim 插件开发指南"/>
+<meta name="twitter:description" content="转载 简介 Vim 插件开发者无疑是从 Vim 的用户转换而来，而在开发 Vim 插件之前，你需要掌握 Vim 的基本使用技巧，可以先阅读 《Vim 从入门到精通》 ，该文章主要介"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -121,12 +121,12 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">操作系统资料汇总</h1>
+      <h1 class="post-title">Vim 插件开发指南</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2020-01-18 </span>
+        <span class="post-time"> 2020-02-18 </span>
         <div class="post-category">
-            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 操作系统 </a>
+            <a href="/categories/vim/"> vim </a>
             </div>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -137,88 +137,68 @@
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#入门教程">入门教程</a></li>
-    <li><a href="#经典教程">经典教程</a></li>
-    <li><a href="#从零开始写os-rust">从零开始写OS （RUST）</a></li>
-    <li><a href="#bran的内核开发教程brans-kernel-development-tutorial中文版">Bran的内核开发教程(Bran's Kernel Development Tutorial中文版)</a></li>
-    <li><a href="#跟我一起写操作系统">跟我一起写操作系统</a></li>
-    <li><a href="#x86架构操作系统内核的实现httpwiki0xfffffforg">x86架构操作系统内核的实现</a></li>
-    <li><a href="#教你写makefile">教你写Makefile</a></li>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#vim-插件的项目结构">Vim 插件的项目结构</a></li>
+    <li><a href="#autoload">autoload/</a></li>
+    <li><a href="#plugin">plugin/</a></li>
+    <li><a href="#ftdetect">ftdetect/</a></li>
+    <li><a href="#syntax">syntax/</a></li>
+    <li><a href="#colors">colors/</a></li>
+    <li><a href="#compiler">compiler/</a></li>
+    <li><a href="#indent">indent/</a></li>
   </ul>
 </nav>
   </div>
 </div>
-  <div class="post-outdated">
-    <div class="hint">
-      <p>【注意】最后更新于 <span class="timeago" datetime="2020-01-18T02:01:22" title="January 18, 2020">January 18, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
-    </div>
-  </div>
     <div class="post-content">
-      <h2 id="入门教程">入门教程</h2>
-<ul>
-<li><a href="https://www.zhihu.com/question/25628124">如何从零开始写一个简单的操作系统</a></li>
-<li><a href="https://www.cnblogs.com/lastavengers/p/4115612.html">30天自制操作系统 Stop &amp; 「OS67 」 Start</a></li>
-<li><a href="https://blog.csdn.net/qq_34208467/article/details/82048117">自制一个小型的linux操作系统</a></li>
-</ul>
-<h2 id="经典教程">经典教程</h2>
-<ul>
-<li><a href="https://pdos.csail.mit.edu/6.828/2011/xv6.html">Xv6, a simple Unix-like teaching operating system</a></li>
-<li><a href="https://github.com/lflxp/xv6-chinese">中文版的 MIT xv6 文档</a></li>
-<li><a href="http://www.osdever.net/bkerndev/Docs/intro.htm">Bran's Kernel Development Tutorial</a></li>
-<li><a href="http://article.yeeyan.org/tags/%E5%86%85%E6%A0%B8%E3%80%81%E5%BC%80%E5%8F%91%E3%80%81%E6%95%99%E7%A8%8B">Bran's Kernel Development Tutorial中文版</a></li>
-<li><a href="https://github.com/lflxp/OS67">An unix-like toy kernel</a></li>
-</ul>
-<h2 id="从零开始写os-rust">从零开始写OS （RUST）</h2>
-<ul>
-<li><a href="https://zhuanlan.zhihu.com/c_1086573713289347072">超级详细的 rust OS 编写教程</a></li>
-<li><a href="https://blog.csdn.net/xiangxianghehe/article/details/92575207">使用Rust从零写操作系统 (1) —— 独立式可执行程序</a></li>
-<li><a href="https://blog.csdn.net/xiangxianghehe/article/details/92585509">使用Rust从零写操作系统 (2) —— 最小化内核</a></li>
-<li><a href="https://blog.csdn.net/xiangxianghehe/article/details/92839138">使用Rust从零写操作系统 (3) —— 格式化输出</a></li>
-<li><a href="https://github.com/LearningOS/rcore_step_by_step">Github仓库</a></li>
-</ul>
-<h2 id="bran的内核开发教程brans-kernel-development-tutorial中文版">Bran的内核开发教程(Bran's Kernel Development Tutorial中文版)</h2>
-<ul>
-<li><a href="https://www.cnblogs.com/raina/p/11526824.html">Bran的内核开发教程(bkerndev)-01 介绍</a></li>
-<li><a href="https://www.cnblogs.com/raina/p/11527349.html">Bran的内核开发教程(bkerndev)-02 准备工作</a></li>
-<li><a href="https://www.cnblogs.com/raina/p/11529728.html">Bran的内核开发教程(bkerndev)-03 内核初步</a></li>
-<li><a href="https://www.cnblogs.com/raina/p/11550197.html">Bran的内核开发教程(bkerndev)-04 创建main函数和链接C文件</a></li>
-<li><a href="https://www.cnblogs.com/raina/p/11574994.html">Bran的内核开发教程(bkerndev)-05 打印到屏幕</a></li>
-</ul>
-<h2 id="跟我一起写操作系统">跟我一起写操作系统</h2>
-<ul>
-<li><a href="https://blog.csdn.net/zashizhi3299/article/details/80870073">跟我一起写操作系统(一)——10分钟写个操作系统</a></li>
-<li><a href="https://blog.csdn.net/zdy0_2004/article/details/48920737">跟我一起写操作系统(二)——史上最简单的内核</a></li>
-<li><a href="https://blog.csdn.net/zashizhi3299/article/details/80870103">跟我一起写操作系统(三)——打印函数和qemu虚拟机</a></li>
-<li><a href="https://blog.csdn.net/zdy0_2004/article/details/50364999">跟我一起写操作系统(四)——获取物理内存</a></li>
-<li><a href="https://blog.csdn.net/zashizhi3299/article/details/80870118">跟我一起写操作系统(五)——分配物理内存</a></li>
-</ul>
-<h2 id="x86架构操作系统内核的实现httpwiki0xfffffforg"><a href="http://wiki.0xffffff.org/">x86架构操作系统内核的实现</a></h2>
-<ol>
-<li><a href="https://github.com/hurley25/hurlex-doc">hurlex 小内核分章节代码和文档</a></li>
-<li><a href="https://github.com/hurley25/wiki">OS开发编写的资料</a></li>
-<li><a href="http://wiki.0xffffff.org/">http://wiki.0xffffff.org/</a></li>
-</ol>
-<p><code>详细教程</code></p>
-<ul>
-<li><a href="http://wiki.0xffffff.org/posts/hurlex-kernel.html">hurlex — x86架构的内核Demo实现</a></li>
-<li><a href="http://wiki.0xffffff.org/posts/hurlex-1.html">hurlex &lt;一&gt; 项目概述和开发环境配置</a></li>
-<li><a href="http://wiki.0xffffff.org/posts/hurlex-2.html">hurlex &lt;二&gt; 计算机启动过程、GRUB 以及 multiboot 标准</a></li>
-<li><a href="http://wiki.0xffffff.org/posts/hurlex-3.html">hurlex &lt;三&gt; 裸机上运行的 Hello OS Kernel</a></li>
-<li><a href="http://wiki.0xffffff.org/posts/hurlex-4.html">hurlex &lt;四&gt; 字符模式下的显卡驱动</a></li>
-<li><a href="http://wiki.0xffffff.org/posts/hurlex-5.html">hurlex &lt;五&gt; 相关库函数和调试打印函数</a></li>
-<li><a href="http://wiki.0xffffff.org/posts/hurlex-6.html">hurlex &lt;六&gt; 添加全局段描述符表</a></li>
-<li><a href="http://wiki.0xffffff.org/posts/hurlex-7.html">hurlex &lt;七&gt; 添加中断描述符表</a></li>
-<li><a href="http://wiki.0xffffff.org/posts/hurlex-8.html">hurlex &lt;八&gt; 完成中断请求和定时器中断</a></li>
-<li><a href="http://wiki.0xffffff.org/posts/hurlex-9.html">hurlex &lt;九&gt; 物理内存管理的实现</a></li>
-<li><a href="http://wiki.0xffffff.org/posts/hurlex-10.html">hurlex &lt;十&gt; 虚拟内存管理的实现</a></li>
-<li><a href="http://wiki.0xffffff.org/posts/hurlex-11.html">hurlex &lt;十一&gt; 内核堆管理的实现</a></li>
-<li><a href="http://wiki.0xffffff.org/posts/hurlex-12.html">hurlex &lt;十二&gt; 内核线程的创建与切换</a></li>
-</ul>
-<h2 id="教你写makefile">教你写Makefile</h2>
-<ul>
-<li><a href="https://blog.csdn.net/qq_16234613/article/details/81413084">教你写Makefile（很全，含有工作经验的）</a></li>
-<li><a href="https://seisman.github.io/how-to-write-makefile/overview.html">原文</a></li>
-</ul>
+      <p><a href="https://www.colabug.com/2018/0903/4338814/">转载</a></p>
+<h2 id="简介">简介</h2>
+<p>Vim 插件开发者无疑是从 Vim 的用户转换而来，而在开发 Vim 插件之前，你需要掌握 Vim 的基本使用技巧，可以先阅读 <a href="https://www.colabug.com/goto/aHR0cHM6Ly9naXRodWIuY29tL3dzZGplZy92aW0tZ2Fsb3JlLXpoX2Nu">《Vim 从入门到精通》</a> ，该文章主要介绍了 Vim 的基本使用技巧。</p>
+<p>开发 Vim 插件，离不开 Vim 脚本语言，需要对 Vim 脚本语言有一个大致的了解。 <a href="https://www.colabug.com/goto/aHR0cHM6Ly9naXRodWIuY29tL2x5bXNsaXZlL3ZpbWxsZWFybg==">《Vim 脚本语法指南》</a> 讲解了 Vim 脚本的一些语法技巧。</p>
+<p>此外，在开发 Vim 插件之前，你还需要了解 vimrc 和 Vim 插件的区别。</p>
+<h2 id="vim-插件的项目结构">Vim 插件的项目结构</h2>
+<p>在开发 Vim 插件之前，需要了解一下，一个 Vim 插件项目的目录结构是怎样的，以及每一个目录里文件的意义是什么。 Vim 插件标准的目录结构为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">autoload/               自动载入脚本
+colors/                 颜色主题
+plugin/                 在 Vim 启动时将被载入的脚本
+ftdetect/               文件类型识别脚本
+syntax/                 语法高亮文件
+ftplugin/               文件类型相关插件
+compiler/	              编译器
+indent/                 语法对齐
+</code></pre></td></tr></table>
+</div>
+</div><p>下面，我们来逐一说明下每一个目录的用途：</p>
+<h2 id="autoload">autoload/</h2>
+<p>顾名思义，该文件夹下的脚本会在特点条件下自动被载入。这里的特定条件指的是当某一个 autoload 类型的函数被调用，并且 vim 当前环境下并未定义该函数时。 比如调用 <code>call helloworld#init()</code> 时，Vim 会先检测当前环境下是否定义了该函数，若没有，则在 autoload/ 目录下找 helloworld.vim 这一文件， 并将其载入，载入完成后执行 call helloworld#init() .</p>
+<h2 id="plugin">plugin/</h2>
+<p>该目录里的文件将在 Vim 启动事被运行，作为一个优秀的 vim 插件，应当尽量该目录下的脚本内容。通常，可以将插件的快捷键、命令的定义保留在这个文件里。</p>
+<h2 id="ftdetect">ftdetect/</h2>
+<p>ftdetect 目录里通常存放的是文件类型检测脚本，该目录下的文件也是在 vim 启动时被载入的。在这一目录里的文件内容，通常比较简单，比如：</p>
+<blockquote>
+<p>autocmd BufNewFile,BufRead *.helloworld set filetype=helloworld</p>
+</blockquote>
+<p>以上脚本使得 Vim 在打开以 .helloworld 为后缀的文件时，将文件类型设置为 helloworld 。通常，这个脚本的文件名是和所需要设置的文件类型一样的，上面的例子中文件的名称就是 helloworld.vim 。</p>
+<h2 id="syntax">syntax/</h2>
+<p>这一目录下的文件，主要是定义语法高亮的。通常文件名前缀和对应的语言类型相同，比如 java 的语法文件文件名为 java.vim 。 关于如何写语法文件，将在后面详细介绍。</p>
+<h2 id="colors">colors/</h2>
+<p>colors 目录下主要存储一些颜色主题脚本，当执行 :colorscheme + 主题名 命令时，对应的颜色主题脚本将被载入。比如执行 :colorscheme helloworld 时， colors/helloworld.vim 这一脚本将被载入。</p>
+<h2 id="compiler">compiler/</h2>
+<p>这一名录里是一些预设的编译器参数，主要给 :make 命令使用的。在最新版的 vim 中可以使用 :compiler! 编译器名 来为当前缓冲区设定编译器。比如当执行 :compiler! helloworld 时， compiler/helloworld.vim 这一脚本将被载入。</p>
+<h2 id="indent">indent/</h2>
+<p>在 indent 目录里，主要是一些语法对齐相关的脚本。</p>
 
     </div>
 
@@ -230,7 +210,7 @@
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2020-01-18
+        2020-02-18
         
     </span>
   </p>
@@ -255,13 +235,15 @@
       </label>
   </div>
 </div><footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/os/">os</a>
-          </div>
+      
       <nav class="post-nav">
-        
-        <a class="next" href="/post/vim/vim%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/">
-            <span class="next-text nav-default">Vim 插件开发指南</span>
+        <a class="prev" href="/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%B5%84%E6%96%99/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">操作系统资料汇总</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/vim/vim%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+            <span class="next-text nav-default">快速 Golang/Rust/Python vim开发环境搭建</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
