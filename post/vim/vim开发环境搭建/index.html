@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>随机密码生成 by Golang - 爱像水墨青花</title>
+  <title>快速 Golang/Rust/Python vim开发环境搭建 - 爱像水墨青花</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="lixueping" /><meta name="description" content="Talk is too slow Show me the code 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 package main import ( &amp;#34;crypto/md5&amp;#34; &amp;#34;encoding/hex&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;math/rand&amp;#34; &amp;#34;time&amp;#34; ) // 生" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="lixueping" /><meta name="description" content="环境准备 git 互联网 vim python2/3 python3-dev golang rust cmake g&#43;&#43; 开发环境搭建 golang =&amp;gt; fatih/vim-go rust =&amp;gt; racer-rust/vim-racer | rust-lang/rust.vim 自动补全插件 =&amp;gt; Valloric/YouCompleteMe 安装Vundle插件管理工具 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim 编辑.vimrc文件，输入： 1" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.62.2 with theme even" />
 
 
-<link rel="canonical" href="https://www.lflxp.cn/post/golang/%E9%9A%8F%E6%9C%BA%E5%AF%86%E7%A0%81/" />
+<link rel="canonical" href="https://www.lflxp.cn/post/vim/vim%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -38,23 +38,23 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="随机密码生成 by Golang" />
-<meta property="og:description" content="Talk is too slow Show me the code 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 package main import ( &#34;crypto/md5&#34; &#34;encoding/hex&#34; &#34;fmt&#34; &#34;math/rand&#34; &#34;time&#34; ) // 生" />
+<meta property="og:title" content="快速 Golang/Rust/Python vim开发环境搭建" />
+<meta property="og:description" content="环境准备 git 互联网 vim python2/3 python3-dev golang rust cmake g&#43;&#43; 开发环境搭建 golang =&gt; fatih/vim-go rust =&gt; racer-rust/vim-racer | rust-lang/rust.vim 自动补全插件 =&gt; Valloric/YouCompleteMe 安装Vundle插件管理工具 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim 编辑.vimrc文件，输入： 1" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.lflxp.cn/post/golang/%E9%9A%8F%E6%9C%BA%E5%AF%86%E7%A0%81/" />
-<meta property="article:published_time" content="2020-01-16T11:57:22+08:00" />
-<meta property="article:modified_time" content="2020-01-16T11:57:22+08:00" />
-<meta itemprop="name" content="随机密码生成 by Golang">
-<meta itemprop="description" content="Talk is too slow Show me the code 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 package main import ( &#34;crypto/md5&#34; &#34;encoding/hex&#34; &#34;fmt&#34; &#34;math/rand&#34; &#34;time&#34; ) // 生">
-<meta itemprop="datePublished" content="2020-01-16T11:57:22&#43;08:00" />
-<meta itemprop="dateModified" content="2020-01-16T11:57:22&#43;08:00" />
-<meta itemprop="wordCount" content="213">
+<meta property="og:url" content="https://www.lflxp.cn/post/vim/vim%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
+<meta property="article:published_time" content="2020-02-18T00:11:22+08:00" />
+<meta property="article:modified_time" content="2020-02-18T00:11:22+08:00" />
+<meta itemprop="name" content="快速 Golang/Rust/Python vim开发环境搭建">
+<meta itemprop="description" content="环境准备 git 互联网 vim python2/3 python3-dev golang rust cmake g&#43;&#43; 开发环境搭建 golang =&gt; fatih/vim-go rust =&gt; racer-rust/vim-racer | rust-lang/rust.vim 自动补全插件 =&gt; Valloric/YouCompleteMe 安装Vundle插件管理工具 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim 编辑.vimrc文件，输入： 1">
+<meta itemprop="datePublished" content="2020-02-18T00:11:22&#43;08:00" />
+<meta itemprop="dateModified" content="2020-02-18T00:11:22&#43;08:00" />
+<meta itemprop="wordCount" content="782">
 
 
 
-<meta itemprop="keywords" content="go,密码," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="随机密码生成 by Golang"/>
-<meta name="twitter:description" content="Talk is too slow Show me the code 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 package main import ( &#34;crypto/md5&#34; &#34;encoding/hex&#34; &#34;fmt&#34; &#34;math/rand&#34; &#34;time&#34; ) // 生"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="快速 Golang/Rust/Python vim开发环境搭建"/>
+<meta name="twitter:description" content="环境准备 git 互联网 vim python2/3 python3-dev golang rust cmake g&#43;&#43; 开发环境搭建 golang =&gt; fatih/vim-go rust =&gt; racer-rust/vim-racer | rust-lang/rust.vim 自动补全插件 =&gt; Valloric/YouCompleteMe 安装Vundle插件管理工具 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim 编辑.vimrc文件，输入： 1"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -121,12 +121,12 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">随机密码生成 by Golang</h1>
+      <h1 class="post-title">快速 Golang/Rust/Python vim开发环境搭建</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2020-01-16 </span>
+        <span class="post-time"> 2020-02-18 </span>
         <div class="post-category">
-            <a href="/categories/go/"> go </a>
+            <a href="/categories/vim/"> vim </a>
             </div>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -137,18 +137,40 @@
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#talk-is-too-slow-show-me-the-code">Talk is too slow Show me the code</a></li>
+    <li><a href="#环境准备">环境准备</a></li>
+    <li><a href="#开发环境搭建">开发环境搭建</a></li>
+    <li><a href="#安装vundle插件管理工具">安装Vundle插件管理工具</a></li>
+    <li><a href="#golang环境安装">golang环境安装</a></li>
+    <li><a href="#安装youcompleteme">安装YouCompleteMe</a></li>
   </ul>
 </nav>
   </div>
 </div>
-  <div class="post-outdated">
-    <div class="hint">
-      <p>【注意】最后更新于 <span class="timeago" datetime="2020-01-16T11:57:22" title="January 16, 2020">January 16, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
-    </div>
-  </div>
     <div class="post-content">
-      <h2 id="talk-is-too-slow-show-me-the-code">Talk is too slow Show me the code</h2>
+      <h2 id="环境准备">环境准备</h2>
+<ul>
+<li>git</li>
+<li>互联网</li>
+<li>vim</li>
+<li>python2/3 python3-dev</li>
+<li>golang</li>
+<li>rust</li>
+<li>cmake</li>
+<li>g++</li>
+<li></li>
+</ul>
+<h2 id="开发环境搭建">开发环境搭建</h2>
+<ul>
+<li>golang =&gt; <code>fatih/vim-go</code></li>
+<li>rust =&gt; <code>racer-rust/vim-racer</code> | <code>rust-lang/rust.vim</code></li>
+<li>自动补全插件 =&gt; <code>Valloric/YouCompleteMe</code></li>
+<li></li>
+</ul>
+<h2 id="安装vundle插件管理工具">安装Vundle插件管理工具</h2>
+<blockquote>
+<p>git clone <a href="https://github.com/VundleVim/Vundle.vim.git">https://github.com/VundleVim/Vundle.vim.git</a> ~/.vim/bundle/Vundle.vim</p>
+</blockquote>
+<p>编辑<code>.vimrc</code>文件，输入：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -198,78 +220,107 @@
 </span><span class="lnt">45
 </span><span class="lnt">46
 </span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&#34;crypto/md5&#34;</span>
-	<span class="s">&#34;encoding/hex&#34;</span>
-	<span class="s">&#34;fmt&#34;</span>
-	<span class="s">&#34;math/rand&#34;</span>
-	<span class="s">&#34;time&#34;</span>
-<span class="p">)</span>
-
-<span class="c1">// 生成32位MD5
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">MD5</span><span class="p">(</span><span class="nx">text</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-	<span class="nx">ctx</span> <span class="o">:=</span> <span class="nx">md5</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="p">)</span>
-	<span class="nx">ctx</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="p">[</span><span class="p">]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span><span class="p">)</span>
-	<span class="k">return</span> <span class="nx">hex</span><span class="p">.</span><span class="nf">EncodeToString</span><span class="p">(</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Sum</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="c1">// return len=8  salt
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">GetRandomSalt</span><span class="p">(</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="nf">GetRandomString</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="c1">//生成随机字符串
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">GetRandomString</span><span class="p">(</span><span class="nx">len</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-	<span class="nx">str</span> <span class="o">:=</span> <span class="s">&#34;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#34;</span>
-	<span class="nx">bytes</span> <span class="o">:=</span> <span class="p">[</span><span class="p">]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
-	<span class="nx">result</span> <span class="o">:=</span> <span class="p">[</span><span class="p">]</span><span class="kt">byte</span><span class="p">{</span><span class="p">}</span>
-	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nf">NewSource</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">UnixNano</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
-	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-		<span class="nx">result</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">bytes</span><span class="p">[</span><span class="nx">r</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="mi">62</span><span class="p">)</span><span class="p">]</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nb">string</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="c1">//生成随机字符串小写
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">GetRandomStringLow</span><span class="p">(</span><span class="nx">l</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-	<span class="nx">str</span> <span class="o">:=</span> <span class="s">&#34;0123456789abcdefghijklmnopqrstuvwxyz&#34;</span>
-	<span class="nx">bytes</span> <span class="o">:=</span> <span class="p">[</span><span class="p">]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
-	<span class="nx">result</span> <span class="o">:=</span> <span class="p">[</span><span class="p">]</span><span class="kt">byte</span><span class="p">{</span><span class="p">}</span>
-	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nf">NewSource</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">UnixNano</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
-	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-		<span class="nx">result</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">bytes</span><span class="p">[</span><span class="nx">r</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">bytes</span><span class="p">)</span><span class="p">)</span><span class="p">]</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nb">string</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">GetRandomStringLow</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="p">)</span>
-	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">GetRandomString</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="p">)</span>
-<span class="p">}</span>
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">set</span> nocompatible
+filetype on <span class="s2">&#34;开启文件类型侦测
+</span><span class="s2">filetype indent on &#34;</span>适应不同语言的智能缩进
+syntax <span class="nb">enable</span> <span class="s2">&#34;开启语法高亮功能
+</span><span class="s2">syntax on &#34;</span>允许用定制语法高亮配色方案替换默认方案
+<span class="nb">set</span> number <span class="s2">&#34;显示行号   
+</span><span class="s2">set cursorline
+</span><span class="s2">set ruler &#34;</span> 打开状态栏标尺  
+<span class="nb">set</span> <span class="nv">laststatus</span><span class="o">=</span><span class="m">2</span>
+<span class="nb">set</span> <span class="nv">tabstop</span><span class="o">=</span><span class="m">4</span>   <span class="s2">&#34;tab 代表4个空格
+</span><span class="s2">set softtabstop=4       &#34;</span>使用tab时 tab空格数   
+<span class="nb">set</span> <span class="nv">shiftwidth</span><span class="o">=</span><span class="m">4</span>   <span class="s2">&#34; 默认缩进4个空格    
+</span><span class="s2">set expandtab      &#34;</span> 使用空格替换tab
+<span class="nb">set</span> showmatch           <span class="s2">&#34;高亮显示匹配的括号
+</span><span class="s2">set hlsearch            &#34;</span>高亮显示搜索结果
+<span class="nb">set</span> wildmenu <span class="s2">&#34;vim命令自动补全
+</span><span class="s2">set rtp+=~/.vim/bundle/Vundle.vim 
+</span><span class="s2">call vundle#begin()                                                      
+</span><span class="s2">Plugin &#39;VundleVim/Vundle.vim&#39;      
+</span><span class="s2">Plugin &#39;fatih/vim-go&#39; &#34;</span> golang语言插件
+Plugin <span class="s1">&#39;scrooloose/nerdtree&#39;</span> <span class="s2">&#34; 树形目录插件
+</span><span class="s2">Plugin &#39;vim-airline/vim-airline&#39;  &#34;</span> 信息栏美化插件
+Plugin <span class="s1">&#39;vim-airline/vim-airline-themes&#39;</span>
+Plugin <span class="s1">&#39;scrooloose/nerdcommenter&#39;</span> <span class="s2">&#34; 多行注释
+</span><span class="s2">Plugin &#39;jiangmiao/auto-pairs&#39; &#34;</span>括号、引号自动补全
+Plugin <span class="s1">&#39;Yggdroot/indentLine&#39;</span> <span class="s2">&#34; 显示缩进
+</span><span class="s2">Plugin &#39;racer-rust/vim-racer&#39;          &#34;</span>  rust插件列表1
+Plugin <span class="s1">&#39;rust-lang/rust.vim&#39;</span>            <span class="s2">&#34;  rust插件列表2
+</span><span class="s2">Plugin &#39;kien/ctrlp.vim&#39; &#34;</span> 超级搜索插件
+<span class="s2">&#34; Plugin &#39;vim-airline/fonts&#39;
+</span><span class="s2">Plugin &#39;Valloric/YouCompleteMe&#39;  &#34;</span> 自动补全插件 
+call vundle#end<span class="o">(</span><span class="o">)</span>   
+filetype plugin indent on   
+<span class="nb">let</span> <span class="nv">mapleader</span><span class="o">=</span><span class="s2">&#34;;&#34;</span>   
+map &lt;leader&gt;n :NERDTreeToggle&lt;CR&gt;  
+<span class="nb">let</span> g:go_fmt_command <span class="o">=</span> <span class="s2">&#34;goimports&#34;</span>  
+<span class="nb">let</span> g:go_highlight_functions <span class="o">=</span> <span class="m">1</span>  
+<span class="nb">let</span> g:go_highlight_methods <span class="o">=</span> <span class="m">1</span>  
+<span class="nb">let</span> g:go_highlight_structs <span class="o">=</span> <span class="m">1</span>  
+<span class="nb">let</span> g:ycm_add_preview_to_completeopt <span class="o">=</span> <span class="m">0</span>   
+<span class="nb">let</span> g:ycm_min_num_of_chars_for_completion <span class="o">=</span> <span class="m">1</span>     
+<span class="nb">let</span> g:ycm_auto_trigger <span class="o">=</span> <span class="m">1</span>   
+<span class="nb">let</span> <span class="nv">mapleader</span><span class="o">=</span><span class="s2">&#34;,&#34;</span>
+<span class="nb">let</span> g:indentLine_char<span class="o">=</span><span class="s1">&#39;┆&#39;</span> <span class="s2">&#34;缩进指示线符
+</span><span class="s2">let g:indentLine_enabled = 1 &#34;</span>开启缩进指示
+<span class="nb">let</span> g:rustfmt_autosave <span class="o">=</span> <span class="m">1</span>
+<span class="nb">set</span> completeopt-<span class="o">=</span>preview
 </code></pre></td></tr></table>
 </div>
-</div><p><code>OUTPUT</code></p>
+</div><p>之后打开vim,输入<code>:PluginInstall</code>即可，然后等待插件自动下载指定Plugin，即可完成<code>Vundle</code>的安装。</p>
+<h2 id="golang环境安装">golang环境安装</h2>
+<ul>
+<li>设置GOROOT/GOPATH/GOBIN/GOPROXY</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
-</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>Running<span class="o">]</span> go run <span class="s2">&#34;/opt/gopath/src/test/golang/pwd/random.go&#34;</span>
-58k92996a7
-LXNppqnT0Y
-
-<span class="o">[</span>Done<span class="o">]</span> exited with <span class="nv">code</span><span class="o">=</span><span class="m">0</span> in 0.473 second
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">GOROOT=/opt/go
+GOBIN=/opt/go/bin
+GOPATH=/opt/gopath
+GOPROXY=https://goproxy.cn,direct
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>打开vim,输入<code>:GoInstallBinaries</code>等待安装依赖，完成即可。</li>
+</ul>
+<h2 id="安装youcompleteme">安装<code>YouCompleteMe</code></h2>
+<p><a href="https://github.com/ycm-core/YouCompleteMe">github地址</a></p>
+<p>所有插件安装完毕后，需要单独编译YouCompleteMe，需要提前安装必要组件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">sudo apt-get install vim 
+sudo apt-get install g++
+sudo apt-get install python
+sudo apt-get install build-essential cmake python3-dev
+</code></pre></td></tr></table>
+</div>
+</div><p>之后执行:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> ~/.vim/bundle/YouCompleteMe/
+git submodule update --init --recursive
+./install.py --go-completer
 </code></pre></td></tr></table>
 </div>
 </div>
@@ -283,12 +334,15 @@ LXNppqnT0Y
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2020-01-16
+        2020-02-18
         
     </span>
   </p>
   
-  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content">MIT</span>
+  </p>
 </div>
 <div class="post-reward">
   <input type="checkbox" name="reward" id="reward" hidden />
@@ -305,18 +359,15 @@ LXNppqnT0Y
       </label>
   </div>
 </div><footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/go/">go</a>
-          <a href="/tags/%E5%AF%86%E7%A0%81/">密码</a>
-          </div>
+      
       <nav class="post-nav">
-        <a class="prev" href="/post/golang/http/">
+        <a class="prev" href="/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%B5%84%E6%96%99/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">golang常用的http请求操作</span>
+            <span class="prev-text nav-default">操作系统资料汇总</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/fun/frp/">
-            <span class="next-text nav-default">frp内网穿透</span>
+        <a class="next" href="/post/k8s/helm/%E9%A1%BA%E5%BA%8F%E5%90%AF%E5%8A%A8%E5%92%8C%E4%BE%9D%E8%B5%96%E5%90%AF%E5%8A%A8/">
+            <span class="next-text nav-default">K8S 让应用顺序启动和依赖启动</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>

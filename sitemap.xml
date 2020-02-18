@@ -10,6 +10,41 @@
   
   <url>
     <loc>https://www.lflxp.cn/categories/</loc>
+    <lastmod>2020-02-18T00:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/</loc>
+    <lastmod>2020-02-18T00:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/categories/vim/</loc>
+    <lastmod>2020-02-18T00:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/vim/vim%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2020-02-18T00:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/</loc>
+    <lastmod>2020-02-18T00:11:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/tags/helm/</loc>
     <lastmod>2020-02-15T00:01:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -23,13 +58,6 @@
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/tags/helm/</loc>
-    <lastmod>2020-02-15T00:01:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://www.lflxp.cn/post/k8s/helm/%E9%A1%BA%E5%BA%8F%E5%90%AF%E5%8A%A8%E5%92%8C%E4%BE%9D%E8%B5%96%E5%90%AF%E5%8A%A8/</loc>
     <lastmod>2020-02-15T00:01:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -37,21 +65,7 @@
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/post/</loc>
-    <lastmod>2020-02-15T00:01:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://www.lflxp.cn/tags/</loc>
-    <lastmod>2020-02-15T00:01:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/</loc>
     <lastmod>2020-02-15T00:01:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -142,14 +156,14 @@
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/categories/python/</loc>
+    <loc>https://www.lflxp.cn/tags/python/</loc>
     <lastmod>2020-02-02T00:23:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/tags/python/</loc>
+    <loc>https://www.lflxp.cn/categories/python/</loc>
     <lastmod>2020-02-02T00:23:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -730,14 +744,14 @@
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/tags/yaml/</loc>
+    <loc>https://www.lflxp.cn/categories/yaml/</loc>
     <lastmod>2020-01-17T16:57:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/categories/yaml/</loc>
+    <loc>https://www.lflxp.cn/tags/yaml/</loc>
     <lastmod>2020-01-17T16:57:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -835,14 +849,14 @@
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/tags/theme-preview/</loc>
+    <loc>https://www.lflxp.cn/categories/theme-preview/</loc>
     <lastmod>2020-01-16T17:59:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/categories/theme-preview/</loc>
+    <loc>https://www.lflxp.cn/tags/theme-preview/</loc>
     <lastmod>2020-01-16T17:59:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -891,14 +905,14 @@
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/categories/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
+    <loc>https://www.lflxp.cn/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
     <lastmod>2020-01-13T15:32:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
+    <loc>https://www.lflxp.cn/categories/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
     <lastmod>2020-01-13T15:32:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -968,14 +982,14 @@
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/categories/syntax-highlighting/</loc>
+    <loc>https://www.lflxp.cn/tags/syntax-highlighting/</loc>
     <lastmod>2020-01-13T15:32:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://www.lflxp.cn/tags/syntax-highlighting/</loc>
+    <loc>https://www.lflxp.cn/categories/syntax-highlighting/</loc>
     <lastmod>2020-01-13T15:32:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

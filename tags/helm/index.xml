@@ -18,7 +18,7 @@
       <pubDate>Sat, 15 Feb 2020 00:01:22 +0800</pubDate>
       
       <guid>https://www.lflxp.cn/post/k8s/helm/%E9%A1%BA%E5%BA%8F%E5%90%AF%E5%8A%A8%E5%92%8C%E4%BE%9D%E8%B5%96%E5%90%AF%E5%8A%A8/</guid>
-      <description>关键点 initContainers Job Job k8s job模块的功能是执行任务，在部署过程中有两个特性需要了解，分别是： 确保任务|脚本|SQL等可定制化的任务成功执行一次 执行完后</description>
+      <description>关键点 initContainers Job Job k8s job模块的功能是执行任务，在部署过程中有两个特性需要了解，分别是： 初始化操作：确保任务|脚本|SQL等可定制化的任务成功执行</description>
     </item>
     
     <item>

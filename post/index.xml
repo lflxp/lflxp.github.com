@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 15 Feb 2020 00:01:22 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 18 Feb 2020 00:11:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/post/index.xml" rel="self" type="application/rss+xml" />
     
@@ -22,12 +22,21 @@
     </item>
     
     <item>
+      <title>快速 Golang/Rust/Python vim开发环境搭建</title>
+      <link>https://www.lflxp.cn/post/vim/vim%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Tue, 18 Feb 2020 00:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/vim/vim%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>环境准备 git 互联网 vim python2/3 python3-dev golang rust cmake g++ 开发环境搭建 golang =&amp;gt; fatih/vim-go rust =&amp;gt; racer-rust/vim-racer | rust-lang/rust.vim 自动补全插件 =&amp;gt; Valloric/YouCompleteMe 安装Vundle插件管理工具 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim 编辑.vimrc文件，输入： 1</description>
+    </item>
+    
+    <item>
       <title>K8S 让应用顺序启动和依赖启动</title>
       <link>https://www.lflxp.cn/post/k8s/helm/%E9%A1%BA%E5%BA%8F%E5%90%AF%E5%8A%A8%E5%92%8C%E4%BE%9D%E8%B5%96%E5%90%AF%E5%8A%A8/</link>
       <pubDate>Sat, 15 Feb 2020 00:01:22 +0800</pubDate>
       
       <guid>https://www.lflxp.cn/post/k8s/helm/%E9%A1%BA%E5%BA%8F%E5%90%AF%E5%8A%A8%E5%92%8C%E4%BE%9D%E8%B5%96%E5%90%AF%E5%8A%A8/</guid>
-      <description>关键点 initContainers Job Job k8s job模块的功能是执行任务，在部署过程中有两个特性需要了解，分别是： 确保任务|脚本|SQL等可定制化的任务成功执行一次 执行完后</description>
+      <description>关键点 initContainers Job Job k8s job模块的功能是执行任务，在部署过程中有两个特性需要了解，分别是： 初始化操作：确保任务|脚本|SQL等可定制化的任务成功执行</description>
     </item>
     
     <item>
