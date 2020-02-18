@@ -48,7 +48,7 @@
 <meta itemprop="description" content="环境准备 git 互联网 vim python2/3 python3-dev golang rust cmake g&#43;&#43; 开发环境搭建 golang =&gt; fatih/vim-go rust =&gt; racer-rust/vim-racer | rust-lang/rust.vim 自动补全插件 =&gt; Valloric/YouCompleteMe 安装Vundle插件管理工具 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim 编辑.vimrc文件，输入： 1">
 <meta itemprop="datePublished" content="2020-02-18T00:11:22&#43;08:00" />
 <meta itemprop="dateModified" content="2020-02-18T00:11:22&#43;08:00" />
-<meta itemprop="wordCount" content="4826">
+<meta itemprop="wordCount" content="4842">
 
 
 
@@ -246,6 +246,8 @@
 </span><span class="lnt">45
 </span><span class="lnt">46
 </span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">set</span> nocompatible
@@ -277,25 +279,27 @@ Plugin <span class="s1">&#39;Yggdroot/indentLine&#39;</span> <span class="s2">&#
 </span><span class="s2">Plugin &#39;racer-rust/vim-racer&#39;          &#34;</span>  rust插件列表1
 Plugin <span class="s1">&#39;rust-lang/rust.vim&#39;</span>            <span class="s2">&#34;  rust插件列表2
 </span><span class="s2">Plugin &#39;kien/ctrlp.vim&#39; &#34;</span> 超级搜索插件
-<span class="s2">&#34; Plugin &#39;vim-airline/fonts&#39;
-</span><span class="s2">Plugin &#39;Valloric/YouCompleteMe&#39;  &#34;</span> 自动补全插件 
-call vundle#end<span class="o">(</span><span class="o">)</span>   
-filetype plugin indent on   
-<span class="nb">let</span> <span class="nv">mapleader</span><span class="o">=</span><span class="s2">&#34;;&#34;</span>   
-map &lt;leader&gt;n :NERDTreeToggle&lt;CR&gt;  
-<span class="nb">let</span> g:go_fmt_command <span class="o">=</span> <span class="s2">&#34;goimports&#34;</span>  
-<span class="nb">let</span> g:go_highlight_functions <span class="o">=</span> <span class="m">1</span>  
-<span class="nb">let</span> g:go_highlight_methods <span class="o">=</span> <span class="m">1</span>  
-<span class="nb">let</span> g:go_highlight_structs <span class="o">=</span> <span class="m">1</span>  
-<span class="nb">let</span> g:ycm_add_preview_to_completeopt <span class="o">=</span> <span class="m">0</span>   
-<span class="nb">let</span> g:ycm_min_num_of_chars_for_completion <span class="o">=</span> <span class="m">1</span>     
-<span class="nb">let</span> g:ycm_auto_trigger <span class="o">=</span> <span class="m">1</span>   
-<span class="nb">let</span> <span class="nv">mapleader</span><span class="o">=</span><span class="s2">&#34;,&#34;</span>
-<span class="nb">let</span> g:indentLine_char<span class="o">=</span><span class="s1">&#39;┆&#39;</span> <span class="s2">&#34;缩进指示线符
-</span><span class="s2">let g:indentLine_enabled = 1 &#34;</span>开启缩进指示
-<span class="nb">let</span> g:rustfmt_autosave <span class="o">=</span> <span class="m">1</span>
-<span class="nb">set</span> completeopt-<span class="o">=</span>preview
-</code></pre></td></tr></table>
+Plugin <span class="s1">&#39;jistr/vim-nerdtree-tabs&#39;</span>
+Plugin <span class="s1">&#39;Xuyuanp/nerdtree-git-plugin&#39;</span> <span class="s2">&#34; 帮助显示一些 git 信息
+</span><span class="s2">&#34;</span> Plugin <span class="s1">&#39;vim-airline/fonts&#39;</span>
+Plugin <span class="s1">&#39;Valloric/YouCompleteMe&#39;</span>  <span class="s2">&#34; 自动补全插件 
+</span><span class="s2">call vundle#end()   
+</span><span class="s2">filetype plugin indent on   
+</span><span class="s2">let mapleader=&#34;</span><span class="p">;</span><span class="s2">&#34;   
+</span><span class="s2">map &lt;leader&gt;n :NERDTreeToggle&lt;CR&gt;  
+</span><span class="s2">let g:go_fmt_command = &#34;</span>goimports<span class="s2">&#34;  
+</span><span class="s2">let g:go_highlight_functions = 1  
+</span><span class="s2">let g:go_highlight_methods = 1  
+</span><span class="s2">let g:go_highlight_structs = 1  
+</span><span class="s2">let g:ycm_add_preview_to_completeopt = 0   
+</span><span class="s2">let g:ycm_min_num_of_chars_for_completion = 1     
+</span><span class="s2">let g:ycm_auto_trigger = 1   
+</span><span class="s2">let mapleader=&#34;</span>,<span class="s2">&#34;
+</span><span class="s2">let g:indentLine_char=&#39;┆&#39; &#34;</span>缩进指示线符
+<span class="nb">let</span> g:indentLine_enabled <span class="o">=</span> <span class="m">1</span> <span class="s2">&#34;</span><span class="s2">开启缩进指示
+</span><span class="s2">let g:rustfmt_autosave = 1
+</span><span class="s2">set completeopt-=preview
+</span></code></pre></td></tr></table>
 </div>
 </div><p>之后打开vim,输入<code>:PluginInstall</code>即可，然后等待插件自动下载指定Plugin，即可完成<code>Vundle</code>的安装。</p>
 <h2 id="golang环境安装">golang环境安装</h2>
