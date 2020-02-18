@@ -48,7 +48,7 @@
 <meta itemprop="description" content="环境准备 git 互联网 vim python2/3 python3-dev golang rust cmake g&#43;&#43; 开发环境搭建 golang =&gt; fatih/vim-go rust =&gt; racer-rust/vim-racer | rust-lang/rust.vim 自动补全插件 =&gt; Valloric/YouCompleteMe 安装Vundle插件管理工具 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim 编辑.vimrc文件，输入： 1">
 <meta itemprop="datePublished" content="2020-02-18T00:11:22&#43;08:00" />
 <meta itemprop="dateModified" content="2020-02-18T00:11:22&#43;08:00" />
-<meta itemprop="wordCount" content="782">
+<meta itemprop="wordCount" content="4826">
 
 
 
@@ -142,6 +142,32 @@
     <li><a href="#安装vundle插件管理工具">安装Vundle插件管理工具</a></li>
     <li><a href="#golang环境安装">golang环境安装</a></li>
     <li><a href="#安装youcompleteme">安装YouCompleteMe</a></li>
+    <li><a href="#vim扩展">Vim扩展</a></li>
+    <li><a href="#vundle">Vundle</a></li>
+    <li><a href="#开始打造ide吧">开始打造IDE吧</a>
+      <ul>
+        <li><a href="#扔掉鼠标">扔掉鼠标</a></li>
+        <li><a href="#分割布局split-layouts">分割布局（Split Layouts）</a></li>
+        <li><a href="#缓冲区buffers">缓冲区（Buffers）</a></li>
+        <li><a href="#代码折叠code-folding">代码折叠（Code Folding）</a></li>
+        <li><a href="#python代码缩进">Python代码缩进</a></li>
+        <li><a href="#pep8">PEP8</a></li>
+        <li><a href="#自动缩进">自动缩进</a></li>
+        <li><a href="#标示不必要的空白字符">标示不必要的空白字符</a></li>
+        <li><a href="#支持utf-8编码">支持UTF-8编码</a></li>
+        <li><a href="#自动补全">自动补全</a></li>
+        <li><a href="#支持virtualenv虚拟环境">支持Virtualenv虚拟环境</a></li>
+        <li><a href="#语法检查高亮">语法检查/高亮</a></li>
+        <li><a href="#配色方案">配色方案</a></li>
+        <li><a href="#文件浏览">文件浏览</a></li>
+        <li><a href="#超级搜索">超级搜索</a></li>
+        <li><a href="#显示行号">显示行号</a></li>
+        <li><a href="#git集成">Git集成</a></li>
+        <li><a href="#powerline状态栏">Powerline状态栏</a></li>
+        <li><a href="#系统剪贴板">系统剪贴板</a></li>
+        <li><a href="#shell开启vim编辑模式">Shell开启Vim编辑模式</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -323,7 +349,357 @@ git submodule update --init --recursive
 ./install.py --go-completer
 </code></pre></td></tr></table>
 </div>
+</div><h2 id="vim扩展">Vim扩展</h2>
+<p>Vim本身能够满足开发人员的很多需求，但是它的可扩展性也极强，并且已经有一些杀手级的扩展，可以让Vim拥有“现代”集成开发环境的特性。所以，你所需要的第一件东西就是一个好用的扩展管理器。</p>
+<blockquote>
+<p>Vim的扩展通常也被成为bundle或插件。</p>
+</blockquote>
+<h2 id="vundle">Vundle</h2>
+<p>Vim有多个扩展管理器，但是我们强烈推荐Vundle。你可以把它想象成Vim的pip。有了Vundle，安装和更新包这种事情不费吹灰之力。</p>
+<p>我们现在来安装Vundle：</p>
+<blockquote>
+<p>git clone <a href="https://github.com/gmarik/Vundle.vim.git">https://github.com/gmarik/Vundle.vim.git</a> ~/.vim/bundle/Vundle.vim
+该命令将下载Vundle插件管理器，并将它放置在你的Vim编辑器bundles文件夹中。现在，你可以通过.vimrc<code>配置文件</code>来管理所有扩展了。</p>
+</blockquote>
+<p>将配置文件添加到你的用户的home文件夹中：</p>
+<blockquote>
+<p>touch ~/.vimrc</p>
+</blockquote>
+<p>接下来，把下来的Vundle配置添加到配置文件的顶部：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">set nocompatible              &#34; required
+filetype off                  &#34; required
+
+&#34; set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+&#34; alternatively, pass a path where Vundle should install plugins
+&#34;call vundle#begin(&#39;~/some/path/here&#39;)
+
+&#34; let Vundle manage Vundle, required
+Plugin &#39;gmarik/Vundle.vim&#39;
+
+&#34; Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
+
+&#34; All of your Plugins must be added before the following line
+call vundle#end()            &#34; required
+filetype plugin indent on    &#34; required
+</code></pre></td></tr></table>
 </div>
+</div><p>这样，你就完成了使用Vundle前的设置。之后，你就可以在配置文件中添加希望安装的插件，然后打开Vim编辑器，运行下面的命令：</p>
+<blockquote>
+<p>:PluginInstall</p>
+</blockquote>
+<p>这个命令告诉Vundle施展它的魔法——自动下载所有的插件，并为你进行安装和更新。</p>
+<h2 id="开始打造ide吧">开始打造IDE吧</h2>
+<p>本文不可能列举Vim的全部功能，只能快速介绍一些Vim自带的强大功能，它们对于Python开发来说是非常有用的。</p>
+<h3 id="扔掉鼠标">扔掉鼠标</h3>
+<p>或许，Vim编辑器最重要的功能就是它不要求使用鼠标（除了GUI版本外）。一开始，你可能会觉得这是个非常糟糕的做法，但是只要你投入时间——是的，这很花时间——学习<code>快捷组合键</code>，就可以大幅提升工作流的速度。</p>
+<h3 id="分割布局split-layouts">分割布局（Split Layouts）</h3>
+<p>使用<code>:sv &lt;filename&gt;</code>命令打开一个文件，你可以纵向分割布局（新文件会在当前文件下方界面打开），使用相反的命令<code>:vs &lt;filename&gt;</code>， 你可以得到横向分割布局（新文件会在当前文件右侧界面打开）。</p>
+<p>你还可以嵌套分割布局，所以你可以在分割布局内容再进行分割，纵向或横向都可以，直到你满意为止。众所周知，我们开发时经常需要同时查看多个文件。</p>
+<p><strong>专业贴士</strong>：记得在输入完<code>:sv</code>后，利用tab补全功能，快速查找文件。</p>
+<p><strong>专业贴士</strong>：你还可以指定屏幕上可以进行分割布局的区域，只要在<code>.vimrc</code>文件中添加下面的代码即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">set splitbelow
+set splitright
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>专业贴士</strong>：想要不使用鼠标就切换分割布局吗？只要将下面的代码添加到<code>.vimrc</code>文件中，你就可以通过快捷组合键进行切换。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#34;split navigations
+nnoremap &lt;C-J&gt; &lt;C-W&gt;&lt;C-J&gt;
+nnoremap &lt;C-K&gt; &lt;C-W&gt;&lt;C-K&gt;
+nnoremap &lt;C-L&gt; &lt;C-W&gt;&lt;C-L&gt;
+nnoremap &lt;C-H&gt; &lt;C-W&gt;&lt;C-H&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>组合快捷键：</p>
+<ul>
+<li><code>Ctrl-j</code> 切换到下方的分割窗口</li>
+<li><code>Ctrl-k</code> 切换到上方的分割窗口</li>
+<li><code>Ctrl-l</code> 切换到右侧的分割窗口</li>
+<li><code>Ctrl-h</code> 切换到左侧的分割窗口</li>
+</ul>
+<p>换句话说, 按<code>Ctrl</code>+Vim的标准移动键，就可以切换到指定窗口。</p>
+<blockquote>
+<p>等等，nnoremap是什么意思？——简单来说，nnoremap将一个组合快捷键映射为另一个快捷键。一开始的n，指的是在Vim的正常模式（Normal Mode）下，而不是可视模式下重新映射。基本上，nnoremap <!-- raw HTML omitted --> <!-- raw HTML omitted --><!-- raw HTML omitted -->就是说，当我在正常模式按下<!-- raw HTML omitted -->时，进行<!-- raw HTML omitted --><!-- raw HTML omitted -->操作。更多信息请看这里。</p>
+</blockquote>
+<h3 id="缓冲区buffers">缓冲区（Buffers）</h3>
+<p>虽然Vim支持tab操作，仍有很多人更喜欢缓冲区和分割布局。你可以把缓冲区想象成最近打开的一个文件。Vim提供了方便访问近期缓冲区的方式，只需要输入<code>:b &lt;buffer name or number&gt;</code>，就可以切换到一个已经开启的缓冲区（此处也可使用自动补全功能）。你还可以通过<code>ls</code>命令查看所有的缓冲区。</p>
+<p><strong>专业贴士</strong>: 在<code>:ls</code>命令输出的最后，Vim会提示“敲击Enter继续查看”，这时你可以直接输入<code>:b &lt;buffer name&gt;</code>，立即选择缓冲区。这样可以省掉一个按键操作，也不必去记忆缓冲区的名字。</p>
+<h3 id="代码折叠code-folding">代码折叠（Code Folding）</h3>
+<p>大多数“现代”集成开发环境（IDE）都提供对方法（methods）或类（classes）进行折叠的手段，只显示类或方法的定义部分，而不是全部的代码。</p>
+<p>你可以在<code>.vimrc</code>中添加下面的代码开启该功能：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#34; Enable folding
+set foldmethod=indent
+set foldlevel=99
+</code></pre></td></tr></table>
+</div>
+</div><p>这样就可以实现，但是你必须手动输入<code>za</code>来折叠（和取消折叠）。使用空格键会是更好的选择。所以在你的配置文件中加上这一行命令吧：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#34; Enable folding with the spacebar
+nnoremap &lt;space&gt; za
+</code></pre></td></tr></table>
+</div>
+</div><p>现在你可以轻松地隐藏掉那些当前工作时不需要关注的代码了。</p>
+<p>第一个命令，<code>set foldmethod=ident</code>会根据每行的缩进开启折叠。但是这样做会出现超过你所希望的折叠数目。但是别怕，有几个扩展就是专门解决这个问题的。在这里，我们推荐SimplyFold。在<code>.vimrc</code>中加入下面这行代码，通过Vundle进行安装：</p>
+<p><code>Plugin 'tmhedberg/SimpylFold'</code></p>
+<blockquote>
+<p>不要忘记执行安装命令：:PluginInstall</p>
+</blockquote>
+<p><strong>专业贴士</strong>: 希望看到折叠代码的文档字符串？</p>
+<p><code>let g:SimpylFold_docstring_preview=1</code></p>
+<h3 id="python代码缩进">Python代码缩进</h3>
+<p>当然，想要代码折叠功能根据缩进情况正常工作，那么你就会希望自己的缩进是正确的。这里，Vim的自带功能无法满足，因为它实现不了定义函数之后的自动缩进。我们希望Vim中的缩进能做到以下两点：</p>
+<ul>
+<li>首先，缩进要符合PEP8标准。</li>
+<li>其次，更好地处理自动缩进。</li>
+</ul>
+<h3 id="pep8">PEP8</h3>
+<p>要支持PEP8风格的缩进，请在<code>.vimrc</code>文件中添加下面的代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">au BufNewFile,BufRead *.py
+\ set tabstop=4
+\ set softtabstop=4
+\ set shiftwidth=4
+\ set textwidth=79
+\ set expandtab
+\ set autoindent
+\ set fileformat=unix
+</code></pre></td></tr></table>
+</div>
+</div><p>这些设置将让Vim中的Tab键就相当于4个标准的空格符，确保每行代码长度不超过80个字符，并且会以unix格式储存文件，避免在推送到Github或分享给其他用户时出现文件转换问题。</p>
+<p>另外，对于全栈开发，你可以设置针对每种文件类型设置<code>au</code>命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">au BufNewFile,BufRead *.js, *.html, *.css
+\ set tabstop=2
+\ set softtabstop=2
+\ set shiftwidth=2
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="自动缩进">自动缩进</h3>
+<p>自动缩进有用，但是在某些情况下（比如函数定义有多行的时候），并不总是会达到你想要的效果，尤其是在符合PEP8标准方面。我们可以利用indentpython.vim插件，来解决这个问题：</p>
+<p><code>Plugin 'vim-scripts/indentpython.vim'</code></p>
+<h3 id="标示不必要的空白字符">标示不必要的空白字符</h3>
+<p>我们希望避免出现多余的空白字符。可以让Vim帮我们标示出来，使其很容易发现并删除。</p>
+<p><code>au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/</code></p>
+<p>这会将多余的空白字符标示出来，很可能会将它们变成红色突出。</p>
+<h3 id="支持utf-8编码">支持UTF-8编码</h3>
+<p>大部分情况下，进行Python开发时你应该使用UTF-8编码，尤其是使用Python 3的时候。确保Vim设置文件中有下面的命令：</p>
+<p><code>set encoding=utf-8</code></p>
+<h3 id="自动补全">自动补全</h3>
+<p>支持Python自动补全的最好插件是YouCompleteMe。我们再次使用Vundle安装：</p>
+<p><code>Bundle 'Valloric/YouCompleteMe'</code></p>
+<p>YouCompleteMe插件其实底层使用了一些不同的自动补全组件（包括针对Python开发的Jedi），另外要安装一些C库才能正常工作。插件官方文档提供了很好的<code>安装指南</code>，我就不在这里重复了。切记跟随文档的步骤进行安装。</p>
+<p>安装完成后，插件自带的设置效果就很好，但是我们还可以进行一些小的调整：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">let g:ycm_autoclose_preview_window_after_completion=1
+map &lt;leader&gt;g  :YcmCompleter GoToDefinitionElseDeclaration&lt;CR&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>上面的第一行确保了在你完成操作之后，自动补全窗口不会消失，第二行则定义了“<code>转到定义</code>”的快捷方式。</p>
+<h3 id="支持virtualenv虚拟环境">支持Virtualenv虚拟环境</h3>
+<p>上面“<code>转到定义</code>”功能的一个问题，就是默认情况下Vim不知道virtualenv虚拟环境的情况，所以你必须在配置文件中添加下面的代码，使得Vim和YouCompleteMe能够发现你的虚拟环境：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#34;python with virtualenv support
+py &lt;&lt; EOF
+import os
+import sys
+if &#39;VIRTUAL_ENV&#39; in os.environ:
+  project_base_dir = os.environ[&#39;VIRTUAL_ENV&#39;]
+  activate_this = os.path.join(project_base_dir, &#39;bin/activate_this.py&#39;)
+  execfile(activate_this, dict(__file__=activate_this))
+EOF
+</code></pre></td></tr></table>
+</div>
+</div><p>这段代码会判断你目前是否在虚拟环境中编辑，然后切换到相应的虚拟环境，并设置好你的系统路径，确保YouCompleteMe能够找到相应的site packages文件夹。</p>
+<h3 id="语法检查高亮">语法检查/高亮</h3>
+<p>通过安装<code>syntastic</code>插件，每次保存文件时Vim都会检查代码的语法：</p>
+<blockquote>
+<p>Plugin &lsquo;scrooloose/syntastic&rsquo;</p>
+</blockquote>
+<p>还可以通过这个小巧的插件，添加PEP8代码风格检查：</p>
+<blockquote>
+<p>Plugin &lsquo;nvie/vim-flake8&rsquo;</p>
+</blockquote>
+<p>最后，让你的代码变得更漂亮：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">let python_highlight_all=1
+syntax on
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="配色方案">配色方案</h3>
+<p>配色方案可以和你正在使用的基础配色共同使用。GUI模式可以尝试solarized方案, 终端模式可以尝试Zenburn方案：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Plugin &#39;jnurmine/Zenburn&#39;
+Plugin &#39;altercation/vim-colors-solarized&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>接下来，只需要添加一点逻辑判断，确定什么模式下使用何种方案就可以了：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">if has(&#39;gui_running&#39;)
+  set background=dark
+  colorscheme solarized
+else
+  colorscheme Zenburn
+endif
+</code></pre></td></tr></table>
+</div>
+</div><p>Solarized方案同时提供了暗色调和轻色调两种主题。要支持切换主题功能（按F5）也非常简单，只需添加：</p>
+<blockquote>
+<p>call togglebg#map(&ldquo;<!-- raw HTML omitted -->&rdquo;)</p>
+</blockquote>
+<h3 id="文件浏览">文件浏览</h3>
+<p>如果你想要一个不错的文件树形结构，那么NERDTree是不二之选。</p>
+<blockquote>
+<p>Plugin &lsquo;scrooloose/nerdtree&rsquo;</p>
+</blockquote>
+<p>如果你想用tab键，可以利用vim-nerdtree-tabs插件实现：</p>
+<blockquote>
+<p>Plugin &lsquo;jistr/vim-nerdtree-tabs&rsquo;</p>
+</blockquote>
+<p>还想隐藏.pyc文件？那么再添加下面这行代码吧：</p>
+<blockquote>
+<p>let NERDTreeIgnore=['.pyc$&rsquo;, &lsquo;~$&rsquo;] &ldquo;ignore files in NERDTree</p>
+</blockquote>
+<h3 id="超级搜索">超级搜索</h3>
+<p>想要在Vim中搜索任何文件？试试ctrlP插件吧：</p>
+<blockquote>
+<p>Plugin &lsquo;kien/ctrlp.vim&rsquo;</p>
+</blockquote>
+<p>正如插件名，按Ctrl+P就可以进行搜索。如果你的检索词与想要查找的文件相匹配的话，这个插件就会帮你找到它。哦，对了——它不仅仅可以搜索文件，还能检索标签！更多信息，可以观看这个<a href="http://www.youtube.com/watch?v=9XrHk3xjYsw">Youtube视频</a>.</p>
+<h3 id="显示行号">显示行号</h3>
+<p>开启显示行号：</p>
+<blockquote>
+<p>set nu</p>
+</blockquote>
+<h3 id="git集成">Git集成</h3>
+<p>想要在Vim中执行基本的Git命令？vim-fugitive插件则是不二之选。</p>
+<blockquote>
+<p>Plugin &lsquo;tpope/vim-fugitive&rsquo;</p>
+</blockquote>
+<p>请看Vimcasts的<a href="http://vimcasts.org/episodes/fugitive-vim---a-complement-to-command-line-git/">这部视频</a>，了解更多情况。</p>
+<h3 id="powerline状态栏">Powerline状态栏</h3>
+<p>Powerline是一个状态栏插件，可以显示当前的虚拟环境、Git分支、正在编辑的文件等信息。</p>
+<p>这个插件是用Python编写的，支持诸如zsh、bash、tmux和IPython等多种环境。</p>
+<blockquote>
+<p>Plugin &lsquo;Lokaltog/powerline&rsquo;, {&lsquo;rtp&rsquo;: &lsquo;powerline/bindings/vim/'}</p>
+</blockquote>
+<p>请查阅插件的官方文档，了解配置选项。</p>
+<h3 id="系统剪贴板">系统剪贴板</h3>
+<p>通常Vim会忽视系统剪贴板，而使用自带的剪贴板。但是有时候你想从Vim之外的程序中剪切、复制、粘贴文本。在OS X平台上，你可以通过这行代码访问你的系统剪贴板：</p>
+<blockquote>
+<p>set clipboard=unnamed</p>
+</blockquote>
+<h3 id="shell开启vim编辑模式">Shell开启Vim编辑模式</h3>
+<p>最后，当你熟练掌握了Vim和它的键盘快捷方式之后，你会发现自己经常因为shell中缺乏相同的快捷键而懊恼。没关系，大部分的shell程序都有Vi模式。在当前shell中开启Vi模式，你只需要在<code>~/.inputrc</code>文件中添加这行代码：</p>
+<blockquote>
+<p>set editing-mode vi</p>
+</blockquote>
+<p>现在，你不仅可以在shell中使用Vim组合快捷键，还可以在Python解释器以及任何利用GNU Readline程序的工具（例如，大多数的数据库shell）中使用。现在，你在什么地方都可以使用Vim啦！</p>
+
     </div>
 
     <div class="post-copyright">
