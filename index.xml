@@ -22,6 +22,15 @@
     </item>
     
     <item>
+      <title>FFmpeg常用基本命令行</title>
+      <link>https://www.lflxp.cn/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/ffmpeg/</link>
+      <pubDate>Sun, 23 Feb 2020 18:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/ffmpeg/</guid>
+      <description>本文收集记录了笔者使用过的FFmpeg命令，亲测可用，并不是简单的copy别人的FFmpeg大全，下面的命令大部分都是本人测试成功过的，大家</description>
+    </item>
+    
+    <item>
       <title>Golang mmap的使用</title>
       <link>https://www.lflxp.cn/post/golang/mmap/</link>
       <pubDate>Sun, 23 Feb 2020 18:11:22 +0800</pubDate>
