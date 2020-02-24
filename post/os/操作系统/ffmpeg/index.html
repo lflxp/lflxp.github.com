@@ -153,9 +153,8 @@
   </div>
 </div>
     <div class="post-content">
-      <pre><code>    本文收集记录了笔者使用过的FFmpeg命令，亲测可用，并不是简单的copy别人的FFmpeg大全，下面的命令大部分都是本人测试成功过的，大家可以放心使用。
-</code></pre>
-<p>        音视频技术是程序员日常生活中经常用到的，比如转码需求，同事下载的avi视频，电脑上没有播放器可以播放此格式的视频文件，那你就可以帮他把avi转成mp4格式，你两个就可以愉快的观看了；截取视频需求，录制视频后，可能不需要前面3秒和后面5秒，那就需要剪切或者拼接视频；想提取视频中的某一帧画面出来；不想看到视频画面，只想听到里面的声音，那就提取视频中的音频转为mp3；出于某种特殊的需求，你想倒着播放一段视频等等，太多太多了，再比如视频中加GIF，视频中加文字，抖音合拍功能，视频加速播放。上面的这些需求或者是想法，都可以用命令行轻松搞定，FFmpeg的强大，只有你想不到，没有他做不到。下面就列举了一些常用的简单命令，让我们一起看一下吧，另外看完后，最好是动手去实践一番。</p>
+      <p>本文收集记录了笔者使用过的FFmpeg命令，亲测可用，并不是简单的copy别人的FFmpeg大全，下面的命令大部分都是本人测试成功过的，大家可以放心使用。</p>
+<p>音视频技术是程序员日常生活中经常用到的，比如转码需求，同事下载的avi视频，电脑上没有播放器可以播放此格式的视频文件，那你就可以帮他把avi转成mp4格式，你两个就可以愉快的观看了；截取视频需求，录制视频后，可能不需要前面3秒和后面5秒，那就需要剪切或者拼接视频；想提取视频中的某一帧画面出来；不想看到视频画面，只想听到里面的声音，那就提取视频中的音频转为mp3；出于某种特殊的需求，你想倒着播放一段视频等等，太多太多了，再比如视频中加GIF，视频中加文字，抖音合拍功能，视频加速播放。上面的这些需求或者是想法，都可以用命令行轻松搞定，FFmpeg的强大，只有你想不到，没有他做不到。下面就列举了一些常用的简单命令，让我们一起看一下吧，另外看完后，最好是动手去实践一番。</p>
 <h2 id="获取视频信息">获取视频信息</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -538,9 +537,9 @@ ffmpeg -i audio1.m4a -i audio2.m4a -filter_complex amerge -ac 2 -c:a libmp3lame 
 </div><footer class="post-footer">
       
       <nav class="post-nav">
-        <a class="prev" href="/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%B5%84%E6%96%99/">
+        <a class="prev" href="/post/golang/template%E5%8A%A8%E6%80%81%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">操作系统资料汇总</span>
+            <span class="prev-text nav-default">golang template 动态传递参数的方法</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
         <a class="next" href="/post/golang/mmap/">
