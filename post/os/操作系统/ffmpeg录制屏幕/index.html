@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="lixueping" /><meta name="description" content="资料 使用FFmpeg进行屏幕录像和录音 FFmpeg录制屏幕 FFmpeg常用基本命令行 ffmpeg 录屏 screen capture recorder" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="lixueping" /><meta name="description" content="资料 使用FFmpeg进行屏幕录像和录音 FFmpeg录制屏幕 FFmpeg常用基本命令行 ffmpeg 录屏 screen capture recorder 桌面录屏录音技术，录屏软件原理 二次开发 一步步" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -39,22 +39,22 @@
 
 
 <meta property="og:title" content="ffmpeg录制屏幕资料汇总" />
-<meta property="og:description" content="资料 使用FFmpeg进行屏幕录像和录音 FFmpeg录制屏幕 FFmpeg常用基本命令行 ffmpeg 录屏 screen capture recorder" />
+<meta property="og:description" content="资料 使用FFmpeg进行屏幕录像和录音 FFmpeg录制屏幕 FFmpeg常用基本命令行 ffmpeg 录屏 screen capture recorder 桌面录屏录音技术，录屏软件原理 二次开发 一步步" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.lflxp.cn/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/ffmpeg%E5%BD%95%E5%88%B6%E5%B1%8F%E5%B9%95/" />
 <meta property="article:published_time" content="2020-03-04T18:11:22+08:00" />
-<meta property="article:modified_time" content="2020-03-04T18:11:22+08:00" />
+<meta property="article:modified_time" content="2020-03-04T19:49:52+08:00" />
 <meta itemprop="name" content="ffmpeg录制屏幕资料汇总">
-<meta itemprop="description" content="资料 使用FFmpeg进行屏幕录像和录音 FFmpeg录制屏幕 FFmpeg常用基本命令行 ffmpeg 录屏 screen capture recorder">
+<meta itemprop="description" content="资料 使用FFmpeg进行屏幕录像和录音 FFmpeg录制屏幕 FFmpeg常用基本命令行 ffmpeg 录屏 screen capture recorder 桌面录屏录音技术，录屏软件原理 二次开发 一步步">
 <meta itemprop="datePublished" content="2020-03-04T18:11:22&#43;08:00" />
-<meta itemprop="dateModified" content="2020-03-04T18:11:22&#43;08:00" />
-<meta itemprop="wordCount" content="48">
+<meta itemprop="dateModified" content="2020-03-04T19:49:52&#43;08:00" />
+<meta itemprop="wordCount" content="120">
 
 
 
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ffmpeg录制屏幕资料汇总"/>
-<meta name="twitter:description" content="资料 使用FFmpeg进行屏幕录像和录音 FFmpeg录制屏幕 FFmpeg常用基本命令行 ffmpeg 录屏 screen capture recorder"/>
+<meta name="twitter:description" content="资料 使用FFmpeg进行屏幕录像和录音 FFmpeg录制屏幕 FFmpeg常用基本命令行 ffmpeg 录屏 screen capture recorder 桌面录屏录音技术，录屏软件原理 二次开发 一步步"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -138,16 +138,26 @@
     <nav id="TableOfContents">
   <ul>
     <li><a href="#资料">资料</a></li>
+    <li><a href="#二次开发">二次开发</a></li>
   </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
       <h2 id="资料">资料</h2>
-<p><a href="https://blog.csdn.net/shaosunrise/article/details/81068080">使用FFmpeg进行屏幕录像和录音</a>
-<a href="https://www.jianshu.com/p/280744505be5">FFmpeg录制屏幕</a>
-<a href="https://www.lflxp.cn/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/ffmpeg/#%E8%8E%B7%E5%8F%96%E8%A7%86%E9%A2%91%E4%BF%A1%E6%81%AF">FFmpeg常用基本命令行</a>
-<a href="https://blog.csdn.net/weixin_30700977/article/details/96753574">ffmpeg 录屏 screen capture recorder</a></p>
+<ul>
+<li><a href="https://blog.csdn.net/shaosunrise/article/details/81068080">使用FFmpeg进行屏幕录像和录音</a></li>
+<li><a href="https://www.jianshu.com/p/280744505be5">FFmpeg录制屏幕</a></li>
+<li><a href="https://www.lflxp.cn/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/ffmpeg/#%E8%8E%B7%E5%8F%96%E8%A7%86%E9%A2%91%E4%BF%A1%E6%81%AF">FFmpeg常用基本命令行</a></li>
+<li><a href="https://blog.csdn.net/weixin_30700977/article/details/96753574">ffmpeg 录屏 screen capture recorder</a></li>
+<li><a href="https://blog.csdn.net/rosyrays1/article/details/83688977">桌面录屏录音技术，录屏软件原理</a></li>
+</ul>
+<h2 id="二次开发">二次开发</h2>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000017980746">一步步进行ffmpeg的C语言音视频编程</a></li>
+<li><a href="https://segmentfault.com/a/1190000018103085">音视频编程基本概念梳理</a></li>
+<li><a href="https://segmentfault.com/a/1190000017981732">如何将ffmpeg封装golang/cgo库</a></li>
+</ul>
 
     </div>
 
@@ -160,7 +170,7 @@
     <span class="item-title">上次更新</span>
     <span class="item-content">
         2020-03-04
-        
+        <a href="https://github.com/lflxp/commit/759cc59891f71d9a1955a8b2fd08ba1c85db086a" title="Wed Mar  4 19:49:52 CST 2020">(759cc59)</a>
     </span>
   </p>
   
