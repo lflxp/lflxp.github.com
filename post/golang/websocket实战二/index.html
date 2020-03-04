@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>golang gin&#43;websocket&#43;xterm.js基础教学实战二 - 爱像水墨青花</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lixueping" /><meta name="description" content="介绍 gin和gorilla结合创建websocket，实现最简化易懂版本websocket实操 注册gin路由 api.GET(&amp;ldquo;ws/:id&amp;rdquo;, internal.WsSsh) 1 2 3 4 5 6 7 8 9 10 11 12 13 14" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.lflxp.cn/post/golang/websocket%E5%AE%9E%E6%88%98%E4%BA%8C/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="golang gin&#43;websocket&#43;xterm.js基础教学实战二" />
+<meta property="og:description" content="介绍 gin和gorilla结合创建websocket，实现最简化易懂版本websocket实操 注册gin路由 api.GET(&ldquo;ws/:id&rdquo;, internal.WsSsh) 1 2 3 4 5 6 7 8 9 10 11 12 13 14" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lflxp.cn/post/golang/websocket%E5%AE%9E%E6%88%98%E4%BA%8C/" />
+<meta property="article:published_time" content="2020-03-05T00:11:22+08:00" />
+<meta property="article:modified_time" content="2020-03-05T00:11:22+08:00" />
+<meta itemprop="name" content="golang gin&#43;websocket&#43;xterm.js基础教学实战二">
+<meta itemprop="description" content="介绍 gin和gorilla结合创建websocket，实现最简化易懂版本websocket实操 注册gin路由 api.GET(&ldquo;ws/:id&rdquo;, internal.WsSsh) 1 2 3 4 5 6 7 8 9 10 11 12 13 14">
+<meta itemprop="datePublished" content="2020-03-05T00:11:22&#43;08:00" />
+<meta itemprop="dateModified" content="2020-03-05T00:11:22&#43;08:00" />
+<meta itemprop="wordCount" content="1717">
+
+
+
+<meta itemprop="keywords" content="websocket," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="golang gin&#43;websocket&#43;xterm.js基础教学实战二"/>
+<meta name="twitter:description" content="介绍 gin和gorilla结合创建websocket，实现最简化易懂版本websocket实操 注册gin路由 api.GET(&ldquo;ws/:id&rdquo;, internal.WsSsh) 1 2 3 4 5 6 7 8 9 10 11 12 13 14"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">琵琶</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">目录</li>
+      </a><a href="/post/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">琵琶</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">目录</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">golang gin&#43;websocket&#43;xterm.js基础教学实战二</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-05 </span>
+        <div class="post-category">
+            <a href="/categories/golang/"> golang </a>
+            </div>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#注册gin路由-apigetwsid-internalwsssh">注册gin路由 api.GET(&ldquo;ws/:id&rdquo;, internal.WsSsh)</a></li>
+    <li><a href="#处理ws消息并转发给ssh-session-stdinpipe同时暂存消息到logbuff">处理ws消息并转发给ssh-Session stdinPipe,同时暂存消息到logBuff</a></li>
+    <li><a href="#把sshsession的combowriter中的数据每隔120ms-通过调用websocketconnwritemessage方法返回给xtermjswebsocketclient-前端">把ssh.Session的comboWriter中的数据每隔120ms 通过调用websocketConn.WriteMessage方法返回给xterm.js+websocketClient 前端</a></li>
+    <li><a href="#前端vuejsdemo代码">前端vuejs.demo代码</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="介绍">介绍</h2>
+<p>gin和gorilla结合创建websocket，实现最简化易懂版本websocket实操</p>
+<h2 id="注册gin路由-apigetwsid-internalwsssh">注册gin路由 api.GET(&ldquo;ws/:id&rdquo;, internal.WsSsh)</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kn">package</span> <span class="nx">internal</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;bytes&#34;</span>
+	<span class="s">&#34;github.com/libragen/felix/flx&#34;</span>
+	<span class="s">&#34;github.com/libragen/felix/models&#34;</span>
+	<span class="s">&#34;github.com/libragen/felix/utils&#34;</span>
+	<span class="s">&#34;github.com/gin-gonic/gin&#34;</span>
+	<span class="s">&#34;github.com/gorilla/websocket&#34;</span>
+	<span class="s">&#34;github.com/sirupsen/logrus&#34;</span>
+	<span class="s">&#34;net/http&#34;</span>
+	<span class="s">&#34;strconv&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">upGrader</span> <span class="p">=</span> <span class="nx">websocket</span><span class="p">.</span><span class="nx">Upgrader</span><span class="p">{</span>
+	<span class="nx">ReadBufferSize</span><span class="p">:</span>  <span class="mi">1024</span><span class="p">,</span>
+	<span class="nx">WriteBufferSize</span><span class="p">:</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span>
+	<span class="nx">CheckOrigin</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">true</span>
+	<span class="p">}</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1">// handle webSocket connection.
+</span><span class="c1"></span><span class="c1">// first,we establish a ssh connection to ssh server when a webSocket comes;
+</span><span class="c1"></span><span class="c1">// then we deliver ssh data via ssh connection between browser and ssh server.
+</span><span class="c1"></span><span class="c1">// That is, read webSocket data from browser (e.g. &#39;ls&#39; command) and send data to ssh server via ssh connection;
+</span><span class="c1"></span><span class="c1">// the other hand, read returned ssh data from ssh server and write back to browser via webSocket API.
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">WsSsh</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="nx">v</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="s">&#34;user&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+		<span class="nx">logrus</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;jwt token can&#39;t find auth user&#34;</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="nx">userM</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">v</span><span class="p">.</span><span class="p">(</span><span class="o">*</span><span class="nx">models</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span>
+	<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+		<span class="nx">logrus</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;context user is not a models.User type obj&#34;</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="nx">cols</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">Atoi</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nf">DefaultQuery</span><span class="p">(</span><span class="s">&#34;cols&#34;</span><span class="p">,</span> <span class="s">&#34;120&#34;</span><span class="p">)</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nf">wshandleError</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="nx">rows</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">Atoi</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nf">DefaultQuery</span><span class="p">(</span><span class="s">&#34;rows&#34;</span><span class="p">,</span> <span class="s">&#34;32&#34;</span><span class="p">)</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nf">wshandleError</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="nx">idx</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">parseParamID</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nf">wshandleError</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="nx">mc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nf">MachineFind</span><span class="p">(</span><span class="nx">idx</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nf">wshandleError</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="nx">client</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">flx</span><span class="p">.</span><span class="nf">NewSshClient</span><span class="p">(</span><span class="nx">mc</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nf">wshandleError</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="nx">client</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
+	<span class="nx">startTime</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">(</span><span class="p">)</span>
+	<span class="nx">ssConn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">utils</span><span class="p">.</span><span class="nf">NewSshConn</span><span class="p">(</span><span class="nx">cols</span><span class="p">,</span> <span class="nx">rows</span><span class="p">,</span> <span class="nx">client</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nf">wshandleError</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="nx">ssConn</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
+	<span class="c1">// after configure, the WebSocket is ok.
+</span><span class="c1"></span>	<span class="nx">wsConn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">upGrader</span><span class="p">.</span><span class="nf">Upgrade</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">Writer</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nf">wshandleError</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="nx">wsConn</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
+
+	<span class="nx">quitChan</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">bool</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+	<span class="kd">var</span> <span class="nx">logBuff</span> <span class="p">=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span><span class="p">)</span>
+
+	<span class="c1">// most messages are ssh output, not webSocket input
+</span><span class="c1"></span>	<span class="k">go</span> <span class="nx">ssConn</span><span class="p">.</span><span class="nf">ReceiveWsMsg</span><span class="p">(</span><span class="nx">wsConn</span><span class="p">,</span> <span class="nx">logBuff</span><span class="p">,</span> <span class="nx">quitChan</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nx">ssConn</span><span class="p">.</span><span class="nf">SendComboOutput</span><span class="p">(</span><span class="nx">wsConn</span><span class="p">,</span> <span class="nx">quitChan</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nx">ssConn</span><span class="p">.</span><span class="nf">SessionWait</span><span class="p">(</span><span class="nx">quitChan</span><span class="p">)</span>
+
+	<span class="o">&lt;-</span><span class="nx">quitChan</span>
+	<span class="c1">//write logs
+</span><span class="c1"></span>	<span class="nx">xtermLog</span> <span class="o">:=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">TermLog</span><span class="p">{</span>
+		<span class="nx">EndTime</span><span class="p">:</span>     <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">(</span><span class="p">)</span><span class="p">,</span>
+		<span class="nx">StartTime</span><span class="p">:</span>   <span class="nx">startTime</span><span class="p">,</span>
+		<span class="nx">UserId</span><span class="p">:</span>      <span class="nx">userM</span><span class="p">.</span><span class="nx">ID</span><span class="p">,</span>
+		<span class="nx">Log</span><span class="p">:</span>         <span class="nx">logBuff</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="p">)</span><span class="p">,</span>
+		<span class="nx">MachineId</span><span class="p">:</span>   <span class="nx">idx</span><span class="p">,</span>
+		<span class="nx">MachineName</span><span class="p">:</span> <span class="nx">mc</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
+		<span class="nx">MachineIp</span><span class="p">:</span>   <span class="nx">mc</span><span class="p">.</span><span class="nx">Ip</span><span class="p">,</span>
+		<span class="nx">MachineHost</span><span class="p">:</span> <span class="nx">mc</span><span class="p">.</span><span class="nx">Host</span><span class="p">,</span>
+		<span class="nx">UserName</span><span class="p">:</span>    <span class="nx">userM</span><span class="p">.</span><span class="nx">Username</span><span class="p">,</span>
+	<span class="p">}</span>
+
+	<span class="nx">err</span> <span class="p">=</span> <span class="nx">xtermLog</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nf">wshandleError</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="nx">logrus</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;websocket finished&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="处理ws消息并转发给ssh-session-stdinpipe同时暂存消息到logbuff">处理ws消息并转发给ssh-Session stdinPipe,同时暂存消息到logBuff</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="c1">//ReceiveWsMsg  receive websocket msg do some handling then write into ssh.session.stdin
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">ssConn</span> <span class="o">*</span><span class="nx">SshConn</span><span class="p">)</span> <span class="nf">ReceiveWsMsg</span><span class="p">(</span><span class="nx">wsConn</span> <span class="o">*</span><span class="nx">websocket</span><span class="p">.</span><span class="nx">Conn</span><span class="p">,</span> <span class="nx">logBuff</span> <span class="o">*</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span><span class="p">,</span> <span class="nx">exitCh</span> <span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">//tells other go routine quit
+</span><span class="c1"></span>	<span class="k">defer</span> <span class="nf">setQuit</span><span class="p">(</span><span class="nx">exitCh</span><span class="p">)</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">exitCh</span><span class="p">:</span>
+			<span class="k">return</span>
+		<span class="k">default</span><span class="p">:</span>
+			<span class="c1">//read websocket msg
+</span><span class="c1"></span>			<span class="nx">_</span><span class="p">,</span> <span class="nx">wsData</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">wsConn</span><span class="p">.</span><span class="nf">ReadMessage</span><span class="p">(</span><span class="p">)</span>
+			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+				<span class="nx">logrus</span><span class="p">.</span><span class="nf">WithError</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;reading webSocket message failed&#34;</span><span class="p">)</span>
+				<span class="k">return</span>
+			<span class="p">}</span>
+			<span class="c1">//unmashal bytes into struct
+</span><span class="c1"></span>			<span class="nx">msgObj</span> <span class="o">:=</span> <span class="nx">wsMsg</span><span class="p">{</span><span class="p">}</span>
+			<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">wsData</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">msgObj</span><span class="p">)</span><span class="p">;</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+				<span class="nx">logrus</span><span class="p">.</span><span class="nf">WithError</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="p">.</span><span class="nf">WithField</span><span class="p">(</span><span class="s">&#34;wsData&#34;</span><span class="p">,</span> <span class="nb">string</span><span class="p">(</span><span class="nx">wsData</span><span class="p">)</span><span class="p">)</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;unmarshal websocket message failed&#34;</span><span class="p">)</span>
+			<span class="p">}</span>
+			<span class="k">switch</span> <span class="nx">msgObj</span><span class="p">.</span><span class="nx">Type</span> <span class="p">{</span>
+			<span class="k">case</span> <span class="nx">wsMsgResize</span><span class="p">:</span>
+				<span class="c1">//handle xterm.js size change
+</span><span class="c1"></span>				<span class="k">if</span> <span class="nx">msgObj</span><span class="p">.</span><span class="nx">Cols</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">msgObj</span><span class="p">.</span><span class="nx">Rows</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+					<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ssConn</span><span class="p">.</span><span class="nx">Session</span><span class="p">.</span><span class="nf">WindowChange</span><span class="p">(</span><span class="nx">msgObj</span><span class="p">.</span><span class="nx">Rows</span><span class="p">,</span> <span class="nx">msgObj</span><span class="p">.</span><span class="nx">Cols</span><span class="p">)</span><span class="p">;</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+						<span class="nx">logrus</span><span class="p">.</span><span class="nf">WithError</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;ssh pty change windows size failed&#34;</span><span class="p">)</span>
+					<span class="p">}</span>
+				<span class="p">}</span>
+			<span class="k">case</span> <span class="nx">wsMsgCmd</span><span class="p">:</span>
+				<span class="c1">//handle xterm.js stdin
+</span><span class="c1"></span>				<span class="nx">decodeBytes</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">base64</span><span class="p">.</span><span class="nx">StdEncoding</span><span class="p">.</span><span class="nf">DecodeString</span><span class="p">(</span><span class="nx">msgObj</span><span class="p">.</span><span class="nx">Cmd</span><span class="p">)</span>
+				<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+					<span class="nx">logrus</span><span class="p">.</span><span class="nf">WithError</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;websock cmd string base64 decoding failed&#34;</span><span class="p">)</span>
+				<span class="p">}</span>
+				<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ssConn</span><span class="p">.</span><span class="nx">StdinPipe</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="nx">decodeBytes</span><span class="p">)</span><span class="p">;</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+					<span class="nx">logrus</span><span class="p">.</span><span class="nf">WithError</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;ws cmd bytes write to ssh.stdin pipe failed&#34;</span><span class="p">)</span>
+				<span class="p">}</span>
+				<span class="c1">//write input cmd to log buffer
+</span><span class="c1"></span>				<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">logBuff</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="nx">decodeBytes</span><span class="p">)</span><span class="p">;</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+					<span class="nx">logrus</span><span class="p">.</span><span class="nf">WithError</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;write received cmd into log buffer failed&#34;</span><span class="p">)</span>
+				<span class="p">}</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="把sshsession的combowriter中的数据每隔120ms-通过调用websocketconnwritemessage方法返回给xtermjswebsocketclient-前端">把ssh.Session的comboWriter中的数据每隔120ms 通过调用websocketConn.WriteMessage方法返回给xterm.js+websocketClient 前端</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">func</span> <span class="p">(</span><span class="nx">ssConn</span> <span class="o">*</span><span class="nx">SshConn</span><span class="p">)</span> <span class="nf">SendComboOutput</span><span class="p">(</span><span class="nx">wsConn</span> <span class="o">*</span><span class="nx">websocket</span><span class="p">.</span><span class="nx">Conn</span><span class="p">,</span> <span class="nx">exitCh</span> <span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">//tells other go routine quit
+</span><span class="c1"></span>	<span class="k">defer</span> <span class="nf">setQuit</span><span class="p">(</span><span class="nx">exitCh</span><span class="p">)</span>
+
+	<span class="c1">//every 120ms write combine output bytes into websocket response
+</span><span class="c1"></span>	<span class="nx">tick</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">NewTicker</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Duration</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span><span class="p">)</span>
+	<span class="c1">//for range time.Tick(120 * time.Millisecond){}
+</span><span class="c1"></span>	<span class="k">defer</span> <span class="nx">tick</span><span class="p">.</span><span class="nf">Stop</span><span class="p">(</span><span class="p">)</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">tick</span><span class="p">.</span><span class="nx">C</span><span class="p">:</span>
+			<span class="c1">//write combine output bytes into websocket response
+</span><span class="c1"></span>			<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">flushComboOutput</span><span class="p">(</span><span class="nx">ssConn</span><span class="p">.</span><span class="nx">ComboOutput</span><span class="p">,</span> <span class="nx">wsConn</span><span class="p">)</span><span class="p">;</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+				<span class="nx">logrus</span><span class="p">.</span><span class="nf">WithError</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;ssh sending combo output to webSocket failed&#34;</span><span class="p">)</span>
+				<span class="k">return</span>
+			<span class="p">}</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">exitCh</span><span class="p">:</span>
+			<span class="k">return</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="o">...</span>
+<span class="o">...</span>
+<span class="o">...</span>
+<span class="c1">//flushComboOutput flush ssh.session combine output into websocket response
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">flushComboOutput</span><span class="p">(</span><span class="nx">w</span> <span class="o">*</span><span class="nx">wsBufferWriter</span><span class="p">,</span> <span class="nx">wsConn</span> <span class="o">*</span><span class="nx">websocket</span><span class="p">.</span><span class="nx">Conn</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">w</span><span class="p">.</span><span class="nx">buffer</span><span class="p">.</span><span class="nf">Len</span><span class="p">(</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nx">err</span> <span class="o">:=</span> <span class="nx">wsConn</span><span class="p">.</span><span class="nf">WriteMessage</span><span class="p">(</span><span class="nx">websocket</span><span class="p">.</span><span class="nx">TextMessage</span><span class="p">,</span> <span class="nx">w</span><span class="p">.</span><span class="nx">buffer</span><span class="p">.</span><span class="nf">Bytes</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">err</span>
+		<span class="p">}</span>
+		<span class="nx">w</span><span class="p">.</span><span class="nx">buffer</span><span class="p">.</span><span class="nf">Reset</span><span class="p">(</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="前端vuejsdemo代码">前端vuejs.demo代码</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-vue" data-lang="vue"><span class="p">&lt;</span><span class="nt">template</span><span class="p"></span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">el</span><span class="nt">-dialog</span> <span class="nt">:visible.sync</span><span class="s">=&#34;v&#34;</span>
+               <span class="o">:</span><span class="na">title</span><span class="o">=</span><span class="s">&#34;obj.user + &#39;@&#39; + obj.host&#34;</span>
+               <span class="nt">@opened</span><span class="s">=&#34;doOpened&#34;</span>
+               <span class="nt">@open</span><span class="s">=&#34;doOpen&#34;</span>
+               <span class="nt">@close</span><span class="s">=&#34;doClose&#34;</span>
+               <span class="na">center</span>
+               <span class="na">fullscreen</span>
+    <span class="p"></span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">ref</span><span class="o">=</span><span class="s">&#34;terminal&#34;</span><span class="p"></span><span class="p">&gt;</span><span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+    <span class="o">&lt;</span><span class="err">/</span><span class="err">e</span><span class="err">l</span><span class="err">-</span><span class="err">d</span><span class="err">i</span><span class="err">a</span><span class="err">l</span><span class="err">o</span><span class="err">g</span><span class="err">&gt;</span>
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">template</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p"></span><span class="p">&gt;</span>
+    <span class="kr">import</span> <span class="p">{</span><span class="nx">Terminal</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;xterm&#34;</span><span class="p">;</span>
+    <span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">fit</span> <span class="nx">from</span> <span class="s2">&#34;xterm/lib/addons/fit/fit&#34;</span><span class="p">;</span>
+    <span class="kr">import</span> <span class="p">{</span><span class="nx">Base64</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;js-base64&#34;</span><span class="p">;</span>
+    <span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">webLinks</span> <span class="nx">from</span> <span class="s2">&#34;xterm/lib/addons/webLinks/webLinks&#34;</span><span class="p">;</span>
+    <span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">search</span> <span class="nx">from</span> <span class="s2">&#34;xterm/lib/addons/search/search&#34;</span><span class="p">;</span>
+
+    <span class="kr">import</span> <span class="s2">&#34;xterm/lib/addons/fullscreen/fullscreen.css&#34;</span><span class="p">;</span>
+    <span class="kr">import</span> <span class="s2">&#34;xterm/dist/xterm.css&#34;</span>
+    <span class="kr">import</span> <span class="nx">config</span> <span class="nx">from</span> <span class="s2">&#34;@/config/config&#34;</span>
+
+    <span class="kd">let</span> <span class="nx">defaultTheme</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">foreground</span><span class="o">:</span> <span class="s2">&#34;#ffffff&#34;</span><span class="p">,</span>
+        <span class="nx">background</span><span class="o">:</span> <span class="s2">&#34;#1b212f&#34;</span><span class="p">,</span>
+        <span class="nx">cursor</span><span class="o">:</span> <span class="s2">&#34;#ffffff&#34;</span><span class="p">,</span>
+        <span class="nx">selection</span><span class="o">:</span> <span class="s2">&#34;rgba(255, 255, 255, 0.3)&#34;</span><span class="p">,</span>
+        <span class="nx">black</span><span class="o">:</span> <span class="s2">&#34;#000000&#34;</span><span class="p">,</span>
+        <span class="nx">brightBlack</span><span class="o">:</span> <span class="s2">&#34;#808080&#34;</span><span class="p">,</span>
+        <span class="nx">red</span><span class="o">:</span> <span class="s2">&#34;#ce2f2b&#34;</span><span class="p">,</span>
+        <span class="nx">brightRed</span><span class="o">:</span> <span class="s2">&#34;#f44a47&#34;</span><span class="p">,</span>
+        <span class="nx">green</span><span class="o">:</span> <span class="s2">&#34;#00b976&#34;</span><span class="p">,</span>
+        <span class="nx">brightGreen</span><span class="o">:</span> <span class="s2">&#34;#05d289&#34;</span><span class="p">,</span>
+        <span class="nx">yellow</span><span class="o">:</span> <span class="s2">&#34;#e0d500&#34;</span><span class="p">,</span>
+        <span class="nx">brightYellow</span><span class="o">:</span> <span class="s2">&#34;#f4f628&#34;</span><span class="p">,</span>
+        <span class="nx">magenta</span><span class="o">:</span> <span class="s2">&#34;#bd37bc&#34;</span><span class="p">,</span>
+        <span class="nx">brightMagenta</span><span class="o">:</span> <span class="s2">&#34;#d86cd8&#34;</span><span class="p">,</span>
+        <span class="nx">blue</span><span class="o">:</span> <span class="s2">&#34;#1d6fca&#34;</span><span class="p">,</span>
+        <span class="nx">brightBlue</span><span class="o">:</span> <span class="s2">&#34;#358bed&#34;</span><span class="p">,</span>
+        <span class="nx">cyan</span><span class="o">:</span> <span class="s2">&#34;#00a8cf&#34;</span><span class="p">,</span>
+        <span class="nx">brightCyan</span><span class="o">:</span> <span class="s2">&#34;#19b8dd&#34;</span><span class="p">,</span>
+        <span class="nx">white</span><span class="o">:</span> <span class="s2">&#34;#e5e5e5&#34;</span><span class="p">,</span>
+        <span class="nx">brightWhite</span><span class="o">:</span> <span class="s2">&#34;#ffffff&#34;</span>
+    <span class="p">}</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">bindTerminalResize</span> <span class="o">=</span> <span class="p">(</span><span class="nx">term</span><span class="p">,</span> <span class="nx">websocket</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">onTermResize</span> <span class="o">=</span> <span class="nx">size</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="nx">websocket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span>
+                <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="p">{</span>
+                    <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;resize&#34;</span><span class="p">,</span>
+                    <span class="nx">rows</span><span class="o">:</span> <span class="nx">size</span><span class="p">.</span><span class="nx">rows</span><span class="p">,</span>
+                    <span class="nx">cols</span><span class="o">:</span> <span class="nx">size</span><span class="p">.</span><span class="nx">cols</span>
+                <span class="p">}</span><span class="p">)</span>
+            <span class="p">)</span><span class="p">;</span>
+        <span class="p">}</span><span class="p">;</span>
+        <span class="c1">// register resize event.
+</span><span class="c1"></span>        <span class="nx">term</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;resize&#34;</span><span class="p">,</span> <span class="nx">onTermResize</span><span class="p">)</span><span class="p">;</span>
+        <span class="c1">// unregister resize event when WebSocket closed.
+</span><span class="c1"></span>        <span class="nx">websocket</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&#34;close&#34;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">term</span><span class="p">.</span><span class="nx">off</span><span class="p">(</span><span class="s2">&#34;resize&#34;</span><span class="p">,</span> <span class="nx">onTermResize</span><span class="p">)</span><span class="p">;</span>
+        <span class="p">}</span><span class="p">)</span><span class="p">;</span>
+    <span class="p">}</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">bindTerminal</span> <span class="o">=</span> <span class="p">(</span><span class="nx">term</span><span class="p">,</span> <span class="nx">websocket</span><span class="p">,</span> <span class="nx">bidirectional</span><span class="p">,</span> <span class="nx">bufferedTime</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">term</span><span class="p">.</span><span class="nx">socket</span> <span class="o">=</span> <span class="nx">websocket</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">messageBuffer</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">handleWebSocketMessage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">ev</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">bufferedTime</span> <span class="o">&amp;&amp;</span> <span class="nx">bufferedTime</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">messageBuffer</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">messageBuffer</span> <span class="o">+=</span> <span class="nx">ev</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="nx">messageBuffer</span> <span class="o">=</span> <span class="nx">ev</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+                    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">term</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">messageBuffer</span><span class="p">)</span><span class="p">;</span>
+                    <span class="p">}</span><span class="p">,</span> <span class="nx">bufferedTime</span><span class="p">)</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nx">term</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">ev</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span><span class="p">;</span>
+
+        <span class="kd">let</span> <span class="nx">handleTerminalData</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">websocket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span>
+                <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="p">{</span>
+                    <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;cmd&#34;</span><span class="p">,</span>
+                    <span class="nx">cmd</span><span class="o">:</span> <span class="nx">Base64</span><span class="p">.</span><span class="nx">encode</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="c1">// encode data as base64 format
+</span><span class="c1"></span>                <span class="p">}</span><span class="p">)</span>
+            <span class="p">)</span><span class="p">;</span>
+        <span class="p">}</span><span class="p">;</span>
+
+        <span class="nx">websocket</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="nx">handleWebSocketMessage</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">bidirectional</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">term</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;data&#34;</span><span class="p">,</span> <span class="nx">handleTerminalData</span><span class="p">)</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// send heartbeat package to avoid closing webSocket connection in some proxy environmental such as nginx.
+</span><span class="c1"></span>        <span class="kd">let</span> <span class="nx">heartBeatTimer</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">websocket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;heartbeat&#34;</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">}</span><span class="p">)</span><span class="p">)</span><span class="p">;</span>
+        <span class="p">}</span><span class="p">,</span> <span class="mi">20</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span><span class="p">;</span>
+
+        <span class="nx">websocket</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&#34;close&#34;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">websocket</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s2">&#34;message&#34;</span><span class="p">,</span> <span class="nx">handleWebSocketMessage</span><span class="p">)</span><span class="p">;</span>
+            <span class="nx">term</span><span class="p">.</span><span class="nx">off</span><span class="p">(</span><span class="s2">&#34;data&#34;</span><span class="p">,</span> <span class="nx">handleTerminalData</span><span class="p">)</span><span class="p">;</span>
+            <span class="k">delete</span> <span class="nx">term</span><span class="p">.</span><span class="nx">socket</span><span class="p">;</span>
+            <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">heartBeatTimer</span><span class="p">)</span><span class="p">;</span>
+        <span class="p">}</span><span class="p">)</span><span class="p">;</span>
+    <span class="p">}</span><span class="p">;</span>
+    <span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+        <span class="nx">props</span><span class="o">:</span> <span class="p">{</span><span class="nx">obj</span><span class="o">:</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="nb">Object</span><span class="p">,</span> <span class="nx">require</span><span class="o">:</span> <span class="kc">true</span><span class="p">}</span><span class="p">,</span> <span class="nx">visible</span><span class="o">:</span> <span class="nb">Boolean</span><span class="p">}</span><span class="p">,</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;CompTerm&#34;</span><span class="p">,</span>
+        <span class="nx">data</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="nx">isFullScreen</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>
+                <span class="nx">searchKey</span><span class="o">:</span><span class="s2">&#34;&#34;</span><span class="p">,</span>
+                <span class="nx">v</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">visible</span><span class="p">,</span>
+                <span class="nx">ws</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="nx">term</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="nx">thisV</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">visible</span>
+            <span class="p">}</span><span class="p">;</span>
+        <span class="p">}</span><span class="p">,</span>
+        <span class="nx">watch</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">visible</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">v</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span><span class="c1">//新增result的watch，监听变更并同步到myResult上
+</span><span class="c1"></span>            <span class="p">}</span>
+        <span class="p">}</span><span class="p">,</span>
+        <span class="nx">computed</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">wsUrl</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">let</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">)</span><span class="p">;</span>
+                <span class="k">return</span> <span class="sb">`</span><span class="si">${</span><span class="nx">config</span><span class="p">.</span><span class="nx">wsBase</span><span class="si">}</span><span class="sb">/api/ws/</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">ID</span> <span class="o">||</span> <span class="mi">0</span><span class="si">}</span><span class="sb">?cols=</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">term</span><span class="p">.</span><span class="nx">cols</span><span class="si">}</span><span class="sb">&amp;rows=</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">term</span><span class="p">.</span><span class="nx">rows</span><span class="si">}</span><span class="sb">&amp;_t=</span><span class="si">${</span><span class="nx">token</span><span class="si">}</span><span class="sb">`</span>
+            <span class="p">}</span>
+        <span class="p">}</span><span class="p">,</span>
+
+        <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+
+            <span class="nx">onWindowResize</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">//console.log(&#34;resize&#34;)
+</span><span class="c1"></span>                <span class="k">this</span><span class="p">.</span><span class="nx">term</span><span class="p">.</span><span class="nx">fit</span><span class="p">(</span><span class="p">)</span><span class="p">;</span> <span class="c1">// it will make terminal resized.
+</span><span class="c1"></span>            <span class="p">}</span><span class="p">,</span>
+            <span class="nx">doLink</span><span class="p">(</span><span class="nx">ev</span><span class="p">,</span> <span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">ev</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;click&#39;</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">}</span><span class="p">,</span>
+            <span class="nx">doClose</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nb">window</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s2">&#34;resize&#34;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onWindowResize</span><span class="p">)</span><span class="p">;</span>
+                <span class="c1">// term.off(&#34;resize&#34;, this.onTerminalResize);
+</span><span class="c1"></span>                <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">ws</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">ws</span><span class="p">.</span><span class="nx">close</span><span class="p">(</span><span class="p">)</span>
+                <span class="p">}</span>
+                <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">term</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">term</span><span class="p">.</span><span class="nx">dispose</span><span class="p">(</span><span class="p">)</span>
+                <span class="p">}</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">&#39;pclose&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span><span class="c1">//子组件对openStatus修改后向父组件发送事件通知
+</span><span class="c1"></span>            <span class="p">}</span><span class="p">,</span>
+            <span class="nx">doOpen</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+
+            <span class="p">}</span><span class="p">,</span>
+            <span class="nx">doOpened</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">Terminal</span><span class="p">.</span><span class="nx">applyAddon</span><span class="p">(</span><span class="nx">fit</span><span class="p">)</span><span class="p">;</span>
+                <span class="nx">Terminal</span><span class="p">.</span><span class="nx">applyAddon</span><span class="p">(</span><span class="nx">webLinks</span><span class="p">)</span><span class="p">;</span>
+                <span class="nx">Terminal</span><span class="p">.</span><span class="nx">applyAddon</span><span class="p">(</span><span class="nx">search</span><span class="p">)</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">term</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Terminal</span><span class="p">(</span><span class="p">{</span>
+                    <span class="nx">rows</span><span class="o">:</span> <span class="mi">35</span><span class="p">,</span>
+                    <span class="nx">fontSize</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span>
+                    <span class="nx">cursorBlink</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="nx">cursorStyle</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span>
+                    <span class="nx">bellStyle</span><span class="o">:</span> <span class="s2">&#34;sound&#34;</span><span class="p">,</span>
+                    <span class="nx">theme</span><span class="o">:</span> <span class="nx">defaultTheme</span>
+                <span class="p">}</span><span class="p">)</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">term</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$refs</span><span class="p">.</span><span class="nx">terminal</span><span class="p">)</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">term</span><span class="p">.</span><span class="nx">webLinksInit</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">doLink</span><span class="p">)</span><span class="p">;</span>
+                <span class="c1">// term.on(&#34;resize&#34;, this.onTerminalResize);
+</span><span class="c1"></span>                <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&#34;resize&#34;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onWindowResize</span><span class="p">)</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">term</span><span class="p">.</span><span class="nx">fit</span><span class="p">(</span><span class="p">)</span><span class="p">;</span> <span class="c1">// first resizing
+</span><span class="c1"></span>                <span class="k">this</span><span class="p">.</span><span class="nx">ws</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">wsUrl</span><span class="p">)</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">ws</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">$message</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;ws has no token, please login first&#39;</span><span class="p">)</span><span class="p">;</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">$router</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;login&#39;</span><span class="p">}</span><span class="p">)</span><span class="p">;</span>
+                <span class="p">}</span><span class="p">;</span>
+
+                <span class="k">this</span><span class="p">.</span><span class="nx">ws</span><span class="p">.</span><span class="nx">onclose</span> <span class="o">=</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">term</span><span class="p">.</span><span class="nx">setOption</span><span class="p">(</span><span class="s2">&#34;cursorBlink&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span><span class="p">;</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">$message</span><span class="p">(</span><span class="s2">&#34;console.web_socket_disconnect&#34;</span><span class="p">)</span>
+                <span class="p">}</span><span class="p">;</span>
+                <span class="nx">bindTerminal</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">term</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">ws</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="p">;</span>
+                <span class="nx">bindTerminalResize</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">term</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">ws</span><span class="p">)</span><span class="p">;</span>
+            <span class="p">}</span><span class="p">,</span>
+
+        <span class="p">}</span><span class="p">,</span>
+
+
+    <span class="p">}</span>
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span><span class="p"></span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">style</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://mojotv.cn/2019/05/27/xtermjs-go">xterm.js-websocket Web终端堡垒机Go实现</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lixueping</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-03-05
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content">MIT</span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/tx.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/ali.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/websocket/">websocket</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%B5%84%E6%96%99/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">操作系统资料汇总</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/golang/websocket%E5%AE%9E%E6%88%98%E4%B8%80/">
+            <span class="next-text nav-default">golang gin&#43;websocket基础教学实战一</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="lflxp/lflxp.github.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:382023823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/lflxp" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.lflxp.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">lflxp.cn 版权所有 ICP证：<a href='http://www.beian.miit.gov.cn' target='_blank'>渝ICP备17011066号-1</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script><script></script><script src="https://cdn.jsdelivr.net/npm/raphael@2.2.7/raphael.min.js" integrity="sha256-67By+NpOtm9ka1R6xpUefeGOY8kWWHHRAKlvaTJ7ONI=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/flowchart.js@1.8.0/release/flowchart.min.js" integrity="sha256-zNGWjubXoY6rb5MnmpBNefO0RgoVYfle9p0tvOQM+6k=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '渝ICP备17011066号-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
