@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>websocket on 爱像水墨青花</title>
+    <link>https://www.lflxp.cn/tags/websocket/</link>
+    <description>Recent content in websocket on 爱像水墨青花</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
+    <lastBuildDate>Thu, 05 Mar 2020 00:11:22 +0800</lastBuildDate>
+    
+	<atom:link href="https://www.lflxp.cn/tags/websocket/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>golang gin&#43;websocket基础教学实战一</title>
+      <link>https://www.lflxp.cn/post/golang/websocket%E5%AE%9E%E6%88%98%E4%B8%80/</link>
+      <pubDate>Thu, 05 Mar 2020 00:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/golang/websocket%E5%AE%9E%E6%88%98%E4%B8%80/</guid>
+      <description>介绍 gin和gorilla结合创建websocket，实现最简化易懂版本websocket实操 服务端代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18</description>
+    </item>
+    
+  </channel>
+</rss>
