@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>golang gin&#43;websocket&#43;xterm.js基础教学实战三 - 爱像水墨青花</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lixueping" /><meta name="description" content="学习和了解gotty的实现原理，并基于gin-web &#43; vue &#43; xterm.js 实现了一套完整的功能 使用 环境准备：npm go 前端 gin-xterm 1 2 3 git clone https://github.com/lflxp/gin-xterm cd gin-xterm make all 后端 message 1 2 cd" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.lflxp.cn/post/golang/websocket%E5%AE%9E%E6%88%98%E4%B8%89/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="golang gin&#43;websocket&#43;xterm.js基础教学实战三" />
+<meta property="og:description" content="学习和了解gotty的实现原理，并基于gin-web &#43; vue &#43; xterm.js 实现了一套完整的功能 使用 环境准备：npm go 前端 gin-xterm 1 2 3 git clone https://github.com/lflxp/gin-xterm cd gin-xterm make all 后端 message 1 2 cd" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lflxp.cn/post/golang/websocket%E5%AE%9E%E6%88%98%E4%B8%89/" />
+<meta property="article:published_time" content="2020-03-08T00:11:22+08:00" />
+<meta property="article:modified_time" content="2020-03-08T00:11:22+08:00" />
+<meta itemprop="name" content="golang gin&#43;websocket&#43;xterm.js基础教学实战三">
+<meta itemprop="description" content="学习和了解gotty的实现原理，并基于gin-web &#43; vue &#43; xterm.js 实现了一套完整的功能 使用 环境准备：npm go 前端 gin-xterm 1 2 3 git clone https://github.com/lflxp/gin-xterm cd gin-xterm make all 后端 message 1 2 cd">
+<meta itemprop="datePublished" content="2020-03-08T00:11:22&#43;08:00" />
+<meta itemprop="dateModified" content="2020-03-08T00:11:22&#43;08:00" />
+<meta itemprop="wordCount" content="1930">
+
+
+
+<meta itemprop="keywords" content="websocket,xtermjs," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="golang gin&#43;websocket&#43;xterm.js基础教学实战三"/>
+<meta name="twitter:description" content="学习和了解gotty的实现原理，并基于gin-web &#43; vue &#43; xterm.js 实现了一套完整的功能 使用 环境准备：npm go 前端 gin-xterm 1 2 3 git clone https://github.com/lflxp/gin-xterm cd gin-xterm make all 后端 message 1 2 cd"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">琵琶</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">目录</li>
+      </a><a href="/post/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">琵琶</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">目录</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">golang gin&#43;websocket&#43;xterm.js基础教学实战三</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-08 </span>
+        <div class="post-category">
+            <a href="/categories/golang/"> golang </a>
+            </div>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#使用">使用</a></li>
+    <li><a href="#xtermjs-知识点">Xtermjs 知识点</a></li>
+    <li><a href="#golang-websocket">Golang Websocket</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>学习和了解gotty的实现原理，并基于gin-web + vue + xterm.js 实现了一套完整的功能</p>
+<h2 id="使用">使用</h2>
+<p><code>环境准备</code>：<code>npm</code> <code>go</code></p>
+<p><code>前端</code> <a href="https://github.com/lflxp/gin-xterm">gin-xterm</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">git clone https://github.com/lflxp/gin-xterm
+<span class="nb">cd</span> gin-xterm
+make all
+</code></pre></td></tr></table>
+</div>
+</div><p><code>后端</code> <a href="https://github.com/lflxp/message">message</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> message
+make install <span class="o">&amp;&amp;</span> make run
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="xtermjs-知识点">Xtermjs 知识点</h2>
+<ol>
+<li>是否需要解析键盘的各种回车、ctrl+c、ctrl+d等操作</li>
+</ol>
+<p>解答：不需要，因为后端默认是以bash作为命令输入口</p>
+<ol start="2">
+<li>不需要解析键盘操作，那各种结果处理怎么做</li>
+</ol>
+<p>解答： 前后端需要规划好一套数据结构去处理三种情况,格式使用： msgType + base64.encode(messageType)</p>
+<ul>
+<li>正常消息发送 -&gt; msgType = 0 , messageType为输入字符
+<blockquote>
+<p>websocket.send(&lsquo;0&rsquo; + Base64.encode(data))</p>
+</blockquote>
+</li>
+<li>定时任务发送 -&gt; msgType = 1 , messageType忽略
+<blockquote>
+<p>websocket.send(&lsquo;1&rsquo;)</p>
+</blockquote>
+</li>
+<li>Resize任务发送 -&gt; msgType = 2 , messageType为【rows:cols】
+<blockquote>
+<p>websocket.send(&lsquo;2&rsquo; + Base64.encode(size.rows + &lsquo;:&rsquo; + size.cols))</p>
+</blockquote>
+</li>
+</ul>
+<ol start="3">
+<li>xtermjs前端背景大小、鼠标滑动、字体大小、光标怎么设置</li>
+</ol>
+<p>解答:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">this</span><span class="p">.</span><span class="nx">term</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Terminal</span><span class="p">(</span><span class="p">{</span>
+    <span class="nx">rendererType</span><span class="o">:</span> <span class="s1">&#39;canvas&#39;</span><span class="p">,</span> <span class="c1">// 渲染类型
+</span><span class="c1"></span>    <span class="nx">rows</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">rows</span><span class="p">,</span>
+    <span class="nx">cols</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">cols</span><span class="p">,</span>
+    <span class="nx">convertEol</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">// 启用时，光标将设置为下一行的开头
+</span><span class="c1"></span>    <span class="nx">scrollback</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="c1">// 终端中的回滚量
+</span><span class="c1"></span>    <span class="nx">disableStdin</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// 是否应禁用输入
+</span><span class="c1"></span>    <span class="nx">fontSize</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span>
+    <span class="nx">cursorBlink</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">// 光标闪烁
+</span><span class="c1"></span>    <span class="nx">cursorStyle</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="c1">// 光标样式 underline
+</span><span class="c1"></span>    <span class="nx">bellStyle</span><span class="o">:</span> <span class="s1">&#39;sound&#39;</span><span class="p">,</span>
+    <span class="nx">theme</span><span class="o">:</span> <span class="nx">defaultTheme</span>
+<span class="p">}</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>如何查看键盘输入的详细信息</li>
+</ol>
+<p>解答：借助xtermjs提供的事件监听打印object查看</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">this</span><span class="p">.</span><span class="nx">term</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">ev</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">ev</span><span class="p">,</span> <span class="nx">ev</span><span class="p">.</span><span class="nx">keyCode</span><span class="p">)</span>
+<span class="p">}</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="5">
+<li>自定义xtermjs主题样式怎么弄？</li>
+</ol>
+<p>解答：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">defaultTheme</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">foreground</span><span class="o">:</span> <span class="s1">&#39;#ffffff&#39;</span><span class="p">,</span> <span class="c1">// 字体
+</span><span class="c1"></span>  <span class="nx">background</span><span class="o">:</span> <span class="s1">&#39;#1b212f&#39;</span><span class="p">,</span> <span class="c1">// 背景色
+</span><span class="c1"></span>  <span class="nx">cursor</span><span class="o">:</span> <span class="s1">&#39;#ffffff&#39;</span><span class="p">,</span> <span class="c1">// 设置光标
+</span><span class="c1"></span>  <span class="nx">selection</span><span class="o">:</span> <span class="s1">&#39;rgba(255, 255, 255, 0.3)&#39;</span><span class="p">,</span>
+  <span class="nx">black</span><span class="o">:</span> <span class="s1">&#39;#000000&#39;</span><span class="p">,</span>
+  <span class="nx">brightBlack</span><span class="o">:</span> <span class="s1">&#39;#808080&#39;</span><span class="p">,</span>
+  <span class="nx">red</span><span class="o">:</span> <span class="s1">&#39;#ce2f2b&#39;</span><span class="p">,</span>
+  <span class="nx">brightRed</span><span class="o">:</span> <span class="s1">&#39;#f44a47&#39;</span><span class="p">,</span>
+  <span class="nx">green</span><span class="o">:</span> <span class="s1">&#39;#00b976&#39;</span><span class="p">,</span>
+  <span class="nx">brightGreen</span><span class="o">:</span> <span class="s1">&#39;#05d289&#39;</span><span class="p">,</span>
+  <span class="nx">yellow</span><span class="o">:</span> <span class="s1">&#39;#e0d500&#39;</span><span class="p">,</span>
+  <span class="nx">brightYellow</span><span class="o">:</span> <span class="s1">&#39;#f4f628&#39;</span><span class="p">,</span>
+  <span class="nx">magenta</span><span class="o">:</span> <span class="s1">&#39;#bd37bc&#39;</span><span class="p">,</span>
+  <span class="nx">brightMagenta</span><span class="o">:</span> <span class="s1">&#39;#d86cd8&#39;</span><span class="p">,</span>
+  <span class="nx">blue</span><span class="o">:</span> <span class="s1">&#39;#1d6fca&#39;</span><span class="p">,</span>
+  <span class="nx">brightBlue</span><span class="o">:</span> <span class="s1">&#39;#358bed&#39;</span><span class="p">,</span>
+  <span class="nx">cyan</span><span class="o">:</span> <span class="s1">&#39;#00a8cf&#39;</span><span class="p">,</span>
+  <span class="nx">brightCyan</span><span class="o">:</span> <span class="s1">&#39;#19b8dd&#39;</span><span class="p">,</span>
+  <span class="nx">white</span><span class="o">:</span> <span class="s1">&#39;#e5e5e5&#39;</span><span class="p">,</span>
+  <span class="nx">brightWhite</span><span class="o">:</span> <span class="s1">&#39;#ffffff&#39;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="6">
+<li>xtermjs和websocket如何相互联动</li>
+</ol>
+<p>解答：</p>
+<ul>
+<li>websocket创建</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">this</span><span class="p">.</span><span class="nx">ws</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="s1">&#39;ws://127.0.0.1:8888/api/ws/ping5&#39;</span><span class="p">)</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">ws</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$message</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;ws has no token, please login first&#39;</span><span class="p">)</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$router</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;login&#39;</span> <span class="p">}</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">this</span><span class="p">.</span><span class="nx">ws</span><span class="p">.</span><span class="nx">onclose</span> <span class="o">=</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">term</span><span class="p">.</span><span class="nx">setOption</span><span class="p">(</span><span class="s1">&#39;cursorBlink&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$message</span><span class="p">(</span><span class="s1">&#39;console.web_socket_disconnect&#39;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>xtermjs创建</li>
+</ul>
+<p>查看上面第3个问题</p>
+<ul>
+<li>联动</li>
+</ul>
+<p><code>websocket</code>加入xtermjs<code>term.socket = websocket</code></p>
+<p><code>websocket</code>发送信息<code>websocket.send($info)</code></p>
+<ol start="7">
+<li>有完整DEMO示例吗？</li>
+</ol>
+<p>解答：</p>
+<ul>
+<li><a href="https://github.com/lflxp/gin-xterm/blob/master/src/views/pty/xterm3.vue">Xterm.js v3</a></li>
+<li><a href="https://github.com/lflxp/gin-xterm/blob/master/src/views/pty/index.vue">Xterm.js v4</a></li>
+</ul>
+<h2 id="golang-websocket">Golang Websocket</h2>
+<ol>
+<li>不需要解析Quit操作，那怎么判断程序结束去杀掉线程呢</li>
+</ol>
+<p>解答：根据<code>exec.Command</code>的<code>cmd.Wait()</code>去判断，退出自动触发<code>quitChan &lt;- true</code>去结束线程</p>
+<ol start="2">
+<li>后端websocket使用的什么项目</li>
+</ol>
+<p>解答： <code>github.com/gorilla/websocket</code></p>
+<ol start="3">
+<li>如何实现golang命令行exec.Command的结果实时联动操作的？</li>
+</ol>
+<p>解答：通过pty/tty在linux启动一个pid线程实现的，具体资料如下：</p>
+<ul>
+<li><a href="https://blog.csdn.net/fuhanghang/article/details/83691158">Linux中tty、pty、pts的概念区别</a></li>
+<li><a href="github.com/creack/pty">golang pty pkg</a></li>
+</ul>
+<ol start="4">
+<li>gin或者go http如何做到websocket连接的切换？</li>
+</ol>
+<p>解答：<code>http</code>升级为<a href="github.com/gorilla/websocket">websocket</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="o">...</span>
+
+<span class="kn">import</span> <span class="s">&#34;github.com/gorilla/websocket&#34;</span>
+
+<span class="kd">var</span> <span class="nx">upGrader</span> <span class="p">=</span> <span class="nx">websocket</span><span class="p">.</span><span class="nx">Upgrader</span><span class="p">{</span>
+	<span class="nx">ReadBufferSize</span><span class="p">:</span>  <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">,</span>
+	<span class="nx">WriteBufferSize</span><span class="p">:</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span>
+	<span class="nx">CheckOrigin</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">true</span>
+	<span class="p">}</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">ping</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">//升级get请求为webSocket协议
+</span><span class="c1"></span>	<span class="nx">ws</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">upGrader</span><span class="p">.</span><span class="nf">Upgrade</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">Writer</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+    <span class="k">defer</span> <span class="nx">ws</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
+    
+    <span class="c1">// todo
+</span><span class="c1"></span>    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="5">
+<li>如何处理每个websocket的多个goroutine正常退出</li>
+</ol>
+<p>解答：通过quit Channel + for select</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="c1">// 发送命令的执行结果
+</span><span class="c1"></span><span class="c1">// 不执行具体任务
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">this</span> <span class="o">*</span><span class="nx">ClientContext</span><span class="p">)</span> <span class="nf">Send</span><span class="p">(</span><span class="nx">quitChan</span> <span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">defer</span> <span class="nf">setQuit</span><span class="p">(</span><span class="nx">quitChan</span><span class="p">)</span>
+
+	<span class="nx">buf</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="p">[</span><span class="p">]</span><span class="kt">byte</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">quitChan</span><span class="p">:</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Close Send Channel&#34;</span><span class="p">)</span>
+			<span class="k">return</span>
+		<span class="k">default</span><span class="p">:</span>
+			<span class="c1">// 读取命令执行结果并通过ws反馈给用户
+</span><span class="c1"></span>			<span class="nx">size</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">this</span><span class="p">.</span><span class="nx">Pty</span><span class="p">.</span><span class="nf">Read</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span>
+			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+				<span class="nx">log</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;%s命令执行错误退出: %s&#34;</span><span class="p">,</span> <span class="nx">this</span><span class="p">.</span><span class="nx">Request</span><span class="p">.</span><span class="nx">RemoteAddr</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+				<span class="k">return</span>
+			<span class="p">}</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Infof</span><span class="p">(</span><span class="s">&#34;Send Size: %d buf: %s buf[:size]: %s\n&#34;</span><span class="p">,</span> <span class="nx">size</span><span class="p">,</span> <span class="nb">string</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span><span class="p">,</span> <span class="nb">string</span><span class="p">(</span><span class="nx">buf</span><span class="p">[</span><span class="p">:</span><span class="nx">size</span><span class="p">]</span><span class="p">)</span><span class="p">)</span>
+			<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">this</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="nx">buf</span><span class="p">[</span><span class="p">:</span><span class="nx">size</span><span class="p">]</span><span class="p">)</span><span class="p">;</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+				<span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+				<span class="k">return</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="6">
+<li>如何判断各种操作类型以及怎么执行</li>
+</ol>
+<p>解答：</p>
+<ul>
+<li>预先设计数据格式</li>
+<li>for select + switch</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="c1">// 判断命令
+</span><span class="c1"></span><span class="c1">// @Params msg:message
+</span><span class="c1"></span><span class="k">switch</span> <span class="nx">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">{</span>
+<span class="k">case</span> <span class="nx">Input</span><span class="p">:</span>
+    <span class="c1">// TODO: 用户是否能写入
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">!</span><span class="nx">this</span><span class="p">.</span><span class="nx">Xtermjs</span><span class="p">.</span><span class="nx">Options</span><span class="p">.</span><span class="nx">PermitWrite</span> <span class="p">{</span>
+        <span class="k">break</span>
+    <span class="p">}</span>
+
+    <span class="c1">// base64解码
+</span><span class="c1"></span>    <span class="nx">decode</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">utils</span><span class="p">.</span><span class="nf">DecodeBase64Bytes</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">message</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="p">]</span><span class="p">)</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+        <span class="k">break</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 向pty中传入执行命令
+</span><span class="c1"></span>    <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">this</span><span class="p">.</span><span class="nx">Pty</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="nx">decode</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+<span class="k">case</span> <span class="nx">Ping</span><span class="p">:</span>
+    <span class="nx">this</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="p">[</span><span class="p">]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;pong&#34;</span><span class="p">)</span><span class="p">)</span>
+<span class="k">case</span> <span class="nx">ResizeTerminal</span><span class="p">:</span>
+    <span class="c1">// @数据格式 type+rows:cols
+</span><span class="c1"></span>    <span class="c1">// base64解码
+</span><span class="c1"></span>    <span class="nx">decode</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">utils</span><span class="p">.</span><span class="nf">DecodeBase64</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">message</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="p">]</span><span class="p">)</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+        <span class="k">break</span>
+    <span class="p">}</span>
+
+    <span class="nx">tmp</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="nx">decode</span><span class="p">,</span> <span class="s">&#34;:&#34;</span><span class="p">)</span>
+    <span class="nx">rows</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">Atoi</span><span class="p">(</span><span class="nx">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+        <span class="nx">this</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="p">[</span><span class="p">]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
+        <span class="k">break</span>
+    <span class="p">}</span>
+    <span class="nx">cols</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">Atoi</span><span class="p">(</span><span class="nx">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+        <span class="nx">this</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="p">[</span><span class="p">]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
+        <span class="k">break</span>
+    <span class="p">}</span>
+    <span class="nx">window</span> <span class="o">:=</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">row</span> <span class="kt">uint16</span>
+        <span class="nx">col</span> <span class="kt">uint16</span>
+        <span class="nx">x</span>   <span class="kt">uint16</span>
+        <span class="nx">y</span>   <span class="kt">uint16</span>
+    <span class="p">}</span><span class="p">{</span>
+        <span class="nb">uint16</span><span class="p">(</span><span class="nx">rows</span><span class="p">)</span><span class="p">,</span>
+        <span class="nb">uint16</span><span class="p">(</span><span class="nx">cols</span><span class="p">)</span><span class="p">,</span>
+        <span class="mi">0</span><span class="p">,</span>
+        <span class="mi">0</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="nx">syscall</span><span class="p">.</span><span class="nf">Syscall</span><span class="p">(</span>
+        <span class="nx">syscall</span><span class="p">.</span><span class="nx">SYS_IOCTL</span><span class="p">,</span>
+        <span class="nx">this</span><span class="p">.</span><span class="nx">Pty</span><span class="p">.</span><span class="nf">Fd</span><span class="p">(</span><span class="p">)</span><span class="p">,</span>
+        <span class="nx">syscall</span><span class="p">.</span><span class="nx">TIOCSWINSZ</span><span class="p">,</span>
+        <span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">window</span><span class="p">)</span><span class="p">)</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="k">default</span><span class="p">:</span>
+    <span class="nx">this</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="p">[</span><span class="p">]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;Unknow Message Type %s&#34;</span><span class="p">,</span> <span class="nb">string</span><span class="p">(</span><span class="nx">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;Unknow Message Type %v&#34;</span><span class="p">,</span> <span class="nx">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="7">
+<li>如何设置exec.Command在pty终端的窗口大小</li>
+</ol>
+<p>解答：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="nx">window</span> <span class="o">:=</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">row</span> <span class="kt">uint16</span>
+    <span class="nx">col</span> <span class="kt">uint16</span>
+    <span class="nx">x</span>   <span class="kt">uint16</span>
+    <span class="nx">y</span>   <span class="kt">uint16</span>
+<span class="p">}</span><span class="p">{</span>
+    <span class="nb">uint16</span><span class="p">(</span><span class="nx">rows</span><span class="p">)</span><span class="p">,</span>
+    <span class="nb">uint16</span><span class="p">(</span><span class="nx">cols</span><span class="p">)</span><span class="p">,</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="mi">0</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="nx">syscall</span><span class="p">.</span><span class="nf">Syscall</span><span class="p">(</span>
+    <span class="nx">syscall</span><span class="p">.</span><span class="nx">SYS_IOCTL</span><span class="p">,</span>
+    <span class="nx">this</span><span class="p">.</span><span class="nx">Pty</span><span class="p">.</span><span class="nf">Fd</span><span class="p">(</span><span class="p">)</span><span class="p">,</span>
+    <span class="nx">syscall</span><span class="p">.</span><span class="nx">TIOCSWINSZ</span><span class="p">,</span>
+    <span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">window</span><span class="p">)</span><span class="p">)</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="8">
+<li>还需要注意什么</li>
+</ol>
+<ul>
+<li>明确命令下发渠道和作用</li>
+</ul>
+<blockquote>
+<p>this.Pty.Write([]byte(***))</p>
+</blockquote>
+<ul>
+<li>明确websocket下发渠道和作用</li>
+</ul>
+<blockquote>
+<p>this.WsConn.Write([]byte(***))</p>
+</blockquote>
+<ul>
+<li>如何操作正在执行中的cmd程序</li>
+</ul>
+<blockquote>
+<p>this.Cmd.Process.Signal(syscall.Signal(this.Xtermjs.Options.CloseSignal))</p>
+</blockquote>
+<ul>
+<li>明确一个exec.Command和一个webscoket.Conn如何对一个http请求保持长连接请求的</li>
+</ul>
+<p>一个http.Request请求由cmd.Wait() + go Send() + go Receive() + Channel 将一个完整链路进行串联起来</p>
+<ul>
+<li>如何下手？设计一个符合场景的struct</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="c1">// 服务端内部处理对象
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">ClientContext</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Xtermjs</span>    <span class="o">*</span><span class="nx">XtermJs</span>        <span class="c1">// 前端配置
+</span><span class="c1"></span>	<span class="nx">Request</span>    <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span>   <span class="c1">// http客户端请求
+</span><span class="c1"></span>	<span class="nx">WsConn</span>     <span class="o">*</span><span class="nx">websocket</span><span class="p">.</span><span class="nx">Conn</span> <span class="c1">// websocket连接
+</span><span class="c1"></span>	<span class="nx">Cmd</span>        <span class="o">*</span><span class="nx">exec</span><span class="p">.</span><span class="nx">Cmd</span>       <span class="c1">// exec.Command实例
+</span><span class="c1"></span>	<span class="nx">Pty</span>        <span class="o">*</span><span class="nx">os</span><span class="p">.</span><span class="nx">File</span>        <span class="c1">// 命令行pty代理
+</span><span class="c1"></span>	<span class="nx">Cache</span>      <span class="o">*</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span>   <span class="c1">// 命令缓存
+</span><span class="c1"></span>	<span class="nx">CacheMutex</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>     <span class="c1">// 缓存并发锁
+</span><span class="c1"></span>	<span class="nx">WriteMutex</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>     <span class="c1">// 并发安全 通过ws发送给客户
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://github.com/yudai/gotty">https://github.com/yudai/gotty</a> @release-1.0</li>
+<li><a href="https://github.com/creack/pty">https://github.com/creack/pty</a></li>
+<li><a href="https://mojotv.cn/2019/05/27/xtermjs-go">https://mojotv.cn/2019/05/27/xtermjs-go</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lixueping</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-03-08
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content">MIT</span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/tx.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/ali.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/websocket/">websocket</a>
+          <a href="/tags/xtermjs/">xtermjs</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%B5%84%E6%96%99/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">操作系统资料汇总</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/os/kernel/makefile/">
+            <span class="next-text nav-default">Make 命令教程</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="lflxp/lflxp.github.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:382023823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/lflxp" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.lflxp.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">lflxp.cn 版权所有 ICP证：<a href='http://www.beian.miit.gov.cn' target='_blank'>渝ICP备17011066号-1</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script><script></script><script src="https://cdn.jsdelivr.net/npm/raphael@2.2.7/raphael.min.js" integrity="sha256-67By+NpOtm9ka1R6xpUefeGOY8kWWHHRAKlvaTJ7ONI=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/flowchart.js@1.8.0/release/flowchart.min.js" integrity="sha256-zNGWjubXoY6rb5MnmpBNefO0RgoVYfle9p0tvOQM+6k=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '渝ICP备17011066号-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -7,10 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 07 Mar 2020 03:11:22 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 08 Mar 2020 00:11:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>websocket</title>
+      <link>https://www.lflxp.cn/tags/websocket/</link>
+      <pubDate>Sun, 08 Mar 2020 00:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/tags/websocket/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>xtermjs</title>
+      <link>https://www.lflxp.cn/tags/xtermjs/</link>
+      <pubDate>Sun, 08 Mar 2020 00:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/tags/xtermjs/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>makefile</title>
@@ -18,15 +36,6 @@
       <pubDate>Sat, 07 Mar 2020 03:11:22 +0800</pubDate>
       
       <guid>https://www.lflxp.cn/tags/makefile/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>websocket</title>
-      <link>https://www.lflxp.cn/tags/websocket/</link>
-      <pubDate>Thu, 05 Mar 2020 00:11:22 +0800</pubDate>
-      
-      <guid>https://www.lflxp.cn/tags/websocket/</guid>
       <description></description>
     </item>
     
