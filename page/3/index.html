@@ -44,7 +44,7 @@
 <meta property="og:description" content="私人私塾" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.lflxp.cn/" />
-<meta property="og:updated_time" content="2020-03-08T17:11:22+08:00" />
+<meta property="og:updated_time" content="2020-03-09T01:11:22+08:00" />
 <meta itemprop="name" content="爱像水墨青花">
 <meta itemprop="description" content="私人私塾"><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="爱像水墨青花"/>
@@ -113,6 +113,27 @@
       <div class="content-wrapper">
         <div id="content" class="content">
           <section id="posts" class="posts">
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/golang/template%E5%8A%A8%E6%80%81%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD/">golang template 动态传递参数的方法</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-02-24 </span>
+      <div class="post-category">
+          <a href="/categories/golang/"> golang </a>
+          </div>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      基本使用方法 新建或者加载一个模板对象 1 2 3 4 type Template func New(name string) *Template func ParseFiles(filenames ...string) (*Template, error) func Must(t *Template, err error) *Template 即：比如： t := template.New(&ldquo;test template&rdquo;) 加载模板, 定义动态数据占位符 1 2 func (t *Template) Parse(text string) (*Template,
+    </div>
+    <div class="read-more">
+      <a href="/post/golang/template%E5%8A%A8%E6%80%81%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     <article class="post">
   <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/ffmpeg/">FFmpeg常用基本命令行</a></h1>
@@ -193,27 +214,6 @@
     </div>
     <div class="read-more">
       <a href="/post/vim/vim%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/k8s/helm/%E9%A1%BA%E5%BA%8F%E5%90%AF%E5%8A%A8%E5%92%8C%E4%BE%9D%E8%B5%96%E5%90%AF%E5%8A%A8/">K8S 让应用顺序启动和依赖启动</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-02-15 </span>
-      <div class="post-category">
-          <a href="/categories/helm/"> helm </a>
-          </div>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      关键点 initContainers Job Job k8s job模块的功能是执行任务，在部署过程中有两个特性需要了解，分别是： 初始化操作：确保任务|脚本|SQL等可定制化的任务成功执行
-    </div>
-    <div class="read-more">
-      <a href="/post/k8s/helm/%E9%A1%BA%E5%BA%8F%E5%90%AF%E5%8A%A8%E5%92%8C%E4%BE%9D%E8%B5%96%E5%90%AF%E5%8A%A8/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
