@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 08 Mar 2020 12:11:22 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 08 Mar 2020 17:11:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/index.xml" rel="self" type="application/rss+xml" />
     
@@ -19,6 +19,15 @@
       
       <guid>https://www.lflxp.cn/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%B5%84%E6%96%99/</guid>
       <description>入门教程 如何从零开始写一个简单的操作系统 30天自制操作系统 Stop &amp;amp; 「OS67 」 Start 自制一个小型的linux操作系统 经典教程 Xv6, a simple Unix-like teaching operating system 中文版的 MIT</description>
+    </item>
+    
+    <item>
+      <title>贝叶斯公式的实际应用</title>
+      <link>https://www.lflxp.cn/post/future/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Sun, 08 Mar 2020 17:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/future/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</guid>
+      <description>贝叶斯定理 全概率公式 P(B) = P(B|A)P(A) + P(B|A&amp;rsquo;)P(A&amp;rsquo;) 它的含义是，如果A和A&#39;构成一个问题的全部（全部的样本空间），那么事件B的概率，就等于A和A&#39;的概率分别乘以B</description>
     </item>
     
     <item>
