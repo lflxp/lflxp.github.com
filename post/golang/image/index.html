@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.62.2 with theme even" />
+<meta name="generator" content="Hugo 0.66.0 with theme even" />
 
 
 <link rel="canonical" href="https://www.lflxp.cn/post/golang/image/" />
@@ -278,8 +278,8 @@
 <span class="kd">type</span> <span class="nx">Putpixel</span> <span class="kd">func</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="kt">int</span><span class="p">)</span>
  
 <span class="kd">func</span> <span class="nf">drawline</span><span class="p">(</span><span class="nx">x0</span><span class="p">,</span> <span class="nx">y0</span><span class="p">,</span> <span class="nx">x1</span><span class="p">,</span> <span class="nx">y1</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">brush</span> <span class="nx">Putpixel</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">dx</span> <span class="o">:=</span> <span class="nx">math</span><span class="p">.</span><span class="nf">Abs</span><span class="p">(</span><span class="nb">float64</span><span class="p">(</span><span class="nx">x1</span> <span class="o">-</span> <span class="nx">x0</span><span class="p">)</span><span class="p">)</span>
-	<span class="nx">dy</span> <span class="o">:=</span> <span class="nx">math</span><span class="p">.</span><span class="nf">Abs</span><span class="p">(</span><span class="nb">float64</span><span class="p">(</span><span class="nx">y1</span> <span class="o">-</span> <span class="nx">y0</span><span class="p">)</span><span class="p">)</span>
+	<span class="nx">dx</span> <span class="o">:=</span> <span class="nx">math</span><span class="p">.</span><span class="nf">Abs</span><span class="p">(</span><span class="nb">float64</span><span class="p">(</span><span class="nx">x1</span> <span class="o">-</span> <span class="nx">x0</span><span class="p">))</span>
+	<span class="nx">dy</span> <span class="o">:=</span> <span class="nx">math</span><span class="p">.</span><span class="nf">Abs</span><span class="p">(</span><span class="nb">float64</span><span class="p">(</span><span class="nx">y1</span> <span class="o">-</span> <span class="nx">y0</span><span class="p">))</span>
 	<span class="nx">sx</span><span class="p">,</span> <span class="nx">sy</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
 	<span class="k">if</span> <span class="nx">x0</span> <span class="o">&gt;=</span> <span class="nx">x1</span> <span class="p">{</span>
 		<span class="nx">sx</span> <span class="p">=</span> <span class="o">-</span><span class="mi">1</span>
@@ -304,21 +304,21 @@
 		<span class="p">}</span>
 	<span class="p">}</span>
 <span class="p">}</span>
-<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">file</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="s">&#34;test.jpg&#34;</span><span class="p">)</span>
 	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 	<span class="p">}</span>
-	<span class="k">defer</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
-	<span class="nx">nrgba</span> <span class="o">:=</span> <span class="nx">image</span><span class="p">.</span><span class="nf">NewNRGBA</span><span class="p">(</span><span class="nx">image</span><span class="p">.</span><span class="nf">Rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">dx</span><span class="p">,</span> <span class="nx">dy</span><span class="p">)</span><span class="p">)</span>
+	<span class="k">defer</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+	<span class="nx">nrgba</span> <span class="o">:=</span> <span class="nx">image</span><span class="p">.</span><span class="nf">NewNRGBA</span><span class="p">(</span><span class="nx">image</span><span class="p">.</span><span class="nf">Rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">dx</span><span class="p">,</span> <span class="nx">dy</span><span class="p">))</span>
 	<span class="nf">drawline</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">dx</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="nx">dy</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">nrgba</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">color</span><span class="p">.</span><span class="nx">RGBA</span><span class="p">{</span><span class="nb">uint8</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span><span class="p">,</span> <span class="nb">uint8</span><span class="p">(</span><span class="nx">y</span><span class="p">)</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">}</span><span class="p">)</span>
-	<span class="p">}</span><span class="p">)</span>
+		<span class="nx">nrgba</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">color</span><span class="p">.</span><span class="nx">RGBA</span><span class="p">{</span><span class="nb">uint8</span><span class="p">(</span><span class="nx">x</span><span class="p">),</span> <span class="nb">uint8</span><span class="p">(</span><span class="nx">y</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">})</span>
+	<span class="p">})</span>
 	<span class="k">for</span> <span class="nx">y</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">y</span> <span class="p">&lt;</span> <span class="nx">dy</span><span class="p">;</span> <span class="nx">y</span><span class="o">++</span> <span class="p">{</span>
 		<span class="nx">nrgba</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">color</span><span class="p">.</span><span class="nx">White</span><span class="p">)</span>
 		<span class="nx">nrgba</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="nx">dx</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">color</span><span class="p">.</span><span class="nx">White</span><span class="p">)</span>
 	<span class="p">}</span>
-	<span class="nx">err</span> <span class="p">=</span> <span class="nx">jpeg</span><span class="p">.</span><span class="nf">Encode</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">nrgba</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">jpeg</span><span class="p">.</span><span class="nx">Options</span><span class="p">{</span><span class="mi">100</span><span class="p">}</span><span class="p">)</span>      <span class="c1">//图像质量值为100，是最好的图像显示
+	<span class="nx">err</span> <span class="p">=</span> <span class="nx">jpeg</span><span class="p">.</span><span class="nf">Encode</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">nrgba</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">jpeg</span><span class="p">.</span><span class="nx">Options</span><span class="p">{</span><span class="mi">100</span><span class="p">})</span>      <span class="c1">//图像质量值为100，是最好的图像显示
 </span><span class="c1"></span>	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 	<span class="p">}</span>
@@ -366,24 +366,24 @@
 	<span class="s">&#34;os&#34;</span>
 <span class="p">)</span>
  
-<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">file</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="s">&#34;test.jpg&#34;</span><span class="p">)</span>
 	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 	<span class="p">}</span>
-	<span class="k">defer</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
+	<span class="k">defer</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
  
 	<span class="nx">file1</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="s">&#34;test1.jpg&#34;</span><span class="p">)</span>
 	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 	<span class="p">}</span>
-	<span class="k">defer</span> <span class="nx">file1</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
+	<span class="k">defer</span> <span class="nx">file1</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
  
 	<span class="nx">img</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">jpeg</span><span class="p">.</span><span class="nf">Decode</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="c1">//解码
 </span><span class="c1"></span>	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 	<span class="p">}</span>
-	<span class="nx">jpeg</span><span class="p">.</span><span class="nf">Encode</span><span class="p">(</span><span class="nx">file1</span><span class="p">,</span> <span class="nx">img</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">jpeg</span><span class="p">.</span><span class="nx">Options</span><span class="p">{</span><span class="mi">5</span><span class="p">}</span><span class="p">)</span> <span class="c1">//编码，但是将图像质量从100改成5
+	<span class="nx">jpeg</span><span class="p">.</span><span class="nf">Encode</span><span class="p">(</span><span class="nx">file1</span><span class="p">,</span> <span class="nx">img</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">jpeg</span><span class="p">.</span><span class="nx">Options</span><span class="p">{</span><span class="mi">5</span><span class="p">})</span> <span class="c1">//编码，但是将图像质量从100改成5
 </span><span class="c1"></span> 
 <span class="p">}</span>
 </code></pre></td></tr></table>
@@ -482,26 +482,26 @@ func (e UnsupportedError) Error() string  //UnsupportedError会提示输入使�
 	<span class="nx">dy</span> <span class="p">=</span> <span class="mi">256</span>
 <span class="p">)</span>
  
-<span class="kd">func</span> <span class="nf">Pic</span><span class="p">(</span><span class="nx">dx</span><span class="p">,</span> <span class="nx">dy</span> <span class="kt">int</span><span class="p">)</span> <span class="p">[</span><span class="p">]</span><span class="p">[</span><span class="p">]</span><span class="kt">uint8</span> <span class="p">{</span>
-	<span class="nx">pic</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="p">[</span><span class="p">]</span><span class="p">[</span><span class="p">]</span><span class="kt">uint8</span><span class="p">,</span> <span class="nx">dx</span><span class="p">)</span>
+<span class="kd">func</span> <span class="nf">Pic</span><span class="p">(</span><span class="nx">dx</span><span class="p">,</span> <span class="nx">dy</span> <span class="kt">int</span><span class="p">)</span> <span class="p">[][]</span><span class="kt">uint8</span> <span class="p">{</span>
+	<span class="nx">pic</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([][]</span><span class="kt">uint8</span><span class="p">,</span> <span class="nx">dx</span><span class="p">)</span>
 	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">pic</span> <span class="p">{</span>
-		<span class="nx">pic</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="p">[</span><span class="p">]</span><span class="kt">uint8</span><span class="p">,</span> <span class="nx">dy</span><span class="p">)</span>
+		<span class="nx">pic</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">uint8</span><span class="p">,</span> <span class="nx">dy</span><span class="p">)</span>
 		<span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">pic</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">{</span>
-			<span class="nx">pic</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nb">uint8</span><span class="p">(</span><span class="nx">i</span> <span class="o">*</span> <span class="nx">j</span> <span class="o">%</span> <span class="mi">255</span><span class="p">)</span>
+			<span class="nx">pic</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nb">uint8</span><span class="p">(</span><span class="nx">i</span> <span class="o">*</span> <span class="nx">j</span> <span class="o">%</span> <span class="mi">255</span><span class="p">)</span>
 		<span class="p">}</span>
 	<span class="p">}</span>
 	<span class="k">return</span> <span class="nx">pic</span>
 <span class="p">}</span>
-<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">file</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="s">&#34;test.png&#34;</span><span class="p">)</span>
 	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 	<span class="p">}</span>
-	<span class="k">defer</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
-	<span class="nx">rgba</span> <span class="o">:=</span> <span class="nx">image</span><span class="p">.</span><span class="nf">NewRGBA</span><span class="p">(</span><span class="nx">image</span><span class="p">.</span><span class="nf">Rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">dx</span><span class="p">,</span> <span class="nx">dy</span><span class="p">)</span><span class="p">)</span>
+	<span class="k">defer</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+	<span class="nx">rgba</span> <span class="o">:=</span> <span class="nx">image</span><span class="p">.</span><span class="nf">NewRGBA</span><span class="p">(</span><span class="nx">image</span><span class="p">.</span><span class="nf">Rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">dx</span><span class="p">,</span> <span class="nx">dy</span><span class="p">))</span>
 	<span class="k">for</span> <span class="nx">x</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">x</span> <span class="p">&lt;</span> <span class="nx">dx</span><span class="p">;</span> <span class="nx">x</span><span class="o">++</span> <span class="p">{</span>
 		<span class="k">for</span> <span class="nx">y</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">y</span> <span class="p">&lt;</span> <span class="nx">dy</span><span class="p">;</span> <span class="nx">y</span><span class="o">++</span> <span class="p">{</span>
-			<span class="nx">rgba</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">color</span><span class="p">.</span><span class="nx">RGBA</span><span class="p">{</span><span class="nb">uint8</span><span class="p">(</span><span class="nx">x</span> <span class="o">*</span> <span class="nx">y</span> <span class="o">%</span> <span class="mi">255</span><span class="p">)</span><span class="p">,</span> <span class="nb">uint8</span><span class="p">(</span><span class="nx">x</span> <span class="o">*</span> <span class="nx">y</span> <span class="o">%</span> <span class="mi">255</span><span class="p">)</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">}</span><span class="p">)</span>
+			<span class="nx">rgba</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">color</span><span class="p">.</span><span class="nx">RGBA</span><span class="p">{</span><span class="nb">uint8</span><span class="p">(</span><span class="nx">x</span> <span class="o">*</span> <span class="nx">y</span> <span class="o">%</span> <span class="mi">255</span><span class="p">),</span> <span class="nb">uint8</span><span class="p">(</span><span class="nx">x</span> <span class="o">*</span> <span class="nx">y</span> <span class="o">%</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">})</span>
 		<span class="p">}</span>
 	<span class="p">}</span>
 	<span class="nx">err</span> <span class="p">=</span> <span class="nx">png</span><span class="p">.</span><span class="nf">Encode</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">rgba</span><span class="p">)</span>

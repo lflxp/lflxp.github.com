@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="lixueping" /><meta name="description" content="Fast, Transactional, Distributed Graph Database. 简介 Dgraph is a horizontally scalable and distributed graph database, providing ACID transactions, consistent replication and linearizable reads. It&#39;s built from ground up to perform for a rich set of queries. Being a native graph database, it tightly controls how the data is arranged on disk to optimize for query performance and throughput, reducing disk seeks and network calls in a cluster. Dgraph&#39;s goal" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="lixueping" /><meta name="description" content="Fast, Transactional, Distributed Graph Database. 简介 Dgraph is a horizontally scalable and distributed graph database, providing ACID transactions, consistent replication and linearizable reads. It&amp;rsquo;s built from ground up to perform for a rich set of queries. Being a native graph database, it tightly controls how the data is arranged on disk to optimize for query performance and throughput, reducing disk seeks and network calls in a cluster. Dgraph&amp;rsquo;s goal" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.62.2 with theme even" />
+<meta name="generator" content="Hugo 0.66.0 with theme even" />
 
 
 <link rel="canonical" href="https://www.lflxp.cn/post/notebook/dgraph/first/" />
@@ -39,22 +39,22 @@
 
 
 <meta property="og:title" content="Dgraph 图数据库试用" />
-<meta property="og:description" content="Fast, Transactional, Distributed Graph Database. 简介 Dgraph is a horizontally scalable and distributed graph database, providing ACID transactions, consistent replication and linearizable reads. It&#39;s built from ground up to perform for a rich set of queries. Being a native graph database, it tightly controls how the data is arranged on disk to optimize for query performance and throughput, reducing disk seeks and network calls in a cluster. Dgraph&#39;s goal" />
+<meta property="og:description" content="Fast, Transactional, Distributed Graph Database. 简介 Dgraph is a horizontally scalable and distributed graph database, providing ACID transactions, consistent replication and linearizable reads. It&rsquo;s built from ground up to perform for a rich set of queries. Being a native graph database, it tightly controls how the data is arranged on disk to optimize for query performance and throughput, reducing disk seeks and network calls in a cluster. Dgraph&rsquo;s goal" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.lflxp.cn/post/notebook/dgraph/first/" />
 <meta property="article:published_time" content="2020-01-14T01:37:56+08:00" />
 <meta property="article:modified_time" content="2020-01-14T17:17:31+08:00" />
 <meta itemprop="name" content="Dgraph 图数据库试用">
-<meta itemprop="description" content="Fast, Transactional, Distributed Graph Database. 简介 Dgraph is a horizontally scalable and distributed graph database, providing ACID transactions, consistent replication and linearizable reads. It&#39;s built from ground up to perform for a rich set of queries. Being a native graph database, it tightly controls how the data is arranged on disk to optimize for query performance and throughput, reducing disk seeks and network calls in a cluster. Dgraph&#39;s goal">
+<meta itemprop="description" content="Fast, Transactional, Distributed Graph Database. 简介 Dgraph is a horizontally scalable and distributed graph database, providing ACID transactions, consistent replication and linearizable reads. It&rsquo;s built from ground up to perform for a rich set of queries. Being a native graph database, it tightly controls how the data is arranged on disk to optimize for query performance and throughput, reducing disk seeks and network calls in a cluster. Dgraph&rsquo;s goal">
 <meta itemprop="datePublished" content="2020-01-14T01:37:56&#43;08:00" />
 <meta itemprop="dateModified" content="2020-01-14T17:17:31&#43;08:00" />
-<meta itemprop="wordCount" content="783">
+<meta itemprop="wordCount" content="785">
 
 
 
 <meta itemprop="keywords" content="go,graphdb," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Dgraph 图数据库试用"/>
-<meta name="twitter:description" content="Fast, Transactional, Distributed Graph Database. 简介 Dgraph is a horizontally scalable and distributed graph database, providing ACID transactions, consistent replication and linearizable reads. It&#39;s built from ground up to perform for a rich set of queries. Being a native graph database, it tightly controls how the data is arranged on disk to optimize for query performance and throughput, reducing disk seeks and network calls in a cluster. Dgraph&#39;s goal"/>
+<meta name="twitter:description" content="Fast, Transactional, Distributed Graph Database. 简介 Dgraph is a horizontally scalable and distributed graph database, providing ACID transactions, consistent replication and linearizable reads. It&rsquo;s built from ground up to perform for a rich set of queries. Being a native graph database, it tightly controls how the data is arranged on disk to optimize for query performance and throughput, reducing disk seeks and network calls in a cluster. Dgraph&rsquo;s goal"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -137,11 +137,11 @@
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#简介httpsgithubcomdgraph-iodgraph">简介</a></li>
+    <li><a href="#简介httpsgithubcomdgraph-iodgraph"><a href="https://github.com/dgraph-io/dgraph">简介</a></a></li>
     <li><a href="#入门">入门</a></li>
     <li><a href="#安装">安装</a></li>
     <li><a href="#访问">访问</a></li>
-    <li><a href="#query-language查询语法httpsdocsdgraphioquery-language">Query Language查询语法</a></li>
+    <li><a href="#query-language查询语法httpsdocsdgraphioquery-language"><a href="https://docs.dgraph.io/query-language/">Query Language查询语法</a></a></li>
     <li><a href="#dgraph-compared-to-other-graph-dbs-图数据库比较">Dgraph compared to other graph DBs 图数据库比较</a></li>
     <li><a href="#特点">特点</a>
       <ul>
@@ -164,8 +164,8 @@
 <p>Fast, Transactional, Distributed Graph Database.</p>
 </blockquote>
 <h2 id="简介httpsgithubcomdgraph-iodgraph"><a href="https://github.com/dgraph-io/dgraph">简介</a></h2>
-<p>Dgraph is a horizontally scalable and distributed graph database, providing ACID transactions, consistent replication and linearizable reads. It's built from ground up to perform for a rich set of queries. Being a native graph database, it tightly controls how the data is arranged on disk to optimize for query performance and throughput, reducing disk seeks and network calls in a cluster.</p>
-<p>Dgraph's goal is to provide Google production level scale and throughput, with low enough latency to be serving real time user queries, over terabytes of structured data. Dgraph supports GraphQL-like query syntax, and responds in JSON and Protocol Buffers over GRPC and HTTP.</p>
+<p>Dgraph is a horizontally scalable and distributed graph database, providing ACID transactions, consistent replication and linearizable reads. It&rsquo;s built from ground up to perform for a rich set of queries. Being a native graph database, it tightly controls how the data is arranged on disk to optimize for query performance and throughput, reducing disk seeks and network calls in a cluster.</p>
+<p>Dgraph&rsquo;s goal is to provide Google production level scale and throughput, with low enough latency to be serving real time user queries, over terabytes of structured data. Dgraph supports GraphQL-like query syntax, and responds in JSON and Protocol Buffers over GRPC and HTTP.</p>
 <h2 id="入门">入门</h2>
 <p><strong>To get started with Dgraph, follow:</strong></p>
 <ul>
@@ -249,24 +249,24 @@ presentation videos on <a href="https://www.youtube.com/channel/UCghE41LR8nkKFlR
 	<span class="nx">dgraph</span> <span class="p">=</span> <span class="nx">flag</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="s">&#34;d&#34;</span><span class="p">,</span> <span class="s">&#34;127.0.0.1:9080&#34;</span><span class="p">,</span> <span class="s">&#34;Dgraph Alpha address&#34;</span><span class="p">)</span>
 <span class="p">)</span>
 
-<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">flag</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="p">)</span>
-	<span class="nx">conn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">Dial</span><span class="p">(</span><span class="o">*</span><span class="nx">dgraph</span><span class="p">,</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">WithInsecure</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">flag</span><span class="p">.</span><span class="nf">Parse</span><span class="p">()</span>
+	<span class="nx">conn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">Dial</span><span class="p">(</span><span class="o">*</span><span class="nx">dgraph</span><span class="p">,</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">WithInsecure</span><span class="p">())</span>
 	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 	<span class="p">}</span>
-	<span class="k">defer</span> <span class="nx">conn</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
+	<span class="k">defer</span> <span class="nx">conn</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
 
-	<span class="nx">dg</span> <span class="o">:=</span> <span class="nx">dgo</span><span class="p">.</span><span class="nf">NewDgraphClient</span><span class="p">(</span><span class="nx">api</span><span class="p">.</span><span class="nf">NewDgraphClient</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span><span class="p">)</span>
+	<span class="nx">dg</span> <span class="o">:=</span> <span class="nx">dgo</span><span class="p">.</span><span class="nf">NewDgraphClient</span><span class="p">(</span><span class="nx">api</span><span class="p">.</span><span class="nf">NewDgraphClient</span><span class="p">(</span><span class="nx">conn</span><span class="p">))</span>
     
-	<span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">dg</span><span class="p">.</span><span class="nf">NewTxn</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">Query</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(</span><span class="p">)</span><span class="p">,</span> <span class="s">`</span><span class="s">{</span><span class="s">
-</span><span class="s">  bladerunner(func: eq(name@en, &#34;Blade Runner&#34;)) </span><span class="s">{</span><span class="s">
+	<span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">dg</span><span class="p">.</span><span class="nf">NewTxn</span><span class="p">().</span><span class="nf">Query</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span> <span class="s">`{
+</span><span class="s">  bladerunner(func: eq(name@en, &#34;Blade Runner&#34;)) {
 </span><span class="s">    uid
 </span><span class="s">    name@en
 </span><span class="s">    initial_release_date
 </span><span class="s">    netflix_id
 </span><span class="s">  }
-</span><span class="s">}</span><span class="s">`</span><span class="p">)</span>
+</span><span class="s">}`</span><span class="p">)</span>
 	
 	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
@@ -326,27 +326,27 @@ presentation videos on <a href="https://www.youtube.com/channel/UCghE41LR8nkKFlR
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">dgraph</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;dgraph-js-http&#34;</span><span class="p">)</span><span class="p">;</span>
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">dgraph</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;dgraph-js-http&#34;</span><span class="p">);</span>
 
-<span class="nx">async</span> <span class="kd">function</span> <span class="nx">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">clientStub</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dgraph</span><span class="p">.</span><span class="nx">DgraphClientStub</span><span class="p">(</span><span class="s2">&#34;http://localhost:8080&#34;</span><span class="p">)</span><span class="p">;</span>
-  <span class="kr">const</span> <span class="nx">dgraphClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dgraph</span><span class="p">.</span><span class="nx">DgraphClient</span><span class="p">(</span><span class="nx">clientStub</span><span class="p">)</span><span class="p">;</span>
+<span class="nx">async</span> <span class="kd">function</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">clientStub</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dgraph</span><span class="p">.</span><span class="nx">DgraphClientStub</span><span class="p">(</span><span class="s2">&#34;http://localhost:8080&#34;</span><span class="p">);</span>
+  <span class="kr">const</span> <span class="nx">dgraphClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dgraph</span><span class="p">.</span><span class="nx">DgraphClient</span><span class="p">(</span><span class="nx">clientStub</span><span class="p">);</span>
 
-  <span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="sb">`</span><span class="sb">{
+  <span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="sb">`{
 </span><span class="sb">  bladerunner(func: uid(0x394c)) {
 </span><span class="sb">    uid
 </span><span class="sb">    name@en
 </span><span class="sb">    initial_release_date
 </span><span class="sb">    netflix_id
 </span><span class="sb">  }
-</span><span class="sb">}</span><span class="sb">`</span><span class="p">;</span>
-  <span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">dgraphClient</span><span class="p">.</span><span class="nx">newTxn</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span><span class="p">;</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Response: &#34;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span><span class="p">)</span><span class="p">;</span>
+</span><span class="sb">}`</span><span class="p">;</span>
+  <span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">dgraphClient</span><span class="p">.</span><span class="nx">newTxn</span><span class="p">().</span><span class="nx">query</span><span class="p">(</span><span class="nx">query</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Response: &#34;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
 <span class="p">}</span>
 
-<span class="nx">main</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ERROR: &#34;</span><span class="p">,</span> <span class="nx">e</span><span class="p">)</span><span class="p">;</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+<span class="nx">main</span><span class="p">().</span><span class="nx">then</span><span class="p">().</span><span class="k">catch</span><span class="p">((</span><span class="nx">e</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;ERROR: &#34;</span><span class="p">,</span> <span class="nx">e</span><span class="p">);</span>
+<span class="p">});</span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="dgraph-compared-to-other-graph-dbs-图数据库比较">Dgraph compared to other graph DBs 图数据库比较</h2>

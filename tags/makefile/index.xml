@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 07 Mar 2020 03:11:22 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 09 Mar 2020 10:11:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/tags/makefile/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Make 工程实践</title>
+      <link>https://www.lflxp.cn/post/os/kernel/makefile2/</link>
+      <pubDate>Mon, 09 Mar 2020 10:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/os/kernel/makefile2/</guid>
+      <description>介绍 以下makefile脚本是我用来自动更新博客文章的，因为设计流程、变量、判断和shell执行，比较具有代表性，贴出来以供参考。 脚本 1 2 3</description>
+    </item>
     
     <item>
       <title>Make 命令教程</title>
