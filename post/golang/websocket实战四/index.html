@@ -43,11 +43,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.lflxp.cn/post/golang/websocket%E5%AE%9E%E6%88%98%E5%9B%9B/" />
 <meta property="article:published_time" content="2020-03-10T20:11:22+08:00" />
-<meta property="article:modified_time" content="2020-03-10T20:11:22+08:00" />
+<meta property="article:modified_time" content="2020-03-10T23:09:47+08:00" />
 <meta itemprop="name" content="golang gin&#43;websocket&#43;xterm.js基础教学实战四">
 <meta itemprop="description" content="本篇教程完成了基于单二进制文件启动的web terminial应用程序，无任何第三方依赖，随用随启动。 本教程是前三篇基础教程的实战编程，结合了">
 <meta itemprop="datePublished" content="2020-03-10T20:11:22&#43;08:00" />
-<meta itemprop="dateModified" content="2020-03-10T20:11:22&#43;08:00" />
+<meta itemprop="dateModified" content="2020-03-10T23:09:47&#43;08:00" />
 <meta itemprop="wordCount" content="2361">
 
 
@@ -195,7 +195,8 @@ Flags:
   -w, --write             is permit write
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="重点技术列表">重点技术列表</h2>
+</div><p><img src="../images/tty.png" alt="tty.png"></p>
+<h2 id="重点技术列表">重点技术列表</h2>
 <ul>
 <li>静态文件打包到二进制文件中，比如html、js、css等</li>
 <li>http转websocket后端技术启动</li>
@@ -376,8 +377,8 @@ Flags:
 <ul>
 <li>最头疼的【1002】invalid UTF-8 in Close frame</li>
 </ul>
-<p>原因：因为websocket支持text和binary两种编码格式，对应129和130，一旦发现返回信息中有UTF8编码的往text协议类型发就会报错。（开源项目很多都是以text 129进行默认编码）
-解决：</p>
+<p>原因：因为websocket支持text和binary两种编码格式，对应129和130，一旦发现返回信息中有UTF8编码的往text协议类型发就会报错。（开源项目很多都是以text 129进行默认编码）</p>
+<p>解决：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -684,7 +685,7 @@ Flags:
     <span class="item-title">上次更新</span>
     <span class="item-content">
         2020-03-10
-        
+        <a href="https://github.com/lflxp/commit/29b40068b5329b09adfade2bcb0220b56a59ec80" title="tty">(29b4006)</a>
     </span>
   </p>
   
