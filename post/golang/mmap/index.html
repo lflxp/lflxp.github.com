@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.66.0 with theme even" />
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
 
 
 <link rel="canonical" href="https://www.lflxp.cn/post/golang/mmap/" />
@@ -222,32 +222,32 @@
 
 <span class="kd">const</span> <span class="nx">FILENAME</span> <span class="p">=</span> <span class="s">&#34;test.mmap&#34;</span>
 
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">pagesize</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Getpagesize</span><span class="p">()</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">pagesize</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Getpagesize</span><span class="p">(</span><span class="p">)</span>
 
 	<span class="nx">file</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">OpenFile</span><span class="p">(</span><span class="nx">FILENAME</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nx">O_RDWR</span><span class="p">|</span><span class="nx">os</span><span class="p">.</span><span class="nx">O_CREATE</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
 
-	<span class="nx">state</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Stat</span><span class="p">()</span>
+	<span class="nx">state</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Stat</span><span class="p">(</span><span class="p">)</span>
 
-	<span class="k">if</span> <span class="nx">state</span><span class="p">.</span><span class="nf">Size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-		<span class="nx">_</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">file</span><span class="p">.</span><span class="nf">WriteAt</span><span class="p">(</span><span class="nx">bytes</span><span class="p">.</span><span class="nf">Repeat</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="sc">&#39;0&#39;</span><span class="p">},</span> <span class="nx">pagesize</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">state</span><span class="p">.</span><span class="nf">Size</span><span class="p">(</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nx">_</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">file</span><span class="p">.</span><span class="nf">WriteAt</span><span class="p">(</span><span class="nx">bytes</span><span class="p">.</span><span class="nf">Repeat</span><span class="p">(</span><span class="p">[</span><span class="p">]</span><span class="kt">byte</span><span class="p">{</span><span class="sc">&#39;0&#39;</span><span class="p">}</span><span class="p">,</span> <span class="nx">pagesize</span><span class="p">)</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-		<span class="nx">state</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Stat</span><span class="p">()</span>
+		<span class="nx">state</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Stat</span><span class="p">(</span><span class="p">)</span>
 	<span class="p">}</span>
 
-	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;pagesize: %d\n filesize: %d\n&#34;</span><span class="p">,</span> <span class="nx">pagesize</span><span class="p">,</span> <span class="nx">state</span><span class="p">.</span><span class="nf">Size</span><span class="p">())</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;pagesize: %d\n filesize: %d\n&#34;</span><span class="p">,</span> <span class="nx">pagesize</span><span class="p">,</span> <span class="nx">state</span><span class="p">.</span><span class="nf">Size</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
 
-	<span class="nx">data</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">unix</span><span class="p">.</span><span class="nf">Mmap</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nf">Fd</span><span class="p">()),</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nf">Size</span><span class="p">()),</span> <span class="nx">unix</span><span class="p">.</span><span class="nx">PROT_WRITE</span><span class="p">,</span> <span class="nx">unix</span><span class="p">.</span><span class="nx">MAP_SHARED</span><span class="p">)</span>
+	<span class="nx">data</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">unix</span><span class="p">.</span><span class="nf">Mmap</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nf">Fd</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nf">Size</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">,</span> <span class="nx">unix</span><span class="p">.</span><span class="nx">PROT_WRITE</span><span class="p">,</span> <span class="nx">unix</span><span class="p">.</span><span class="nx">MAP_SHARED</span><span class="p">)</span>
 
 	<span class="c1">// 关闭文件，不影响mmap
-</span><span class="c1"></span>	<span class="nx">file</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+</span><span class="c1"></span>	<span class="nx">file</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
 
 	<span class="c1">//for i := 0; i &lt; 8; i++ {
 </span><span class="c1"></span>	<span class="c1">//data[i] = &#39;1&#39;
 </span><span class="c1"></span>	<span class="c1">//}
 </span><span class="c1"></span>
 	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">x</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="s">&#34;hello world&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1">// string 转 byte ,用[]byte(*)[index]的方式
+		<span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="p">[</span><span class="p">]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1">// string 转 byte ,用[]byte(*)[index]的方式
 </span><span class="c1"></span>		<span class="c1">//fmt.Println(i, x)
 </span><span class="c1"></span>	<span class="p">}</span>
 

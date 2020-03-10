@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>golang gin&#43;websocket&#43;xterm.js基础教学实战四 - 爱像水墨青花</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lixueping" /><meta name="description" content="本篇教程完成了基于单二进制文件启动的web terminial应用程序，无任何第三方依赖，随用随启动。 本教程是前三篇基础教程的实战编程，结合了" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.lflxp.cn/post/golang/websocket%E5%AE%9E%E6%88%98%E5%9B%9B/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="golang gin&#43;websocket&#43;xterm.js基础教学实战四" />
+<meta property="og:description" content="本篇教程完成了基于单二进制文件启动的web terminial应用程序，无任何第三方依赖，随用随启动。 本教程是前三篇基础教程的实战编程，结合了" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lflxp.cn/post/golang/websocket%E5%AE%9E%E6%88%98%E5%9B%9B/" />
+<meta property="article:published_time" content="2020-03-10T20:11:22+08:00" />
+<meta property="article:modified_time" content="2020-03-10T20:11:22+08:00" />
+<meta itemprop="name" content="golang gin&#43;websocket&#43;xterm.js基础教学实战四">
+<meta itemprop="description" content="本篇教程完成了基于单二进制文件启动的web terminial应用程序，无任何第三方依赖，随用随启动。 本教程是前三篇基础教程的实战编程，结合了">
+<meta itemprop="datePublished" content="2020-03-10T20:11:22&#43;08:00" />
+<meta itemprop="dateModified" content="2020-03-10T20:11:22&#43;08:00" />
+<meta itemprop="wordCount" content="2361">
+
+
+
+<meta itemprop="keywords" content="websocket,xtermjs," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="golang gin&#43;websocket&#43;xterm.js基础教学实战四"/>
+<meta name="twitter:description" content="本篇教程完成了基于单二进制文件启动的web terminial应用程序，无任何第三方依赖，随用随启动。 本教程是前三篇基础教程的实战编程，结合了"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">静心</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">目录</li>
+      </a><a href="/post/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">静心</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">目录</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">golang gin&#43;websocket&#43;xterm.js基础教学实战四</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-10 </span>
+        <div class="post-category">
+            <a href="/categories/golang/"> golang </a>
+            </div>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#重点技术列表">重点技术列表</a></li>
+    <li><a href="#静态文件打包">静态文件打包</a></li>
+    <li><a href="#http升级为websocket">http升级为websocket</a></li>
+    <li><a href="#cobra-cli命令行工具使用">cobra cli命令行工具使用</a></li>
+    <li><a href="#websocket协议的诸多问题分析和解决">websocket协议的诸多问题分析和解决</a></li>
+    <li><a href="#html单页面动态渲染技术">html单页面动态渲染技术</a></li>
+    <li><a href="#gin-router路由策略与静态二进制文件路由策略的结合">gin router路由策略与静态二进制文件路由策略的结合</a></li>
+    <li><a href="#web安全技术的引进">web安全技术的引进</a></li>
+    <li><a href="#golang-携程的实战应用">Golang 携程的实战应用</a></li>
+    <li><a href="#makefile编译工具的深入使用">Makefile编译工具的深入使用</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>本篇教程完成了基于单二进制文件启动的web terminial应用程序，无任何第三方依赖，随用随启动。</p>
+<p>本教程是前三篇基础教程的实战编程，结合了前端、后端、安全和网络开发等技术。</p>
+<p><a href="https://github.com/lflxp/showme/tree/simple">项目地址</a></p>
+<p><code>Usage:</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">showme tty [flags] [command] [args]
+eg: showme tty -w -r showme proxy http
+
+Usage:
+  showme tty [flags]
+
+Flags:
+  -a, --audit             is audit
+  -d, --debug             debug log mode
+  -h, --help              help for tty
+  -m, --maxconnect int    max connect number
+  -p, --password string   BasicAuth 密码
+  -P, --port string       http port (default &#34;8080&#34;)
+  -r, --reconnect         is auto reconnect
+  -u, --username string   BasicAuth 用户名
+  -w, --write             is permit write
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="重点技术列表">重点技术列表</h2>
+<ul>
+<li>静态文件打包到二进制文件中，比如html、js、css等</li>
+<li>http转websocket后端技术启动</li>
+<li>gin web框架的使用</li>
+<li>cobra cli命令行工具使用</li>
+<li>websocket协议的诸多问题分析和解决</li>
+<li>xterm3.html单页面技术的开发和页面动态渲染技术</li>
+<li>gin router路由策略与静态二进制文件路由策略的结合</li>
+<li>web安全技术的引进，比如：Xsrf、BasicAuth、Audit、Base64</li>
+<li>Golang 携程的实战应用</li>
+<li>Makefile编译工具的深入使用</li>
+</ul>
+<h2 id="静态文件打包">静态文件打包</h2>
+<p>将静态文件打包进golang的二进制执行文件利用的是bytes.Buffer缓存技术加上将文件硬编码到Code中去实现的，采用的开源工具包<code>go-bindata</code>和文件服务包<code>go-bindata-assetfs</code>。</p>
+<p><code>安装go-bindata</code> makefile片段</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-makefile" data-lang="makefile"><span class="nf">bindata</span><span class="o">:</span>
+	@echo 安装预制环境
+	go get -u github.com/jteeuwen/go-bindata/...
+	go get -u github.com/elazarl/go-bindata-assetfs/...
+</code></pre></td></tr></table>
+</div>
+</div><p>生成<code>硬编码Code</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-makefile" data-lang="makefile"><span class="c"># 静态文件转go二进制文件
+</span><span class="c"></span><span class="nf">asset</span><span class="o">:</span> <span class="n">bindata</span>
+	<span class="nb">cd</span> tty/static <span class="o">&amp;&amp;</span> go-bindata -o<span class="o">=</span>../asset.go -pkg<span class="o">=</span>tty ./
+</code></pre></td></tr></table>
+</div>
+</div><p>最后会在<code>../</code>目录生成<code>asset.go</code>文件，<code>Packege</code>名称为<code>tty</code>。</p>
+<h2 id="http升级为websocket">http升级为websocket</h2>
+<p>多说不宜，直接上代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kn">import</span> <span class="s">&#34;github.com/gorilla/websocket&#34;</span>
+
+<span class="kd">var</span> <span class="nx">upGrader</span> <span class="p">=</span> <span class="nx">websocket</span><span class="p">.</span><span class="nx">Upgrader</span><span class="p">{</span>
+	<span class="nx">ReadBufferSize</span><span class="p">:</span>  <span class="mi">1024</span><span class="p">,</span>
+	<span class="nx">WriteBufferSize</span><span class="p">:</span> <span class="mi">1024</span><span class="p">,</span>
+	<span class="nx">CheckOrigin</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">true</span>
+	<span class="p">}</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="o">...</span>
+
+<span class="c1">// 后端websocket服务
+</span><span class="c1"></span><span class="nx">apiGroup</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/ws&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">...</span>
+    <span class="c1">// 升级get请求为webSocket协议
+</span><span class="c1"></span>    <span class="nx">ws</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">upGrader</span><span class="p">.</span><span class="nf">Upgrade</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">Writer</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+    <span class="k">defer</span> <span class="nx">ws</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="cobra-cli命令行工具使用">cobra cli命令行工具使用</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;github.com/lflxp/showme/tty&#34;</span>
+	<span class="s">&#34;github.com/spf13/cobra&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">var</span> <span class="p">(</span>
+	<span class="nx">isAudit</span>        <span class="kt">bool</span>
+	<span class="nx">isPermitWrite</span>  <span class="kt">bool</span>
+	<span class="nx">MaxConnections</span> <span class="kt">int64</span>
+	<span class="nx">isReconnect</span>    <span class="kt">bool</span>
+	<span class="nx">isDebug</span>        <span class="kt">bool</span>
+	<span class="nx">username</span>       <span class="kt">string</span>
+	<span class="nx">password</span>       <span class="kt">string</span>
+	<span class="nx">port</span>           <span class="kt">string</span>
+<span class="p">)</span>
+
+<span class="c1">// ttyCmd represents the tty command
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">ttyCmd</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">cobra</span><span class="p">.</span><span class="nx">Command</span><span class="p">{</span>
+	<span class="nx">Use</span><span class="p">:</span>   <span class="s">&#34;tty&#34;</span><span class="p">,</span>
+	<span class="nx">Short</span><span class="p">:</span> <span class="s">&#34;web terminial&#34;</span><span class="p">,</span>
+	<span class="nx">Long</span><span class="p">:</span> <span class="s">`</span><span class="s">showme tty [flags] [command] [args]
+</span><span class="s">eg: showme tty -w -r showme proxy http</span><span class="s">`</span><span class="p">,</span>
+	<span class="nx">Run</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">cmd</span> <span class="o">*</span><span class="nx">cobra</span><span class="p">.</span><span class="nx">Command</span><span class="p">,</span> <span class="nx">args</span> <span class="p">[</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">tty</span><span class="p">.</span><span class="nf">ServeGin</span><span class="p">(</span><span class="nx">port</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">isDebug</span><span class="p">,</span> <span class="nx">isReconnect</span><span class="p">,</span> <span class="nx">isPermitWrite</span><span class="p">,</span> <span class="nx">isAudit</span><span class="p">,</span> <span class="nx">MaxConnections</span><span class="p">)</span>
+	<span class="p">}</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">init</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">rootCmd</span><span class="p">.</span><span class="nf">AddCommand</span><span class="p">(</span><span class="nx">ttyCmd</span><span class="p">)</span>
+	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">StringVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">username</span><span class="p">,</span> <span class="s">&#34;username&#34;</span><span class="p">,</span> <span class="s">&#34;u&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;BasicAuth 用户名&#34;</span><span class="p">)</span>
+	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">StringVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">password</span><span class="p">,</span> <span class="s">&#34;password&#34;</span><span class="p">,</span> <span class="s">&#34;p&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;BasicAuth 密码&#34;</span><span class="p">)</span>
+	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">StringVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">port</span><span class="p">,</span> <span class="s">&#34;port&#34;</span><span class="p">,</span> <span class="s">&#34;P&#34;</span><span class="p">,</span> <span class="s">&#34;8080&#34;</span><span class="p">,</span> <span class="s">&#34;http port&#34;</span><span class="p">)</span>
+	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">BoolVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">isDebug</span><span class="p">,</span> <span class="s">&#34;debug&#34;</span><span class="p">,</span> <span class="s">&#34;d&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s">&#34;debug log mode&#34;</span><span class="p">)</span>
+	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">BoolVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">isReconnect</span><span class="p">,</span> <span class="s">&#34;reconnect&#34;</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s">&#34;is auto reconnect&#34;</span><span class="p">)</span>
+	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">BoolVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">isPermitWrite</span><span class="p">,</span> <span class="s">&#34;write&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s">&#34;is permit write&#34;</span><span class="p">)</span>
+	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">BoolVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">isAudit</span><span class="p">,</span> <span class="s">&#34;audit&#34;</span><span class="p">,</span> <span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s">&#34;is audit&#34;</span><span class="p">)</span>
+	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">Int64VarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">MaxConnections</span><span class="p">,</span> <span class="s">&#34;maxconnect&#34;</span><span class="p">,</span> <span class="s">&#34;m&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;max connect number&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="websocket协议的诸多问题分析和解决">websocket协议的诸多问题分析和解决</h2>
+<ul>
+<li>最头疼的【1002】invalid UTF-8 in Close frame</li>
+</ul>
+<p>原因：因为websocket支持text和binary两种编码格式，对应129和130，一旦发现返回信息中有UTF8编码的往text协议类型发就会报错。（开源项目很多都是以text 129进行默认编码）
+解决：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="c1">// 将所有返回结果包括UTF8编码的内容用base64进行编码，client解码再显示，避免了直接UTF8编码传输的报错
+</span><span class="c1"></span><span class="c1">// Could not decode a text frame as UTF-8 的解决
+</span><span class="c1"></span><span class="nx">safeMessage</span> <span class="o">:=</span> <span class="nx">base64</span><span class="p">.</span><span class="nx">StdEncoding</span><span class="p">.</span><span class="nf">EncodeToString</span><span class="p">(</span><span class="p">[</span><span class="p">]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">buf</span><span class="p">[</span><span class="p">:</span><span class="nx">size</span><span class="p">]</span><span class="p">)</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">this</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="p">[</span><span class="p">]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">safeMessage</span><span class="p">)</span><span class="p">)</span><span class="p">;</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="html单页面动态渲染技术">html单页面动态渲染技术</h2>
+<p>主要用到了go template + 静态bytes.Buffer页面 + gin web渲染，具体方法在代码中体会。</p>
+<p><code>前端xterm3.html</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">term</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;Welcome to \x1B[1;3;31mShowMe TTY\x1B[0m&#39;</span><span class="p">)</span>
+<span class="p">{</span><span class="p">{</span><span class="k">if</span> <span class="p">.</span><span class="nx">Reconnect</span><span class="p">}</span><span class="p">}</span>
+<span class="nx">term</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;连接模式: \x1B[1;3;32mReconnect\x1B[0m&#39;</span><span class="p">)</span>
+<span class="p">{</span><span class="p">{</span><span class="o">-</span> <span class="k">else</span><span class="p">}</span><span class="p">}</span>
+<span class="nx">term</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;连接模式: \x1B[1;3;32mOnce\x1B[0m&#39;</span><span class="p">)</span>
+<span class="p">{</span><span class="p">{</span><span class="o">-</span> <span class="nx">end</span><span class="p">}</span><span class="p">}</span>
+
+<span class="p">{</span><span class="p">{</span><span class="k">if</span> <span class="p">.</span><span class="nx">Write</span><span class="p">}</span><span class="p">}</span>
+<span class="nx">term</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;输入模式：\x1B[1;3;31m读/写\x1B[0m&#39;</span><span class="p">)</span>
+<span class="p">{</span><span class="p">{</span><span class="o">-</span> <span class="k">else</span><span class="p">}</span><span class="p">}</span>
+<span class="nx">term</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;输入模式：\x1B[1;3;31m读\x1B[0m&#39;</span><span class="p">)</span>
+<span class="p">{</span><span class="p">{</span><span class="o">-</span> <span class="nx">end</span><span class="p">}</span><span class="p">}</span>
+
+<span class="p">{</span><span class="p">{</span><span class="k">if</span> <span class="p">.</span><span class="nx">MaxC</span><span class="p">}</span><span class="p">}</span>
+<span class="nx">term</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;连接状态：\x1B[1;3;34m{{.Conn}}/{{.MaxC}}\x1B[0m&#39;</span><span class="p">)</span>
+<span class="p">{</span><span class="p">{</span><span class="o">-</span> <span class="k">else</span><span class="p">}</span><span class="p">}</span>
+<span class="nx">term</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;连接总数：\x1B[1;3;34m{{.Conn}}\x1B[0m&#39;</span><span class="p">)</span>
+<span class="p">{</span><span class="p">{</span><span class="o">-</span> <span class="nx">end</span><span class="p">}</span><span class="p">}</span>
+
+<span class="nx">term</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;启动参数: \x1B[1;3;30m{{ .Cmd }}\x1B[0m&#39;</span><span class="p">)</span>
+<span class="nx">term</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;XsrfToken: {{ .Xsrf }}&#39;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>后端golang传值渲染</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="c1">// 主页
+</span><span class="c1"></span><span class="c1">// 从内存取出然后渲染加载
+</span><span class="c1"></span><span class="nx">indexhtml</span> <span class="o">:=</span> <span class="nx">multitemplate</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="p">)</span>
+<span class="nx">xterm3</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">Asset</span><span class="p">(</span><span class="s">&#34;xterm3.html&#34;</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+
+<span class="nx">t</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;index&#34;</span><span class="p">)</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">xterm3</span><span class="p">)</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+
+<span class="nx">indexhtml</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="s">&#34;index&#34;</span><span class="p">,</span> <span class="nx">t</span><span class="p">)</span>
+<span class="nx">router</span><span class="p">.</span><span class="nx">HTMLRender</span> <span class="p">=</span> <span class="nx">indexhtml</span>
+<span class="nx">apiGroup</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/index&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">newXsrf</span> <span class="o">:=</span> <span class="nx">utils</span><span class="p">.</span><span class="nf">GetRandomSalt</span><span class="p">(</span><span class="p">)</span>
+    <span class="nx">xterm</span><span class="p">.</span><span class="nx">XsrfToken</span><span class="p">.</span><span class="nf">Store</span><span class="p">(</span><span class="nx">newXsrf</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+    <span class="nx">c</span><span class="p">.</span><span class="nf">HTML</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span> <span class="s">&#34;index&#34;</span><span class="p">,</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span>
+        <span class="s">&#34;host&#34;</span><span class="p">:</span>      <span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">.</span><span class="nx">RemoteAddr</span><span class="p">,</span>
+        <span class="s">&#34;Reconnect&#34;</span><span class="p">:</span> <span class="nx">isReconnect</span><span class="p">,</span>
+        <span class="s">&#34;Debug&#34;</span><span class="p">:</span>     <span class="nx">isdebug</span><span class="p">,</span>
+        <span class="s">&#34;Write&#34;</span><span class="p">:</span>     <span class="nx">isPermitWrite</span><span class="p">,</span>
+        <span class="s">&#34;MaxC&#34;</span><span class="p">:</span>      <span class="nx">MaxConnections</span><span class="p">,</span>
+        <span class="s">&#34;Conn&#34;</span><span class="p">:</span>      <span class="o">*</span><span class="nx">xterm</span><span class="p">.</span><span class="nx">Connections</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s">&#34;Cmd&#34;</span><span class="p">:</span>       <span class="nx">strings</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">cmds</span><span class="p">,</span> <span class="s">&#34; &#34;</span><span class="p">)</span><span class="p">,</span>
+        <span class="s">&#34;Xsrf&#34;</span><span class="p">:</span>      <span class="nx">newXsrf</span><span class="p">,</span>
+    <span class="p">}</span><span class="p">)</span>
+<span class="p">}</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="gin-router路由策略与静态二进制文件路由策略的结合">gin router路由策略与静态二进制文件路由策略的结合</h2>
+<p>关键代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="c1">// 静态二进制文件
+</span><span class="c1"></span><span class="nx">fs</span> <span class="o">:=</span> <span class="nx">assetfs</span><span class="p">.</span><span class="nx">AssetFS</span><span class="p">{</span>
+    <span class="nx">Asset</span><span class="p">:</span>    <span class="nx">Asset</span><span class="p">,</span>
+    <span class="nx">AssetDir</span><span class="p">:</span> <span class="nx">AssetDir</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="nx">router</span><span class="p">.</span><span class="nf">StaticFS</span><span class="p">(</span><span class="s">&#34;/static&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">fs</span><span class="p">)</span>
+<span class="c1">// 静态文件
+</span><span class="c1"></span><span class="c1">// router.StaticFS(&#34;/static&#34;, http.Dir(&#34;./tty/static&#34;)
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="web安全技术的引进">web安全技术的引进</h2>
+<ul>
+<li>XSRF</li>
+</ul>
+<p>关键技术就是编码和流程解析，如下：</p>
+<pre><code>1. 前端请求页面
+2. 后端生成XsrfToken并写入渲染页面
+3. 前端按照: msgType + XsrfToken + Base64.encode(message)进行信息传递
+4. 后端按照约定好的编码进行解析并验证XsrfToken
+5. 成功则继续 失败退出
+</code></pre>
+<ul>
+<li>BasicAuth http常用用户密码认证</li>
+<li>Audit 登录请求申请功能，用sqlite3进行数据存储和api查询</li>
+</ul>
+<h2 id="golang-携程的实战应用">Golang 携程的实战应用</h2>
+<p>整个后端编程，Golang携程贯穿始终</p>
+<ul>
+<li>http内部携程</li>
+<li>websocket通信Send、Receive、HandlerClient均为携程运行</li>
+<li>channel用于退出信号传递和连接携程管控</li>
+</ul>
+<h2 id="makefile编译工具的深入使用">Makefile编译工具的深入使用</h2>
+<p>编译过程比较复杂，需要生成asset.go硬编码程序，依赖包等预制条件准备，代码编译和代码推送以及代码测试等工作，<code>Makefile</code>不二选择。实际文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-makefile" data-lang="makefile"><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">push</span> <span class="n">pull</span> <span class="n">install</span> <span class="n">run</span> <span class="n">clean</span> <span class="n">asset</span> <span class="n">tty</span> <span class="n">build</span> <span class="n">gopacket</span> <span class="n">bindata</span>
+
+<span class="c"># 默认位置 以后都保持不变
+</span><span class="c"></span><span class="nf">push</span><span class="o">:</span> <span class="n">asset</span> <span class="n">pull</span>
+	git add .
+	git commit -m <span class="s2">&#34;</span><span class="si">${</span><span class="nv">m</span><span class="si">}</span><span class="s2">&#34;</span>
+	git push origin <span class="k">$(</span>shell git branch<span class="p">|</span>grep <span class="s1">&#39;*&#39;</span><span class="p">|</span>awk <span class="s1">&#39;{print $$2}&#39;</span><span class="k">)</span>
+
+<span class="nf">pull</span><span class="o">:</span>
+	git pull origin <span class="k">$(</span>shell git branch<span class="p">|</span>grep <span class="s1">&#39;*&#39;</span><span class="p">|</span>awk <span class="s1">&#39;{print $$2}&#39;</span><span class="k">)</span>
+
+<span class="nf">build</span><span class="o">:</span> <span class="n">Makefile</span> <span class="n">main</span>.<span class="n">go</span> <span class="n">asset</span>
+	go build
+	chmod +x showme 
+	./showme -h
+
+<span class="nf">install</span><span class="o">:</span> <span class="n">Makefile</span> <span class="n">main</span>.<span class="n">go</span> <span class="n">asset</span>
+	go install
+	showme -h
+
+<span class="nf">gopacket</span><span class="o">:</span> <span class="n">Makefile</span> <span class="n">main</span>.<span class="n">go</span> <span class="n">asset</span>
+	go build -tags<span class="o">=</span>gopacket
+	chmod +x showme 
+	./showme -h
+
+<span class="c"># 静态文件转go二进制文件
+</span><span class="c"></span><span class="nf">asset</span><span class="o">:</span> <span class="n">bindata</span>
+	<span class="nb">cd</span> tty/static <span class="o">&amp;&amp;</span> go-bindata -o<span class="o">=</span>../asset.go -pkg<span class="o">=</span>tty ./
+
+<span class="nf">run</span><span class="o">:</span> <span class="n">main</span>.<span class="n">go</span>
+	go run main.go static
+
+<span class="c"># tty功能测试
+</span><span class="c"></span><span class="nf">tty</span><span class="o">:</span> <span class="n">asset</span>
+	go run main.go tty -w -m <span class="m">1</span> -d -a -u admin -p admin bash 
+	<span class="c1"># go run main.go tty -w -m 10 -r -d showme proxy http</span>
+
+<span class="nf">bindata</span><span class="o">:</span>
+	@echo 安装预制环境
+	go get -u github.com/jteeuwen/go-bindata/...
+	go get -u github.com/elazarl/go-bindata-assetfs/...
+
+<span class="nf">clean</span><span class="o">:</span>
+	rm -f 123.mp4
+	rm -f 1.db
+	rm -f tty/asset.go
+	rm -f showme
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://github.com/yudai/gotty">https://github.com/yudai/gotty</a> @release-1.0</li>
+<li><a href="https://github.com/creack/pty">https://github.com/creack/pty</a></li>
+<li><a href="https://mojotv.cn/2019/05/27/xtermjs-go">https://mojotv.cn/2019/05/27/xtermjs-go</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lixueping</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-03-10
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content">MIT</span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/tx.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/ali.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/websocket/">websocket</a>
+          <a href="/tags/xtermjs/">xtermjs</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%B5%84%E6%96%99/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">操作系统资料汇总</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/video/nodetube/">
+            <span class="next-text nav-default">NodeTube 离线视频网站</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="lflxp/lflxp.github.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:382023823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/lflxp" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.lflxp.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">lflxp.cn 版权所有 ICP证：<a href='http://www.beian.miit.gov.cn' target='_blank'>渝ICP备17011066号-1</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script><script></script><script src="https://cdn.jsdelivr.net/npm/raphael@2.2.7/raphael.min.js" integrity="sha256-67By+NpOtm9ka1R6xpUefeGOY8kWWHHRAKlvaTJ7ONI=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/flowchart.js@1.8.0/release/flowchart.min.js" integrity="sha256-zNGWjubXoY6rb5MnmpBNefO0RgoVYfle9p0tvOQM+6k=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '渝ICP备17011066号-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

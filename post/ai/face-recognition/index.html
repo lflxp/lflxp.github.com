@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.66.0 with theme even" />
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
 
 
 <link rel="canonical" href="https://www.lflxp.cn/post/ai/face-recognition/" />
@@ -158,7 +158,7 @@
         <li></li>
       </ul>
     </li>
-    <li><a href="#关于-face_recognition的文章和教程">关于 <code>face_recognition</code>的文章和教程</a></li>
+    <li><a href="#关于-face_recognition的文章和教程">关于 face_recognition的文章和教程</a></li>
     <li><a href="#人脸识别的原理">人脸识别的原理</a></li>
     <li><a href="#警告说明">警告说明</a></li>
     <li><a href="#把本项目部署在云服务器上-heroku-aws等">把本项目部署在云服务器上 (Heroku, AWS等)</a></li>
@@ -184,7 +184,7 @@
 <p>为了便于中国开发者研究学习人脸识别、贡献代码，我将本项目README文件翻译成中文。</p>
 <p>向本项目的所有贡献者致敬。</p>
 <p>英译汉：同济大学开源软件协会 <a href="https://github.com/TommyZihao">子豪兄Tommy</a></p>
-<p>Translator&rsquo;s note:</p>
+<p>Translator's note:</p>
 <p><a href="https://github.com/ageitgey/face_recognition">face_recognition</a> is a powerful, simple and easy-to-use face recognition open source project with complete development documents and application cases, especially it is compatible with Raspberry Pi.</p>
 <p>In order to facilitate Chinese software developers to learn, make progress in face recognition development and source code contributions, I translated README file into simplified Chinese.</p>
 <p>Salute to all contributors to this project.</p>
@@ -211,7 +211,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">face_recognition</span>
-<span class="n">image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="s2">&#34;your_file.jpg&#34;</span><span class="p">)</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">your_file.jpg</span><span class="s2">&#34;</span><span class="p">)</span>
 <span class="n">face_locations</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_locations</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
@@ -226,7 +226,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">face_recognition</span>
-<span class="n">image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="s2">&#34;your_file.jpg&#34;</span><span class="p">)</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">your_file.jpg</span><span class="s2">&#34;</span><span class="p">)</span>
 <span class="n">face_landmarks_list</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_landmarks</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
@@ -247,13 +247,13 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">face_recognition</span>
-<span class="n">known_image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="s2">&#34;biden.jpg&#34;</span><span class="p">)</span>
-<span class="n">unknown_image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="s2">&#34;unknown.jpg&#34;</span><span class="p">)</span>
+<span class="n">known_image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">biden.jpg</span><span class="s2">&#34;</span><span class="p">)</span>
+<span class="n">unknown_image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">unknown.jpg</span><span class="s2">&#34;</span><span class="p">)</span>
 
-<span class="n">biden_encoding</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">known_image</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">unknown_encoding</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">unknown_image</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">biden_encoding</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">known_image</span><span class="p">)</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">unknown_encoding</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">unknown_image</span><span class="p">)</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-<span class="n">results</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">compare_faces</span><span class="p">([</span><span class="n">biden_encoding</span><span class="p">],</span> <span class="n">unknown_encoding</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">compare_faces</span><span class="p">(</span><span class="p">[</span><span class="n">biden_encoding</span><span class="p">]</span><span class="p">,</span> <span class="n">unknown_encoding</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>你也可以配合其它的Python库（比如opencv）实现实时人脸检测：</p>
@@ -432,7 +432,7 @@ unknown_person
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">face_recognition</span>
 
-<span class="n">image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="s2">&#34;my_picture.jpg&#34;</span><span class="p">)</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">my_picture.jpg</span><span class="s2">&#34;</span><span class="p">)</span>
 <span class="n">face_locations</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_locations</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 
 <span class="c1"># face_locations is now an array listing the co-ordinates of each face!</span>
@@ -454,8 +454,8 @@ unknown_person
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">face_recognition</span>
 
-<span class="n">image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="s2">&#34;my_picture.jpg&#34;</span><span class="p">)</span>
-<span class="n">face_locations</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_locations</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&#34;cnn&#34;</span><span class="p">)</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">my_picture.jpg</span><span class="s2">&#34;</span><span class="p">)</span>
+<span class="n">face_locations</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_locations</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">cnn</span><span class="s2">&#34;</span><span class="p">)</span>
 
 <span class="c1"># face_locations is now an array listing the co-ordinates of each face!</span>
 </code></pre></td></tr></table>
@@ -476,7 +476,7 @@ unknown_person
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">face_recognition</span>
 
-<span class="n">image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="s2">&#34;my_picture.jpg&#34;</span><span class="p">)</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">my_picture.jpg</span><span class="s2">&#34;</span><span class="p">)</span>
 <span class="n">face_landmarks_list</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_landmarks</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 
 <span class="c1"># face_landmarks_list is now an array with the locations of each facial feature in each face.</span>
@@ -510,22 +510,22 @@ unknown_person
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">face_recognition</span>
 
-<span class="n">picture_of_me</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="s2">&#34;me.jpg&#34;</span><span class="p">)</span>
-<span class="n">my_face_encoding</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">picture_of_me</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">picture_of_me</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">me.jpg</span><span class="s2">&#34;</span><span class="p">)</span>
+<span class="n">my_face_encoding</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">picture_of_me</span><span class="p">)</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="c1"># my_face_encoding now contains a universal &#39;encoding&#39; of my facial features that can be compared to any other picture of a face!</span>
 
-<span class="n">unknown_picture</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="s2">&#34;unknown.jpg&#34;</span><span class="p">)</span>
-<span class="n">unknown_face_encoding</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">unknown_picture</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">unknown_picture</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">unknown.jpg</span><span class="s2">&#34;</span><span class="p">)</span>
+<span class="n">unknown_face_encoding</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">unknown_picture</span><span class="p">)</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="c1"># Now we can see the two face encodings are of the same person with `compare_faces`!</span>
 
-<span class="n">results</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">compare_faces</span><span class="p">([</span><span class="n">my_face_encoding</span><span class="p">],</span> <span class="n">unknown_face_encoding</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">compare_faces</span><span class="p">(</span><span class="p">[</span><span class="n">my_face_encoding</span><span class="p">]</span><span class="p">,</span> <span class="n">unknown_face_encoding</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&#34;It&#39;s a picture of me!&#34;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">It</span><span class="s2">&#39;</span><span class="s2">s a picture of me!</span><span class="s2">&#34;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&#34;It&#39;s not a picture of me!&#34;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">It</span><span class="s2">&#39;</span><span class="s2">s not a picture of me!</span><span class="s2">&#34;</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>看这个案例 <a href="https://github.com/ageitgey/face_recognition/blob/master/examples/recognize_faces_in_pictures.py">案例：是奥巴马还是拜登？</a></p>
