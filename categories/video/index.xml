@@ -7,6 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
+    <lastBuildDate>Tue, 10 Mar 2020 13:11:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/categories/video/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +15,7 @@
     <item>
       <title>NodeTube 离线视频网站</title>
       <link>https://www.lflxp.cn/post/video/nodetube/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 10 Mar 2020 13:11:22 +0800</pubDate>
       
       <guid>https://www.lflxp.cn/post/video/nodetube/</guid>
       <description>NodeTube NodeTube is an open-source YouTube alt that offers video, audio and image uploads, livestreaming and built-in monetization github Required Software Node.js 8.0+ MongoDB Redis ffmpeg 安装 redis docker run -d &amp;ndash;name redis -p 6379:6379 redis mongoDB docker run -d &amp;ndash;name mongo -p 27017:27017 mongo:3.6 nodetube 1 2 3 4 5 6 7 8 9 10 11 12 13 14 # Get the latest version of NodeTube git clone</description>

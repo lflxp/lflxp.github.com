@@ -10,7 +10,49 @@
   
   <url>
     <loc>https://www.lflxp.cn/categories/</loc>
-    <lastmod>2020-03-09T10:59:49+08:00</lastmod>
+    <lastmod>2020-03-10T15:29:15+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/tags/nodetube/</loc>
+    <lastmod>2020-03-10T15:29:15+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/video/nodetube/</loc>
+    <lastmod>2020-03-10T15:29:15+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/</loc>
+    <lastmod>2020-03-10T15:29:15+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/tags/</loc>
+    <lastmod>2020-03-10T15:29:15+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/categories/video/</loc>
+    <lastmod>2020-03-10T15:29:15+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/</loc>
+    <lastmod>2020-03-10T15:29:15+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31,27 +73,6 @@
   
   <url>
     <loc>https://www.lflxp.cn/tags/makefile/</loc>
-    <lastmod>2020-03-09T10:59:49+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/</loc>
-    <lastmod>2020-03-09T10:59:49+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/tags/</loc>
-    <lastmod>2020-03-09T10:59:49+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/</loc>
     <lastmod>2020-03-09T10:59:49+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -1173,24 +1194,6 @@
   <url>
     <loc>https://www.lflxp.cn/tags/tag-5/</loc>
     <lastmod>2020-01-13T15:32:12+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/tags/nodetube/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/video/nodetube/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/categories/video/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
