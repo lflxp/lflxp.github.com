@@ -7,19 +7,10 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 10 Mar 2020 20:11:22 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 08 Mar 2020 00:11:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/categories/golang/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>golang gin&#43;websocket&#43;xterm.js基础教学实战四</title>
-      <link>https://www.lflxp.cn/post/golang/websocket%E5%AE%9E%E6%88%98%E5%9B%9B/</link>
-      <pubDate>Tue, 10 Mar 2020 20:11:22 +0800</pubDate>
-      
-      <guid>https://www.lflxp.cn/post/golang/websocket%E5%AE%9E%E6%88%98%E5%9B%9B/</guid>
-      <description>本篇教程完成了基于单二进制文件启动的web terminial应用程序，无任何第三方依赖，随用随启动。 本教程是前三篇基础教程的实战编程，结合了</description>
-    </item>
     
     <item>
       <title>golang gin&#43;websocket&#43;xterm.js基础教学实战三</title>
