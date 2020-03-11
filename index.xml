@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 11 Mar 2020 11:11:22 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 11 Mar 2020 12:11:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/index.xml" rel="self" type="application/rss+xml" />
     
@@ -19,6 +19,15 @@
       
       <guid>https://www.lflxp.cn/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%B5%84%E6%96%99/</guid>
       <description>入门教程 如何从零开始写一个简单的操作系统 30天自制操作系统 Stop &amp;amp; 「OS67 」 Start 自制一个小型的linux操作系统 经典教程 Xv6, a simple Unix-like teaching operating system 中文版的 MIT</description>
+    </item>
+    
+    <item>
+      <title>GuiLite 一个跨平台跨终端的图形渲染工具</title>
+      <link>https://www.lflxp.cn/post/os/gui/guilite%E5%8F%AF%E8%A7%86%E5%8C%96/</link>
+      <pubDate>Wed, 11 Mar 2020 12:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/os/gui/guilite%E5%8F%AF%E8%A7%86%E5%8C%96/</guid>
+      <description>一个5G时代智能便携终端的可视化方案 项目地址 轻-快-灵 ✂️轻量: 5千行C++代码，单一头文件库：GuiLite.h ⚡超快: 一次调用就可以完成</description>
     </item>
     
     <item>
