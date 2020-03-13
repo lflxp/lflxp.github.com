@@ -21,5 +21,14 @@
       <description>最近突发奇想，需要数据支持，现学现卖，留作防止以后忘记记录关键知识点。后续会进行详细的实战分享。 爬虫框架选择 https://github.com/gocolly/colly 10K https://github.com/lorien/grab 1.1k https://github.com/scrapy/scrapy 36k https://github.com/yujiosaka/headless-chrome-crawler 4.5k https://github.com/miyakogi/pyppeteer 3k 其中coll</description>
     </item>
     
+    <item>
+      <title>爬虫 从入门到实战二</title>
+      <link>https://www.lflxp.cn/post/python/%E7%88%AC%E8%99%AB2/</link>
+      <pubDate>Fri, 13 Mar 2020 11:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/python/%E7%88%AC%E8%99%AB2/</guid>
+      <description>Scrapy 基础教学 部署项目 scrapy startproject scrapyStudy 运行 scrapy crawl demo1 scrapy 命令 scrapy startproject &amp;lt;project_name&amp;gt; [project_dir] scrapy check -l scrapy list scrapy genspider example example.com scrapy fetch &amp;ndash;headers https://www.lflxp.cn/ scrapy shell &amp;lsquo;http://quotes.toscrape.com/page/1/&#39; scrapy crawl quotes -o quotes.json scrapy crawl quotes -o quotes-humor.json -a tag=humor scrapy crawl hao -o hao.json -s FEED_EXPORT_ENCODING=utf-8 # 编码问题 scrapy crawl jianshu -o jianshu.json -s</description>
+    </item>
+    
   </channel>
 </rss>
