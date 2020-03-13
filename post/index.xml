@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 11 Mar 2020 12:11:22 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 13 Mar 2020 11:11:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/post/index.xml" rel="self" type="application/rss+xml" />
     
@@ -19,6 +19,15 @@
       
       <guid>https://www.lflxp.cn/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%B5%84%E6%96%99/</guid>
       <description>入门教程 如何从零开始写一个简单的操作系统 30天自制操作系统 Stop &amp;amp; 「OS67 」 Start 自制一个小型的linux操作系统 经典教程 Xv6, a simple Unix-like teaching operating system 中文版的 MIT</description>
+    </item>
+    
+    <item>
+      <title>爬虫 scrapy colly pyppeteer从入门到实战一</title>
+      <link>https://www.lflxp.cn/post/python/%E7%88%AC%E8%99%AB/</link>
+      <pubDate>Fri, 13 Mar 2020 11:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/python/%E7%88%AC%E8%99%AB/</guid>
+      <description>最近突发奇想，需要数据支持，现学现卖，留作防止以后忘记记录关键知识点。后续会进行详细的实战分享。 爬虫框架选择 https://github.com/gocolly/colly 10K https://github.com/lorien/grab 1.1k https://github.com/scrapy/scrapy 36k https://github.com/yujiosaka/headless-chrome-crawler 4.5k https://github.com/miyakogi/pyppeteer 3k 其中coll</description>
     </item>
     
     <item>
