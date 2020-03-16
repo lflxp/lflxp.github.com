@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.66.0 with theme even" />
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
 
 
 <link rel="canonical" href="https://www.lflxp.cn/post/python/djaong2login/" />
@@ -48,7 +48,7 @@
 <meta itemprop="description" content="之前的登陆什么的都是自己利用数据库查询，form组件，cookie及session保存状态实现的，比较花费时间，而Django自带的登录认证">
 <meta itemprop="datePublished" content="2020-01-17T13:57:22&#43;08:00" />
 <meta itemprop="dateModified" content="2020-01-17T16:57:33&#43;08:00" />
-<meta itemprop="wordCount" content="1515">
+<meta itemprop="wordCount" content="1513">
 
 
 
@@ -69,7 +69,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">静心</a>
+    <a href="/" class="logo">平凡的英雄</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -95,7 +95,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">静心</a>
+  <a href="/" class="logo">平凡的英雄</a>
 </div>
 
 <nav class="site-navbar">
@@ -202,8 +202,8 @@ dat_joined: 加入日期。系统自动生成。
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
-<span class="s1">&#39;&#39;&#39;因为要用到它，所以要先导入&#39;&#39;&#39;</span>
-<span class="k">class</span> <span class="nc">UserInfo</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="sa"></span><span class="s1">&#39;&#39;&#39;</span><span class="s1">因为要用到它，所以要先导入</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="k">class</span> <span class="nc">UserInfo</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">)</span><span class="p">:</span>
     <span class="n">user</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">User</span><span class="p">,</span><span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>   
     <span class="c1">#和自带的User表一对一关联</span>
     <span class="n">role</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>  <span class="c1">#可以加扩展信息字段，比如年龄，性别，角色</span>
@@ -279,33 +279,33 @@ dat_joined: 加入日期。系统自动生成。
 <span class="c1">#</span>
 
 <span class="nd">@login_required</span>  <span class="c1">#没有登录直接访问的话，会根据settings.py中的LOGIN_URL=&#34;/login&#34;跳转（有一个默认的）</span>
-<span class="k">def</span> <span class="nf">crm</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s2">&#34;userinfo.html&#34;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">acc_login</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="n">error_msg</span><span class="o">=</span><span class="s1">&#39; &#39;</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="o">==</span><span class="s2">&#34;GET&#34;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&#34;login.html&#34;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="o">==</span><span class="s2">&#34;POST&#34;</span><span class="p">:</span>
-        <span class="n">username</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;username&#34;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">crm</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">userinfo.html</span><span class="s2">&#34;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">acc_login</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="p">:</span>
+    <span class="n">error_msg</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1"> </span><span class="s1">&#39;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="o">==</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">GET</span><span class="s2">&#34;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">login.html</span><span class="s2">&#34;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="o">==</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">POST</span><span class="s2">&#34;</span><span class="p">:</span>
+        <span class="n">username</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">username</span><span class="s2">&#34;</span><span class="p">)</span>
         <span class="k">print</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
-        <span class="n">password</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;password&#34;</span><span class="p">)</span>
+        <span class="n">password</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">password</span><span class="s2">&#34;</span><span class="p">)</span>
         <span class="k">print</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
         <span class="n">user</span><span class="o">=</span><span class="n">authenticate</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">)</span>  <span class="c1">#只是验证功能，还没有登录</span>
         <span class="k">if</span> <span class="n">user</span><span class="p">:</span>
             <span class="k">print</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>        <span class="c1">#username</span>
-            <span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">user</span><span class="p">))</span>  <span class="c1">#&lt;class &#39;django.contrib.auth.models.User&#39;&gt;</span>
+            <span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">user</span><span class="p">)</span><span class="p">)</span>  <span class="c1">#&lt;class &#39;django.contrib.auth.models.User&#39;&gt;</span>
             <span class="n">login</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">user</span><span class="p">)</span>   <span class="c1">#验证通过，登录</span>
             <span class="c1">#内部有request.user=user     可以用模板{{request.user}}</span>
-            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;next&#34;</span><span class="p">,</span><span class="s1">&#39;/crm&#39;</span><span class="p">))</span>    <span class="c1">#http://127.0.0.1:8080/login?next=/crm</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">next</span><span class="s2">&#34;</span><span class="p">,</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">/crm</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">)</span>    <span class="c1">#http://127.0.0.1:8080/login?next=/crm</span>
             <span class="c1">#登录成功默认跳转用户信息页面，如果是其他页面来的，登录后跳转到其他页面</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">print</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>        <span class="c1">#None</span>
-            <span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">user</span><span class="p">))</span>  <span class="c1">#&lt;class &#39;NoneType&#39;&gt;</span>
-            <span class="n">error_msg</span><span class="o">=</span><span class="s2">&#34;用户名或密码错误&#34;</span>
-        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&#34;login.html&#34;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&#34;error_msg&#34;</span><span class="p">:</span><span class="n">error_msg</span><span class="p">})</span>
-<span class="k">def</span> <span class="nf">acc_logout</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">user</span><span class="p">)</span><span class="p">)</span>  <span class="c1">#&lt;class &#39;NoneType&#39;&gt;</span>
+            <span class="n">error_msg</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">用户名或密码错误</span><span class="s2">&#34;</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">login.html</span><span class="s2">&#34;</span><span class="p">,</span> <span class="p">{</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">error_msg</span><span class="s2">&#34;</span><span class="p">:</span><span class="n">error_msg</span><span class="p">}</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">acc_logout</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="p">:</span>
     <span class="n">logout</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;/login&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">/login</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="html部分">HTML部分</h2>
@@ -318,10 +318,10 @@ dat_joined: 加入日期。系统自动生成。
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span>{{ request.user }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{% url &#39;logout&#39; %}&#34;</span><span class="p">&gt;</span>退出<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">body</span><span class="p"></span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p"></span><span class="p">&gt;</span>{{ request.user }}<span class="p">&lt;</span><span class="p">/</span><span class="nt">a</span><span class="p">&gt;</span><span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{% url &#39;logout&#39; %}&#34;</span><span class="p"></span><span class="p">&gt;</span>退出<span class="p">&lt;</span><span class="p">/</span><span class="nt">a</span><span class="p">&gt;</span><span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">body</span><span class="p">&gt;</span>
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="loginhtml">login.html</h3>
@@ -352,29 +352,29 @@ dat_joined: 加入日期。系统自动生成。
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
- <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;container&#34;</span><span class="p">&gt;</span>
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">body</span><span class="p"></span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;container&#34;</span><span class="p"></span><span class="p">&gt;</span>
 
-      <span class="p">&lt;</span><span class="nt">form</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-signin&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span> <span class="na">novalidate</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">form</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-signin&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span> <span class="na">novalidate</span><span class="p"></span><span class="p">&gt;</span>
           {% csrf_token %}
-        <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-signin-heading&#34;</span><span class="p">&gt;</span>请登录<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-signin-heading&#34;</span><span class="p"></span><span class="p">&gt;</span>请登录<span class="p">&lt;</span><span class="p">/</span><span class="nt">h2</span><span class="p">&gt;</span>
 
-        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;inputEmail&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-control&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;username&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;username&#34;</span> <span class="na">required</span> <span class="na">autofocus</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;inputEmail&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-control&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;username&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;username&#34;</span> <span class="na">required</span> <span class="na">autofocus</span><span class="p"></span><span class="p">&gt;</span>
 
-        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;inputPassword&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-control&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Password&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;password&#34;</span> <span class="na">required</span><span class="p">&gt;</span>
-          <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">STYLE</span><span class="o">=</span><span class="s">&#34;color: red&#34;</span><span class="p">&gt;</span>{{ error_msg }}<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span><span class="p">&gt;</span>
-          <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;remember-me&#34;</span><span class="p">&gt;</span> Remember me
-          <span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;inputPassword&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-control&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Password&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;password&#34;</span> <span class="na">required</span><span class="p"></span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span><span class="p">&lt;</span><span class="nt">span</span> <span class="na">STYLE</span><span class="o">=</span><span class="s">&#34;color: red&#34;</span><span class="p"></span><span class="p">&gt;</span>{{ error_msg }}<span class="p">&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span><span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span><span class="p"></span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">label</span><span class="p"></span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;remember-me&#34;</span><span class="p"></span><span class="p">&gt;</span> Remember me
+          <span class="p">&lt;</span><span class="p">/</span><span class="nt">label</span><span class="p">&gt;</span>
 
-        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;btn btn-lg btn-primary btn-block&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span><span class="p">&gt;</span>登录<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-      <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;btn btn-lg btn-primary btn-block&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span><span class="p"></span><span class="p">&gt;</span>登录<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="p">/</span><span class="nt">form</span><span class="p">&gt;</span>
 
-    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> <span class="c">&lt;!-- /container --&gt;</span>
+    <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span> <span class="c">&lt;!--</span><span class="c"> /container </span><span class="c">--&gt;</span>
 
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">body</span><span class="p">&gt;</span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="总结">总结</h2>

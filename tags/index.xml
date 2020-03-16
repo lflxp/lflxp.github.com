@@ -7,73 +7,10 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 16 Mar 2020 11:08:22 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 10 Mar 2020 20:11:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/tags/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>k8s</title>
-      <link>https://www.lflxp.cn/tags/k8s/</link>
-      <pubDate>Mon, 16 Mar 2020 11:08:22 +0800</pubDate>
-      
-      <guid>https://www.lflxp.cn/tags/k8s/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>yaml</title>
-      <link>https://www.lflxp.cn/tags/yaml/</link>
-      <pubDate>Mon, 16 Mar 2020 11:08:22 +0800</pubDate>
-      
-      <guid>https://www.lflxp.cn/tags/yaml/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>colly</title>
-      <link>https://www.lflxp.cn/tags/colly/</link>
-      <pubDate>Fri, 13 Mar 2020 11:11:22 +0800</pubDate>
-      
-      <guid>https://www.lflxp.cn/tags/colly/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>pyppeteer</title>
-      <link>https://www.lflxp.cn/tags/pyppeteer/</link>
-      <pubDate>Fri, 13 Mar 2020 11:11:22 +0800</pubDate>
-      
-      <guid>https://www.lflxp.cn/tags/pyppeteer/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>scrapy</title>
-      <link>https://www.lflxp.cn/tags/scrapy/</link>
-      <pubDate>Fri, 13 Mar 2020 11:11:22 +0800</pubDate>
-      
-      <guid>https://www.lflxp.cn/tags/scrapy/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>guilite</title>
-      <link>https://www.lflxp.cn/tags/guilite/</link>
-      <pubDate>Wed, 11 Mar 2020 12:11:22 +0800</pubDate>
-      
-      <guid>https://www.lflxp.cn/tags/guilite/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>wrk</title>
-      <link>https://www.lflxp.cn/tags/wrk/</link>
-      <pubDate>Wed, 11 Mar 2020 11:11:22 +0800</pubDate>
-      
-      <guid>https://www.lflxp.cn/tags/wrk/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>websocket</title>
@@ -319,6 +256,15 @@
     </item>
     
     <item>
+      <title>k8s</title>
+      <link>https://www.lflxp.cn/tags/k8s/</link>
+      <pubDate>Fri, 17 Jan 2020 16:23:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/tags/k8s/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>rancher</title>
       <link>https://www.lflxp.cn/tags/rancher/</link>
       <pubDate>Fri, 17 Jan 2020 16:23:22 +0800</pubDate>
@@ -504,6 +450,15 @@
       <pubDate>Wed, 15 Jan 2020 11:08:22 +0800</pubDate>
       
       <guid>https://www.lflxp.cn/tags/pod/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>yaml</title>
+      <link>https://www.lflxp.cn/tags/yaml/</link>
+      <pubDate>Wed, 15 Jan 2020 11:08:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/tags/yaml/</guid>
       <description></description>
     </item>
     

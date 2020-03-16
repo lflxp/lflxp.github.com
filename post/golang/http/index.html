@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.66.0 with theme even" />
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
 
 
 <link rel="canonical" href="https://www.lflxp.cn/post/golang/http/" />
@@ -69,7 +69,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">静心</a>
+    <a href="/" class="logo">平凡的英雄</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -95,7 +95,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">静心</a>
+  <a href="/" class="logo">平凡的英雄</a>
 </div>
 
 <nav class="site-navbar">
@@ -200,15 +200,15 @@
     <span class="s">&#34;net/http&#34;</span>
 <span class="p">)</span>
 
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="s">&#34;http://httpbin.org/get&#34;</span><span class="p">)</span>
     <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
         <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
         <span class="k">return</span>
     <span class="p">}</span>
-    <span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+    <span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
     <span class="nx">body</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">))</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span><span class="p">)</span>
     <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span><span class="p">)</span>
     <span class="k">if</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span> <span class="o">==</span> <span class="mi">200</span> <span class="p">{</span>
         <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;ok&#34;</span><span class="p">)</span>
@@ -248,15 +248,15 @@
     <span class="s">&#34;net/http&#34;</span>
 <span class="p">)</span>
 
-<span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="p">{</span>
     <span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="s">&#34;http://httpbin.org/get?name=zhaofan&amp;age=23&#34;</span><span class="p">)</span>
     <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
         <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
         <span class="k">return</span>
     <span class="p">}</span>
-    <span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+    <span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
     <span class="nx">body</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">))</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span><span class="p">)</span>
 
 <span class="p">}</span>
 </code></pre></td></tr></table>
@@ -301,8 +301,8 @@
     <span class="s">&#34;net/url&#34;</span>
 <span class="p">)</span>
 
-<span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
-    <span class="nx">params</span> <span class="o">:=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">{}</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="p">{</span>
+    <span class="nx">params</span> <span class="o">:=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">{</span><span class="p">}</span>
     <span class="nx">Url</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">url</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="s">&#34;http://httpbin.org/get&#34;</span><span class="p">)</span>
     <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
         <span class="k">return</span>
@@ -310,13 +310,13 @@
     <span class="nx">params</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">,</span><span class="s">&#34;zhaofan&#34;</span><span class="p">)</span>
     <span class="nx">params</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;age&#34;</span><span class="p">,</span><span class="s">&#34;23&#34;</span><span class="p">)</span>
     <span class="c1">//如果参数中有中文参数,这个方法会进行URLEncode
-</span><span class="c1"></span>    <span class="nx">Url</span><span class="p">.</span><span class="nx">RawQuery</span> <span class="p">=</span> <span class="nx">params</span><span class="p">.</span><span class="nf">Encode</span><span class="p">()</span>
-    <span class="nx">urlPath</span> <span class="o">:=</span> <span class="nx">Url</span><span class="p">.</span><span class="nf">String</span><span class="p">()</span>
+</span><span class="c1"></span>    <span class="nx">Url</span><span class="p">.</span><span class="nx">RawQuery</span> <span class="p">=</span> <span class="nx">params</span><span class="p">.</span><span class="nf">Encode</span><span class="p">(</span><span class="p">)</span>
+    <span class="nx">urlPath</span> <span class="o">:=</span> <span class="nx">Url</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="p">)</span>
     <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">urlPath</span><span class="p">)</span> <span class="c1">// https://httpbin.org/get?age=23&amp;name=zhaofan
 </span><span class="c1"></span>    <span class="nx">resp</span><span class="p">,</span><span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="nx">urlPath</span><span class="p">)</span>
-    <span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+    <span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
     <span class="nx">body</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">))</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -363,20 +363,20 @@
 <span class="p">)</span>
 
 <span class="kd">type</span> <span class="nx">result</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">Args</span> <span class="kt">string</span> <span class="s">`json:&#34;args&#34;`</span>
-    <span class="nx">Headers</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span> <span class="s">`json:&#34;headers&#34;`</span>
-    <span class="nx">Origin</span> <span class="kt">string</span> <span class="s">`json:&#34;origin&#34;`</span>
-    <span class="nx">Url</span> <span class="kt">string</span> <span class="s">`json:&#34;url&#34;`</span>
+    <span class="nx">Args</span> <span class="kt">string</span> <span class="s">`</span><span class="s">json:&#34;args&#34;</span><span class="s">`</span>
+    <span class="nx">Headers</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span> <span class="s">`</span><span class="s">json:&#34;headers&#34;</span><span class="s">`</span>
+    <span class="nx">Origin</span> <span class="kt">string</span> <span class="s">`</span><span class="s">json:&#34;origin&#34;</span><span class="s">`</span>
+    <span class="nx">Url</span> <span class="kt">string</span> <span class="s">`</span><span class="s">json:&#34;url&#34;</span><span class="s">`</span>
 <span class="p">}</span>
 
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="s">&#34;http://httpbin.org/get&#34;</span><span class="p">)</span>
     <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
         <span class="k">return</span>
     <span class="p">}</span>
-    <span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+    <span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
     <span class="nx">body</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">))</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span><span class="p">)</span>
     <span class="kd">var</span> <span class="nx">res</span> <span class="nx">result</span>
     <span class="nx">_</span> <span class="p">=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span><span class="o">&amp;</span><span class="nx">res</span><span class="p">)</span>
     <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%#v&#34;</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
@@ -413,14 +413,14 @@
     <span class="s">&#34;net/http&#34;</span>
 <span class="p">)</span>
 
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{}</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{</span><span class="p">}</span>
     <span class="nx">req</span><span class="p">,</span><span class="nx">_</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewRequest</span><span class="p">(</span><span class="s">&#34;GET&#34;</span><span class="p">,</span><span class="s">&#34;http://httpbin.org/get&#34;</span><span class="p">,</span><span class="kc">nil</span><span class="p">)</span>
     <span class="nx">req</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">,</span><span class="s">&#34;zhaofan&#34;</span><span class="p">)</span>
     <span class="nx">req</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="s">&#34;age&#34;</span><span class="p">,</span><span class="s">&#34;3&#34;</span><span class="p">)</span>
     <span class="nx">resp</span><span class="p">,</span><span class="nx">_</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span>
     <span class="nx">body</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">))</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -442,14 +442,14 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-golang" data-lang="golang"><span class="p">{</span>
-  <span class="s">&#34;args&#34;</span><span class="p">:</span> <span class="p">{},</span> 
+  <span class="s">&#34;args&#34;</span><span class="p">:</span> <span class="p">{</span><span class="p">}</span><span class="p">,</span> 
   <span class="s">&#34;headers&#34;</span><span class="p">:</span> <span class="p">{</span>
     <span class="s">&#34;Accept-Encoding&#34;</span><span class="p">:</span> <span class="s">&#34;gzip&#34;</span><span class="p">,</span> 
     <span class="s">&#34;Age&#34;</span><span class="p">:</span> <span class="s">&#34;3&#34;</span><span class="p">,</span> 
     <span class="s">&#34;Host&#34;</span><span class="p">:</span> <span class="s">&#34;httpbin.org&#34;</span><span class="p">,</span> 
     <span class="s">&#34;Name&#34;</span><span class="p">:</span> <span class="s">&#34;zhaofan&#34;</span><span class="p">,</span> 
     <span class="s">&#34;User-Agent&#34;</span><span class="p">:</span> <span class="s">&#34;Go-http-client/1.1&#34;</span>
-  <span class="p">},</span> 
+  <span class="p">}</span><span class="p">,</span> 
   <span class="s">&#34;origin&#34;</span><span class="p">:</span> <span class="s">&#34;211.138.20.170, 211.138.20.170&#34;</span><span class="p">,</span> 
   <span class="s">&#34;url&#34;</span><span class="p">:</span> <span class="s">&#34;https://httpbin.org/get&#34;</span>
 <span class="p">}</span>
@@ -487,13 +487,13 @@
     <span class="s">&#34;net/url&#34;</span>
 <span class="p">)</span>
 
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">urlValues</span> <span class="o">:=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">{}</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">urlValues</span> <span class="o">:=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">{</span><span class="p">}</span>
     <span class="nx">urlValues</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">,</span><span class="s">&#34;zhaofan&#34;</span><span class="p">)</span>
     <span class="nx">urlValues</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="s">&#34;age&#34;</span><span class="p">,</span><span class="s">&#34;22&#34;</span><span class="p">)</span>
     <span class="nx">resp</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">PostForm</span><span class="p">(</span><span class="s">&#34;http://httpbin.org/post&#34;</span><span class="p">,</span><span class="nx">urlValues</span><span class="p">)</span>
     <span class="nx">body</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">))</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -577,15 +577,15 @@
     <span class="s">&#34;strings&#34;</span>
 <span class="p">)</span>
 
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">urlValues</span> <span class="o">:=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">{</span>
-        <span class="s">&#34;name&#34;</span><span class="p">:{</span><span class="s">&#34;zhaofan&#34;</span><span class="p">},</span>
-        <span class="s">&#34;age&#34;</span><span class="p">:{</span><span class="s">&#34;23&#34;</span><span class="p">},</span>
+        <span class="s">&#34;name&#34;</span><span class="p">:</span><span class="p">{</span><span class="s">&#34;zhaofan&#34;</span><span class="p">}</span><span class="p">,</span>
+        <span class="s">&#34;age&#34;</span><span class="p">:</span><span class="p">{</span><span class="s">&#34;23&#34;</span><span class="p">}</span><span class="p">,</span>
     <span class="p">}</span>
-    <span class="nx">reqBody</span><span class="o">:=</span> <span class="nx">urlValues</span><span class="p">.</span><span class="nf">Encode</span><span class="p">()</span>
-    <span class="nx">resp</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">Post</span><span class="p">(</span><span class="s">&#34;http://httpbin.org/post&#34;</span><span class="p">,</span> <span class="s">&#34;text/html&#34;</span><span class="p">,</span><span class="nx">strings</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">reqBody</span><span class="p">))</span>
+    <span class="nx">reqBody</span><span class="o">:=</span> <span class="nx">urlValues</span><span class="p">.</span><span class="nf">Encode</span><span class="p">(</span><span class="p">)</span>
+    <span class="nx">resp</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">Post</span><span class="p">(</span><span class="s">&#34;http://httpbin.org/post&#34;</span><span class="p">,</span> <span class="s">&#34;text/html&#34;</span><span class="p">,</span><span class="nx">strings</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">reqBody</span><span class="p">)</span><span class="p">)</span>
     <span class="nx">body</span><span class="p">,</span><span class="nx">_</span><span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">))</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -665,16 +665,16 @@
     <span class="s">&#34;net/http&#34;</span>
 <span class="p">)</span>
 
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{}</span>
-    <span class="nx">data</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{})</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{</span><span class="p">}</span>
+    <span class="nx">data</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{</span><span class="p">}</span><span class="p">)</span>
     <span class="nx">data</span><span class="p">[</span><span class="s">&#34;name&#34;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&#34;zhaofan&#34;</span>
     <span class="nx">data</span><span class="p">[</span><span class="s">&#34;age&#34;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&#34;23&#34;</span>
     <span class="nx">bytesData</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
-    <span class="nx">req</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewRequest</span><span class="p">(</span><span class="s">&#34;POST&#34;</span><span class="p">,</span><span class="s">&#34;http://httpbin.org/post&#34;</span><span class="p">,</span><span class="nx">bytes</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">bytesData</span><span class="p">))</span>
+    <span class="nx">req</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewRequest</span><span class="p">(</span><span class="s">&#34;POST&#34;</span><span class="p">,</span><span class="s">&#34;http://httpbin.org/post&#34;</span><span class="p">,</span><span class="nx">bytes</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">bytesData</span><span class="p">)</span><span class="p">)</span>
     <span class="nx">resp</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span>
     <span class="nx">body</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">))</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span><span class="p">)</span>
 
 <span class="p">}</span>
 </code></pre></td></tr></table>
@@ -713,14 +713,14 @@
     <span class="s">&#34;net/http&#34;</span>
 <span class="p">)</span>
 
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">data</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{})</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">data</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{</span><span class="p">}</span><span class="p">)</span>
     <span class="nx">data</span><span class="p">[</span><span class="s">&#34;name&#34;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&#34;zhaofan&#34;</span>
     <span class="nx">data</span><span class="p">[</span><span class="s">&#34;age&#34;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&#34;23&#34;</span>
     <span class="nx">bytesData</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
-    <span class="nx">resp</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">Post</span><span class="p">(</span><span class="s">&#34;http://httpbin.org/post&#34;</span><span class="p">,</span><span class="s">&#34;application/json&#34;</span><span class="p">,</span> <span class="nx">bytes</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">bytesData</span><span class="p">))</span>
+    <span class="nx">resp</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">Post</span><span class="p">(</span><span class="s">&#34;http://httpbin.org/post&#34;</span><span class="p">,</span><span class="s">&#34;application/json&#34;</span><span class="p">,</span> <span class="nx">bytes</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">bytesData</span><span class="p">)</span><span class="p">)</span>
     <span class="nx">body</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">))</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -773,9 +773,9 @@
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">UpdateK8sStatus</span><span class="p">(</span><span class="nx">jobid</span><span class="p">,</span> <span class="nx">message</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
 	<span class="nx">token</span> <span class="o">:=</span> <span class="nf">getToken</span><span class="p">(</span><span class="nx">CUrl</span><span class="p">,</span> <span class="nx">CUsername</span><span class="p">,</span> <span class="nx">CPwd</span><span class="p">)</span>
 
-	<span class="nx">data</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}{</span>
+	<span class="nx">data</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{</span><span class="p">}</span><span class="p">{</span>
 		<span class="s">&#34;label&#34;</span><span class="p">:</span> <span class="s">&#34;VM&#34;</span><span class="p">,</span>
-		<span class="s">&#34;cql&#34;</span><span class="p">:</span>     <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;match (n:VM{jobid:&#39;%s&#39;}) set n.info=&#39;%s&#39; return n&#34;</span><span class="p">,</span> <span class="nx">jobid</span><span class="p">,</span> <span class="nx">message</span><span class="p">),</span>
+		<span class="s">&#34;cql&#34;</span><span class="p">:</span>     <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;match (n:VM{jobid:&#39;%s&#39;}) set n.info=&#39;%s&#39; return n&#34;</span><span class="p">,</span> <span class="nx">jobid</span><span class="p">,</span> <span class="nx">message</span><span class="p">)</span><span class="p">,</span>
 	<span class="p">}</span>
 	<span class="nx">body</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
 	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
@@ -784,28 +784,28 @@
 
 	<span class="c1">// log.Debug(&#34;data&#34;, string(body))
 </span><span class="c1"></span>	<span class="c1">// log.Debug(&#34;url&#34;, fmt.Sprintf(&#34;%s/node/?token=%s&#34;, CUrl, token.Token))
-</span><span class="c1"></span>	<span class="nx">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{}</span>
-	<span class="nx">request</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewRequest</span><span class="p">(</span><span class="s">&#34;POST&#34;</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%s/phy/?token=%s&#34;</span><span class="p">,</span> <span class="nx">curl</span><span class="p">,</span> <span class="nx">token</span><span class="p">.</span><span class="nx">Token</span><span class="p">),</span> <span class="nx">bytes</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">body</span><span class="p">))</span>
+</span><span class="c1"></span>	<span class="nx">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{</span><span class="p">}</span>
+	<span class="nx">request</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewRequest</span><span class="p">(</span><span class="s">&#34;POST&#34;</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%s/phy/?token=%s&#34;</span><span class="p">,</span> <span class="nx">curl</span><span class="p">,</span> <span class="nx">token</span><span class="p">.</span><span class="nx">Token</span><span class="p">)</span><span class="p">,</span> <span class="nx">bytes</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span><span class="p">)</span>
 	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 		<span class="k">return</span> <span class="nx">err</span>
 	<span class="p">}</span>
 
     <span class="nx">request</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;Content-Type&#34;</span><span class="p">,</span> <span class="s">&#34;application/json&#34;</span><span class="p">)</span>
-    <span class="nx">request</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;WWW-Authenticate&#34;</span><span class="p">,</span> <span class="s">`Basic realm=&#34;hehehe&#34;`</span><span class="p">)</span>
+    <span class="nx">request</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;WWW-Authenticate&#34;</span><span class="p">,</span> <span class="s">`</span><span class="s">Basic realm=&#34;hehehe&#34;</span><span class="s">`</span><span class="p">)</span>
 	<span class="nx">request</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;Authorization&#34;</span><span class="p">,</span> <span class="s">&#34;Basic hahahaha&#34;</span><span class="p">)</span>
 
 	<span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span>
 	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 		<span class="k">return</span> <span class="nx">err</span>
 	<span class="p">}</span>
-	<span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+	<span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
 
 	<span class="nx">rs</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
 	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 		<span class="k">return</span> <span class="nx">err</span>
 	<span class="p">}</span>
 
-	<span class="nx">log</span><span class="p">.</span><span class="nf">Debug</span><span class="p">(</span><span class="s">&#34;http request&#34;</span><span class="p">,</span> <span class="nb">string</span><span class="p">(</span><span class="nx">rs</span><span class="p">))</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Debug</span><span class="p">(</span><span class="s">&#34;http request&#34;</span><span class="p">,</span> <span class="nb">string</span><span class="p">(</span><span class="nx">rs</span><span class="p">)</span><span class="p">)</span>
 
 	<span class="k">return</span> <span class="kc">nil</span>
 <span class="p">}</span>

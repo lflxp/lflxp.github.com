@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.66.0 with theme even" />
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
 
 
 <link rel="canonical" href="https://www.lflxp.cn/post/k8s/yaml/deployment/" />
@@ -48,7 +48,7 @@
 <meta itemprop="description" content="yaml格式的常用Deployment&#43;Service 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43">
 <meta itemprop="datePublished" content="2020-01-15T11:08:22&#43;08:00" />
 <meta itemprop="dateModified" content="2020-01-17T16:57:33&#43;08:00" />
-<meta itemprop="wordCount" content="126">
+<meta itemprop="wordCount" content="110">
 
 
 
@@ -69,7 +69,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">静心</a>
+    <a href="/" class="logo">平凡的英雄</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -95,7 +95,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">静心</a>
+  <a href="/" class="logo">平凡的英雄</a>
 </div>
 
 <nav class="site-navbar">
@@ -236,87 +236,87 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yaml" data-lang="yaml">---<span class="w">
-</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Deployment<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>cmdb-neo4j-glusterfs<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">matchLabels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>cmdb-neo4j-glusterfs<span class="w">
-</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>cmdb-neo4j-glusterfs<span class="w">
-</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">image</span><span class="p">:</span><span class="w"> </span>dockerhub.com/cmdb/neo4j<span class="p">:</span><span class="m">3.5.3</span><span class="w">
-</span><span class="w">        </span><span class="k">imagePullPolicy</span><span class="p">:</span><span class="w"> </span>Always<span class="w">
-</span><span class="w">        </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>cmdb-neo4j-glusterfs<span class="w">
-</span><span class="w">        </span><span class="k">env</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>NEO4J_dbms_memory_heap_max__size<span class="w">
-</span><span class="w">            </span><span class="k">valueFrom</span><span class="p">:</span><span class="w">
-</span><span class="w">              </span><span class="k">configMapKeyRef</span><span class="p">:</span><span class="w">
-</span><span class="w">                </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>neo4j-confvalue<span class="w">
-</span><span class="w">                </span><span class="k">key</span><span class="p">:</span><span class="w"> </span>max<span class="w"> 
-</span><span class="w">          </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>NEO4J_dbms_memory_heap_initial__size<span class="w"> 
-</span><span class="w">            </span><span class="k">valueFrom</span><span class="p">:</span><span class="w">
-</span><span class="w">              </span><span class="k">configMapKeyRef</span><span class="p">:</span><span class="w">
-</span><span class="w">                </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>neo4j-confvalue<span class="w">
-</span><span class="w">                </span><span class="k">key</span><span class="p">:</span><span class="w"> </span>init<span class="w"> 
-</span><span class="w">          </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>NEO4J_dbms_unmanaged__extension__classes<span class="w"> 
-</span><span class="w">            </span><span class="k">valueFrom</span><span class="p">:</span><span class="w">
-</span><span class="w">              </span><span class="k">configMapKeyRef</span><span class="p">:</span><span class="w">
-</span><span class="w">                </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>neo4j-plugin<span class="w">
-</span><span class="w">                </span><span class="k">key</span><span class="p">:</span><span class="w"> </span>plugin<span class="w">
-</span><span class="w">          </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>NEO4J_dbms_security_procedures_unrestricted<span class="w">
-</span><span class="w">            </span><span class="k">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;graphql.*&#34;</span><span class="w">
-</span><span class="w">          </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>NEO4J_dbms_security_procedures_whitelist<span class="w">
-</span><span class="w">            </span><span class="k">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;graphql.*&#34;</span><span class="w"> 
-</span><span class="w">        </span><span class="k">volumeMounts</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="k">mountPath</span><span class="p">:</span><span class="w"> </span>/data<span class="w">
-</span><span class="w">          </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>datas<span class="w">
-</span><span class="w">        </span>- <span class="k">mountPath</span><span class="p">:</span><span class="w"> </span>/var/lib/neo4j/plugins<span class="w">
-</span><span class="w">          </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>plugins<span class="w"> 
-</span><span class="w">        </span><span class="k">ports</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="k">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">7474</span><span class="w">
-</span><span class="w">          </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>one<span class="w">
-</span><span class="w">          </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
-</span><span class="w">        </span>- <span class="k">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">7687</span><span class="w">
-</span><span class="w">          </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>two<span class="w">
-</span><span class="w">          </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
-</span><span class="w">      </span><span class="k">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>plugins<span class="w">
-</span><span class="w">        </span><span class="k">persistentVolumeClaim</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">claimName</span><span class="p">:</span><span class="w"> </span>neo4j-plugin-20g<span class="w">
-</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>datas<span class="w"> 
-</span><span class="w">        </span><span class="k">persistentVolumeClaim</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">claimName</span><span class="p">:</span><span class="w"> </span>neo4j-data-200g<span class="w">
-</span><span class="w">      </span><span class="k">imagePullSecrets</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>harbor<span class="w">
-</span><span class="w">      </span><span class="k">nodeSelector</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">kubernetes.io/role</span><span class="p">:</span><span class="w"> </span>node<span class="w">
-</span><span class="w">      </span><span class="k">restartPolicy</span><span class="p">:</span><span class="w"> </span>Always<span class="w">
+</span><span class="w"></span>apiVersion<span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
+</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Deployment<span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>cmdb-neo4j-glusterfs<span class="w">
+</span><span class="w"></span>spec<span class="p">:</span><span class="w">
+</span><span class="w">  </span>replicas<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span>selector<span class="p">:</span><span class="w">
+</span><span class="w">    </span>matchLabels<span class="p">:</span><span class="w">
+</span><span class="w">      </span>app<span class="p">:</span><span class="w"> </span>cmdb-neo4j-glusterfs<span class="w">
+</span><span class="w">  </span>template<span class="p">:</span><span class="w">
+</span><span class="w">    </span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">      </span>labels<span class="p">:</span><span class="w">
+</span><span class="w">        </span>app<span class="p">:</span><span class="w"> </span>cmdb-neo4j-glusterfs<span class="w">
+</span><span class="w">    </span>spec<span class="p">:</span><span class="w">
+</span><span class="w">      </span>containers<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>image<span class="p">:</span><span class="w"> </span>dockerhub.com/cmdb/neo4j<span class="p">:</span><span class="m">3.5</span><span class="m">.3</span><span class="w">
+</span><span class="w">        </span>imagePullPolicy<span class="p">:</span><span class="w"> </span>Always<span class="w">
+</span><span class="w">        </span>name<span class="p">:</span><span class="w"> </span>cmdb-neo4j-glusterfs<span class="w">
+</span><span class="w">        </span>env<span class="p">:</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>NEO4J_dbms_memory_heap_max__size<span class="w">
+</span><span class="w">            </span>valueFrom<span class="p">:</span><span class="w">
+</span><span class="w">              </span>configMapKeyRef<span class="p">:</span><span class="w">
+</span><span class="w">                </span>name<span class="p">:</span><span class="w"> </span>neo4j-confvalue<span class="w">
+</span><span class="w">                </span>key<span class="p">:</span><span class="w"> </span>max<span class="w"> 
+</span><span class="w">          </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>NEO4J_dbms_memory_heap_initial__size<span class="w"> 
+</span><span class="w">            </span>valueFrom<span class="p">:</span><span class="w">
+</span><span class="w">              </span>configMapKeyRef<span class="p">:</span><span class="w">
+</span><span class="w">                </span>name<span class="p">:</span><span class="w"> </span>neo4j-confvalue<span class="w">
+</span><span class="w">                </span>key<span class="p">:</span><span class="w"> </span>init<span class="w"> 
+</span><span class="w">          </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>NEO4J_dbms_unmanaged__extension__classes<span class="w"> 
+</span><span class="w">            </span>valueFrom<span class="p">:</span><span class="w">
+</span><span class="w">              </span>configMapKeyRef<span class="p">:</span><span class="w">
+</span><span class="w">                </span>name<span class="p">:</span><span class="w"> </span>neo4j-plugin<span class="w">
+</span><span class="w">                </span>key<span class="p">:</span><span class="w"> </span>plugin<span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>NEO4J_dbms_security_procedures_unrestricted<span class="w">
+</span><span class="w">            </span>value<span class="p">:</span><span class="w"> </span><span class="s2">&#34;graphql.*&#34;</span><span class="w">
+</span><span class="w">          </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>NEO4J_dbms_security_procedures_whitelist<span class="w">
+</span><span class="w">            </span>value<span class="p">:</span><span class="w"> </span><span class="s2">&#34;graphql.*&#34;</span><span class="w"> 
+</span><span class="w">        </span>volumeMounts<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>mountPath<span class="p">:</span><span class="w"> </span>/data<span class="w">
+</span><span class="w">          </span>name<span class="p">:</span><span class="w"> </span>datas<span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>mountPath<span class="p">:</span><span class="w"> </span>/var/lib/neo4j/plugins<span class="w">
+</span><span class="w">          </span>name<span class="p">:</span><span class="w"> </span>plugins<span class="w"> 
+</span><span class="w">        </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>containerPort<span class="p">:</span><span class="w"> </span><span class="m">7474</span><span class="w">
+</span><span class="w">          </span>name<span class="p">:</span><span class="w"> </span>one<span class="w">
+</span><span class="w">          </span>protocol<span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>containerPort<span class="p">:</span><span class="w"> </span><span class="m">7687</span><span class="w">
+</span><span class="w">          </span>name<span class="p">:</span><span class="w"> </span>two<span class="w">
+</span><span class="w">          </span>protocol<span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span><span class="w">      </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>plugins<span class="w">
+</span><span class="w">        </span>persistentVolumeClaim<span class="p">:</span><span class="w">
+</span><span class="w">          </span>claimName<span class="p">:</span><span class="w"> </span>neo4j-plugin-20g<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>datas<span class="w"> 
+</span><span class="w">        </span>persistentVolumeClaim<span class="p">:</span><span class="w">
+</span><span class="w">          </span>claimName<span class="p">:</span><span class="w"> </span>neo4j-data-200g<span class="w">
+</span><span class="w">      </span>imagePullSecrets<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>harbor<span class="w">
+</span><span class="w">      </span>nodeSelector<span class="p">:</span><span class="w">
+</span><span class="w">        </span>kubernetes.io/role<span class="p">:</span><span class="w"> </span>node<span class="w">
+</span><span class="w">      </span>restartPolicy<span class="p">:</span><span class="w"> </span>Always<span class="w">
 </span><span class="w"></span>---<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Service<span class="w">
-</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>cmdb-neo4j-glusterfs<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>cmdb-neo4j-glusterfs<span class="w">
-</span><span class="w">  </span><span class="k">ports</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>http<span class="w">
-</span><span class="w">    </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
-</span><span class="w">    </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">7687</span><span class="w">
-</span><span class="w">    </span><span class="k">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">7687</span><span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>web<span class="w">
-</span><span class="w">    </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
-</span><span class="w">    </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">7474</span><span class="w">
-</span><span class="w">    </span><span class="k">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">7474</span><span class="w">
-</span><span class="w">  </span><span class="k">externalIPs</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="m">10.2.5.10</span><span class="w">
+</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Service<span class="w">
+</span><span class="w"></span>apiVersion<span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>cmdb-neo4j-glusterfs<span class="w">
+</span><span class="w"></span>spec<span class="p">:</span><span class="w">
+</span><span class="w">  </span>selector<span class="p">:</span><span class="w">
+</span><span class="w">    </span>app<span class="p">:</span><span class="w"> </span>cmdb-neo4j-glusterfs<span class="w">
+</span><span class="w">  </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>http<span class="w">
+</span><span class="w">    </span>protocol<span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span><span class="w">    </span>port<span class="p">:</span><span class="w"> </span><span class="m">7687</span><span class="w">
+</span><span class="w">    </span>targetPort<span class="p">:</span><span class="w"> </span><span class="m">7687</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>web<span class="w">
+</span><span class="w">    </span>protocol<span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span><span class="w">    </span>port<span class="p">:</span><span class="w"> </span><span class="m">7474</span><span class="w">
+</span><span class="w">    </span>targetPort<span class="p">:</span><span class="w"> </span><span class="m">7474</span><span class="w">
+</span><span class="w">  </span>externalIPs<span class="p">:</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span><span class="m">10.2</span><span class="m">.5</span><span class="m">.10</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div>

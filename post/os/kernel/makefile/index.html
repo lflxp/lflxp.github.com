@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.66.0 with theme even" />
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
 
 
 <link rel="canonical" href="https://www.lflxp.cn/post/os/kernel/makefile/" />
@@ -69,7 +69,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">静心</a>
+    <a href="/" class="logo">平凡的英雄</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -95,7 +95,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">静心</a>
+  <a href="/" class="logo">平凡的英雄</a>
 </div>
 
 <nav class="site-navbar">
@@ -317,7 +317,7 @@
 	git clone https://github.com/lflxp/gin-xterm.git
 
 <span class="nf">var-kept</span><span class="o">:</span> <span class="n">var</span>-<span class="n">kept</span>-<span class="n">three</span>
-	<span class="nb">export</span> <span class="nv">foo</span><span class="o">=</span>bar<span class="p">;</span> <span class="nb">echo</span> <span class="s2">&#34;foo=[</span><span class="nv">$$</span><span class="s2">foo]&#34;</span>
+	<span class="nb">export</span> <span class="nv">foo</span><span class="o">=</span>bar<span class="p">;</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="s2">foo=[</span><span class="nv">$$</span><span class="s2">foo]</span><span class="s2">&#34;</span>
 	<span class="nb">export</span> <span class="nv">xo</span><span class="o">=</span>90<span class="p">;</span> <span class="se">\
 </span><span class="se"></span>	<span class="nb">echo</span> <span class="nv">$$</span>xo
 
@@ -374,11 +374,11 @@
 	<span class="nb">echo</span> <span class="s1">&#39;$(@D) $(@F)&#39;</span>
 
 <span class="c"># 判断
-</span><span class="c"></span><span class="err">ifeq</span> <span class="err">(</span><span class="k">$(</span><span class="nv">CC</span><span class="k">)</span><span class="err">,gcc)</span>
+</span><span class="c"></span><span class="err">i</span><span class="err">f</span><span class="err">e</span><span class="err">q</span> <span class="err">(</span><span class="k">$(</span><span class="nv">CC</span><span class="k">)</span><span class="err">,</span><span class="err">g</span><span class="err">c</span><span class="err">c</span><span class="err">)</span>
 	<span class="nv">libs</span><span class="o">=</span><span class="k">$(</span>libs_for_gcc<span class="k">)</span>
-<span class="err">else</span>
+<span class="err">e</span><span class="err">l</span><span class="err">s</span><span class="err">e</span>
 	<span class="nv">libs</span><span class="o">=</span><span class="k">$(</span>normal_libs<span class="k">)</span>
-<span class="err">endif</span>
+<span class="err">e</span><span class="err">n</span><span class="err">d</span><span class="err">i</span><span class="err">f</span>
 
 <span class="nv">LIST</span> <span class="o">=</span> one two three
 <span class="nf">list</span><span class="o">:</span>

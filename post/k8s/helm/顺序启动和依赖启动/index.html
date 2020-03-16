@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.66.0 with theme even" />
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
 
 
 <link rel="canonical" href="https://www.lflxp.cn/post/k8s/helm/%E9%A1%BA%E5%BA%8F%E5%90%AF%E5%8A%A8%E5%92%8C%E4%BE%9D%E8%B5%96%E5%90%AF%E5%8A%A8/" />
@@ -43,12 +43,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.lflxp.cn/post/k8s/helm/%E9%A1%BA%E5%BA%8F%E5%90%AF%E5%8A%A8%E5%92%8C%E4%BE%9D%E8%B5%96%E5%90%AF%E5%8A%A8/" />
 <meta property="article:published_time" content="2020-02-15T00:01:22+08:00" />
-<meta property="article:modified_time" content="2020-02-15T00:01:22+08:00" />
+<meta property="article:modified_time" content="2020-02-18T13:22:51+08:00" />
 <meta itemprop="name" content="K8S 让应用顺序启动和依赖启动">
 <meta itemprop="description" content="关键点 initContainers Job Job k8s job模块的功能是执行任务，在部署过程中有两个特性需要了解，分别是： 初始化操作：确保任务|脚本|SQL等可定制化的任务成功执行">
 <meta itemprop="datePublished" content="2020-02-15T00:01:22&#43;08:00" />
-<meta itemprop="dateModified" content="2020-02-15T00:01:22&#43;08:00" />
-<meta itemprop="wordCount" content="874">
+<meta itemprop="dateModified" content="2020-02-18T13:22:51&#43;08:00" />
+<meta itemprop="wordCount" content="901">
 
 
 
@@ -69,7 +69,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">静心</a>
+    <a href="/" class="logo">平凡的英雄</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -95,7 +95,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">静心</a>
+  <a href="/" class="logo">平凡的英雄</a>
 </div>
 
 <nav class="site-navbar">
@@ -183,25 +183,25 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">jobs</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">chroots</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="w">    </span><span class="k">activeDeadlineSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">3600</span><span class="w">
-</span><span class="w">    </span><span class="k">backoffLimit</span><span class="p">:</span><span class="w"> </span><span class="m">500</span><span class="w">
-</span><span class="w">    </span><span class="k">completions</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span><span class="k">zkimage</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;mysqlinit:latest&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">parallelism</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span><span class="k">resources</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w">    </span><span class="k">restartPolicy</span><span class="p">:</span><span class="w"> </span>OnFailure<span class="w">
-</span><span class="w">    </span><span class="k">config</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">create</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">jobs<span class="p">:</span><span class="w">
+</span><span class="w">  </span>chroots<span class="p">:</span><span class="w">
+</span><span class="w">    </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">    </span>activeDeadlineSeconds<span class="p">:</span><span class="w"> </span><span class="m">3600</span><span class="w">
+</span><span class="w">    </span>backoffLimit<span class="p">:</span><span class="w"> </span><span class="m">500</span><span class="w">
+</span><span class="w">    </span>completions<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span>zkimage<span class="p">:</span><span class="w"> </span><span class="s2">&#34;mysqlinit:latest&#34;</span><span class="w">
+</span><span class="w">    </span>parallelism<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span>resources<span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w">    </span>restartPolicy<span class="p">:</span><span class="w"> </span>OnFailure<span class="w">
+</span><span class="w">    </span>config<span class="p">:</span><span class="w">
+</span><span class="w">      </span>create<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="p">]</span><span class="w">
 </span><span class="w">      </span><span class="c"># - /zk</span><span class="w">
-</span><span class="w">    </span><span class="k">env</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
-</span><span class="w">    </span><span class="k">command</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- sh<span class="w">
-</span><span class="w">      </span>- -exc<span class="w">
-</span><span class="w">      </span>- <span class="sd">|
-</span><span class="sd">        mysql -uroot -psystem -P 3306 -h mysql test --default-character-set=utf8 &lt; /tmp/ddl.sql &amp;&amp; \</span><span class="w">
+</span><span class="w">    </span>env<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="p">]</span><span class="w">
+</span><span class="w">    </span>command<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>sh<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>-exc<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="sd">|
+</span><span class="sd">       </span><span class="sd"> </span><span class="sd">mysql -uroot -psystem -P 3306 -h mysql test --default-character-set=utf8 &lt; /tmp/ddl.sql &amp;&amp; \</span><span class="w">
 </span><span class="w">        </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-psystem<span class="w"> </span>-P<span class="w"> </span><span class="m">3306</span><span class="w"> </span>-h<span class="w"> </span>mysql<span class="w"> </span>test<span class="w"> </span>--default-character-set=utf8<span class="w"> </span>&lt;<span class="w"> </span>/tmp/dml.sql<span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -261,57 +261,57 @@
 </span><span class="lnt">51
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml">{{- if<span class="w"> </span>.Values.jobs.chroots.enabled<span class="w"> </span>}}<span class="w">
-</span><span class="w"></span>{{- $root<span class="w"> </span><span class="p">:</span>=<span class="w"> </span>.<span class="w"> </span>}}<span class="w">
-</span><span class="w"></span>{{- $job<span class="w"> </span><span class="p">:</span>=<span class="w"> </span>.Values.jobs.chroots<span class="w"> </span>}}<span class="w">
-</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>batch/v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Job<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>template<span class="w"> </span><span class="s2">&#34;zookeeper.chroots&#34;</span><span class="w"> </span>.<span class="w"> </span>}}<span class="w">
-</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">&#34;helm.sh/hook&#34;: </span>post-install<span class="p">,</span>post-upgrade<span class="w">
-</span><span class="w">    </span><span class="k">&#34;helm.sh/hook-weight&#34;: </span><span class="s2">&#34;-5&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">&#34;helm.sh/hook-delete-policy&#34;: </span>hook-succeeded<span class="w">
-</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>template<span class="w"> </span><span class="s2">&#34;zookeeper.name&#34;</span><span class="w"> </span>.<span class="w"> </span>}}<span class="w">
-</span><span class="w">    </span><span class="k">chart</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>template<span class="w"> </span><span class="s2">&#34;zookeeper.chart&#34;</span><span class="w"> </span>.<span class="w"> </span>}}<span class="w">
-</span><span class="w">    </span><span class="k">release</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Release.Name<span class="w"> </span>}}<span class="w">
-</span><span class="w">    </span><span class="k">heritage</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Release.Service<span class="w"> </span>}}<span class="w">
-</span><span class="w">    </span><span class="k">component</span><span class="p">:</span><span class="w"> </span>jobs<span class="w">
-</span><span class="w">    </span><span class="k">job</span><span class="p">:</span><span class="w"> </span>chroots<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">backoffLimit</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>$job.backoffLimit<span class="w"> </span>}}<span class="w">
-</span><span class="w">  </span><span class="k">completions</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>$job.completions<span class="w"> </span>}}<span class="w">
-</span><span class="w">  </span><span class="k">parallelism</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>$job.parallelism<span class="w"> </span>}}<span class="w">
-</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>template<span class="w"> </span><span class="s2">&#34;zookeeper.name&#34;</span><span class="w"> </span>.<span class="w"> </span>}}<span class="w">
-</span><span class="w">        </span><span class="k">release</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Release.Name<span class="w"> </span>}}<span class="w">
-</span><span class="w">        </span><span class="k">component</span><span class="p">:</span><span class="w"> </span>jobs<span class="w">
-</span><span class="w">        </span><span class="k">job</span><span class="p">:</span><span class="w"> </span>chroots<span class="w">
-</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">restartPolicy</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>$job.restartPolicy<span class="w"> </span>}}<span class="w">
-</span><span class="w"></span>{{- if<span class="w"> </span>.Values.priorityClassName<span class="w"> </span>}}<span class="w">
-</span><span class="w">      </span><span class="k">priorityClassName</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ .Values.priorityClassName }}&#34;</span><span class="w">
-</span><span class="w"></span>{{- end<span class="w"> </span>}}<span class="w">
-</span><span class="w">      </span><span class="k">imagePullSecrets</span><span class="p">:</span><span class="w"> 
-</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>soso<span class="w">
-</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>main<span class="w">
-</span><span class="w">          </span><span class="k">image</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $job.zkimage }}&#34;</span><span class="w">
-</span><span class="w">          </span><span class="k">imagePullPolicy</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.image.pullPolicy<span class="w"> </span>}}<span class="w">
-</span><span class="w">          </span>{{- with<span class="w"> </span>$job.command<span class="w"> </span>}}<span class="w">
-</span><span class="w">          </span><span class="k">command</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>{{- toYaml<span class="w"> </span>.<span class="w"> </span>|<span class="w"> </span>nindent<span class="w"> </span><span class="m">12</span><span class="w"> </span>}}<span class="w">
-</span><span class="w">          </span>{{- end<span class="w"> </span>}}<span class="w">
-</span><span class="w">          </span><span class="k">env</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span>{{- with<span class="w"> </span>$job.env<span class="w"> </span>}}<span class="w">
-</span><span class="w">            </span>{{- toYaml<span class="w"> </span>.<span class="w"> </span>|<span class="w"> </span>nindent<span class="w"> </span><span class="m">12</span><span class="w"> </span>}}<span class="w">
-</span><span class="w">          </span>{{- end<span class="w"> </span>}}<span class="w">
-</span><span class="w">          </span><span class="k">resources</span><span class="p">:</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">{{-<span class="w"> </span>if<span class="w"> </span>.Values.jobs.chroots.enabled<span class="w"> </span>}}<span class="w">
+</span><span class="w"></span>{{-<span class="w"> </span>$root<span class="w"> </span><span class="p">:</span>=<span class="w"> </span>.<span class="w"> </span>}}<span class="w">
+</span><span class="w"></span>{{-<span class="w"> </span>$job<span class="w"> </span><span class="p">:</span>=<span class="w"> </span>.Values.jobs.chroots<span class="w"> </span>}}<span class="w">
+</span><span class="w"></span>apiVersion<span class="p">:</span><span class="w"> </span>batch/v1<span class="w">
+</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Job<span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>template<span class="w"> </span><span class="s2">&#34;zookeeper.chroots&#34;</span><span class="w"> </span>.<span class="w"> </span>}}<span class="w">
+</span><span class="w">  </span>annotations<span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="s2">&#34;helm.sh/hook&#34;</span><span class="p">:</span><span class="w"> </span>post-install<span class="p">,</span>post-upgrade<span class="w">
+</span><span class="w">    </span><span class="s2">&#34;helm.sh/hook-weight&#34;</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;-5&#34;</span><span class="w">
+</span><span class="w">    </span><span class="s2">&#34;helm.sh/hook-delete-policy&#34;</span><span class="p">:</span><span class="w"> </span>hook-succeeded<span class="w">
+</span><span class="w">  </span>labels<span class="p">:</span><span class="w">
+</span><span class="w">    </span>app<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>template<span class="w"> </span><span class="s2">&#34;zookeeper.name&#34;</span><span class="w"> </span>.<span class="w"> </span>}}<span class="w">
+</span><span class="w">    </span>chart<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>template<span class="w"> </span><span class="s2">&#34;zookeeper.chart&#34;</span><span class="w"> </span>.<span class="w"> </span>}}<span class="w">
+</span><span class="w">    </span>release<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Release.Name<span class="w"> </span>}}<span class="w">
+</span><span class="w">    </span>heritage<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Release.Service<span class="w"> </span>}}<span class="w">
+</span><span class="w">    </span>component<span class="p">:</span><span class="w"> </span>jobs<span class="w">
+</span><span class="w">    </span>job<span class="p">:</span><span class="w"> </span>chroots<span class="w">
+</span><span class="w"></span>spec<span class="p">:</span><span class="w">
+</span><span class="w">  </span>backoffLimit<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>$job.backoffLimit<span class="w"> </span>}}<span class="w">
+</span><span class="w">  </span>completions<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>$job.completions<span class="w"> </span>}}<span class="w">
+</span><span class="w">  </span>parallelism<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>$job.parallelism<span class="w"> </span>}}<span class="w">
+</span><span class="w">  </span>template<span class="p">:</span><span class="w">
+</span><span class="w">    </span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">      </span>labels<span class="p">:</span><span class="w">
+</span><span class="w">        </span>app<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>template<span class="w"> </span><span class="s2">&#34;zookeeper.name&#34;</span><span class="w"> </span>.<span class="w"> </span>}}<span class="w">
+</span><span class="w">        </span>release<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Release.Name<span class="w"> </span>}}<span class="w">
+</span><span class="w">        </span>component<span class="p">:</span><span class="w"> </span>jobs<span class="w">
+</span><span class="w">        </span>job<span class="p">:</span><span class="w"> </span>chroots<span class="w">
+</span><span class="w">    </span>spec<span class="p">:</span><span class="w">
+</span><span class="w">      </span>restartPolicy<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>$job.restartPolicy<span class="w"> </span>}}<span class="w">
+</span><span class="w"></span>{{-<span class="w"> </span>if<span class="w"> </span>.Values.priorityClassName<span class="w"> </span>}}<span class="w">
+</span><span class="w">      </span>priorityClassName<span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ .Values.priorityClassName }}&#34;</span><span class="w">
+</span><span class="w"></span>{{-<span class="w"> </span>end<span class="w"> </span>}}<span class="w">
+</span><span class="w">      </span>imagePullSecrets<span class="p">:</span><span class="w"> 
+</span><span class="w">        </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>soso<span class="w">
+</span><span class="w">      </span>containers<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>main<span class="w">
+</span><span class="w">          </span>image<span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ $job.zkimage }}&#34;</span><span class="w">
+</span><span class="w">          </span>imagePullPolicy<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.image.pullPolicy<span class="w"> </span>}}<span class="w">
+</span><span class="w">          </span>{{-<span class="w"> </span>with<span class="w"> </span>$job.command<span class="w"> </span>}}<span class="w">
+</span><span class="w">          </span>command<span class="p">:</span><span class="w">
+</span><span class="w">            </span>{{-<span class="w"> </span>toYaml<span class="w"> </span>.<span class="w"> </span>|<span class="w"> </span>nindent<span class="w"> </span><span class="m">12</span><span class="w"> </span>}}<span class="w">
+</span><span class="w">          </span>{{-<span class="w"> </span>end<span class="w"> </span>}}<span class="w">
+</span><span class="w">          </span>env<span class="p">:</span><span class="w">
+</span><span class="w">          </span>{{-<span class="w"> </span>with<span class="w"> </span>$job.env<span class="w"> </span>}}<span class="w">
+</span><span class="w">            </span>{{-<span class="w"> </span>toYaml<span class="w"> </span>.<span class="w"> </span>|<span class="w"> </span>nindent<span class="w"> </span><span class="m">12</span><span class="w"> </span>}}<span class="w">
+</span><span class="w">          </span>{{-<span class="w"> </span>end<span class="w"> </span>}}<span class="w">
+</span><span class="w">          </span>resources<span class="p">:</span><span class="w">
 </span><span class="w"></span>{{<span class="w"> </span>toYaml<span class="w"> </span>$job.resources<span class="w"> </span>|<span class="w"> </span>indent<span class="w"> </span><span class="m">12</span><span class="w"> </span>}}<span class="w">
-</span><span class="w"></span>{{- end<span class="w"> </span>-}}<span class="w">
+</span><span class="w"></span>{{-<span class="w"> </span>end<span class="w"> </span>-}}<span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><strong>完整job yaml</strong></p>
@@ -363,47 +363,47 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># Source: $project/templates/job-chroots.yaml</span><span class="w">
-</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>batch/v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Job<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;init-mysql&#34;</span><span class="w"> 
-</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">&#34;helm.sh/hook&#34;: </span>post-install<span class="p">,</span>post-upgrade<span class="w">
-</span><span class="w">    </span><span class="k">&#34;helm.sh/hook-weight&#34;: </span><span class="s2">&#34;-5&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">&#34;helm.sh/hook-delete-policy&#34;: </span>hook-succeeded<span class="w">
-</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;init-mysql&#34;</span><span class="w"> 
-</span><span class="w">    </span><span class="k">release</span><span class="p">:</span><span class="w"> </span>RELEASE-NAME<span class="w">
-</span><span class="w">    </span><span class="k">heritage</span><span class="p">:</span><span class="w"> </span>Helm<span class="w">
-</span><span class="w">    </span><span class="k">component</span><span class="p">:</span><span class="w"> </span>jobs<span class="w">
-</span><span class="w">    </span><span class="k">job</span><span class="p">:</span><span class="w"> </span>chroots<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">backoffLimit</span><span class="p">:</span><span class="w"> </span><span class="m">500</span><span class="w">
-</span><span class="w">  </span><span class="k">completions</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">  </span><span class="k">parallelism</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">app</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;init-mysql&#34;</span><span class="w"> 
-</span><span class="w">        </span><span class="k">release</span><span class="p">:</span><span class="w"> </span>RELEASE-NAME<span class="w">
-</span><span class="w">        </span><span class="k">component</span><span class="p">:</span><span class="w"> </span>jobs<span class="w">
-</span><span class="w">        </span><span class="k">job</span><span class="p">:</span><span class="w"> </span>chroots<span class="w">
-</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">restartPolicy</span><span class="p">:</span><span class="w"> </span>OnFailure<span class="w">
-</span><span class="w">      </span><span class="k">imagePullSecrets</span><span class="p">:</span><span class="w"> 
-</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>something<span class="w">
-</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>main<span class="w">
-</span><span class="w">          </span><span class="k">image</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;mysql:5.7&#34;</span><span class="w">
-</span><span class="w">          </span><span class="k">imagePullPolicy</span><span class="p">:</span><span class="w"> </span>IfNotPresent<span class="w">
-</span><span class="w">          </span><span class="k">command</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- sh<span class="w">
-</span><span class="w">            </span>- -exc<span class="w">
-</span><span class="w">            </span>- <span class="sd">|
-</span><span class="sd">               mysql -uroot -psystem -P 3306 -h mysql test --default-character-set=utf8 &lt; /tmp/ddl.sql &amp;&amp; \</span><span class="w">
+</span><span class="w"></span>apiVersion<span class="p">:</span><span class="w"> </span>batch/v1<span class="w">
+</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Job<span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span><span class="s2">&#34;init-mysql&#34;</span><span class="w"> 
+</span><span class="w">  </span>annotations<span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="s2">&#34;helm.sh/hook&#34;</span><span class="p">:</span><span class="w"> </span>post-install<span class="p">,</span>post-upgrade<span class="w">
+</span><span class="w">    </span><span class="s2">&#34;helm.sh/hook-weight&#34;</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;-5&#34;</span><span class="w">
+</span><span class="w">    </span><span class="s2">&#34;helm.sh/hook-delete-policy&#34;</span><span class="p">:</span><span class="w"> </span>hook-succeeded<span class="w">
+</span><span class="w">  </span>labels<span class="p">:</span><span class="w">
+</span><span class="w">    </span>app<span class="p">:</span><span class="w"> </span><span class="s2">&#34;init-mysql&#34;</span><span class="w"> 
+</span><span class="w">    </span>release<span class="p">:</span><span class="w"> </span>RELEASE-NAME<span class="w">
+</span><span class="w">    </span>heritage<span class="p">:</span><span class="w"> </span>Helm<span class="w">
+</span><span class="w">    </span>component<span class="p">:</span><span class="w"> </span>jobs<span class="w">
+</span><span class="w">    </span>job<span class="p">:</span><span class="w"> </span>chroots<span class="w">
+</span><span class="w"></span>spec<span class="p">:</span><span class="w">
+</span><span class="w">  </span>backoffLimit<span class="p">:</span><span class="w"> </span><span class="m">500</span><span class="w">
+</span><span class="w">  </span>completions<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span>parallelism<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span>template<span class="p">:</span><span class="w">
+</span><span class="w">    </span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">      </span>labels<span class="p">:</span><span class="w">
+</span><span class="w">        </span>app<span class="p">:</span><span class="w"> </span><span class="s2">&#34;init-mysql&#34;</span><span class="w"> 
+</span><span class="w">        </span>release<span class="p">:</span><span class="w"> </span>RELEASE-NAME<span class="w">
+</span><span class="w">        </span>component<span class="p">:</span><span class="w"> </span>jobs<span class="w">
+</span><span class="w">        </span>job<span class="p">:</span><span class="w"> </span>chroots<span class="w">
+</span><span class="w">    </span>spec<span class="p">:</span><span class="w">
+</span><span class="w">      </span>restartPolicy<span class="p">:</span><span class="w"> </span>OnFailure<span class="w">
+</span><span class="w">      </span>imagePullSecrets<span class="p">:</span><span class="w"> 
+</span><span class="w">        </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>something<span class="w">
+</span><span class="w">      </span>containers<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>main<span class="w">
+</span><span class="w">          </span>image<span class="p">:</span><span class="w"> </span><span class="s2">&#34;mysql:5.7&#34;</span><span class="w">
+</span><span class="w">          </span>imagePullPolicy<span class="p">:</span><span class="w"> </span>IfNotPresent<span class="w">
+</span><span class="w">          </span>command<span class="p">:</span><span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>sh<span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>-exc<span class="w">
+</span><span class="w">            </span>-<span class="w"> </span><span class="sd">|
+</span><span class="sd">              </span><span class="sd"> </span><span class="sd">mysql -uroot -psystem -P 3306 -h mysql test --default-character-set=utf8 &lt; /tmp/ddl.sql &amp;&amp; \</span><span class="w">
 </span><span class="w">               </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-psystem<span class="w"> </span>-P<span class="w"> </span><span class="m">3306</span><span class="w"> </span>-h<span class="w"> </span>mysql<span class="w"> </span>test<span class="w"> </span>--default-character-set=utf8<span class="w"> </span>&lt;<span class="w"> </span>/tmp/dml.sql<span class="w">
-</span><span class="w">          </span><span class="k">env</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">resources</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>env<span class="p">:</span><span class="w">
+</span><span class="w">          </span>resources<span class="p">:</span><span class="w">
 </span><span class="w">            </span>{}<span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -479,63 +479,63 @@
 </span><span class="lnt">60
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">configJson</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;{key:value}&#39;</span><span class="w">
-</span><span class="w"></span><span class="k">ns</span><span class="p">:</span><span class="w"> </span>default<span class="w">
-</span><span class="w"></span><span class="k">app</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;apps&#34;</span><span class="w">
-</span><span class="w">  </span><span class="k">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">  </span><span class="k">log</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;app-logs&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/logs&#34;</span><span class="w"> </span><span class="c"># 加载路径</span><span class="w">
-</span><span class="w">    </span><span class="k">logpath</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/logs/*.log&#34;</span><span class="w"> </span><span class="c"># 日志路径正则</span><span class="w">
-</span><span class="w">    </span><span class="k">appname</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;app&#34;</span><span class="w">
-</span><span class="w">  </span><span class="k">imagePullSecrets</span><span class="p">:</span><span class="w"> 
-</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>soso<span class="w">
-</span><span class="w">  </span><span class="k">env</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;mysql.port&#34;</span><span class="w">
-</span><span class="w">      </span><span class="k">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3306&#34;</span><span class="w">
-</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;redis.port&#34;</span><span class="w">
-</span><span class="w">      </span><span class="k">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;6379&#34;</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">configJson<span class="p">:</span><span class="w"> </span><span class="s1">&#39;{key:value}&#39;</span><span class="w">
+</span><span class="w"></span>ns<span class="p">:</span><span class="w"> </span>default<span class="w">
+</span><span class="w"></span>app<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span><span class="s2">&#34;apps&#34;</span><span class="w">
+</span><span class="w">  </span>replicaCount<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span>log<span class="p">:</span><span class="w">
+</span><span class="w">    </span>name<span class="p">:</span><span class="w"> </span><span class="s2">&#34;app-logs&#34;</span><span class="w">
+</span><span class="w">    </span>path<span class="p">:</span><span class="w"> </span><span class="s2">&#34;/logs&#34;</span><span class="w"> </span><span class="c"># 加载路径</span><span class="w">
+</span><span class="w">    </span>logpath<span class="p">:</span><span class="w"> </span><span class="s2">&#34;/logs/*.log&#34;</span><span class="w"> </span><span class="c"># 日志路径正则</span><span class="w">
+</span><span class="w">    </span>appname<span class="p">:</span><span class="w"> </span><span class="s2">&#34;app&#34;</span><span class="w">
+</span><span class="w">  </span>imagePullSecrets<span class="p">:</span><span class="w"> 
+</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>soso<span class="w">
+</span><span class="w">  </span>env<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span><span class="s2">&#34;mysql.port&#34;</span><span class="w">
+</span><span class="w">      </span>value<span class="p">:</span><span class="w"> </span><span class="s2">&#34;3306&#34;</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span><span class="s2">&#34;redis.port&#34;</span><span class="w">
+</span><span class="w">      </span>value<span class="p">:</span><span class="w"> </span><span class="s2">&#34;6379&#34;</span><span class="w">
 </span><span class="w">  </span><span class="c"># nodeSelector:</span><span class="w">
 </span><span class="w">  </span><span class="c">#   kubernetes.io/role: node</span><span class="w">
-</span><span class="w">  </span><span class="k">image</span><span class="p">:</span><span class="w"> 
-</span><span class="w">    </span><span class="k">repository</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;nginx&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">tags</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;latest&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">pullPolicy</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Always&#34;</span><span class="w">
-</span><span class="w">  </span><span class="k">port</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>http<span class="w">
-</span><span class="w">      </span><span class="k">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
-</span><span class="w">      </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
-</span><span class="w">  </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">limits</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
-</span><span class="w">      </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>2Gi<span class="w">
-</span><span class="w">    </span><span class="k">requests</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
-</span><span class="w">      </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>2Gi<span class="w">
-</span><span class="w">  </span><span class="k">service</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;apps&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;NodePort&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">ports</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>http<span class="w">
-</span><span class="w">        </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
-</span><span class="w">        </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
-</span><span class="w">        </span><span class="k">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
-</span><span class="w">        </span><span class="k">nodePort</span><span class="p">:</span><span class="w"> </span><span class="m">8088</span><span class="w">
-</span><span class="w">  </span><span class="k">initContainers</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>init-mysql<span class="w">
-</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>busybox<span class="w">
-</span><span class="w">    </span><span class="k">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-c&#39;</span><span class="p">]</span><span class="w">
-</span><span class="w">    </span><span class="k">args</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- echo<span class="w"> </span>Prepare<span class="w"> </span>to<span class="w"> </span>mysql<span class="w"> </span>initialize..;<span class="w">
+</span><span class="w">  </span>image<span class="p">:</span><span class="w"> 
+</span><span class="w">    </span>repository<span class="p">:</span><span class="w"> </span><span class="s2">&#34;nginx&#34;</span><span class="w">
+</span><span class="w">    </span>tags<span class="p">:</span><span class="w"> </span><span class="s2">&#34;latest&#34;</span><span class="w">
+</span><span class="w">    </span>pullPolicy<span class="p">:</span><span class="w"> </span><span class="s2">&#34;Always&#34;</span><span class="w">
+</span><span class="w">  </span>port<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>http<span class="w">
+</span><span class="w">      </span>containerPort<span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">      </span>protocol<span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span><span class="w">  </span>resources<span class="p">:</span><span class="w">
+</span><span class="w">    </span>limits<span class="p">:</span><span class="w">
+</span><span class="w">      </span>cpu<span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
+</span><span class="w">      </span>memory<span class="p">:</span><span class="w"> </span>2Gi<span class="w">
+</span><span class="w">    </span>requests<span class="p">:</span><span class="w">
+</span><span class="w">      </span>cpu<span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
+</span><span class="w">      </span>memory<span class="p">:</span><span class="w"> </span>2Gi<span class="w">
+</span><span class="w">  </span>service<span class="p">:</span><span class="w">
+</span><span class="w">    </span>name<span class="p">:</span><span class="w"> </span><span class="s2">&#34;apps&#34;</span><span class="w">
+</span><span class="w">    </span>type<span class="p">:</span><span class="w"> </span><span class="s2">&#34;NodePort&#34;</span><span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>http<span class="w">
+</span><span class="w">        </span>protocol<span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span><span class="w">        </span>port<span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">        </span>targetPort<span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">        </span>nodePort<span class="p">:</span><span class="w"> </span><span class="m">8088</span><span class="w">
+</span><span class="w">  </span>initContainers<span class="p">:</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>init-mysql<span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>busybox<span class="w">
+</span><span class="w">    </span>command<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-c&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w">    </span>args<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>echo<span class="w"> </span>Prepare<span class="w"> </span>to<span class="w"> </span>mysql<span class="w"> </span>initialize..;<span class="w">
 </span><span class="w">      </span>until<span class="w"> </span>nc<span class="w"> </span>-w<span class="w"> </span><span class="m">1</span><span class="w"> </span>-z<span class="w"> </span>mysql<span class="w"> </span><span class="m">3306</span>;<span class="w">
 </span><span class="w">      </span>do<span class="w"> </span>echo<span class="w"> </span>Waiting<span class="w"> </span>for<span class="w"> </span>mysql<span class="w"> </span>initialization<span class="w"> </span>to<span class="w"> </span>complete..;<span class="w"> </span>sleep<span class="w"> </span><span class="m">10</span>;<span class="w"> </span>done;<span class="w">
 </span><span class="w">      </span>echo<span class="w"> </span>mysql<span class="w"> </span>Initialization<span class="w"> </span>successful!;<span class="w">
-</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>init-redis<span class="w">
-</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>busybox<span class="w">
-</span><span class="w">    </span><span class="k">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-c&#39;</span><span class="p">]</span><span class="w">
-</span><span class="w">    </span><span class="k">args</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- echo<span class="w"> </span>Prepare<span class="w"> </span>to<span class="w"> </span>reids<span class="w"> </span>initialize..;<span class="w">
+</span><span class="w">   </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>init-redis<span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>busybox<span class="w">
+</span><span class="w">    </span>command<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-c&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w">    </span>args<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>echo<span class="w"> </span>Prepare<span class="w"> </span>to<span class="w"> </span>reids<span class="w"> </span>initialize..;<span class="w">
 </span><span class="w">      </span>until<span class="w"> </span>nc<span class="w"> </span>-w<span class="w"> </span><span class="m">1</span><span class="w"> </span>-z<span class="w"> </span>redis<span class="w"> </span><span class="m">6379</span>;<span class="w">
 </span><span class="w">      </span>do<span class="w"> </span>echo<span class="w"> </span>Waiting<span class="w"> </span>for<span class="w"> </span>redis<span class="w"> </span>initialization<span class="w"> </span>to<span class="w"> </span>complete..;<span class="w"> </span>sleep<span class="w"> </span><span class="m">10</span>;<span class="w"> </span>done;<span class="w">
 </span><span class="w">      </span>echo<span class="w"> </span>redis<span class="w"> </span>Initialization<span class="w"> </span>successful!;<span class="w">
@@ -611,71 +611,71 @@
 </span><span class="lnt">65
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml">{{- $namespaces<span class="w"> </span><span class="p">:</span>=<span class="w"> </span>.Values.ns<span class="w"> </span>-}}<span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">{{-<span class="w"> </span>$namespaces<span class="w"> </span><span class="p">:</span>=<span class="w"> </span>.Values.ns<span class="w"> </span>-}}<span class="w">
 </span><span class="w"></span>---<span class="w">
-</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Deployment<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.name<span class="w"> </span>}}<span class="w">
-</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.name<span class="w"> </span>}}<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">replicas</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.replicaCount<span class="w"> </span>}}<span class="w">
-</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">matchLabels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.name<span class="w"> </span>}}<span class="w">
-</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.name<span class="w"> </span>}}<span class="w">
-</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>{{- with<span class="w"> </span>.Values.apps.initContainers<span class="w"> </span>}}<span class="w">
-</span><span class="w">      </span><span class="k">initContainers</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>{{- toYaml<span class="w"> </span>.<span class="w"> </span>|<span class="w"> </span>nindent<span class="w"> </span><span class="m">6</span><span class="w"> </span>}}<span class="w">
-</span><span class="w">      </span>{{- end<span class="w"> </span>}}<span class="w">
-</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.name<span class="w"> </span>}}<span class="w">
-</span><span class="w">        </span><span class="k">image</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ .Values.apps.image.repository }}:{{ .Values.apps.image.tags }}&#34;</span><span class="w">
-</span><span class="w">        </span><span class="k">imagePullPolicy</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.image.pullPolicy<span class="w"> </span>}}<span class="w">
-</span><span class="w">        </span><span class="k">env</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>SPRING_APPLICATION_JSON<span class="w">
-</span><span class="w">          </span><span class="k">value</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;{{ $configJson }}&#39;</span><span class="w">
-</span><span class="w">        </span>{{- with<span class="w"> </span>.Values.apps.env<span class="w"> </span>}}<span class="w">
-</span><span class="w">        </span>{{- toYaml<span class="w"> </span>.<span class="w"> </span>|<span class="w"> </span>nindent<span class="w"> </span><span class="m">8</span><span class="w"> </span>}}<span class="w">
-</span><span class="w">        </span>{{- end<span class="w"> </span>}}<span class="w">
+</span><span class="w"></span>apiVersion<span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
+</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Deployment<span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.name<span class="w"> </span>}}<span class="w">
+</span><span class="w">  </span>labels<span class="p">:</span><span class="w">
+</span><span class="w">    </span>app<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.name<span class="w"> </span>}}<span class="w">
+</span><span class="w"></span>spec<span class="p">:</span><span class="w">
+</span><span class="w">  </span>replicas<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.replicaCount<span class="w"> </span>}}<span class="w">
+</span><span class="w">  </span>selector<span class="p">:</span><span class="w">
+</span><span class="w">    </span>matchLabels<span class="p">:</span><span class="w">
+</span><span class="w">      </span>app<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.name<span class="w"> </span>}}<span class="w">
+</span><span class="w">  </span>template<span class="p">:</span><span class="w">
+</span><span class="w">    </span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">      </span>labels<span class="p">:</span><span class="w">
+</span><span class="w">        </span>app<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.name<span class="w"> </span>}}<span class="w">
+</span><span class="w">    </span>spec<span class="p">:</span><span class="w">
+</span><span class="w">      </span>{{-<span class="w"> </span>with<span class="w"> </span>.Values.apps.initContainers<span class="w"> </span>}}<span class="w">
+</span><span class="w">      </span>initContainers<span class="p">:</span><span class="w">
+</span><span class="w">      </span>{{-<span class="w"> </span>toYaml<span class="w"> </span>.<span class="w"> </span>|<span class="w"> </span>nindent<span class="w"> </span><span class="m">6</span><span class="w"> </span>}}<span class="w">
+</span><span class="w">      </span>{{-<span class="w"> </span>end<span class="w"> </span>}}<span class="w">
+</span><span class="w">      </span>containers<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.name<span class="w"> </span>}}<span class="w">
+</span><span class="w">        </span>image<span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ .Values.apps.image.repository }}:{{ .Values.apps.image.tags }}&#34;</span><span class="w">
+</span><span class="w">        </span>imagePullPolicy<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.image.pullPolicy<span class="w"> </span>}}<span class="w">
+</span><span class="w">        </span>env<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>SPRING_APPLICATION_JSON<span class="w">
+</span><span class="w">          </span>value<span class="p">:</span><span class="w"> </span><span class="s1">&#39;{{ $configJson }}&#39;</span><span class="w">
+</span><span class="w">        </span>{{-<span class="w"> </span>with<span class="w"> </span>.Values.apps.env<span class="w"> </span>}}<span class="w">
+</span><span class="w">        </span>{{-<span class="w"> </span>toYaml<span class="w"> </span>.<span class="w"> </span>|<span class="w"> </span>nindent<span class="w"> </span><span class="m">8</span><span class="w"> </span>}}<span class="w">
+</span><span class="w">        </span>{{-<span class="w"> </span>end<span class="w"> </span>}}<span class="w">
 </span><span class="w">        </span>{{<span class="w"> </span>if<span class="w"> </span>.Values.apps.log<span class="w"> </span>}}<span class="w">
-</span><span class="w">        </span><span class="k">volumeMounts</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="k">mountPath</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.log.path<span class="w"> </span>}}<span class="w">
-</span><span class="w">          </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.log.name<span class="w"> </span>}}<span class="w">
-</span><span class="w">          </span><span class="k">readOnly</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">        </span>volumeMounts<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>mountPath<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.log.path<span class="w"> </span>}}<span class="w">
+</span><span class="w">          </span>name<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.log.name<span class="w"> </span>}}<span class="w">
+</span><span class="w">          </span>readOnly<span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="w">        </span>{{<span class="w"> </span>end<span class="w"> </span>}}<span class="w">
-</span><span class="w">        </span>{{- with<span class="w"> </span>.Values.apps.port<span class="w"> </span>}}<span class="w">
-</span><span class="w">        </span><span class="k">ports</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span>{{- toYaml<span class="w"> </span>.<span class="w"> </span>|<span class="w"> </span>nindent<span class="w">  </span><span class="m">8</span><span class="w"> </span>}}<span class="w">
-</span><span class="w">        </span>{{- end}}<span class="w">
-</span><span class="w">        </span>{{- with<span class="w"> </span>.Values.apps.resources<span class="w"> </span>}}<span class="w">
-</span><span class="w">        </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span>{{- toYaml<span class="w"> </span>.<span class="w"> </span>|<span class="w"> </span>nindent<span class="w"> </span><span class="m">9</span><span class="w"> </span>}}<span class="w">
-</span><span class="w">        </span>{{- end<span class="w"> </span>}}<span class="w">
+</span><span class="w">        </span>{{-<span class="w"> </span>with<span class="w"> </span>.Values.apps.port<span class="w"> </span>}}<span class="w">
+</span><span class="w">        </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">          </span>{{-<span class="w"> </span>toYaml<span class="w"> </span>.<span class="w"> </span>|<span class="w"> </span>nindent<span class="w">  </span><span class="m">8</span><span class="w"> </span>}}<span class="w">
+</span><span class="w">        </span>{{-<span class="w"> </span>end}}<span class="w">
+</span><span class="w">        </span>{{-<span class="w"> </span>with<span class="w"> </span>.Values.apps.resources<span class="w"> </span>}}<span class="w">
+</span><span class="w">        </span>resources<span class="p">:</span><span class="w">
+</span><span class="w">          </span>{{-<span class="w"> </span>toYaml<span class="w"> </span>.<span class="w"> </span>|<span class="w"> </span>nindent<span class="w"> </span><span class="m">9</span><span class="w"> </span>}}<span class="w">
+</span><span class="w">        </span>{{-<span class="w"> </span>end<span class="w"> </span>}}<span class="w">
 </span><span class="w">      </span>{{<span class="w"> </span>if<span class="w"> </span>.Values.apps.log<span class="w"> </span>}}<span class="w">
-</span><span class="w">      </span><span class="k">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.log.name<span class="w"> </span>}}<span class="w">
-</span><span class="w">        </span><span class="k">emptyDir</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w">      </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.Values.apps.log.name<span class="w"> </span>}}<span class="w">
+</span><span class="w">        </span>emptyDir<span class="p">:</span><span class="w"> </span>{}<span class="w">
 </span><span class="w">      </span>{{<span class="w"> </span>end<span class="w"> </span>}}<span class="w">
-</span><span class="w">      </span>{{- with<span class="w"> </span>.Values.apps.imagePullSecrets<span class="w"> </span>}}<span class="w">
-</span><span class="w">      </span><span class="k">imagePullSecrets</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>{{- toYaml<span class="w"> </span>.<span class="w"> </span>|<span class="w"> </span>nindent<span class="w"> </span><span class="m">8</span><span class="w"> </span>}}<span class="w">
-</span><span class="w">      </span>{{- end<span class="w"> </span>}}<span class="w">
-</span><span class="w">      </span>{{- with<span class="w"> </span>.Values.apps.nodeSelector<span class="w"> </span>}}<span class="w">
-</span><span class="w">      </span><span class="k">nodeSelector</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>{{- toYaml<span class="w"> </span>.<span class="w"> </span>|<span class="w"> </span>nindent<span class="w"> </span><span class="m">8</span><span class="w"> </span>}}<span class="w">
-</span><span class="w">      </span>{{- end<span class="w"> </span>}}<span class="w">
-</span><span class="w">      </span>{{- with<span class="w"> </span>.network<span class="w"> </span>}}<span class="w">
-</span><span class="w">      </span><span class="k">hostNetwork</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.value<span class="w"> </span>}}<span class="w">
-</span><span class="w">      </span>{{- end<span class="w"> </span>}}<span class="w">
-</span><span class="w">      </span>{{- with<span class="w"> </span>.dnsPolicy<span class="w"> </span>}}<span class="w">
-</span><span class="w">      </span><span class="k">dnsPolicy</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.value<span class="w"> </span>}}<span class="w">
-</span><span class="w">      </span>{{- end<span class="w"> </span>}}<span class="w">
+</span><span class="w">      </span>{{-<span class="w"> </span>with<span class="w"> </span>.Values.apps.imagePullSecrets<span class="w"> </span>}}<span class="w">
+</span><span class="w">      </span>imagePullSecrets<span class="p">:</span><span class="w">
+</span><span class="w">        </span>{{-<span class="w"> </span>toYaml<span class="w"> </span>.<span class="w"> </span>|<span class="w"> </span>nindent<span class="w"> </span><span class="m">8</span><span class="w"> </span>}}<span class="w">
+</span><span class="w">      </span>{{-<span class="w"> </span>end<span class="w"> </span>}}<span class="w">
+</span><span class="w">      </span>{{-<span class="w"> </span>with<span class="w"> </span>.Values.apps.nodeSelector<span class="w"> </span>}}<span class="w">
+</span><span class="w">      </span>nodeSelector<span class="p">:</span><span class="w">
+</span><span class="w">        </span>{{-<span class="w"> </span>toYaml<span class="w"> </span>.<span class="w"> </span>|<span class="w"> </span>nindent<span class="w"> </span><span class="m">8</span><span class="w"> </span>}}<span class="w">
+</span><span class="w">      </span>{{-<span class="w"> </span>end<span class="w"> </span>}}<span class="w">
+</span><span class="w">      </span>{{-<span class="w"> </span>with<span class="w"> </span>.network<span class="w"> </span>}}<span class="w">
+</span><span class="w">      </span>hostNetwork<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.value<span class="w"> </span>}}<span class="w">
+</span><span class="w">      </span>{{-<span class="w"> </span>end<span class="w"> </span>}}<span class="w">
+</span><span class="w">      </span>{{-<span class="w"> </span>with<span class="w"> </span>.dnsPolicy<span class="w"> </span>}}<span class="w">
+</span><span class="w">      </span>dnsPolicy<span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>.value<span class="w"> </span>}}<span class="w">
+</span><span class="w">      </span>{{-<span class="w"> </span>end<span class="w"> </span>}}<span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><strong>最终生成deployment yaml</strong></p>
@@ -753,74 +753,74 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># Source: cwos-mid/templates/multi-deployment.yaml</span><span class="w">
-</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Deployment<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>apps<span class="w">
-</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>apps<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">matchLabels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>apps<span class="w">
-</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>apps<span class="w">
-</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">initContainers</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">args</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- echo<span class="w"> </span>Prepare<span class="w"> </span>to<span class="w"> </span>mysql<span class="w"> </span>initialize..;<span class="w"> </span>until<span class="w"> </span>nc<span class="w"> </span>-w<span class="w"> </span><span class="m">1</span><span class="w"> </span>-z<span class="w"> </span>mysql<span class="w"> </span><span class="m">3306</span>;<span class="w"> </span>do<span class="w"> </span>echo<span class="w">
+</span><span class="w"></span>apiVersion<span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
+</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Deployment<span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>apps<span class="w">
+</span><span class="w">  </span>labels<span class="p">:</span><span class="w">
+</span><span class="w">    </span>app<span class="p">:</span><span class="w"> </span>apps<span class="w">
+</span><span class="w"></span>spec<span class="p">:</span><span class="w">
+</span><span class="w">  </span>replicas<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span>selector<span class="p">:</span><span class="w">
+</span><span class="w">    </span>matchLabels<span class="p">:</span><span class="w">
+</span><span class="w">      </span>app<span class="p">:</span><span class="w"> </span>apps<span class="w">
+</span><span class="w">  </span>template<span class="p">:</span><span class="w">
+</span><span class="w">    </span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">      </span>labels<span class="p">:</span><span class="w">
+</span><span class="w">        </span>app<span class="p">:</span><span class="w"> </span>apps<span class="w">
+</span><span class="w">    </span>spec<span class="p">:</span><span class="w">
+</span><span class="w">      </span>initContainers<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>args<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>echo<span class="w"> </span>Prepare<span class="w"> </span>to<span class="w"> </span>mysql<span class="w"> </span>initialize..;<span class="w"> </span>until<span class="w"> </span>nc<span class="w"> </span>-w<span class="w"> </span><span class="m">1</span><span class="w"> </span>-z<span class="w"> </span>mysql<span class="w"> </span><span class="m">3306</span>;<span class="w"> </span>do<span class="w"> </span>echo<span class="w">
 </span><span class="w">          </span>Waiting<span class="w"> </span>for<span class="w"> </span>mysql<span class="w"> </span>initialization<span class="w"> </span>to<span class="w"> </span>complete..;<span class="w"> </span>sleep<span class="w"> </span><span class="m">10</span>;<span class="w"> </span>done;<span class="w"> </span>echo<span class="w"> </span>mysql<span class="w"> </span>Initialization<span class="w">
 </span><span class="w">          </span>successful!;<span class="w">
-</span><span class="w">        </span><span class="k">command</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- sh<span class="w">
-</span><span class="w">        </span>- -c<span class="w">
-</span><span class="w">        </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>busybox<span class="w">
-</span><span class="w">        </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>init-mysql<span class="w">
-</span><span class="w">      </span>- <span class="k">args</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- echo<span class="w"> </span>Prepare<span class="w"> </span>to<span class="w"> </span>redis<span class="w"> </span>initialize..;<span class="w"> </span>until<span class="w"> </span>nc<span class="w"> </span>-w<span class="w"> </span><span class="m">1</span><span class="w"> </span>-z<span class="w"> </span>redis<span class="w"> </span><span class="m">6379</span>;<span class="w"> </span>do<span class="w"> </span>echo<span class="w">
+</span><span class="w">        </span>command<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>sh<span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>-c<span class="w">
+</span><span class="w">        </span>image<span class="p">:</span><span class="w"> </span>busybox<span class="w">
+</span><span class="w">        </span>name<span class="p">:</span><span class="w"> </span>init-mysql<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>args<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>echo<span class="w"> </span>Prepare<span class="w"> </span>to<span class="w"> </span>redis<span class="w"> </span>initialize..;<span class="w"> </span>until<span class="w"> </span>nc<span class="w"> </span>-w<span class="w"> </span><span class="m">1</span><span class="w"> </span>-z<span class="w"> </span>redis<span class="w"> </span><span class="m">6379</span>;<span class="w"> </span>do<span class="w"> </span>echo<span class="w">
 </span><span class="w">          </span>Waiting<span class="w"> </span>for<span class="w"> </span>redis<span class="w"> </span>initialization<span class="w"> </span>to<span class="w"> </span>complete..;<span class="w"> </span>sleep<span class="w"> </span><span class="m">10</span>;<span class="w"> </span>done;<span class="w"> </span>echo<span class="w"> </span>redis<span class="w"> </span>Initialization<span class="w">
 </span><span class="w">          </span>successful!;<span class="w">
-</span><span class="w">        </span><span class="k">command</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- sh<span class="w">
-</span><span class="w">        </span>- -c<span class="w">
-</span><span class="w">        </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>busybox<span class="w">
-</span><span class="w">        </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>init-redis<span class="w">
-</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>apps<span class="w">
-</span><span class="w">        </span><span class="k">image</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;nginx:latest&#34;</span><span class="w">
-</span><span class="w">        </span><span class="k">imagePullPolicy</span><span class="p">:</span><span class="w"> </span>Always<span class="w">
-</span><span class="w">        </span><span class="k">env</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;mysql.port&#34;</span><span class="w">
-</span><span class="w">          </span><span class="k">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3306&#34;</span><span class="w">
-</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;redis.port&#34;</span><span class="w">
-</span><span class="w">          </span><span class="k">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;6379&#34;</span><span class="w">
+</span><span class="w">        </span>command<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>sh<span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>-c<span class="w">
+</span><span class="w">        </span>image<span class="p">:</span><span class="w"> </span>busybox<span class="w">
+</span><span class="w">        </span>name<span class="p">:</span><span class="w"> </span>init-redis<span class="w">
+</span><span class="w">      </span>containers<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>apps<span class="w">
+</span><span class="w">        </span>image<span class="p">:</span><span class="w"> </span><span class="s2">&#34;nginx:latest&#34;</span><span class="w">
+</span><span class="w">        </span>imagePullPolicy<span class="p">:</span><span class="w"> </span>Always<span class="w">
+</span><span class="w">        </span>env<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span><span class="s2">&#34;mysql.port&#34;</span><span class="w">
+</span><span class="w">          </span>value<span class="p">:</span><span class="w"> </span><span class="s2">&#34;3306&#34;</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span><span class="s2">&#34;redis.port&#34;</span><span class="w">
+</span><span class="w">          </span>value<span class="p">:</span><span class="w"> </span><span class="s2">&#34;6379&#34;</span><span class="w">
 </span><span class="w">        
-</span><span class="w">        </span><span class="k">volumeMounts</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="k">mountPath</span><span class="p">:</span><span class="w"> </span>/logs<span class="w">
-</span><span class="w">          </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>app-logs<span class="w">
-</span><span class="w">          </span><span class="k">readOnly</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">        </span>volumeMounts<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>mountPath<span class="p">:</span><span class="w"> </span>/logs<span class="w">
+</span><span class="w">          </span>name<span class="p">:</span><span class="w"> </span>app-logs<span class="w">
+</span><span class="w">          </span>readOnly<span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="w">        
-</span><span class="w">        </span><span class="k">ports</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="k">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
-</span><span class="w">          </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>http<span class="w">
-</span><span class="w">          </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
-</span><span class="w">        </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="w">         </span><span class="k">limits</span><span class="p">:</span><span class="w">
-</span><span class="w">           </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
-</span><span class="w">           </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>2Gi<span class="w">
-</span><span class="w">         </span><span class="k">requests</span><span class="p">:</span><span class="w">
-</span><span class="w">           </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
-</span><span class="w">           </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>2Gi<span class="w">
+</span><span class="w">        </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>containerPort<span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">          </span>name<span class="p">:</span><span class="w"> </span>http<span class="w">
+</span><span class="w">          </span>protocol<span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span><span class="w">        </span>resources<span class="p">:</span><span class="w">
+</span><span class="w">         </span>limits<span class="p">:</span><span class="w">
+</span><span class="w">           </span>cpu<span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
+</span><span class="w">           </span>memory<span class="p">:</span><span class="w"> </span>2Gi<span class="w">
+</span><span class="w">         </span>requests<span class="p">:</span><span class="w">
+</span><span class="w">           </span>cpu<span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
+</span><span class="w">           </span>memory<span class="p">:</span><span class="w"> </span>2Gi<span class="w">
 </span><span class="w">      
-</span><span class="w">      </span><span class="k">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>app-logs<span class="w">
-</span><span class="w">        </span><span class="k">emptyDir</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w">      </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>app-logs<span class="w">
+</span><span class="w">        </span>emptyDir<span class="p">:</span><span class="w"> </span>{}<span class="w">
 </span><span class="w">      
-</span><span class="w">      </span><span class="k">imagePullSecrets</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>soso<span class="w">
+</span><span class="w">      </span>imagePullSecrets<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>soso<span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div>
@@ -834,8 +834,8 @@
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2020-02-15
-        
+        2020-02-18
+        <a href="https://github.com/lflxp/commit/3e3a6f1a043f528791cf4674298bba865a1c6f19" title="2020年 02月 18日 星期二 13:22:51 CST">(3e3a6f1)</a>
     </span>
   </p>
   

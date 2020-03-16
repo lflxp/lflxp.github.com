@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.66.0 with theme even" />
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
 
 
 <link rel="canonical" href="https://www.lflxp.cn/post/golang/golang-cam-pic/" />
@@ -69,7 +69,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">静心</a>
+    <a href="/" class="logo">平凡的英雄</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -95,7 +95,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">静心</a>
+  <a href="/" class="logo">平凡的英雄</a>
 </div>
 
 <nav class="site-navbar">
@@ -303,11 +303,11 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-golang" data-lang="golang"><span class="c1">// Example program that uses blakjack/webcam library
-</span><span class="c1">// for working with V4L2 devices.
-</span><span class="c1">// The application reads frames from device and writes them to stdout
-</span><span class="c1">// If your device supports motion formats (e.g. H264 or MJPEG) you can
-</span><span class="c1">// use it&#39;s output as a video stream.
-</span><span class="c1">// Example usage: go run stdout_streamer.go | vlc -
+</span><span class="c1"></span><span class="c1">// for working with V4L2 devices.
+</span><span class="c1"></span><span class="c1">// The application reads frames from device and writes them to stdout
+</span><span class="c1"></span><span class="c1">// If your device supports motion formats (e.g. H264 or MJPEG) you can
+</span><span class="c1"></span><span class="c1">// use it&#39;s output as a video stream.
+</span><span class="c1"></span><span class="c1">// Example usage: go run stdout_streamer.go | vlc -
 </span><span class="c1"></span><span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -334,68 +334,68 @@
 	<span class="k">return</span> <span class="nx">i</span>
 <span class="p">}</span>
 
-<span class="kd">type</span> <span class="nx">FrameSizes</span> <span class="p">[]</span><span class="nx">webcam</span><span class="p">.</span><span class="nx">FrameSize</span>
+<span class="kd">type</span> <span class="nx">FrameSizes</span> <span class="p">[</span><span class="p">]</span><span class="nx">webcam</span><span class="p">.</span><span class="nx">FrameSize</span>
 
-<span class="kd">func</span> <span class="p">(</span><span class="nx">slice</span> <span class="nx">FrameSizes</span><span class="p">)</span> <span class="nf">Len</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">slice</span> <span class="nx">FrameSizes</span><span class="p">)</span> <span class="nf">Len</span><span class="p">(</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
 	<span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nx">slice</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="c1">//For sorting purposes
 </span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">slice</span> <span class="nx">FrameSizes</span><span class="p">)</span> <span class="nf">Less</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-	<span class="nx">ls</span> <span class="o">:=</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">MaxWidth</span> <span class="o">*</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">MaxHeight</span>
-	<span class="nx">rs</span> <span class="o">:=</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">j</span><span class="p">].</span><span class="nx">MaxWidth</span> <span class="o">*</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">j</span><span class="p">].</span><span class="nx">MaxHeight</span>
+	<span class="nx">ls</span> <span class="o">:=</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="p">.</span><span class="nx">MaxWidth</span> <span class="o">*</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="p">.</span><span class="nx">MaxHeight</span>
+	<span class="nx">rs</span> <span class="o">:=</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span><span class="p">.</span><span class="nx">MaxWidth</span> <span class="o">*</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span><span class="p">.</span><span class="nx">MaxHeight</span>
 	<span class="k">return</span> <span class="nx">ls</span> <span class="p">&lt;</span> <span class="nx">rs</span>
 <span class="p">}</span>
 
 <span class="c1">//For sorting purposes
 </span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">slice</span> <span class="nx">FrameSizes</span><span class="p">)</span> <span class="nf">Swap</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">slice</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">j</span><span class="p">],</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+	<span class="nx">slice</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="p">,</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span><span class="p">,</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
 <span class="p">}</span>
 
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
 	<span class="nx">cam</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">webcam</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="s">&#34;/dev/video0&#34;</span><span class="p">)</span>
 	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
+		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
 	<span class="p">}</span>
-	<span class="k">defer</span> <span class="nx">cam</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+	<span class="k">defer</span> <span class="nx">cam</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
 
-	<span class="nx">format_desc</span> <span class="o">:=</span> <span class="nx">cam</span><span class="p">.</span><span class="nf">GetSupportedFormats</span><span class="p">()</span>
-	<span class="kd">var</span> <span class="nx">formats</span> <span class="p">[]</span><span class="nx">webcam</span><span class="p">.</span><span class="nx">PixelFormat</span>
+	<span class="nx">format_desc</span> <span class="o">:=</span> <span class="nx">cam</span><span class="p">.</span><span class="nf">GetSupportedFormats</span><span class="p">(</span><span class="p">)</span>
+	<span class="kd">var</span> <span class="nx">formats</span> <span class="p">[</span><span class="p">]</span><span class="nx">webcam</span><span class="p">.</span><span class="nx">PixelFormat</span>
 	<span class="k">for</span> <span class="nx">f</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">format_desc</span> <span class="p">{</span>
 		<span class="nx">formats</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">formats</span><span class="p">,</span> <span class="nx">f</span><span class="p">)</span>
 	<span class="p">}</span>
 
 	<span class="nb">println</span><span class="p">(</span><span class="s">&#34;Available formats: &#34;</span><span class="p">)</span>
 	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">value</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">formats</span> <span class="p">{</span>
-		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span> <span class="s">&#34;[%d] %s\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">format_desc</span><span class="p">[</span><span class="nx">value</span><span class="p">])</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span> <span class="s">&#34;[%d] %s\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">format_desc</span><span class="p">[</span><span class="nx">value</span><span class="p">]</span><span class="p">)</span>
 	<span class="p">}</span>
 
-	<span class="nx">choice</span> <span class="o">:=</span> <span class="nf">readChoice</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;Choose format [1-%d]: &#34;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">formats</span><span class="p">)))</span>
+	<span class="nx">choice</span> <span class="o">:=</span> <span class="nf">readChoice</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;Choose format [1-%d]: &#34;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">formats</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
 	<span class="nx">format</span> <span class="o">:=</span> <span class="nx">formats</span><span class="p">[</span><span class="nx">choice</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
-	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span> <span class="s">&#34;Supported frame sizes for format %s\n&#34;</span><span class="p">,</span> <span class="nx">format_desc</span><span class="p">[</span><span class="nx">format</span><span class="p">])</span>
-	<span class="nx">frames</span> <span class="o">:=</span> <span class="nf">FrameSizes</span><span class="p">(</span><span class="nx">cam</span><span class="p">.</span><span class="nf">GetSupportedFrameSizes</span><span class="p">(</span><span class="nx">format</span><span class="p">))</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span> <span class="s">&#34;Supported frame sizes for format %s\n&#34;</span><span class="p">,</span> <span class="nx">format_desc</span><span class="p">[</span><span class="nx">format</span><span class="p">]</span><span class="p">)</span>
+	<span class="nx">frames</span> <span class="o">:=</span> <span class="nf">FrameSizes</span><span class="p">(</span><span class="nx">cam</span><span class="p">.</span><span class="nf">GetSupportedFrameSizes</span><span class="p">(</span><span class="nx">format</span><span class="p">)</span><span class="p">)</span>
 	<span class="nx">sort</span><span class="p">.</span><span class="nf">Sort</span><span class="p">(</span><span class="nx">frames</span><span class="p">)</span>
 
 	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">value</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">frames</span> <span class="p">{</span>
-		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span> <span class="s">&#34;[%d] %s\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">value</span><span class="p">.</span><span class="nf">GetString</span><span class="p">())</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span> <span class="s">&#34;[%d] %s\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">value</span><span class="p">.</span><span class="nf">GetString</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
 	<span class="p">}</span>
-	<span class="nx">choice</span> <span class="p">=</span> <span class="nf">readChoice</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;Choose format [1-%d]: &#34;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">frames</span><span class="p">)))</span>
+	<span class="nx">choice</span> <span class="p">=</span> <span class="nf">readChoice</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;Choose format [1-%d]: &#34;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">frames</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
 	<span class="nx">size</span> <span class="o">:=</span> <span class="nx">frames</span><span class="p">[</span><span class="nx">choice</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
-	<span class="nx">f</span><span class="p">,</span> <span class="nx">w</span><span class="p">,</span> <span class="nx">h</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cam</span><span class="p">.</span><span class="nf">SetImageFormat</span><span class="p">(</span><span class="nx">format</span><span class="p">,</span> <span class="nb">uint32</span><span class="p">(</span><span class="nx">size</span><span class="p">.</span><span class="nx">MaxWidth</span><span class="p">),</span> <span class="nb">uint32</span><span class="p">(</span><span class="nx">size</span><span class="p">.</span><span class="nx">MaxHeight</span><span class="p">))</span>
+	<span class="nx">f</span><span class="p">,</span> <span class="nx">w</span><span class="p">,</span> <span class="nx">h</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cam</span><span class="p">.</span><span class="nf">SetImageFormat</span><span class="p">(</span><span class="nx">format</span><span class="p">,</span> <span class="nb">uint32</span><span class="p">(</span><span class="nx">size</span><span class="p">.</span><span class="nx">MaxWidth</span><span class="p">)</span><span class="p">,</span> <span class="nb">uint32</span><span class="p">(</span><span class="nx">size</span><span class="p">.</span><span class="nx">MaxHeight</span><span class="p">)</span><span class="p">)</span>
 
 	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
+		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
 	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span> <span class="s">&#34;Resulting image format: %s (%dx%d)\n&#34;</span><span class="p">,</span> <span class="nx">format_desc</span><span class="p">[</span><span class="nx">f</span><span class="p">],</span> <span class="nx">w</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span> <span class="s">&#34;Resulting image format: %s (%dx%d)\n&#34;</span><span class="p">,</span> <span class="nx">format_desc</span><span class="p">[</span><span class="nx">f</span><span class="p">]</span><span class="p">,</span> <span class="nx">w</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span>
 	<span class="p">}</span>
 
 	<span class="nb">println</span><span class="p">(</span><span class="s">&#34;Press Enter to start streaming&#34;</span><span class="p">)</span>
 	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Scanf</span><span class="p">(</span><span class="s">&#34;\n&#34;</span><span class="p">)</span>
-	<span class="nx">err</span> <span class="p">=</span> <span class="nx">cam</span><span class="p">.</span><span class="nf">StartStreaming</span><span class="p">()</span>
+	<span class="nx">err</span> <span class="p">=</span> <span class="nx">cam</span><span class="p">.</span><span class="nf">StartStreaming</span><span class="p">(</span><span class="p">)</span>
 	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
+		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
 	<span class="p">}</span>
 
 	<span class="nx">timeout</span> <span class="o">:=</span> <span class="nb">uint32</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1">//5 seconds
@@ -404,20 +404,20 @@
 		<span class="nx">num</span><span class="o">++</span>
 		<span class="nx">err</span> <span class="p">=</span> <span class="nx">cam</span><span class="p">.</span><span class="nf">WaitForFrame</span><span class="p">(</span><span class="nx">timeout</span><span class="p">)</span>
 
-		<span class="k">switch</span> <span class="nx">err</span><span class="p">.(</span><span class="kd">type</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">switch</span> <span class="nx">err</span><span class="p">.</span><span class="p">(</span><span class="kd">type</span><span class="p">)</span> <span class="p">{</span>
 		<span class="k">case</span> <span class="kc">nil</span><span class="p">:</span>
 		<span class="k">case</span> <span class="o">*</span><span class="nx">webcam</span><span class="p">.</span><span class="nx">Timeout</span><span class="p">:</span>
-			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprint</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprint</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
 			<span class="k">continue</span>
 		<span class="k">default</span><span class="p">:</span>
-			<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
+			<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
 		<span class="p">}</span>
 
-		<span class="nx">frame</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cam</span><span class="p">.</span><span class="nf">ReadFrame</span><span class="p">()</span>
+		<span class="nx">frame</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cam</span><span class="p">.</span><span class="nf">ReadFrame</span><span class="p">(</span><span class="p">)</span>
 		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">frame</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
 
 			<span class="kd">var</span> <span class="nx">img</span> <span class="nx">image</span><span class="p">.</span><span class="nx">Image</span>
-			<span class="nx">yuyv</span> <span class="o">:=</span> <span class="nx">image</span><span class="p">.</span><span class="nf">NewYCbCr</span><span class="p">(</span><span class="nx">image</span><span class="p">.</span><span class="nf">Rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="nx">w</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="nx">h</span><span class="p">)),</span> <span class="nx">image</span><span class="p">.</span><span class="nx">YCbCrSubsampleRatio422</span><span class="p">)</span>
+			<span class="nx">yuyv</span> <span class="o">:=</span> <span class="nx">image</span><span class="p">.</span><span class="nf">NewYCbCr</span><span class="p">(</span><span class="nx">image</span><span class="p">.</span><span class="nf">Rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="nx">w</span><span class="p">)</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="nx">h</span><span class="p">)</span><span class="p">)</span><span class="p">,</span> <span class="nx">image</span><span class="p">.</span><span class="nx">YCbCrSubsampleRatio422</span><span class="p">)</span>
 			<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">yuyv</span><span class="p">.</span><span class="nx">Cb</span> <span class="p">{</span>
 				<span class="nx">ii</span> <span class="o">:=</span> <span class="nx">i</span> <span class="o">*</span> <span class="mi">4</span>
 				<span class="nx">yuyv</span><span class="p">.</span><span class="nx">Y</span><span class="p">[</span><span class="nx">i</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span> <span class="p">=</span> <span class="nx">frame</span><span class="p">[</span><span class="nx">ii</span><span class="p">]</span>
@@ -427,8 +427,8 @@
 
 			<span class="p">}</span>
 			<span class="nx">img</span> <span class="p">=</span> <span class="nx">yuyv</span>
-			<span class="nx">file</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%d.jpg&#34;</span><span class="p">,</span> <span class="nx">num</span><span class="p">))</span>
-			<span class="k">defer</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+			<span class="nx">file</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%d.jpg&#34;</span><span class="p">,</span> <span class="nx">num</span><span class="p">)</span><span class="p">)</span>
+			<span class="k">defer</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
 
 			<span class="nx">err</span> <span class="p">=</span> <span class="nx">jpeg</span><span class="p">.</span><span class="nf">Encode</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">img</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
 			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
@@ -438,7 +438,7 @@
 			<span class="c1">// os.Stdout.Write(frame)
 </span><span class="c1"></span>			<span class="c1">// os.Stdout.Sync()
 </span><span class="c1"></span>		<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-			<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
+			<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
 		<span class="p">}</span>
 	<span class="p">}</span>
 <span class="p">}</span>
