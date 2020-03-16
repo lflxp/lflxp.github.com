@@ -7,10 +7,46 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 10 Mar 2020 20:11:22 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 16 Mar 2020 11:08:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>yaml</title>
+      <link>https://www.lflxp.cn/categories/yaml/</link>
+      <pubDate>Mon, 16 Mar 2020 11:08:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/categories/yaml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>爬虫</title>
+      <link>https://www.lflxp.cn/categories/%E7%88%AC%E8%99%AB/</link>
+      <pubDate>Fri, 13 Mar 2020 11:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/categories/%E7%88%AC%E8%99%AB/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gui</title>
+      <link>https://www.lflxp.cn/categories/gui/</link>
+      <pubDate>Wed, 11 Mar 2020 12:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/categories/gui/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>testing</title>
+      <link>https://www.lflxp.cn/categories/testing/</link>
+      <pubDate>Wed, 11 Mar 2020 11:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/categories/testing/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>golang</title>
@@ -270,15 +306,6 @@
       <pubDate>Wed, 15 Jan 2020 23:11:22 +0800</pubDate>
       
       <guid>https://www.lflxp.cn/categories/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>yaml</title>
-      <link>https://www.lflxp.cn/categories/yaml/</link>
-      <pubDate>Wed, 15 Jan 2020 11:08:22 +0800</pubDate>
-      
-      <guid>https://www.lflxp.cn/categories/yaml/</guid>
       <description></description>
     </item>
     

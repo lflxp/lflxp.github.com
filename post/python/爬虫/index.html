@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>爬虫 scrapy colly pyppeteer从入门到实战一 - 爱像水墨青花</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lixueping" /><meta name="description" content="最近突发奇想，需要数据支持，现学现卖，留作防止以后忘记记录关键知识点。后续会进行详细的实战分享。 爬虫框架选择 https://github.com/gocolly/colly 10K https://github.com/lorien/grab 1.1k https://github.com/scrapy/scrapy 36k https://github.com/yujiosaka/headless-chrome-crawler 4.5k https://github.com/miyakogi/pyppeteer 3k 其中coll" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.lflxp.cn/post/python/%E7%88%AC%E8%99%AB/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="爬虫 scrapy colly pyppeteer从入门到实战一" />
+<meta property="og:description" content="最近突发奇想，需要数据支持，现学现卖，留作防止以后忘记记录关键知识点。后续会进行详细的实战分享。 爬虫框架选择 https://github.com/gocolly/colly 10K https://github.com/lorien/grab 1.1k https://github.com/scrapy/scrapy 36k https://github.com/yujiosaka/headless-chrome-crawler 4.5k https://github.com/miyakogi/pyppeteer 3k 其中coll" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lflxp.cn/post/python/%E7%88%AC%E8%99%AB/" />
+<meta property="article:published_time" content="2020-03-13T11:11:22+08:00" />
+<meta property="article:modified_time" content="2020-03-13T11:28:04+08:00" />
+<meta itemprop="name" content="爬虫 scrapy colly pyppeteer从入门到实战一">
+<meta itemprop="description" content="最近突发奇想，需要数据支持，现学现卖，留作防止以后忘记记录关键知识点。后续会进行详细的实战分享。 爬虫框架选择 https://github.com/gocolly/colly 10K https://github.com/lorien/grab 1.1k https://github.com/scrapy/scrapy 36k https://github.com/yujiosaka/headless-chrome-crawler 4.5k https://github.com/miyakogi/pyppeteer 3k 其中coll">
+<meta itemprop="datePublished" content="2020-03-13T11:11:22&#43;08:00" />
+<meta itemprop="dateModified" content="2020-03-13T11:28:04&#43;08:00" />
+<meta itemprop="wordCount" content="386">
+
+
+
+<meta itemprop="keywords" content="scrapy,colly,pyppeteer," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="爬虫 scrapy colly pyppeteer从入门到实战一"/>
+<meta name="twitter:description" content="最近突发奇想，需要数据支持，现学现卖，留作防止以后忘记记录关键知识点。后续会进行详细的实战分享。 爬虫框架选择 https://github.com/gocolly/colly 10K https://github.com/lorien/grab 1.1k https://github.com/scrapy/scrapy 36k https://github.com/yujiosaka/headless-chrome-crawler 4.5k https://github.com/miyakogi/pyppeteer 3k 其中coll"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">平凡的英雄</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">目录</li>
+      </a><a href="/post/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">平凡的英雄</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">目录</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">爬虫 scrapy colly pyppeteer从入门到实战一</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-13 </span>
+        <div class="post-category">
+            <a href="/categories/%E7%88%AC%E8%99%AB/"> 爬虫 </a>
+            </div>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#爬虫框架选择">爬虫框架选择</a></li>
+    <li><a href="#最终采用">最终采用</a></li>
+    <li><a href="#demo">DEMO</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>最近突发奇想，需要数据支持，现学现卖，留作防止以后忘记记录关键知识点。后续会进行详细的实战分享。</p>
+<h2 id="爬虫框架选择">爬虫框架选择</h2>
+<ul>
+<li><a href="https://github.com/gocolly/colly">https://github.com/gocolly/colly</a> 10K</li>
+<li><a href="https://github.com/lorien/grab">https://github.com/lorien/grab</a> 1.1k</li>
+<li><a href="https://github.com/scrapy/scrapy">https://github.com/scrapy/scrapy</a>  36k</li>
+<li><a href="https://github.com/yujiosaka/headless-chrome-crawler">https://github.com/yujiosaka/headless-chrome-crawler</a> 4.5k</li>
+<li><a href="https://github.com/miyakogi/pyppeteer">https://github.com/miyakogi/pyppeteer</a> 3k</li>
+</ul>
+<p>其中<code>colly</code>是<code>go</code>语言框架，<code>python</code>有<code>scrapy</code>和<code>pyppeteer</code>。</p>
+<h2 id="最终采用">最终采用</h2>
+<blockquote>
+<p>scrapy + pyppeteer</p>
+</blockquote>
+<p>方案选择的原则：</p>
+<ul>
+<li>快速上手 colly | scrapy</li>
+<li>简单实用  colly</li>
+<li>支持异步并发 pyppeteer</li>
+<li>动态数据渲染捕捉 pyppeteer</li>
+<li>使用成熟度广，后期解决方案多 scrapy + pyppeteer</li>
+</ul>
+<h2 id="demo">DEMO</h2>
+<p><code>colly</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">c</span> <span class="o">:=</span> <span class="nx">colly</span><span class="p">.</span><span class="nf">NewCollector</span><span class="p">(</span><span class="p">)</span>
+
+	<span class="c1">// Find and visit all links
+</span><span class="c1"></span>	<span class="nx">c</span><span class="p">.</span><span class="nf">OnHTML</span><span class="p">(</span><span class="s">&#34;a[href]&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">colly</span><span class="p">.</span><span class="nx">HTMLElement</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">link</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">.</span><span class="nf">Attr</span><span class="p">(</span><span class="s">&#34;href&#34;</span><span class="p">)</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Link Found: %s&#34;</span><span class="p">,</span><span class="nx">link</span><span class="p">)</span>
+		<span class="nx">e</span><span class="p">.</span><span class="nx">Request</span><span class="p">.</span><span class="nf">Visit</span><span class="p">(</span><span class="nx">link</span><span class="p">)</span>
+	<span class="p">}</span><span class="p">)</span>
+
+	<span class="nx">c</span><span class="p">.</span><span class="nf">OnRequest</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">colly</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Visiting&#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">)</span>
+	<span class="p">}</span><span class="p">)</span>
+
+	<span class="nx">c</span><span class="p">.</span><span class="nf">Visit</span><span class="p">(</span><span class="s">&#34;http://go-colly.org/&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>scrapy</code></p>
+<ul>
+<li>DEBUG模式 <code>scrapy shell 'http://quotes.toscrape.com/page/1/'</code></li>
+<li>执行命令 <code>scrapy crawl demo1</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">scrapy</span>
+
+<span class="c1">#  scrapy crawl demo1</span>
+<span class="k">class</span> <span class="nc">QuotesSpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">)</span><span class="p">:</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">demo1</span><span class="s2">&#34;</span>
+    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="sa"></span><span class="s1">&#39;</span><span class="s1">http://quotes.toscrape.com/page/1/</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="sa"></span><span class="s1">&#39;</span><span class="s1">http://quotes.toscrape.com/page/2/</span><span class="s1">&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="c1"># def parse(self,response):</span>
+    <span class="c1">#     page = response.url.split(&#34;/&#34;)[-2]</span>
+    <span class="c1">#     filename = &#39;demo-%s.html&#39; % page</span>
+    <span class="c1">#     with open(filename,&#39;wb&#39;) as f:</span>
+    <span class="c1">#         f.write(response.body)</span>
+    <span class="c1">#     self.log(&#39;保存到文件 %s&#39; % filename)</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">quote</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">div.quote</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="p">{</span>
+                <span class="sa"></span><span class="s1">&#39;</span><span class="s1">text</span><span class="s1">&#39;</span><span class="p">:</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">span.text::text</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="p">)</span><span class="p">,</span>
+                <span class="sa"></span><span class="s1">&#39;</span><span class="s1">author</span><span class="s1">&#39;</span><span class="p">:</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">span small::text</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="p">)</span><span class="p">,</span>
+                <span class="sa"></span><span class="s1">&#39;</span><span class="s1">tags</span><span class="s1">&#39;</span><span class="p">:</span> <span class="n">quote</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">div.tags a.tag::text</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getall</span><span class="p">(</span><span class="p">)</span><span class="p">,</span>
+            <span class="p">}</span>
+
+        <span class="n">next_page</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">li.next a::attr(href)</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">next_page</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">response</span><span class="o">.</span><span class="n">follow</span><span class="p">(</span><span class="n">next_page</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>pyppeteer</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">pyppeteer</span> <span class="kn">import</span> <span class="n">launch</span>
+
+<span class="n">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+    <span class="n">browser</span> <span class="o">=</span> <span class="n">await</span> <span class="n">launch</span><span class="p">(</span><span class="p">)</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">await</span> <span class="n">browser</span><span class="o">.</span><span class="n">newPage</span><span class="p">(</span><span class="p">)</span>
+    <span class="n">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://www.lflxp.cn</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">await</span> <span class="n">page</span><span class="o">.</span><span class="n">screenshot</span><span class="p">(</span><span class="p">{</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">path</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">example.png</span><span class="s1">&#39;</span><span class="p">}</span><span class="p">)</span>
+    <span class="n">await</span> <span class="n">browser</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="p">)</span>
+
+<span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">main</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lixueping</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-03-13
+        <a href="https://github.com/lflxp/commit/29e47c73ccef6341bcf2ebbd1ae76aedbdc3394b" title="爬虫">(29e47c7)</a>
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content">MIT</span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/tx.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/ali.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/scrapy/">scrapy</a>
+          <a href="/tags/colly/">colly</a>
+          <a href="/tags/pyppeteer/">pyppeteer</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/k8s/yaml/%E8%8E%B7%E5%8F%96k8s%E5%8F%82%E6%95%B0/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">pod获取k8s集群信息的配置方法</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/python/%E7%88%AC%E8%99%AB2/">
+            <span class="next-text nav-default">爬虫 从入门到实战二</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="lflxp/lflxp.github.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:382023823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/lflxp" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.lflxp.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">lflxp.cn 版权所有 ICP证：<a href='http://www.beian.miit.gov.cn' target='_blank'>渝ICP备17011066号-1</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script><script></script><script src="https://cdn.jsdelivr.net/npm/raphael@2.2.7/raphael.min.js" integrity="sha256-67By+NpOtm9ka1R6xpUefeGOY8kWWHHRAKlvaTJ7ONI=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/flowchart.js@1.8.0/release/flowchart.min.js" integrity="sha256-zNGWjubXoY6rb5MnmpBNefO0RgoVYfle9p0tvOQM+6k=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '渝ICP备17011066号-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

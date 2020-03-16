@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>HTTP压测工具之wrk - 爱像水墨青花</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="lixueping" /><meta name="description" content="转载：https://www.jianshu.com/p/ac185e01cc30 wrk是一款简单的HTTP压测工具,托管在Github上," /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.lflxp.cn/post/%E6%B5%8B%E8%AF%95/wrk%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="HTTP压测工具之wrk" />
+<meta property="og:description" content="转载：https://www.jianshu.com/p/ac185e01cc30 wrk是一款简单的HTTP压测工具,托管在Github上," />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.lflxp.cn/post/%E6%B5%8B%E8%AF%95/wrk%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/" />
+<meta property="article:published_time" content="2020-03-11T11:11:22+08:00" />
+<meta property="article:modified_time" content="2020-03-11T12:11:31+08:00" />
+<meta itemprop="name" content="HTTP压测工具之wrk">
+<meta itemprop="description" content="转载：https://www.jianshu.com/p/ac185e01cc30 wrk是一款简单的HTTP压测工具,托管在Github上,">
+<meta itemprop="datePublished" content="2020-03-11T11:11:22&#43;08:00" />
+<meta itemprop="dateModified" content="2020-03-11T12:11:31&#43;08:00" />
+<meta itemprop="wordCount" content="2041">
+
+
+
+<meta itemprop="keywords" content="wrk," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="HTTP压测工具之wrk"/>
+<meta name="twitter:description" content="转载：https://www.jianshu.com/p/ac185e01cc30 wrk是一款简单的HTTP压测工具,托管在Github上,"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">平凡的英雄</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">目录</li>
+      </a><a href="/post/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">平凡的英雄</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">目录</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">HTTP压测工具之wrk</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-11 </span>
+        <div class="post-category">
+            <a href="/categories/testing/"> testing </a>
+            </div>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#开始测试一下">开始测试一下</a>
+      <ul>
+        <li><a href="#参数解释">参数解释:</a></li>
+      </ul>
+    </li>
+    <li><a href="#高级用法">高级用法</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>转载：https://www.jianshu.com/p/ac185e01cc30</p>
+<blockquote>
+<p>wrk是一款简单的HTTP压测工具,托管在Github上,https://github.com/wg/wrk.
+wrk 的一个很好的特性就是能用很少的线程压出很大的并发量. 原因是它使用了一些操作系统特定的高性能 io 机制, 比如 select, epoll, kqueue 等. 其实它是复用了 redis 的 ae 异步事件驱动框架. 确切的说 ae 事件驱动框架并不是 redis 发明的, 它来至于 Tcl的解释器 jim, 这个小巧高效的框架, 因为被 redis 采用而更多的被大家所熟知.</p>
+</blockquote>
+<h2 id="安装">安装</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">git clone https://github.com/wg/wrk.git  
+<span class="nb">cd</span> wrk  
+make
+</code></pre></td></tr></table>
+</div>
+</div><p>如果编译过程中出错:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">src/wrk.h:11:25: fatal error: openssl/ssl.h: No such file or directory  
+ <span class="c1">#include &lt;openssl/ssl.h&gt;</span>  
+</code></pre></td></tr></table>
+</div>
+</div><p>则需要安装<code>openssl</code>,使用<code>sudo apt-get install libssl-dev</code>或 <code>sudo yum install openssl-devel</code>安装即可,最后编辑<code>/etc/profile</code>配置环境变量。由于笔者使用的是阿里云centos7,相关依赖都已经存在了,所以可以直接使用。</p>
+<h2 id="开始测试一下">开始测试一下</h2>
+<blockquote>
+<p>wrk -t12 -c100 -d30s <a href="http://www.baidu.com">http://www.baidu.com</a></p>
+</blockquote>
+<p>这段脚本的输出是:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@jerrik /<span class="o">]</span><span class="c1"># wrk -t12 -c100 -d30s http://www.baidu.com</span>  
+Running 30s <span class="nb">test</span> @ http://www.baidu.com
+  <span class="m">12</span> threads and <span class="m">100</span> connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   211.76ms  304.92ms   1.97s    88.17%
+    Req/Sec    72.93     68.72   797.00     90.97%
+  <span class="m">23725</span> requests in 30.05s, 347.47MB <span class="nb">read</span>
+  Socket errors: connect 0, <span class="nb">read</span> 48, write 0, timeout <span class="m">50</span>
+Requests/sec:    789.57
+Transfer/sec:     11.56MB
+<span class="o">[</span>root@jerrik /<span class="o">]</span># 
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>一般线程数不宜过多. 核数的2到4倍足够了. 多了反而因为线程切换过多造成效率降低. 因为 wrk 不是使用每个连接一个线程的模型, 而是通过异步网络 io 提升并发量. 所以网络通信不会阻塞线程执行. 这也是 wrk 可以用很少的线程模拟大量网路连接的原因. 而现在很多性能工具并没有采用这种方式, 而是采用提高线程数来实现高并发. 所以并发量一旦设的很高, 测试机自身压力就很大. 测试效果反而下降.</p>
+</blockquote>
+<h3 id="参数解释">参数解释:</h3>
+<ul>
+<li>
+<p><code>12 threads and 100 connections:</code></p>
+<p>总共是12个线程,100个连接(不是一个线程对应一个连接)</p>
+</li>
+<li>
+<p><code>latency</code>和<code>Req/Sec</code>:</p>
+<p>代表单个线程的统计数据,latency代表延迟时间,Req/Sec代表单个线程每秒完成的请求数，他们都具有平均值, 标准偏差, 最大值, 正负一个标准差占比。一般我们来说我们主要关注平均值和最大值. 标准差如果太大说明样本本身离散程度比较高. 有可能系统性能波动很大.</p>
+</li>
+<li>
+<p><code>23725 requests in 30.05s, 347.47MB read</code></p>
+<p>在30秒之内总共有23725个请求,总共读取347.47MB的数据</p>
+</li>
+<li>
+<p><code>Socket errors: connect 0, read 48, write 0, timeout 50</code></p>
+<p>总共有48个读错误,50个超时.</p>
+</li>
+<li>
+<p><code>Requests/sec和Transfer/sec</code></p>
+<p>所有线程平均每秒钟完成了789.57个请求,每秒钟读取11.56MB数据量</p>
+</li>
+</ul>
+<p>如果想看看响应时间的分布,可以增加<code>--latency</code>:</p>
+<blockquote>
+<p>wrk -t12 -c100 -d30s &ndash;latency <a href="http://www.baidu.com">http://www.baidu.com</a></p>
+</blockquote>
+<p>结果为:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@jerrik ~<span class="o">]</span><span class="c1"># wrk -t12 -c100 -d30s --latency http://www.baidu.com</span> 
+Running 30s <span class="nb">test</span> @ http://www.baidu.com
+  <span class="m">12</span> threads and <span class="m">100</span> connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   204.30ms  287.90ms   1.97s    88.61%
+    Req/Sec    71.43     67.59   810.00     89.77%
+  Latency Distribution
+     50%   14.76ms
+     75%  296.79ms
+     90%  545.03ms
+     99%    1.40s 
+  <span class="m">23676</span> requests in 30.03s, 346.84MB <span class="nb">read</span>
+  Socket errors: connect 0, <span class="nb">read</span> 42, write 0, timeout <span class="m">46</span>
+Requests/sec:    788.29
+Transfer/sec:     11.55MB
+</code></pre></td></tr></table>
+</div>
+</div><p>说明有50%的请求在14.76ms之内,90%在545.03ms之内。</p>
+<h2 id="高级用法">高级用法</h2>
+<p>wrk可以结合lua来做,通过wrk提供的几个lua函数来对请求进行修改,结果输出、设置延迟等操作。下面来看看wrk提供的几个lua函数:</p>
+<ul>
+<li>
+<p>setup 函数</p>
+<p>这个函数在目标 IP 地址已经解析完, 并且所有 thread 已经生成, 但是还没有开始时被调用. 每个线程执行一次这个函数.</p>
+<p>可以通过thread:get(name), thread:set(name, value)设置线程级别的变量.</p>
+</li>
+<li>
+<p>init 函数</p>
+<p>每次请求发送之前被调用.
+可以接受 wrk 命令行的额外参数. 通过 &ndash; 指定.</p>
+</li>
+<li>
+<p>delay函数</p>
+<p>这个函数返回一个数值, 在这次请求执行完以后延迟多长时间执行下一个请求. 可以对应 thinking time 的场景.</p>
+</li>
+<li>
+<p>request函数</p>
+<p>通过这个函数可以每次请求之前修改本次请求的属性. 返回一个字符串. 这个函数要慎用, 会影响测试端性能.</p>
+</li>
+<li>
+<p>response函数</p>
+<p>每次请求返回以后被调用. 可以根据响应内容做特殊处理, 比如遇到特殊响应停止执行测试, 或输出到控制台等等.</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">response</span><span class="p">(</span><span class="nx">status</span><span class="p">,</span> <span class="nx">headers</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span>  
+   <span class="k">if</span> <span class="nx">status</span> <span class="o">~</span><span class="o">=</span> <span class="mi">200</span> <span class="nx">then</span>  
+      <span class="nx">print</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span>  
+      <span class="nx">wrk</span><span class="p">.</span><span class="nx">thread</span><span class="o">:</span><span class="nx">stop</span><span class="p">(</span><span class="p">)</span>  
+   <span class="nx">end</span>  
+<span class="nx">end</span>  
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>done函数</p>
+<p>在所有请求执行完以后调用, 一般用于自定义统计结果.</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">done</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">summary</span><span class="p">,</span> <span class="nx">latency</span><span class="p">,</span> <span class="nx">requests</span><span class="p">)</span>  
+   <span class="nx">io</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&#34;------------------------------\n&#34;</span><span class="p">)</span>  
+   <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">p</span> <span class="k">in</span> <span class="nx">pairs</span><span class="p">(</span><span class="p">{</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mf">99.999</span> <span class="p">}</span><span class="p">)</span> <span class="k">do</span>  
+      <span class="nx">n</span> <span class="o">=</span> <span class="nx">latency</span><span class="o">:</span><span class="nx">percentile</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span>  
+      <span class="nx">io</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">string</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s2">&#34;%g%%,%d\n&#34;</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span><span class="p">)</span>  
+   <span class="nx">end</span>  
+<span class="nx">end</span>  
+</code></pre></td></tr></table>
+</div>
+</div><p>wrk官网提供的setup.lua实例:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="o">--</span> <span class="nx">example</span> <span class="nx">script</span> <span class="nx">that</span> <span class="nx">demonstrates</span> <span class="nx">use</span> <span class="k">of</span> <span class="nx">setup</span><span class="p">(</span><span class="p">)</span> <span class="nx">to</span> <span class="nx">pass</span>
+<span class="o">--</span> <span class="nx">data</span> <span class="nx">to</span> <span class="nx">and</span> <span class="nx">from</span> <span class="nx">the</span> <span class="nx">threads</span>
+
+<span class="nx">local</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="nx">local</span> <span class="nx">threads</span> <span class="o">=</span> <span class="p">{</span><span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">setup</span><span class="p">(</span><span class="nx">thread</span><span class="p">)</span>
+   <span class="nx">thread</span><span class="o">:</span><span class="nx">set</span><span class="p">(</span><span class="s2">&#34;id&#34;</span><span class="p">,</span> <span class="nx">counter</span><span class="p">)</span>
+   <span class="nx">table</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="nx">threads</span><span class="p">,</span> <span class="nx">thread</span><span class="p">)</span>
+   <span class="nx">counter</span> <span class="o">=</span> <span class="nx">counter</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="nx">end</span>
+
+<span class="kd">function</span> <span class="nx">init</span><span class="p">(</span><span class="nx">args</span><span class="p">)</span>
+   <span class="nx">requests</span>  <span class="o">=</span> <span class="mi">0</span>
+   <span class="nx">responses</span> <span class="o">=</span> <span class="mi">0</span>
+
+   <span class="nx">local</span> <span class="nx">msg</span> <span class="o">=</span> <span class="s2">&#34;thread %d created&#34;</span>
+   <span class="nx">print</span><span class="p">(</span><span class="nx">msg</span><span class="o">:</span><span class="nx">format</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span><span class="p">)</span>
+<span class="nx">end</span>
+
+<span class="kd">function</span> <span class="nx">request</span><span class="p">(</span><span class="p">)</span>
+   <span class="nx">requests</span> <span class="o">=</span> <span class="nx">requests</span> <span class="o">+</span> <span class="mi">1</span>
+   <span class="k">return</span> <span class="nx">wrk</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="p">)</span>
+<span class="nx">end</span>
+
+<span class="kd">function</span> <span class="nx">response</span><span class="p">(</span><span class="nx">status</span><span class="p">,</span> <span class="nx">headers</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span>
+   <span class="nx">responses</span> <span class="o">=</span> <span class="nx">responses</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="nx">end</span>
+
+<span class="kd">function</span> <span class="nx">done</span><span class="p">(</span><span class="nx">summary</span><span class="p">,</span> <span class="nx">latency</span><span class="p">,</span> <span class="nx">requests</span><span class="p">)</span>
+   <span class="k">for</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">thread</span> <span class="k">in</span> <span class="nx">ipairs</span><span class="p">(</span><span class="nx">threads</span><span class="p">)</span> <span class="k">do</span>
+      <span class="nx">local</span> <span class="nx">id</span>        <span class="o">=</span> <span class="nx">thread</span><span class="o">:</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;id&#34;</span><span class="p">)</span>
+      <span class="nx">local</span> <span class="nx">requests</span>  <span class="o">=</span> <span class="nx">thread</span><span class="o">:</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;requests&#34;</span><span class="p">)</span>
+      <span class="nx">local</span> <span class="nx">responses</span> <span class="o">=</span> <span class="nx">thread</span><span class="o">:</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;responses&#34;</span><span class="p">)</span>
+      <span class="nx">local</span> <span class="nx">msg</span> <span class="o">=</span> <span class="s2">&#34;thread %d made %d requests and got %d responses&#34;</span>
+      <span class="nx">print</span><span class="p">(</span><span class="nx">msg</span><span class="o">:</span><span class="nx">format</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">requests</span><span class="p">,</span> <span class="nx">responses</span><span class="p">)</span><span class="p">)</span>
+   <span class="nx">end</span>
+<span class="nx">end</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>使用setup.lua:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@jerrik wrk<span class="o">]</span><span class="c1"># wrk -t 4 -c 100 -d 20s --latency -s scripts/setup.lua https://www.baidu.com</span>
+thread <span class="m">1</span> created
+thread <span class="m">2</span> created
+thread <span class="m">3</span> created
+thread <span class="m">4</span> created
+Running 20s <span class="nb">test</span> @ https://www.baidu.com
+  <span class="m">4</span> threads and <span class="m">100</span> connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   251.75ms  336.19ms   2.00s    86.89%
+    Req/Sec   138.51     69.90   690.00     71.23%
+  Latency Distribution
+     50%  215.74ms
+     75%  401.87ms
+     90%  664.84ms
+     99%    1.54s 
+  <span class="m">11021</span> requests in 20.02s, 162.82MB <span class="nb">read</span>
+  Socket errors: connect 0, <span class="nb">read</span> 3, write 0, timeout <span class="m">50</span>
+Requests/sec:    550.62
+Transfer/sec:      8.13MB
+thread <span class="m">1</span> made <span class="m">2945</span> requests and got <span class="m">2919</span> responses
+thread <span class="m">2</span> made <span class="m">2831</span> requests and got <span class="m">2807</span> responses
+thread <span class="m">3</span> made <span class="m">2772</span> requests and got <span class="m">2747</span> responses
+thread <span class="m">4</span> made <span class="m">2573</span> requests and got <span class="m">2548</span> responses
+<span class="o">[</span>root@jerrik wrk<span class="o">]</span># 
+</code></pre></td></tr></table>
+</div>
+</div><p>将每个线程的请求数和响应数输出来了。其它更多使用可以参考github script目录下的lua脚本。</p>
+<h2 id="总结">总结</h2>
+<p>wrk作为http压测还是非常简便的,但是要想应对更多复杂场景,就需要多熟悉lua的使用,深入了解wrk提供的那几个函数。其它http压测工具,jmeter,apache ab,siege也可以了解一下。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">lixueping</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-03-11
+        <a href="https://github.com/lflxp/commit/9cb160f150339be2e198576cfa82ff74319e90d3" title="wrk">(9cb160f)</a>
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content">MIT</span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/tx.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/ali.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/wrk/">wrk</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/os/gui/guilite%E5%8F%AF%E8%A7%86%E5%8C%96/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">GuiLite 一个跨平台跨终端的图形渲染工具</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/golang/websocket%E5%AE%9E%E6%88%98%E5%9B%9B/">
+            <span class="next-text nav-default">golang gin&#43;websocket&#43;xterm.js基础教学实战四</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="lflxp/lflxp.github.com"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:382023823@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/lflxp" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://www.lflxp.cn" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.lflxp.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">lflxp.cn 版权所有 ICP证：<a href='http://www.beian.miit.gov.cn' target='_blank'>渝ICP备17011066号-1</a></span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script><script></script><script src="https://cdn.jsdelivr.net/npm/raphael@2.2.7/raphael.min.js" integrity="sha256-67By+NpOtm9ka1R6xpUefeGOY8kWWHHRAKlvaTJ7ONI=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/flowchart.js@1.8.0/release/flowchart.min.js" integrity="sha256-zNGWjubXoY6rb5MnmpBNefO0RgoVYfle9p0tvOQM+6k=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', '渝ICP备17011066号-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
