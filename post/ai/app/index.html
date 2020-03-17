@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.62.2 with theme even" />
+<meta name="generator" content="Hugo 0.66.0 with theme even" />
 
 
 <link rel="canonical" href="https://www.lflxp.cn/post/ai/app/" />
@@ -207,24 +207,24 @@ opencv-python
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">cv2</span>
 
-<span class="k">class</span> <span class="nc">VideoCamera</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">VideoCamera</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">video</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># 读取摄像头</span>
     
-    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">video</span><span class="o">.</span><span class="n">release</span><span class="p">(</span><span class="p">)</span> <span class="c1"># 释放摄像头资源</span>
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video</span><span class="o">.</span><span class="n">release</span><span class="p">()</span> <span class="c1"># 释放摄像头资源</span>
 
-    <span class="k">def</span> <span class="nf">get_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
-        <span class="n">ret</span><span class="p">,</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">video</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="p">)</span> <span class="c1"># 读取摄像头每一帧的画面</span>
-        <span class="n">ret</span><span class="p">,</span><span class="n">jpeg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imencode</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">.jpg</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">image</span><span class="p">)</span> <span class="c1"># 转换cv to jpg</span>
-        <span class="k">return</span> <span class="n">jpeg</span><span class="o">.</span><span class="n">tobytes</span><span class="p">(</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ret</span><span class="p">,</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">video</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c1"># 读取摄像头每一帧的画面</span>
+        <span class="n">ret</span><span class="p">,</span><span class="n">jpeg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imencode</span><span class="p">(</span><span class="s1">&#39;.jpg&#39;</span><span class="p">,</span><span class="n">image</span><span class="p">)</span> <span class="c1"># 转换cv to jpg</span>
+        <span class="k">return</span> <span class="n">jpeg</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">__main__</span><span class="s2">&#34;</span><span class="p">:</span>
-    <span class="n">CAM</span> <span class="o">=</span> <span class="n">VideoCamera</span><span class="p">(</span><span class="p">)</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+    <span class="n">CAM</span> <span class="o">=</span> <span class="n">VideoCamera</span><span class="p">()</span>
     <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">CAM</span><span class="o">.</span><span class="n">get_frame</span><span class="p">(</span><span class="p">)</span>
-        <span class="k">yield</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="s1">--frame</span><span class="se">\r</span><span class="se">\n</span><span class="s1">&#39;</span>
-        <span class="sa">b</span><span class="s1">&#39;</span><span class="s1">Content-Type: image/jpeg</span><span class="se">\r</span><span class="se">\n</span><span class="se">\r</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">frame</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r</span><span class="se">\n</span><span class="se">\r</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">CAM</span><span class="o">.</span><span class="n">get_frame</span><span class="p">()</span>
+        <span class="k">yield</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;--frame</span><span class="se">\r\n</span><span class="s1">&#39;</span>
+        <span class="sa">b</span><span class="s1">&#39;Content-Type: image/jpeg</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">frame</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="利用dlib进行人脸抓拍">利用dlib进行人脸抓拍</h2>
@@ -263,25 +263,25 @@ opencv-python
 <span class="c1"># class VideoCamera(object):</span>
 <span class="c1"># 此处省略</span>
 
-<span class="n">CAM</span> <span class="o">=</span> <span class="n">VideoCamera</span><span class="p">(</span><span class="p">)</span>
+<span class="n">CAM</span> <span class="o">=</span> <span class="n">VideoCamera</span><span class="p">()</span>
 <span class="c1">#使用dlib自带的frontal_face_detector作为我们的特征提取器</span>
-<span class="n">detector</span> <span class="o">=</span> <span class="n">dlib</span><span class="o">.</span><span class="n">get_frontal_face_detector</span><span class="p">(</span><span class="p">)</span>
+<span class="n">detector</span> <span class="o">=</span> <span class="n">dlib</span><span class="o">.</span><span class="n">get_frontal_face_detector</span><span class="p">()</span>
 <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-        <span class="n">img</span> <span class="o">=</span> <span class="n">CAM</span><span class="o">.</span><span class="n">dlib_check</span><span class="p">(</span><span class="p">)</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">CAM</span><span class="o">.</span><span class="n">dlib_check</span><span class="p">()</span>
         <span class="c1"># 转为灰度图片</span>
         <span class="n">gray_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
         <span class="c1"># 使用detector进行人脸检测</span>
         <span class="n">dets</span> <span class="o">=</span> <span class="n">detector</span><span class="p">(</span><span class="n">gray_img</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">True</span>
         <span class="c1"># 进行图像抓取动作</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dets</span><span class="p">)</span><span class="p">:</span>
-            <span class="n">x1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">top</span><span class="p">(</span><span class="p">)</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">top</span><span class="p">(</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
-            <span class="n">y1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">bottom</span><span class="p">(</span><span class="p">)</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">bottom</span><span class="p">(</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
-            <span class="n">x2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">left</span><span class="p">(</span><span class="p">)</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">left</span><span class="p">(</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
-            <span class="n">y2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">right</span><span class="p">(</span><span class="p">)</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">right</span><span class="p">(</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dets</span><span class="p">):</span>
+            <span class="n">x1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">top</span><span class="p">()</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">top</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="n">y1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">bottom</span><span class="p">()</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">bottom</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="n">x2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">left</span><span class="p">()</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">left</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="n">y2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">right</span><span class="p">()</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">right</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
 
             <span class="n">face</span> <span class="o">=</span> <span class="n">img</span><span class="p">[</span><span class="n">x1</span><span class="p">:</span><span class="n">y1</span><span class="p">,</span><span class="n">x2</span><span class="p">:</span><span class="n">y2</span><span class="p">]</span>
-            <span class="n">face</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">face</span><span class="p">,</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="mi">64</span><span class="p">)</span><span class="p">)</span>
+            <span class="n">face</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">face</span><span class="p">,(</span><span class="mi">64</span><span class="p">,</span><span class="mi">64</span><span class="p">))</span>
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="利用face_recognition进行人脸识别">利用face_recognition进行人脸识别</h3>
@@ -342,37 +342,37 @@ opencv-python
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">face_recognition</span>
 <span class="kn">import</span> <span class="nn">dlib</span>
 
-<span class="k">def</span> <span class="nf">facerecog</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
-    <span class="n">lxp_image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(</span><span class="p">)</span> <span class="o">+</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">/know/lixueping.jpg</span><span class="s2">&#34;</span><span class="p">)</span>
-    <span class="n">lxp_face_encoding</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">lxp_image</span><span class="p">)</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">def</span> <span class="nf">facerecog</span><span class="p">():</span>
+    <span class="n">lxp_image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&#34;/know/lixueping.jpg&#34;</span><span class="p">)</span>
+    <span class="n">lxp_face_encoding</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">lxp_image</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="c1"># Create arrays of known face encodings and their names</span>
     <span class="n">known_face_encodings</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">lxp_face_encoding</span>
     <span class="p">]</span>
     <span class="n">known_face_names</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="sa"></span><span class="s2">&#34;</span><span class="s2">Li XuePing</span><span class="s2">&#34;</span>
+        <span class="s2">&#34;Li XuePing&#34;</span>
     <span class="p">]</span>
 
     <span class="c1"># Initialize some variables</span>
-    <span class="n">face_locations</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
-    <span class="n">face_encodings</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
-    <span class="n">face_names</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
+    <span class="n">face_locations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">face_encodings</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">face_names</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">process_this_frame</span> <span class="o">=</span> <span class="bp">True</span>
 
-    <span class="n">CAM</span> <span class="o">=</span> <span class="n">VideoCamera</span><span class="p">(</span><span class="p">)</span>
+    <span class="n">CAM</span> <span class="o">=</span> <span class="n">VideoCamera</span><span class="p">()</span>
     <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-        <span class="n">frame_tmp</span> <span class="o">=</span> <span class="n">CAM</span><span class="o">.</span><span class="n">face_recognition</span><span class="p">(</span><span class="p">)</span>
+        <span class="n">frame_tmp</span> <span class="o">=</span> <span class="n">CAM</span><span class="o">.</span><span class="n">face_recognition</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">process_this_frame</span><span class="p">:</span>
             <span class="c1"># Find all the faces and face encodings in the current frame of video</span>
             <span class="n">face_locations</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_locations</span><span class="p">(</span><span class="n">frame_tmp</span><span class="p">)</span>
             <span class="n">face_encodings</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">frame_tmp</span><span class="p">,</span> <span class="n">face_locations</span><span class="p">)</span>
 
-            <span class="n">face_names</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
+            <span class="n">face_names</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">face_encoding</span> <span class="ow">in</span> <span class="n">face_encodings</span><span class="p">:</span>
                 <span class="c1"># See if the face is a match for the known face(s)</span>
                 <span class="n">matches</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">compare_faces</span><span class="p">(</span><span class="n">known_face_encodings</span><span class="p">,</span> <span class="n">face_encoding</span><span class="p">)</span>
-                <span class="n">name</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">Unknown</span><span class="s2">&#34;</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;Unknown&#34;</span>
 
                 <span class="c1"># # If a match was found in known_face_encodings, just use the first one.</span>
                 <span class="c1"># if True in matches:</span>
@@ -382,11 +382,11 @@ opencv-python
                 <span class="c1"># Or instead, use the known face with the smallest distance to the new face</span>
                 <span class="n">face_distances</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_distance</span><span class="p">(</span><span class="n">known_face_encodings</span><span class="p">,</span> <span class="n">face_encoding</span><span class="p">)</span>
                 <span class="n">best_match_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">face_distances</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">matches</span><span class="p">[</span><span class="n">best_match_index</span><span class="p">]</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">matches</span><span class="p">[</span><span class="n">best_match_index</span><span class="p">]:</span>
                     <span class="n">name</span> <span class="o">=</span> <span class="n">known_face_names</span><span class="p">[</span><span class="n">best_match_index</span><span class="p">]</span>
-                <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">name check</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s1">&#39;name check&#39;</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
                 <span class="n">face_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">face_names</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">face_names</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;face_names&#39;</span><span class="p">,</span><span class="n">face_names</span><span class="p">)</span>
         <span class="n">process_this_frame</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">process_this_frame</span>
 </code></pre></td></tr></table>
 </div>
@@ -590,27 +590,27 @@ opencv-python
 <span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
 <span class="kn">from</span> <span class="nn">app.models</span> <span class="kn">import</span> <span class="n">Pic</span>
 
-<span class="k">def</span> <span class="nf">cv2_base64</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="p">:</span>
-    <span class="n">base64_str</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imencode</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">.jpg</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">image</span><span class="p">)</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cv2_base64</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="n">base64_str</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imencode</span><span class="p">(</span><span class="s1">&#39;.jpg&#39;</span><span class="p">,</span><span class="n">image</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tostring</span><span class="p">()</span>
     <span class="n">base64_str</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">base64_str</span><span class="p">)</span>
     <span class="c1"># print(&#39;base64&#39;,base64_str)</span>
     <span class="k">return</span> <span class="n">base64_str</span>
 
-<span class="k">class</span> <span class="nc">VideoCamera</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">VideoCamera</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">video</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     
-    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">video</span><span class="o">.</span><span class="n">release</span><span class="p">(</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">get_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
-        <span class="n">ret</span><span class="p">,</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">video</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="p">)</span>
-        <span class="n">ret</span><span class="p">,</span><span class="n">jpeg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imencode</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">.jpg</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">image</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">jpeg</span><span class="o">.</span><span class="n">tobytes</span><span class="p">(</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ret</span><span class="p">,</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">video</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">ret</span><span class="p">,</span><span class="n">jpeg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imencode</span><span class="p">(</span><span class="s1">&#39;.jpg&#39;</span><span class="p">,</span><span class="n">image</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">jpeg</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">face_recognition</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">face_recognition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Grab a single frame of video</span>
-        <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">video</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="p">)</span>
+        <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">video</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         
         <span class="c1"># # Resize frame of video to 1/4 size for faster face recognition processing</span>
         <span class="c1"># small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)</span>
@@ -619,33 +619,33 @@ opencv-python
         <span class="c1"># rgb_small_frame = small_frame[:, :, ::-1]</span>
         <span class="c1"># return rgb_small_frame</span>
 
-        <span class="n">rgb_small_frame</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="p">:</span><span class="p">,</span> <span class="p">:</span><span class="p">,</span> <span class="p">:</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">rgb_small_frame</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">rgb_small_frame</span>
 
-    <span class="k">def</span> <span class="nf">dlib_check</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">dlib_check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># 从摄像头读取照片</span>
-        <span class="n">success</span><span class="p">,</span> <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">video</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="p">)</span>
+        <span class="n">success</span><span class="p">,</span> <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">video</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">img</span>
 
-<span class="n">CAM</span> <span class="o">=</span> <span class="n">VideoCamera</span><span class="p">(</span><span class="p">)</span>
+<span class="n">CAM</span> <span class="o">=</span> <span class="n">VideoCamera</span><span class="p">()</span>
 <span class="c1">#使用dlib自带的frontal_face_detector作为我们的特征提取器</span>
-<span class="n">detector</span> <span class="o">=</span> <span class="n">dlib</span><span class="o">.</span><span class="n">get_frontal_face_detector</span><span class="p">(</span><span class="p">)</span>
+<span class="n">detector</span> <span class="o">=</span> <span class="n">dlib</span><span class="o">.</span><span class="n">get_frontal_face_detector</span><span class="p">()</span>
 
-<span class="k">def</span> <span class="nf">gen</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">gen</span><span class="p">():</span>
     <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-        <span class="n">frame</span> <span class="o">=</span> <span class="n">CAM</span><span class="o">.</span><span class="n">get_frame</span><span class="p">(</span><span class="p">)</span>
-        <span class="k">yield</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="s1">--frame</span><span class="se">\r</span><span class="se">\n</span><span class="s1">&#39;</span>
-        <span class="sa">b</span><span class="s1">&#39;</span><span class="s1">Content-Type: image/jpeg</span><span class="se">\r</span><span class="se">\n</span><span class="se">\r</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">frame</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r</span><span class="se">\n</span><span class="se">\r</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">CAM</span><span class="o">.</span><span class="n">get_frame</span><span class="p">()</span>
+        <span class="k">yield</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;--frame</span><span class="se">\r\n</span><span class="s1">&#39;</span>
+        <span class="sa">b</span><span class="s1">&#39;Content-Type: image/jpeg</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">frame</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">facerecog</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
-    <span class="n">lxp_image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(</span><span class="p">)</span> <span class="o">+</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">/know/lixueping.jpg</span><span class="s2">&#34;</span><span class="p">)</span>
-    <span class="n">lxp_face_encoding</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">lxp_image</span><span class="p">)</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">def</span> <span class="nf">facerecog</span><span class="p">():</span>
+    <span class="n">lxp_image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&#34;/know/lixueping.jpg&#34;</span><span class="p">)</span>
+    <span class="n">lxp_face_encoding</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">lxp_image</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="n">ff_image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(</span><span class="p">)</span> <span class="o">+</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">/know/ff.png</span><span class="s2">&#34;</span><span class="p">)</span>
-    <span class="n">ff_face_encoding</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">ff_image</span><span class="p">)</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ff_image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&#34;/know/ff.png&#34;</span><span class="p">)</span>
+    <span class="n">ff_face_encoding</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">ff_image</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="n">y_image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(</span><span class="p">)</span> <span class="o">+</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">/know/ywm.jpg</span><span class="s2">&#34;</span><span class="p">)</span>
-    <span class="n">y_face_encoding</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">y_image</span><span class="p">)</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">y_image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&#34;/know/ywm.jpg&#34;</span><span class="p">)</span>
+    <span class="n">y_face_encoding</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">y_image</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="c1"># Create arrays of known face encodings and their names</span>
     <span class="n">known_face_encodings</span> <span class="o">=</span> <span class="p">[</span>
@@ -656,17 +656,17 @@ opencv-python
         <span class="c1"># biden_face_encoding</span>
     <span class="p">]</span>
     <span class="n">known_face_names</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="sa"></span><span class="s2">&#34;</span><span class="s2">Li XuePing</span><span class="s2">&#34;</span><span class="p">,</span>
-        <span class="sa"></span><span class="s2">&#34;</span><span class="s2">FangFang</span><span class="s2">&#34;</span><span class="p">,</span>
-        <span class="sa"></span><span class="s2">&#34;</span><span class="s2">YuWenMiao</span><span class="s2">&#34;</span>
+        <span class="s2">&#34;Li XuePing&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;FangFang&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;YuWenMiao&#34;</span>
         <span class="c1"># &#34;Barack Obama&#34;,</span>
         <span class="c1"># &#34;Joe Biden&#34;</span>
     <span class="p">]</span>
 
     <span class="c1"># Initialize some variables</span>
-    <span class="n">face_locations</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
-    <span class="n">face_encodings</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
-    <span class="n">face_names</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
+    <span class="n">face_locations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">face_encodings</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">face_names</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">process_this_frame</span> <span class="o">=</span> <span class="bp">True</span>
 
     <span class="c1"># while True:</span>
@@ -675,17 +675,17 @@ opencv-python
     <span class="c1">#     b&#39;Content-Type: image/jpeg\r\n\r\n&#39; + frame + b&#39;\r\n\r\n&#39;)</span>
 
     <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-        <span class="n">frame_tmp</span> <span class="o">=</span> <span class="n">CAM</span><span class="o">.</span><span class="n">face_recognition</span><span class="p">(</span><span class="p">)</span>
+        <span class="n">frame_tmp</span> <span class="o">=</span> <span class="n">CAM</span><span class="o">.</span><span class="n">face_recognition</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">process_this_frame</span><span class="p">:</span>
             <span class="c1"># Find all the faces and face encodings in the current frame of video</span>
             <span class="n">face_locations</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_locations</span><span class="p">(</span><span class="n">frame_tmp</span><span class="p">)</span>
             <span class="n">face_encodings</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">frame_tmp</span><span class="p">,</span> <span class="n">face_locations</span><span class="p">)</span>
 
-            <span class="n">face_names</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
+            <span class="n">face_names</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">face_encoding</span> <span class="ow">in</span> <span class="n">face_encodings</span><span class="p">:</span>
                 <span class="c1"># See if the face is a match for the known face(s)</span>
                 <span class="n">matches</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">compare_faces</span><span class="p">(</span><span class="n">known_face_encodings</span><span class="p">,</span> <span class="n">face_encoding</span><span class="p">)</span>
-                <span class="n">name</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">Unknown</span><span class="s2">&#34;</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;Unknown&#34;</span>
 
                 <span class="c1"># # If a match was found in known_face_encodings, just use the first one.</span>
                 <span class="c1"># if True in matches:</span>
@@ -695,11 +695,11 @@ opencv-python
                 <span class="c1"># Or instead, use the known face with the smallest distance to the new face</span>
                 <span class="n">face_distances</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_distance</span><span class="p">(</span><span class="n">known_face_encodings</span><span class="p">,</span> <span class="n">face_encoding</span><span class="p">)</span>
                 <span class="n">best_match_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">face_distances</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">matches</span><span class="p">[</span><span class="n">best_match_index</span><span class="p">]</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">matches</span><span class="p">[</span><span class="n">best_match_index</span><span class="p">]:</span>
                     <span class="n">name</span> <span class="o">=</span> <span class="n">known_face_names</span><span class="p">[</span><span class="n">best_match_index</span><span class="p">]</span>
-                <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">name check</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s1">&#39;name check&#39;</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
                 <span class="n">face_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">face_names</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">face_names</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;face_names&#39;</span><span class="p">,</span><span class="n">face_names</span><span class="p">)</span>
         <span class="n">process_this_frame</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">process_this_frame</span>
 
 
@@ -719,50 +719,50 @@ opencv-python
         <span class="c1">#     font = cv2.FONT_HERSHEY_DUPLEX</span>
         <span class="c1">#     cv2.putText(frame_tmp, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)</span>
 
-        <span class="n">ret</span><span class="p">,</span><span class="n">jpeg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imencode</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">.jpg</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">frame_tmp</span><span class="p">)</span>
+        <span class="n">ret</span><span class="p">,</span><span class="n">jpeg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imencode</span><span class="p">(</span><span class="s1">&#39;.jpg&#39;</span><span class="p">,</span><span class="n">frame_tmp</span><span class="p">)</span>
 
-        <span class="k">yield</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="s1">--frame</span><span class="se">\r</span><span class="se">\n</span><span class="s1">&#39;</span>
-        <span class="sa">b</span><span class="s1">&#39;</span><span class="s1">Content-Type: image/jpeg</span><span class="se">\r</span><span class="se">\n</span><span class="se">\r</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">jpeg</span><span class="o">.</span><span class="n">tobytes</span><span class="p">(</span><span class="p">)</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r</span><span class="se">\n</span><span class="se">\r</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">yield</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;--frame</span><span class="se">\r\n</span><span class="s1">&#39;</span>
+        <span class="sa">b</span><span class="s1">&#39;Content-Type: image/jpeg</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">jpeg</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">dlibCheck</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">dlibCheck</span><span class="p">():</span>
     <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-        <span class="n">img</span> <span class="o">=</span> <span class="n">CAM</span><span class="o">.</span><span class="n">dlib_check</span><span class="p">(</span><span class="p">)</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">CAM</span><span class="o">.</span><span class="n">dlib_check</span><span class="p">()</span>
         <span class="c1"># 转为灰度图片</span>
         <span class="n">gray_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
         <span class="c1"># 使用detector进行人脸检测</span>
         <span class="n">dets</span> <span class="o">=</span> <span class="n">detector</span><span class="p">(</span><span class="n">gray_img</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">True</span>
         <span class="c1"># 进行图像抓取动作</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dets</span><span class="p">)</span><span class="p">:</span>
-            <span class="n">x1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">top</span><span class="p">(</span><span class="p">)</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">top</span><span class="p">(</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
-            <span class="n">y1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">bottom</span><span class="p">(</span><span class="p">)</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">bottom</span><span class="p">(</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
-            <span class="n">x2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">left</span><span class="p">(</span><span class="p">)</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">left</span><span class="p">(</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
-            <span class="n">y2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">right</span><span class="p">(</span><span class="p">)</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">right</span><span class="p">(</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dets</span><span class="p">):</span>
+            <span class="n">x1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">top</span><span class="p">()</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">top</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="n">y1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">bottom</span><span class="p">()</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">bottom</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="n">x2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">left</span><span class="p">()</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">left</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="n">y2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">right</span><span class="p">()</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">right</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
 
             <span class="n">face</span> <span class="o">=</span> <span class="n">img</span><span class="p">[</span><span class="n">x1</span><span class="p">:</span><span class="n">y1</span><span class="p">,</span><span class="n">x2</span><span class="p">:</span><span class="n">y2</span><span class="p">]</span>
-            <span class="n">face</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">face</span><span class="p">,</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="mi">64</span><span class="p">)</span><span class="p">)</span>
+            <span class="n">face</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">face</span><span class="p">,(</span><span class="mi">64</span><span class="p">,</span><span class="mi">64</span><span class="p">))</span>
 
-            <span class="n">name</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">%</span><span class="s2">Y</span><span class="s2">%</span><span class="s2">m</span><span class="si">%d</span><span class="s2">%</span><span class="s2">H</span><span class="s2">%</span><span class="s2">M</span><span class="s2">%</span><span class="s2">S</span><span class="s2">&#34;</span><span class="p">)</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&#34;%Y%m</span><span class="si">%d</span><span class="s2">%H%M%S&#34;</span><span class="p">)</span>
 
-            <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">static</span><span class="s2">&#34;</span><span class="p">)</span><span class="o">+</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">/</span><span class="s2">&#34;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">.jpg</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">face</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s2">&#34;static&#34;</span><span class="p">)</span><span class="o">+</span><span class="s2">&#34;/&#34;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;.jpg&#39;</span><span class="p">,</span><span class="n">face</span><span class="p">)</span>
 
             <span class="n">pic</span> <span class="o">=</span> <span class="n">Pic</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
-            <span class="n">pic</span><span class="o">.</span><span class="n">resource</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">抓拍</span><span class="s1">&#39;</span>
-            <span class="n">pic</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">static</span><span class="s2">&#34;</span><span class="p">)</span><span class="o">+</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">/</span><span class="s2">&#34;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">.jpg</span><span class="s1">&#39;</span>
+            <span class="n">pic</span><span class="o">.</span><span class="n">resource</span> <span class="o">=</span> <span class="s1">&#39;抓拍&#39;</span>
+            <span class="n">pic</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s2">&#34;static&#34;</span><span class="p">)</span><span class="o">+</span><span class="s2">&#34;/&#34;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;.jpg&#39;</span>
             <span class="n">pic</span><span class="o">.</span><span class="n">base64</span> <span class="o">=</span> <span class="n">cv2_base64</span><span class="p">(</span><span class="n">face</span><span class="p">)</span>
-            <span class="n">pic</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="p">)</span>
+            <span class="n">pic</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
-            <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">dlib found person</span><span class="s1">&#39;</span><span class="p">)</span>
-            <span class="n">ret</span><span class="p">,</span><span class="n">jpeg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imencode</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">.jpg</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">img</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;dlib found person&#39;</span><span class="p">)</span>
+            <span class="n">ret</span><span class="p">,</span><span class="n">jpeg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imencode</span><span class="p">(</span><span class="s1">&#39;.jpg&#39;</span><span class="p">,</span><span class="n">img</span><span class="p">)</span>
             <span class="n">status</span> <span class="o">=</span> <span class="bp">False</span>
-            <span class="k">yield</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="s1">--frame</span><span class="se">\r</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="sa">b</span><span class="s1">&#39;</span><span class="s1">Content-Type: image/jpeg</span><span class="se">\r</span><span class="se">\n</span><span class="se">\r</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">jpeg</span><span class="o">.</span><span class="n">tobytes</span><span class="p">(</span><span class="p">)</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r</span><span class="se">\n</span><span class="se">\r</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">yield</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;--frame</span><span class="se">\r\n</span><span class="s1">&#39;</span>
+            <span class="sa">b</span><span class="s1">&#39;Content-Type: image/jpeg</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">jpeg</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span><span class="p">)</span>
         
         <span class="k">if</span> <span class="n">status</span><span class="p">:</span>
             <span class="c1"># print(&#39;dlib not found&#39;)</span>
-            <span class="n">ret</span><span class="p">,</span><span class="n">jp</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imencode</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">.jpg</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">gray_img</span><span class="p">)</span>
-            <span class="k">yield</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="s1">--frame</span><span class="se">\r</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="sa">b</span><span class="s1">&#39;</span><span class="s1">Content-Type: image/jpeg</span><span class="se">\r</span><span class="se">\n</span><span class="se">\r</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">jp</span><span class="o">.</span><span class="n">tobytes</span><span class="p">(</span><span class="p">)</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r</span><span class="se">\n</span><span class="se">\r</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">ret</span><span class="p">,</span><span class="n">jp</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imencode</span><span class="p">(</span><span class="s1">&#39;.jpg&#39;</span><span class="p">,</span><span class="n">gray_img</span><span class="p">)</span>
+            <span class="k">yield</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;--frame</span><span class="se">\r\n</span><span class="s1">&#39;</span>
+            <span class="sa">b</span><span class="s1">&#39;Content-Type: image/jpeg</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">jp</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
 </div>

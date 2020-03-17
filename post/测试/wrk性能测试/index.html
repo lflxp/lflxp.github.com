@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.62.2 with theme even" />
+<meta name="generator" content="Hugo 0.66.0 with theme even" />
 
 
 <link rel="canonical" href="https://www.lflxp.cn/post/%E6%B5%8B%E8%AF%95/wrk%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/" />
@@ -43,11 +43,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.lflxp.cn/post/%E6%B5%8B%E8%AF%95/wrk%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/" />
 <meta property="article:published_time" content="2020-03-11T11:11:22+08:00" />
-<meta property="article:modified_time" content="2020-03-11T12:11:31+08:00" />
+<meta property="article:modified_time" content="2020-03-11T11:11:22+08:00" />
 <meta itemprop="name" content="HTTP压测工具之wrk">
 <meta itemprop="description" content="转载：https://www.jianshu.com/p/ac185e01cc30 wrk是一款简单的HTTP压测工具,托管在Github上,">
 <meta itemprop="datePublished" content="2020-03-11T11:11:22&#43;08:00" />
-<meta itemprop="dateModified" content="2020-03-11T12:11:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-03-11T11:11:22&#43;08:00" />
 <meta itemprop="wordCount" content="2041">
 
 
@@ -318,9 +318,9 @@ Transfer/sec:     11.55MB
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">response</span><span class="p">(</span><span class="nx">status</span><span class="p">,</span> <span class="nx">headers</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span>  
-   <span class="k">if</span> <span class="nx">status</span> <span class="o">~</span><span class="o">=</span> <span class="mi">200</span> <span class="nx">then</span>  
+   <span class="k">if</span> <span class="nx">status</span> <span class="o">~=</span> <span class="mi">200</span> <span class="nx">then</span>  
       <span class="nx">print</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span>  
-      <span class="nx">wrk</span><span class="p">.</span><span class="nx">thread</span><span class="o">:</span><span class="nx">stop</span><span class="p">(</span><span class="p">)</span>  
+      <span class="nx">wrk</span><span class="p">.</span><span class="nx">thread</span><span class="o">:</span><span class="nx">stop</span><span class="p">()</span>  
    <span class="nx">end</span>  
 <span class="nx">end</span>  
 </code></pre></td></tr></table>
@@ -344,9 +344,9 @@ Transfer/sec:     11.55MB
 <td class="lntd">
 <pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">done</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">summary</span><span class="p">,</span> <span class="nx">latency</span><span class="p">,</span> <span class="nx">requests</span><span class="p">)</span>  
    <span class="nx">io</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&#34;------------------------------\n&#34;</span><span class="p">)</span>  
-   <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">p</span> <span class="k">in</span> <span class="nx">pairs</span><span class="p">(</span><span class="p">{</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mf">99.999</span> <span class="p">}</span><span class="p">)</span> <span class="k">do</span>  
+   <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">p</span> <span class="k">in</span> <span class="nx">pairs</span><span class="p">({</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mf">99.999</span> <span class="p">})</span> <span class="k">do</span>  
       <span class="nx">n</span> <span class="o">=</span> <span class="nx">latency</span><span class="o">:</span><span class="nx">percentile</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span>  
-      <span class="nx">io</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">string</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s2">&#34;%g%%,%d\n&#34;</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span><span class="p">)</span>  
+      <span class="nx">io</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">string</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s2">&#34;%g%%,%d\n&#34;</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">n</span><span class="p">))</span>  
    <span class="nx">end</span>  
 <span class="nx">end</span>  
 </code></pre></td></tr></table>
@@ -394,11 +394,11 @@ Transfer/sec:     11.55MB
 </span><span class="lnt">38
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="o">--</span> <span class="nx">example</span> <span class="nx">script</span> <span class="nx">that</span> <span class="nx">demonstrates</span> <span class="nx">use</span> <span class="k">of</span> <span class="nx">setup</span><span class="p">(</span><span class="p">)</span> <span class="nx">to</span> <span class="nx">pass</span>
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="o">--</span> <span class="nx">example</span> <span class="nx">script</span> <span class="nx">that</span> <span class="nx">demonstrates</span> <span class="nx">use</span> <span class="k">of</span> <span class="nx">setup</span><span class="p">()</span> <span class="nx">to</span> <span class="nx">pass</span>
 <span class="o">--</span> <span class="nx">data</span> <span class="nx">to</span> <span class="nx">and</span> <span class="nx">from</span> <span class="nx">the</span> <span class="nx">threads</span>
 
 <span class="nx">local</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="nx">local</span> <span class="nx">threads</span> <span class="o">=</span> <span class="p">{</span><span class="p">}</span>
+<span class="nx">local</span> <span class="nx">threads</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="kd">function</span> <span class="nx">setup</span><span class="p">(</span><span class="nx">thread</span><span class="p">)</span>
    <span class="nx">thread</span><span class="o">:</span><span class="nx">set</span><span class="p">(</span><span class="s2">&#34;id&#34;</span><span class="p">,</span> <span class="nx">counter</span><span class="p">)</span>
@@ -411,12 +411,12 @@ Transfer/sec:     11.55MB
    <span class="nx">responses</span> <span class="o">=</span> <span class="mi">0</span>
 
    <span class="nx">local</span> <span class="nx">msg</span> <span class="o">=</span> <span class="s2">&#34;thread %d created&#34;</span>
-   <span class="nx">print</span><span class="p">(</span><span class="nx">msg</span><span class="o">:</span><span class="nx">format</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span><span class="p">)</span>
+   <span class="nx">print</span><span class="p">(</span><span class="nx">msg</span><span class="o">:</span><span class="nx">format</span><span class="p">(</span><span class="nx">id</span><span class="p">))</span>
 <span class="nx">end</span>
 
-<span class="kd">function</span> <span class="nx">request</span><span class="p">(</span><span class="p">)</span>
+<span class="kd">function</span> <span class="nx">request</span><span class="p">()</span>
    <span class="nx">requests</span> <span class="o">=</span> <span class="nx">requests</span> <span class="o">+</span> <span class="mi">1</span>
-   <span class="k">return</span> <span class="nx">wrk</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="p">)</span>
+   <span class="k">return</span> <span class="nx">wrk</span><span class="p">.</span><span class="nx">request</span><span class="p">()</span>
 <span class="nx">end</span>
 
 <span class="kd">function</span> <span class="nx">response</span><span class="p">(</span><span class="nx">status</span><span class="p">,</span> <span class="nx">headers</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span>
@@ -429,7 +429,7 @@ Transfer/sec:     11.55MB
       <span class="nx">local</span> <span class="nx">requests</span>  <span class="o">=</span> <span class="nx">thread</span><span class="o">:</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;requests&#34;</span><span class="p">)</span>
       <span class="nx">local</span> <span class="nx">responses</span> <span class="o">=</span> <span class="nx">thread</span><span class="o">:</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;responses&#34;</span><span class="p">)</span>
       <span class="nx">local</span> <span class="nx">msg</span> <span class="o">=</span> <span class="s2">&#34;thread %d made %d requests and got %d responses&#34;</span>
-      <span class="nx">print</span><span class="p">(</span><span class="nx">msg</span><span class="o">:</span><span class="nx">format</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">requests</span><span class="p">,</span> <span class="nx">responses</span><span class="p">)</span><span class="p">)</span>
+      <span class="nx">print</span><span class="p">(</span><span class="nx">msg</span><span class="o">:</span><span class="nx">format</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">requests</span><span class="p">,</span> <span class="nx">responses</span><span class="p">))</span>
    <span class="nx">end</span>
 <span class="nx">end</span>
 </code></pre></td></tr></table>
@@ -504,7 +504,7 @@ thread <span class="m">4</span> made <span class="m">2573</span> requests and go
     <span class="item-title">上次更新</span>
     <span class="item-content">
         2020-03-11
-        <a href="https://github.com/lflxp/commit/9cb160f150339be2e198576cfa82ff74319e90d3" title="wrk">(9cb160f)</a>
+        
     </span>
   </p>
   

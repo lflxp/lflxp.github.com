@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.62.2 with theme even" />
+<meta name="generator" content="Hugo 0.66.0 with theme even" />
 
 
 <link rel="canonical" href="https://www.lflxp.cn/post/golang/websocket%E5%AE%9E%E6%88%98%E5%9B%9B/" />
@@ -43,12 +43,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.lflxp.cn/post/golang/websocket%E5%AE%9E%E6%88%98%E5%9B%9B/" />
 <meta property="article:published_time" content="2020-03-10T20:11:22+08:00" />
-<meta property="article:modified_time" content="2020-03-10T23:19:33+08:00" />
+<meta property="article:modified_time" content="2020-03-10T20:11:22+08:00" />
 <meta itemprop="name" content="golang gin&#43;websocket&#43;xterm.js基础教学实战四">
 <meta itemprop="description" content="本篇教程完成了基于单二进制文件启动的web terminial应用程序，无任何第三方依赖，随用随启动。 本教程是前三篇基础教程的实战编程，结合了">
 <meta itemprop="datePublished" content="2020-03-10T20:11:22&#43;08:00" />
-<meta itemprop="dateModified" content="2020-03-10T23:19:33&#43;08:00" />
-<meta itemprop="wordCount" content="2361">
+<meta itemprop="dateModified" content="2020-03-10T20:11:22&#43;08:00" />
+<meta itemprop="wordCount" content="2575">
 
 
 
@@ -147,6 +147,7 @@
     <li><a href="#web安全技术的引进">web安全技术的引进</a></li>
     <li><a href="#golang-携程的实战应用">Golang 携程的实战应用</a></li>
     <li><a href="#makefile编译工具的深入使用">Makefile编译工具的深入使用</a></li>
+    <li><a href="#线上部署">线上部署</a></li>
     <li><a href="#参考">参考</a></li>
   </ul>
 </nav>
@@ -274,7 +275,7 @@ Flags:
 	<span class="nx">WriteBufferSize</span><span class="p">:</span> <span class="mi">1024</span><span class="p">,</span>
 	<span class="nx">CheckOrigin</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
 		<span class="k">return</span> <span class="kc">true</span>
-	<span class="p">}</span><span class="p">,</span>
+	<span class="p">},</span>
 <span class="p">}</span>
 
 <span class="o">...</span>
@@ -287,7 +288,7 @@ Flags:
     <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
         <span class="k">return</span>
     <span class="p">}</span>
-    <span class="k">defer</span> <span class="nx">ws</span><span class="p">.</span><span class="nf">Close</span><span class="p">(</span><span class="p">)</span>
+    <span class="k">defer</span> <span class="nx">ws</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="cobra-cli命令行工具使用">cobra cli命令行工具使用</h2>
@@ -353,23 +354,23 @@ Flags:
 </span><span class="c1"></span><span class="kd">var</span> <span class="nx">ttyCmd</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">cobra</span><span class="p">.</span><span class="nx">Command</span><span class="p">{</span>
 	<span class="nx">Use</span><span class="p">:</span>   <span class="s">&#34;tty&#34;</span><span class="p">,</span>
 	<span class="nx">Short</span><span class="p">:</span> <span class="s">&#34;web terminial&#34;</span><span class="p">,</span>
-	<span class="nx">Long</span><span class="p">:</span> <span class="s">`</span><span class="s">showme tty [flags] [command] [args]
-</span><span class="s">eg: showme tty -w -r showme proxy http</span><span class="s">`</span><span class="p">,</span>
-	<span class="nx">Run</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">cmd</span> <span class="o">*</span><span class="nx">cobra</span><span class="p">.</span><span class="nx">Command</span><span class="p">,</span> <span class="nx">args</span> <span class="p">[</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">Long</span><span class="p">:</span> <span class="s">`showme tty [flags] [command] [args]
+</span><span class="s">eg: showme tty -w -r showme proxy http`</span><span class="p">,</span>
+	<span class="nx">Run</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">cmd</span> <span class="o">*</span><span class="nx">cobra</span><span class="p">.</span><span class="nx">Command</span><span class="p">,</span> <span class="nx">args</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
 		<span class="nx">tty</span><span class="p">.</span><span class="nf">ServeGin</span><span class="p">(</span><span class="nx">port</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">isDebug</span><span class="p">,</span> <span class="nx">isReconnect</span><span class="p">,</span> <span class="nx">isPermitWrite</span><span class="p">,</span> <span class="nx">isAudit</span><span class="p">,</span> <span class="nx">MaxConnections</span><span class="p">)</span>
-	<span class="p">}</span><span class="p">,</span>
+	<span class="p">},</span>
 <span class="p">}</span>
 
-<span class="kd">func</span> <span class="nf">init</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+<span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">rootCmd</span><span class="p">.</span><span class="nf">AddCommand</span><span class="p">(</span><span class="nx">ttyCmd</span><span class="p">)</span>
-	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">StringVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">username</span><span class="p">,</span> <span class="s">&#34;username&#34;</span><span class="p">,</span> <span class="s">&#34;u&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;BasicAuth 用户名&#34;</span><span class="p">)</span>
-	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">StringVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">password</span><span class="p">,</span> <span class="s">&#34;password&#34;</span><span class="p">,</span> <span class="s">&#34;p&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;BasicAuth 密码&#34;</span><span class="p">)</span>
-	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">StringVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">port</span><span class="p">,</span> <span class="s">&#34;port&#34;</span><span class="p">,</span> <span class="s">&#34;P&#34;</span><span class="p">,</span> <span class="s">&#34;8080&#34;</span><span class="p">,</span> <span class="s">&#34;http port&#34;</span><span class="p">)</span>
-	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">BoolVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">isDebug</span><span class="p">,</span> <span class="s">&#34;debug&#34;</span><span class="p">,</span> <span class="s">&#34;d&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s">&#34;debug log mode&#34;</span><span class="p">)</span>
-	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">BoolVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">isReconnect</span><span class="p">,</span> <span class="s">&#34;reconnect&#34;</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s">&#34;is auto reconnect&#34;</span><span class="p">)</span>
-	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">BoolVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">isPermitWrite</span><span class="p">,</span> <span class="s">&#34;write&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s">&#34;is permit write&#34;</span><span class="p">)</span>
-	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">BoolVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">isAudit</span><span class="p">,</span> <span class="s">&#34;audit&#34;</span><span class="p">,</span> <span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s">&#34;is audit&#34;</span><span class="p">)</span>
-	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">Int64VarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">MaxConnections</span><span class="p">,</span> <span class="s">&#34;maxconnect&#34;</span><span class="p">,</span> <span class="s">&#34;m&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;max connect number&#34;</span><span class="p">)</span>
+	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">().</span><span class="nf">StringVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">username</span><span class="p">,</span> <span class="s">&#34;username&#34;</span><span class="p">,</span> <span class="s">&#34;u&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;BasicAuth 用户名&#34;</span><span class="p">)</span>
+	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">().</span><span class="nf">StringVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">password</span><span class="p">,</span> <span class="s">&#34;password&#34;</span><span class="p">,</span> <span class="s">&#34;p&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;BasicAuth 密码&#34;</span><span class="p">)</span>
+	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">().</span><span class="nf">StringVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">port</span><span class="p">,</span> <span class="s">&#34;port&#34;</span><span class="p">,</span> <span class="s">&#34;P&#34;</span><span class="p">,</span> <span class="s">&#34;8080&#34;</span><span class="p">,</span> <span class="s">&#34;http port&#34;</span><span class="p">)</span>
+	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">().</span><span class="nf">BoolVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">isDebug</span><span class="p">,</span> <span class="s">&#34;debug&#34;</span><span class="p">,</span> <span class="s">&#34;d&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s">&#34;debug log mode&#34;</span><span class="p">)</span>
+	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">().</span><span class="nf">BoolVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">isReconnect</span><span class="p">,</span> <span class="s">&#34;reconnect&#34;</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s">&#34;is auto reconnect&#34;</span><span class="p">)</span>
+	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">().</span><span class="nf">BoolVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">isPermitWrite</span><span class="p">,</span> <span class="s">&#34;write&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s">&#34;is permit write&#34;</span><span class="p">)</span>
+	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">().</span><span class="nf">BoolVarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">isAudit</span><span class="p">,</span> <span class="s">&#34;audit&#34;</span><span class="p">,</span> <span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s">&#34;is audit&#34;</span><span class="p">)</span>
+	<span class="nx">ttyCmd</span><span class="p">.</span><span class="nf">Flags</span><span class="p">().</span><span class="nf">Int64VarP</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">MaxConnections</span><span class="p">,</span> <span class="s">&#34;maxconnect&#34;</span><span class="p">,</span> <span class="s">&#34;m&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;max connect number&#34;</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -391,10 +392,10 @@ Flags:
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-golang" data-lang="golang"><span class="c1">// 将所有返回结果包括UTF8编码的内容用base64进行编码，client解码再显示，避免了直接UTF8编码传输的报错
-</span><span class="c1"></span><span class="c1">// Could not decode a text frame as UTF-8 的解决
-</span><span class="c1"></span><span class="nx">safeMessage</span> <span class="o">:=</span> <span class="nx">base64</span><span class="p">.</span><span class="nx">StdEncoding</span><span class="p">.</span><span class="nf">EncodeToString</span><span class="p">(</span><span class="p">[</span><span class="p">]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">buf</span><span class="p">[</span><span class="p">:</span><span class="nx">size</span><span class="p">]</span><span class="p">)</span><span class="p">)</span>
-<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">this</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="p">[</span><span class="p">]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">safeMessage</span><span class="p">)</span><span class="p">)</span><span class="p">;</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-    <span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+</span><span class="c1">// Could not decode a text frame as UTF-8 的解决
+</span><span class="c1"></span><span class="nx">safeMessage</span> <span class="o">:=</span> <span class="nx">base64</span><span class="p">.</span><span class="nx">StdEncoding</span><span class="p">.</span><span class="nf">EncodeToString</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">buf</span><span class="p">[:</span><span class="nx">size</span><span class="p">]))</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">this</span><span class="p">.</span><span class="nf">write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">safeMessage</span><span class="p">));</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
     <span class="k">return</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
@@ -428,23 +429,23 @@ Flags:
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">term</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;Welcome to \x1B[1;3;31mShowMe TTY\x1B[0m&#39;</span><span class="p">)</span>
-<span class="p">{</span><span class="p">{</span><span class="k">if</span> <span class="p">.</span><span class="nx">Reconnect</span><span class="p">}</span><span class="p">}</span>
+<span class="p">{{</span><span class="k">if</span> <span class="p">.</span><span class="nx">Reconnect</span><span class="p">}}</span>
 <span class="nx">term</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;连接模式: \x1B[1;3;32mReconnect\x1B[0m&#39;</span><span class="p">)</span>
-<span class="p">{</span><span class="p">{</span><span class="o">-</span> <span class="k">else</span><span class="p">}</span><span class="p">}</span>
+<span class="p">{{</span><span class="o">-</span> <span class="k">else</span><span class="p">}}</span>
 <span class="nx">term</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;连接模式: \x1B[1;3;32mOnce\x1B[0m&#39;</span><span class="p">)</span>
-<span class="p">{</span><span class="p">{</span><span class="o">-</span> <span class="nx">end</span><span class="p">}</span><span class="p">}</span>
+<span class="p">{{</span><span class="o">-</span> <span class="nx">end</span><span class="p">}}</span>
 
-<span class="p">{</span><span class="p">{</span><span class="k">if</span> <span class="p">.</span><span class="nx">Write</span><span class="p">}</span><span class="p">}</span>
+<span class="p">{{</span><span class="k">if</span> <span class="p">.</span><span class="nx">Write</span><span class="p">}}</span>
 <span class="nx">term</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;输入模式：\x1B[1;3;31m读/写\x1B[0m&#39;</span><span class="p">)</span>
-<span class="p">{</span><span class="p">{</span><span class="o">-</span> <span class="k">else</span><span class="p">}</span><span class="p">}</span>
+<span class="p">{{</span><span class="o">-</span> <span class="k">else</span><span class="p">}}</span>
 <span class="nx">term</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;输入模式：\x1B[1;3;31m读\x1B[0m&#39;</span><span class="p">)</span>
-<span class="p">{</span><span class="p">{</span><span class="o">-</span> <span class="nx">end</span><span class="p">}</span><span class="p">}</span>
+<span class="p">{{</span><span class="o">-</span> <span class="nx">end</span><span class="p">}}</span>
 
-<span class="p">{</span><span class="p">{</span><span class="k">if</span> <span class="p">.</span><span class="nx">MaxC</span><span class="p">}</span><span class="p">}</span>
+<span class="p">{{</span><span class="k">if</span> <span class="p">.</span><span class="nx">MaxC</span><span class="p">}}</span>
 <span class="nx">term</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;连接状态：\x1B[1;3;34m{{.Conn}}/{{.MaxC}}\x1B[0m&#39;</span><span class="p">)</span>
-<span class="p">{</span><span class="p">{</span><span class="o">-</span> <span class="k">else</span><span class="p">}</span><span class="p">}</span>
+<span class="p">{{</span><span class="o">-</span> <span class="k">else</span><span class="p">}}</span>
 <span class="nx">term</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;连接总数：\x1B[1;3;34m{{.Conn}}\x1B[0m&#39;</span><span class="p">)</span>
-<span class="p">{</span><span class="p">{</span><span class="o">-</span> <span class="nx">end</span><span class="p">}</span><span class="p">}</span>
+<span class="p">{{</span><span class="o">-</span> <span class="nx">end</span><span class="p">}}</span>
 
 <span class="nx">term</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;启动参数: \x1B[1;3;30m{{ .Cmd }}\x1B[0m&#39;</span><span class="p">)</span>
 <span class="nx">term</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;XsrfToken: {{ .Xsrf }}&#39;</span><span class="p">)</span>
@@ -487,25 +488,25 @@ Flags:
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-golang" data-lang="golang"><span class="c1">// 主页
-</span><span class="c1"></span><span class="c1">// 从内存取出然后渲染加载
-</span><span class="c1"></span><span class="nx">indexhtml</span> <span class="o">:=</span> <span class="nx">multitemplate</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="p">)</span>
+</span><span class="c1">// 从内存取出然后渲染加载
+</span><span class="c1"></span><span class="nx">indexhtml</span> <span class="o">:=</span> <span class="nx">multitemplate</span><span class="p">.</span><span class="nf">New</span><span class="p">()</span>
 <span class="nx">xterm3</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">Asset</span><span class="p">(</span><span class="s">&#34;xterm3.html&#34;</span><span class="p">)</span>
 <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-    <span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
     <span class="k">return</span>
 <span class="p">}</span>
 
-<span class="nx">t</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;index&#34;</span><span class="p">)</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">xterm3</span><span class="p">)</span><span class="p">)</span>
+<span class="nx">t</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;index&#34;</span><span class="p">).</span><span class="nf">Parse</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">xterm3</span><span class="p">))</span>
 <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-    <span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
     <span class="k">return</span>
 <span class="p">}</span>
 
 <span class="nx">indexhtml</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="s">&#34;index&#34;</span><span class="p">,</span> <span class="nx">t</span><span class="p">)</span>
 <span class="nx">router</span><span class="p">.</span><span class="nx">HTMLRender</span> <span class="p">=</span> <span class="nx">indexhtml</span>
 <span class="nx">apiGroup</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/index&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">newXsrf</span> <span class="o">:=</span> <span class="nx">utils</span><span class="p">.</span><span class="nf">GetRandomSalt</span><span class="p">(</span><span class="p">)</span>
-    <span class="nx">xterm</span><span class="p">.</span><span class="nx">XsrfToken</span><span class="p">.</span><span class="nf">Store</span><span class="p">(</span><span class="nx">newXsrf</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+    <span class="nx">newXsrf</span> <span class="o">:=</span> <span class="nx">utils</span><span class="p">.</span><span class="nf">GetRandomSalt</span><span class="p">()</span>
+    <span class="nx">xterm</span><span class="p">.</span><span class="nx">XsrfToken</span><span class="p">.</span><span class="nf">Store</span><span class="p">(</span><span class="nx">newXsrf</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">String</span><span class="p">())</span>
     <span class="nx">c</span><span class="p">.</span><span class="nf">HTML</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span> <span class="s">&#34;index&#34;</span><span class="p">,</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span>
         <span class="s">&#34;host&#34;</span><span class="p">:</span>      <span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">.</span><span class="nx">RemoteAddr</span><span class="p">,</span>
         <span class="s">&#34;Reconnect&#34;</span><span class="p">:</span> <span class="nx">isReconnect</span><span class="p">,</span>
@@ -513,10 +514,10 @@ Flags:
         <span class="s">&#34;Write&#34;</span><span class="p">:</span>     <span class="nx">isPermitWrite</span><span class="p">,</span>
         <span class="s">&#34;MaxC&#34;</span><span class="p">:</span>      <span class="nx">MaxConnections</span><span class="p">,</span>
         <span class="s">&#34;Conn&#34;</span><span class="p">:</span>      <span class="o">*</span><span class="nx">xterm</span><span class="p">.</span><span class="nx">Connections</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s">&#34;Cmd&#34;</span><span class="p">:</span>       <span class="nx">strings</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">cmds</span><span class="p">,</span> <span class="s">&#34; &#34;</span><span class="p">)</span><span class="p">,</span>
+        <span class="s">&#34;Cmd&#34;</span><span class="p">:</span>       <span class="nx">strings</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">cmds</span><span class="p">,</span> <span class="s">&#34; &#34;</span><span class="p">),</span>
         <span class="s">&#34;Xsrf&#34;</span><span class="p">:</span>      <span class="nx">newXsrf</span><span class="p">,</span>
-    <span class="p">}</span><span class="p">)</span>
-<span class="p">}</span><span class="p">)</span>
+    <span class="p">})</span>
+<span class="p">})</span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="gin-router路由策略与静态二进制文件路由策略的结合">gin router路由策略与静态二进制文件路由策略的结合</h2>
@@ -540,7 +541,7 @@ Flags:
 <span class="p">}</span>
 <span class="nx">router</span><span class="p">.</span><span class="nf">StaticFS</span><span class="p">(</span><span class="s">&#34;/static&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">fs</span><span class="p">)</span>
 <span class="c1">// 静态文件
-</span><span class="c1"></span><span class="c1">// router.StaticFS(&#34;/static&#34;, http.Dir(&#34;./tty/static&#34;)
+</span><span class="c1">// router.StaticFS(&#34;/static&#34;, http.Dir(&#34;./tty/static&#34;)
 </span></code></pre></td></tr></table>
 </div>
 </div><h2 id="web安全技术的引进">web安全技术的引进</h2>
@@ -667,6 +668,69 @@ Flags:
 	rm -f showme
 </code></pre></td></tr></table>
 </div>
+</div><h2 id="线上部署">线上部署</h2>
+<p>最近又加了几个新功能：</p>
+<ul>
+<li>https 的支持</li>
+<li>aduit 增加了访问名单记录和查询结果优化</li>
+<li>systemctl 部署showme tty</li>
+</ul>
+<p><code>注意</code></p>
+<p>用systemctl进行部署的时候会报<code>TERM environment variable not set</code>，这个需要在service文件里面指定环境变量<code>TERM=xterm-256color</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">root@8.8.8.8:/etc/systemd/system# cat showme.service 
+[Unit]
+Description=showme
+After=syslog.target
+After=network.target
+
+[Service]
+# Modify these two values and uncomment them if you have
+# repos with lots of files and get an HTTP error 500 because
+# of that
+###
+#LimitMEMLOCK=infinity
+#LimitNOFILE=65535
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/tls
+ExecStart=/usr/bin/showme tty -P 1234 -w -a -t -f -m 10 -u $user -p $pwd -c /tls/server.crt -k /tls/server.key
+# ExecReload=/bin/kill -s HUP $MAINPID
+Restart=always
+Environment=USER=root HOME=/opt TERM=xterm-256color
+
+[Install]
+WantedBy=multi-user.target
+</code></pre></td></tr></table>
+</div>
 </div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://github.com/yudai/gotty">https://github.com/yudai/gotty</a> @release-1.0</li>
@@ -685,7 +749,7 @@ Flags:
     <span class="item-title">上次更新</span>
     <span class="item-content">
         2020-03-10
-        <a href="https://github.com/lflxp/commit/8b643b8fe3083479d5caf4148b7692db65ff25e4" title="tty">(8b643b8)</a>
+        
     </span>
   </p>
   

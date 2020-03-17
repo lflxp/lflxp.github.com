@@ -63,7 +63,7 @@
       <pubDate>Tue, 14 Jan 2020 01:37:56 +0800</pubDate>
       
       <guid>https://www.lflxp.cn/post/notebook/dgraph/first/</guid>
-      <description>Fast, Transactional, Distributed Graph Database. 简介 Dgraph is a horizontally scalable and distributed graph database, providing ACID transactions, consistent replication and linearizable reads. It&#39;s built from ground up to perform for a rich set of queries. Being a native graph database, it tightly controls how the data is arranged on disk to optimize for query performance and throughput, reducing disk seeks and network calls in a cluster. Dgraph&#39;s goal</description>
+      <description>Fast, Transactional, Distributed Graph Database. 简介 Dgraph is a horizontally scalable and distributed graph database, providing ACID transactions, consistent replication and linearizable reads. It&amp;rsquo;s built from ground up to perform for a rich set of queries. Being a native graph database, it tightly controls how the data is arranged on disk to optimize for query performance and throughput, reducing disk seeks and network calls in a cluster. Dgraph&amp;rsquo;s goal</description>
     </item>
     
   </channel>

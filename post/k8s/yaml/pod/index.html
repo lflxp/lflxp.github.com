@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.62.2 with theme even" />
+<meta name="generator" content="Hugo 0.66.0 with theme even" />
 
 
 <link rel="canonical" href="https://www.lflxp.cn/post/k8s/yaml/pod/" />
@@ -48,7 +48,7 @@
 <meta itemprop="description" content="yaml格式的pod定义文件完整内容： 第一种 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48">
 <meta itemprop="datePublished" content="2020-01-15T11:08:22&#43;08:00" />
 <meta itemprop="dateModified" content="2020-01-17T16:57:33&#43;08:00" />
-<meta itemprop="wordCount" content="4186">
+<meta itemprop="wordCount" content="4123">
 
 
 
@@ -226,52 +226,52 @@
 </span><span class="lnt">72
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>v1<span class="w">             </span><span class="c">#指定api版本，此值必须在kubectl apiversion中  </span><span class="w">
-</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Pod<span class="w">                  </span><span class="c">#指定创建资源的角色/类型  </span><span class="w">
-</span><span class="w"></span>metadata<span class="p">:</span><span class="w">                  </span><span class="c">#资源的元数据/属性  </span><span class="w">
-</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>web04-pod<span class="w">          </span><span class="c">#资源的名字，在同一个namespace中必须唯一  </span><span class="w">
-</span><span class="w">  </span>labels<span class="p">:</span><span class="w">                  </span><span class="c">#设定资源的标签，详情请见http://blog.csdn.net/liyingke112/article/details/77482384</span><span class="w">
-</span><span class="w">    </span>k8s-app<span class="p">:</span><span class="w"> </span>apache<span class="w">  
-</span><span class="w">    </span>version<span class="p">:</span><span class="w"> </span>v1<span class="w">  
-</span><span class="w">    </span>kubernetes.io/cluster-service<span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">  
-</span><span class="w">  </span>annotations<span class="p">:</span><span class="w">             </span><span class="c">#自定义注解列表  </span><span class="w">
-</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>String<span class="w">         </span><span class="c">#自定义注解名字  </span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">             </span><span class="c">#指定api版本，此值必须在kubectl apiversion中  </span><span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">                  </span><span class="c">#指定创建资源的角色/类型  </span><span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">                  </span><span class="c">#资源的元数据/属性  </span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>web04-pod<span class="w">          </span><span class="c">#资源的名字，在同一个namespace中必须唯一  </span><span class="w">
+</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">                  </span><span class="c">#设定资源的标签，详情请见http://blog.csdn.net/liyingke112/article/details/77482384</span><span class="w">
+</span><span class="w">    </span><span class="k">k8s-app</span><span class="p">:</span><span class="w"> </span>apache<span class="w">  
+</span><span class="w">    </span><span class="k">version</span><span class="p">:</span><span class="w"> </span>v1<span class="w">  
+</span><span class="w">    </span><span class="k">kubernetes.io/cluster-service</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">  
+</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">             </span><span class="c">#自定义注解列表  </span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>String<span class="w">         </span><span class="c">#自定义注解名字  </span><span class="w">
 </span><span class="w"></span>spec<span class="p">:</span><span class="c">#specification of the resource content 指定该资源的内容  </span><span class="w">
-</span><span class="w">  </span>restartPolicy<span class="p">:</span><span class="w"> </span>Always<span class="w">    </span><span class="c">#表明该容器一直运行，默认k8s的策略，在此容器退出后，会立即创建一个相同的容器  </span><span class="w">
-</span><span class="w">  </span>nodeSelector<span class="p">:</span><span class="w">            </span><span class="c">#节点选择，先给主机打标签kubectl label nodes kube-node1 zone=node1  </span><span class="w">
-</span><span class="w">    </span>zone<span class="p">:</span><span class="w"> </span>node1<span class="w">  
-</span><span class="w">  </span>containers<span class="p">:</span><span class="w">  
-</span><span class="w">  </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>web04-pod<span class="w">        </span><span class="c">#容器的名字  </span><span class="w">
-</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>web<span class="p">:</span>apache<span class="w">      </span><span class="c">#容器使用的镜像地址  </span><span class="w">
-</span><span class="w">    </span>imagePullPolicy<span class="p">:</span><span class="w"> </span>Never<span class="w"> </span><span class="c">#三个选择Always、Never、IfNotPresent，每次启动时检查和更新（从registery）images的策略，</span><span class="w">
+</span><span class="w">  </span><span class="k">restartPolicy</span><span class="p">:</span><span class="w"> </span>Always<span class="w">    </span><span class="c">#表明该容器一直运行，默认k8s的策略，在此容器退出后，会立即创建一个相同的容器  </span><span class="w">
+</span><span class="w">  </span><span class="k">nodeSelector</span><span class="p">:</span><span class="w">            </span><span class="c">#节点选择，先给主机打标签kubectl label nodes kube-node1 zone=node1  </span><span class="w">
+</span><span class="w">    </span><span class="k">zone</span><span class="p">:</span><span class="w"> </span>node1<span class="w">  
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">  
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>web04-pod<span class="w">        </span><span class="c">#容器的名字  </span><span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>web<span class="p">:</span>apache<span class="w">      </span><span class="c">#容器使用的镜像地址  </span><span class="w">
+</span><span class="w">    </span><span class="k">imagePullPolicy</span><span class="p">:</span><span class="w"> </span>Never<span class="w"> </span><span class="c">#三个选择Always、Never、IfNotPresent，每次启动时检查和更新（从registery）images的策略，</span><span class="w">
 </span><span class="w">                           </span><span class="c"># Always，每次都检查</span><span class="w">
 </span><span class="w">                           </span><span class="c"># Never，每次都不检查（不管本地是否有）</span><span class="w">
 </span><span class="w">                           </span><span class="c"># IfNotPresent，如果本地有就不检查，如果没有就拉取</span><span class="w">
-</span><span class="w">    </span>command<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">]</span><span class="w">        </span><span class="c">#启动容器的运行命令，将覆盖容器中的Entrypoint,对应Dockefile中的ENTRYPOINT  </span><span class="w">
-</span><span class="w">    </span>args<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;$(str)&#34;</span><span class="p">]</span><span class="w">       </span><span class="c">#启动容器的命令参数，对应Dockerfile中CMD参数  </span><span class="w">
-</span><span class="w">    </span>env<span class="p">:</span><span class="w">                   </span><span class="c">#指定容器中的环境变量  </span><span class="w">
-</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>str<span class="w">            </span><span class="c">#变量的名字  </span><span class="w">
-</span><span class="w">      </span>value<span class="p">:</span><span class="w"> </span><span class="s2">&#34;/etc/run.sh&#34;</span><span class="w"> </span><span class="c">#变量的值  </span><span class="w">
-</span><span class="w">    </span>resources<span class="p">:</span><span class="w">             </span><span class="c">#资源管理，请求请见http://blog.csdn.net/liyingke112/article/details/77452630</span><span class="w">
-</span><span class="w">      </span>requests<span class="p">:</span><span class="w">            </span><span class="c">#容器运行时，最低资源需求，也就是说最少需要多少资源容器才能正常运行  </span><span class="w">
-</span><span class="w">        </span>cpu<span class="p">:</span><span class="w"> </span><span class="m">0.1</span><span class="w">           </span><span class="c">#CPU资源（核数），两种方式，浮点数或者是整数+m，0.1=100m，最少值为0.001核（1m）</span><span class="w">
-</span><span class="w">        </span>memory<span class="p">:</span><span class="w"> </span>32Mi<span class="w">       </span><span class="c">#内存使用量  </span><span class="w">
-</span><span class="w">      </span>limits<span class="p">:</span><span class="w">              </span><span class="c">#资源限制  </span><span class="w">
-</span><span class="w">        </span>cpu<span class="p">:</span><span class="w"> </span><span class="m">0.5</span><span class="w">  
-</span><span class="w">        </span>memory<span class="p">:</span><span class="w"> </span>32Mi<span class="w">  
-</span><span class="w">    </span>ports<span class="p">:</span><span class="w">  
-</span><span class="w">    </span>-<span class="w"> </span>containerPort<span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">    </span><span class="c">#容器开发对外的端口</span><span class="w">
-</span><span class="w">      </span>name<span class="p">:</span><span class="w"> </span>httpd<span class="w">          </span><span class="c">#名称</span><span class="w">
-</span><span class="w">      </span>protocol<span class="p">:</span><span class="w"> </span>TCP<span class="w">  
-</span><span class="w">    </span>livenessProbe<span class="p">:</span><span class="w">         </span><span class="c">#pod内容器健康检查的设置，详情请见http://blog.csdn.net/liyingke112/article/details/77531584</span><span class="w">
-</span><span class="w">      </span>httpGet<span class="p">:</span><span class="w">             </span><span class="c">#通过httpget检查健康，返回200-399之间，则认为容器正常  </span><span class="w">
-</span><span class="w">        </span>path<span class="p">:</span><span class="w"> </span>/<span class="w">            </span><span class="c">#URI地址  </span><span class="w">
-</span><span class="w">        </span>port<span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">  
+</span><span class="w">    </span><span class="k">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">]</span><span class="w">        </span><span class="c">#启动容器的运行命令，将覆盖容器中的Entrypoint,对应Dockefile中的ENTRYPOINT  </span><span class="w">
+</span><span class="w">    </span><span class="k">args</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;$(str)&#34;</span><span class="p">]</span><span class="w">       </span><span class="c">#启动容器的命令参数，对应Dockerfile中CMD参数  </span><span class="w">
+</span><span class="w">    </span><span class="k">env</span><span class="p">:</span><span class="w">                   </span><span class="c">#指定容器中的环境变量  </span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>str<span class="w">            </span><span class="c">#变量的名字  </span><span class="w">
+</span><span class="w">      </span><span class="k">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/etc/run.sh&#34;</span><span class="w"> </span><span class="c">#变量的值  </span><span class="w">
+</span><span class="w">    </span><span class="k">resources</span><span class="p">:</span><span class="w">             </span><span class="c">#资源管理，请求请见http://blog.csdn.net/liyingke112/article/details/77452630</span><span class="w">
+</span><span class="w">      </span><span class="k">requests</span><span class="p">:</span><span class="w">            </span><span class="c">#容器运行时，最低资源需求，也就是说最少需要多少资源容器才能正常运行  </span><span class="w">
+</span><span class="w">        </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">0.1</span><span class="w">           </span><span class="c">#CPU资源（核数），两种方式，浮点数或者是整数+m，0.1=100m，最少值为0.001核（1m）</span><span class="w">
+</span><span class="w">        </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>32Mi<span class="w">       </span><span class="c">#内存使用量  </span><span class="w">
+</span><span class="w">      </span><span class="k">limits</span><span class="p">:</span><span class="w">              </span><span class="c">#资源限制  </span><span class="w">
+</span><span class="w">        </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">0.5</span><span class="w">  
+</span><span class="w">        </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>32Mi<span class="w">  
+</span><span class="w">    </span><span class="k">ports</span><span class="p">:</span><span class="w">  
+</span><span class="w">    </span>- <span class="k">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">    </span><span class="c">#容器开发对外的端口</span><span class="w">
+</span><span class="w">      </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>httpd<span class="w">          </span><span class="c">#名称</span><span class="w">
+</span><span class="w">      </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">  
+</span><span class="w">    </span><span class="k">livenessProbe</span><span class="p">:</span><span class="w">         </span><span class="c">#pod内容器健康检查的设置，详情请见http://blog.csdn.net/liyingke112/article/details/77531584</span><span class="w">
+</span><span class="w">      </span><span class="k">httpGet</span><span class="p">:</span><span class="w">             </span><span class="c">#通过httpget检查健康，返回200-399之间，则认为容器正常  </span><span class="w">
+</span><span class="w">        </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/<span class="w">            </span><span class="c">#URI地址  </span><span class="w">
+</span><span class="w">        </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">  
 </span><span class="w">        </span><span class="c">#host: 127.0.0.1   #主机地址  </span><span class="w">
-</span><span class="w">        </span>scheme<span class="p">:</span><span class="w"> </span>HTTP<span class="w">  
-</span><span class="w">      </span>initialDelaySeconds<span class="p">:</span><span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="c">#表明第一次检测在容器启动后多长时间后开始  </span><span class="w">
-</span><span class="w">      </span>timeoutSeconds<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">    </span><span class="c">#检测的超时时间  </span><span class="w">
-</span><span class="w">      </span>periodSeconds<span class="p">:</span><span class="w"> </span><span class="m">15</span><span class="w">    </span><span class="c">#检查间隔时间  </span><span class="w">
+</span><span class="w">        </span><span class="k">scheme</span><span class="p">:</span><span class="w"> </span>HTTP<span class="w">  
+</span><span class="w">      </span><span class="k">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="c">#表明第一次检测在容器启动后多长时间后开始  </span><span class="w">
+</span><span class="w">      </span><span class="k">timeoutSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">    </span><span class="c">#检测的超时时间  </span><span class="w">
+</span><span class="w">      </span><span class="k">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">15</span><span class="w">    </span><span class="c">#检查间隔时间  </span><span class="w">
 </span><span class="w">      </span><span class="c">#也可以用这种方法  </span><span class="w">
 </span><span class="w">      </span><span class="c">#exec: 执行命令的方法进行监测，如果其退出码不为0，则认为容器正常  </span><span class="w">
 </span><span class="w">      </span><span class="c">#  command:  </span><span class="w">
@@ -280,24 +280,24 @@
 </span><span class="w">      </span><span class="c">#也可以用这种方法  </span><span class="w">
 </span><span class="w">      </span><span class="c">#tcpSocket: //通过tcpSocket检查健康   </span><span class="w">
 </span><span class="w">      </span><span class="c">#  port: number   </span><span class="w">
-</span><span class="w">    </span>lifecycle<span class="p">:</span><span class="w">             </span><span class="c">#生命周期管理  </span><span class="w">
-</span><span class="w">      </span>postStart<span class="p">:</span><span class="w">           </span><span class="c">#容器运行之前运行的任务  </span><span class="w">
-</span><span class="w">        </span>exec<span class="p">:</span><span class="w">  
-</span><span class="w">          </span>command<span class="p">:</span><span class="w">  
-</span><span class="w">            </span>-<span class="w"> </span><span class="s1">&#39;sh&#39;</span><span class="w">  
-</span><span class="w">            </span>-<span class="w"> </span><span class="s1">&#39;yum upgrade -y&#39;</span><span class="w">  
-</span><span class="w">      </span>preStop<span class="p">:</span><span class="w">             </span><span class="c">#容器关闭之前运行的任务  </span><span class="w">
-</span><span class="w">        </span>exec<span class="p">:</span><span class="w">  
-</span><span class="w">          </span>command<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;service httpd stop&#39;</span><span class="p">]</span><span class="w">  
-</span><span class="w">    </span>volumeMounts<span class="p">:</span><span class="w">          </span><span class="c">#详情请见http://blog.csdn.net/liyingke112/article/details/76577520</span><span class="w">
-</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>volume<span class="w">         </span><span class="c">#挂载设备的名字，与volumes[*].name 需要对应    </span><span class="w">
-</span><span class="w">      </span>mountPath<span class="p">:</span><span class="w"> </span>/data<span class="w">     </span><span class="c">#挂载到容器的某个路径下  </span><span class="w">
-</span><span class="w">      </span>readOnly<span class="p">:</span><span class="w"> </span>True<span class="w">  
-</span><span class="w">  </span>volumes<span class="p">:</span><span class="w">                 </span><span class="c">#定义一组挂载设备  </span><span class="w">
-</span><span class="w">  </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>volume<span class="w">           </span><span class="c">#定义一个挂载设备的名字  </span><span class="w">
+</span><span class="w">    </span><span class="k">lifecycle</span><span class="p">:</span><span class="w">             </span><span class="c">#生命周期管理  </span><span class="w">
+</span><span class="w">      </span><span class="k">postStart</span><span class="p">:</span><span class="w">           </span><span class="c">#容器运行之前运行的任务  </span><span class="w">
+</span><span class="w">        </span><span class="k">exec</span><span class="p">:</span><span class="w">  
+</span><span class="w">          </span><span class="k">command</span><span class="p">:</span><span class="w">  
+</span><span class="w">            </span>- <span class="s1">&#39;sh&#39;</span><span class="w">  
+</span><span class="w">            </span>- <span class="s1">&#39;yum upgrade -y&#39;</span><span class="w">  
+</span><span class="w">      </span><span class="k">preStop</span><span class="p">:</span><span class="w">             </span><span class="c">#容器关闭之前运行的任务  </span><span class="w">
+</span><span class="w">        </span><span class="k">exec</span><span class="p">:</span><span class="w">  
+</span><span class="w">          </span><span class="k">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;service httpd stop&#39;</span><span class="p">]</span><span class="w">  
+</span><span class="w">    </span><span class="k">volumeMounts</span><span class="p">:</span><span class="w">          </span><span class="c">#详情请见http://blog.csdn.net/liyingke112/article/details/76577520</span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>volume<span class="w">         </span><span class="c">#挂载设备的名字，与volumes[*].name 需要对应    </span><span class="w">
+</span><span class="w">      </span><span class="k">mountPath</span><span class="p">:</span><span class="w"> </span>/data<span class="w">     </span><span class="c">#挂载到容器的某个路径下  </span><span class="w">
+</span><span class="w">      </span><span class="k">readOnly</span><span class="p">:</span><span class="w"> </span>True<span class="w">  
+</span><span class="w">  </span><span class="k">volumes</span><span class="p">:</span><span class="w">                 </span><span class="c">#定义一组挂载设备  </span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>volume<span class="w">           </span><span class="c">#定义一个挂载设备的名字  </span><span class="w">
 </span><span class="w">    </span><span class="c">#meptyDir: {}  </span><span class="w">
-</span><span class="w">    </span>hostPath<span class="p">:</span><span class="w">  
-</span><span class="w">      </span>path<span class="p">:</span><span class="w"> </span>/opt<span class="w">           </span><span class="c">#挂载设备类型为hostPath，路径为宿主机下的/opt,这里设备类型支持很多种</span><span class="w">
+</span><span class="w">    </span><span class="k">hostPath</span><span class="p">:</span><span class="w">  
+</span><span class="w">      </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/opt<span class="w">           </span><span class="c">#挂载设备类型为hostPath，路径为宿主机下的/opt,这里设备类型支持很多种</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><em><strong>第二种</strong></em></p>
@@ -381,82 +381,82 @@
 </span><span class="lnt">76
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>v1<span class="w">     </span><span class="c">#必选，版本号，例如v1</span><span class="w">
-</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Pod<span class="w">       </span><span class="c">#必选，Pod</span><span class="w">
-</span><span class="w"></span>metadata<span class="p">:</span><span class="w">        </span><span class="c">#必选，元数据</span><span class="w">
-</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>string<span class="w">       </span><span class="c">#必选，Pod名称</span><span class="w">
-</span><span class="w">  </span>namespace<span class="p">:</span><span class="w"> </span>string<span class="w">     </span><span class="c">#必选，Pod所属的命名空间</span><span class="w">
-</span><span class="w">  </span>labels<span class="p">:</span><span class="w">      </span><span class="c">#自定义标签</span><span class="w">
-</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>string<span class="w">   </span><span class="c">#自定义标签名字</span><span class="w">
-</span><span class="w">  </span>annotations<span class="p">:</span><span class="w">       </span><span class="c">#自定义注释列表</span><span class="w">
-</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>string<span class="w">
-</span><span class="w"></span>spec<span class="p">:</span><span class="w">         </span><span class="c">#必选，Pod中容器的详细定义</span><span class="w">
-</span><span class="w">  </span>containers<span class="p">:</span><span class="w">    </span><span class="c">#必选，Pod中容器列表</span><span class="w">
-</span><span class="w">  </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>string<span class="w">     </span><span class="c">#必选，容器名称</span><span class="w">
-</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>string<span class="w">    </span><span class="c">#必选，容器的镜像名称</span><span class="w">
-</span><span class="w">    </span>imagePullPolicy<span class="p">:</span><span class="w"> </span><span class="p">[</span>Always<span class="w"> </span>|<span class="w"> </span>Never<span class="w"> </span>|<span class="w"> </span>IfNotPresent<span class="p">]</span><span class="w"> </span><span class="c">#获取镜像的策略 Alawys表示下载镜像 IfnotPresent表示优先使用本地镜像，否则下载镜像，Nerver表示仅使用本地镜像</span><span class="w">
-</span><span class="w">    </span>command<span class="p">:</span><span class="w"> </span><span class="p">[</span>string<span class="p">]</span><span class="w">    </span><span class="c">#容器的启动命令列表，如不指定，使用打包时使用的启动命令</span><span class="w">
-</span><span class="w">    </span>args<span class="p">:</span><span class="w"> </span><span class="p">[</span>string<span class="p">]</span><span class="w">     </span><span class="c">#容器的启动命令参数列表</span><span class="w">
-</span><span class="w">    </span>workingDir<span class="p">:</span><span class="w"> </span>string<span class="w">   </span><span class="c">#容器的工作目录</span><span class="w">
-</span><span class="w">    </span>volumeMounts<span class="p">:</span><span class="w">        </span><span class="c">#挂载到容器内部的存储卷配置</span><span class="w">
-</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>string<span class="w">     </span><span class="c">#引用pod定义的共享存储卷的名称，需用volumes[]部分定义的的卷名</span><span class="w">
-</span><span class="w">      </span>mountPath<span class="p">:</span><span class="w"> </span>string<span class="w">    </span><span class="c">#存储卷在容器内mount的绝对路径，应少于512字符</span><span class="w">
-</span><span class="w">      </span>readOnly<span class="p">:</span><span class="w"> </span>boolean<span class="w">    </span><span class="c">#是否为只读模式</span><span class="w">
-</span><span class="w">    </span>ports<span class="p">:</span><span class="w">       </span><span class="c">#需要暴露的端口库号列表</span><span class="w">
-</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>string<span class="w">     </span><span class="c">#端口号名称</span><span class="w">
-</span><span class="w">      </span>containerPort<span class="p">:</span><span class="w"> </span>int<span class="w">  </span><span class="c">#容器需要监听的端口号</span><span class="w">
-</span><span class="w">      </span>hostPort<span class="p">:</span><span class="w"> </span>int<span class="w">    </span><span class="c">#容器所在主机需要监听的端口号，默认与Container相同</span><span class="w">
-</span><span class="w">      </span>protocol<span class="p">:</span><span class="w"> </span>string<span class="w">     </span><span class="c">#端口协议，支持TCP和UDP，默认TCP</span><span class="w">
-</span><span class="w">    </span>env<span class="p">:</span><span class="w">       </span><span class="c">#容器运行前需设置的环境变量列表</span><span class="w">
-</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>string<span class="w">     </span><span class="c">#环境变量名称</span><span class="w">
-</span><span class="w">      </span>value<span class="p">:</span><span class="w"> </span>string<span class="w">    </span><span class="c">#环境变量的值</span><span class="w">
-</span><span class="w">    </span>resources<span class="p">:</span><span class="w">       </span><span class="c">#资源限制和请求的设置</span><span class="w">
-</span><span class="w">      </span>limits<span class="p">:</span><span class="w">      </span><span class="c">#资源限制的设置</span><span class="w">
-</span><span class="w">        </span>cpu<span class="p">:</span><span class="w"> </span>string<span class="w">    </span><span class="c">#Cpu的限制，单位为core数，将用于docker run --cpu-shares参数</span><span class="w">
-</span><span class="w">        </span>memory<span class="p">:</span><span class="w"> </span>string<span class="w">   </span><span class="c">#内存限制，单位可以为Mib/Gib，将用于docker run --memory参数</span><span class="w">
-</span><span class="w">      </span>requests<span class="p">:</span><span class="w">         </span><span class="c">#资源请求的设置</span><span class="w">
-</span><span class="w">        </span>cpu<span class="p">:</span><span class="w"> </span>string<span class="w">    </span><span class="c">#Cpu请求，容器启动的初始可用数量</span><span class="w">
-</span><span class="w">        </span>memory<span class="p">:</span><span class="w"> </span>string<span class="w">   </span><span class="c">#内存清楚，容器启动的初始可用数量</span><span class="w">
-</span><span class="w">    </span>livenessProbe<span class="p">:</span><span class="w">     </span><span class="c">#对Pod内个容器健康检查的设置，当探测无响应几次后将自动重启该容器，检查方法有exec、httpGet和tcpSocket，对一个容器只需设置其中一种方法即可</span><span class="w">
-</span><span class="w">      </span>exec<span class="p">:</span><span class="w">      </span><span class="c">#对Pod容器内检查方式设置为exec方式</span><span class="w">
-</span><span class="w">        </span>command<span class="p">:</span><span class="w"> </span><span class="p">[</span>string<span class="p">]</span><span class="w">  </span><span class="c">#exec方式需要制定的命令或脚本</span><span class="w">
-</span><span class="w">      </span>httpGet<span class="p">:</span><span class="w">       </span><span class="c">#对Pod内个容器健康检查方法设置为HttpGet，需要制定Path、port</span><span class="w">
-</span><span class="w">        </span>path<span class="p">:</span><span class="w"> </span>string<span class="w">
-</span><span class="w">        </span>port<span class="p">:</span><span class="w"> </span>number<span class="w">
-</span><span class="w">        </span>host<span class="p">:</span><span class="w"> </span>string<span class="w">
-</span><span class="w">        </span>scheme<span class="p">:</span><span class="w"> </span>string<span class="w">
-</span><span class="w">        </span>HttpHeaders<span class="p">:</span><span class="w">
-</span><span class="w">        </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>string<span class="w">
-</span><span class="w">          </span>value<span class="p">:</span><span class="w"> </span>string<span class="w">
-</span><span class="w">      </span>tcpSocket<span class="p">:</span><span class="w">     </span><span class="c">#对Pod内个容器健康检查方式设置为tcpSocket方式</span><span class="w">
-</span><span class="w">         </span>port<span class="p">:</span><span class="w"> </span>number<span class="w">
-</span><span class="w">       </span>initialDelaySeconds<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="c">#容器启动完成后首次探测的时间，单位为秒</span><span class="w">
-</span><span class="w">       </span>timeoutSeconds<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">   </span><span class="c">#对容器健康检查探测等待响应的超时时间，单位秒，默认1秒</span><span class="w">
-</span><span class="w">       </span>periodSeconds<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">    </span><span class="c">#对容器监控检查的定期探测时间设置，单位秒，默认10秒一次</span><span class="w">
-</span><span class="w">       </span>successThreshold<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
-</span><span class="w">       </span>failureThreshold<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
-</span><span class="w">       </span>securityContext<span class="p">:</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">     </span><span class="c">#必选，版本号，例如v1</span><span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">       </span><span class="c">#必选，Pod</span><span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">        </span><span class="c">#必选，元数据</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>string<span class="w">       </span><span class="c">#必选，Pod名称</span><span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>string<span class="w">     </span><span class="c">#必选，Pod所属的命名空间</span><span class="w">
+</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">      </span><span class="c">#自定义标签</span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>string<span class="w">   </span><span class="c">#自定义标签名字</span><span class="w">
+</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">       </span><span class="c">#自定义注释列表</span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>string<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">         </span><span class="c">#必选，Pod中容器的详细定义</span><span class="w">
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">    </span><span class="c">#必选，Pod中容器列表</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>string<span class="w">     </span><span class="c">#必选，容器名称</span><span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>string<span class="w">    </span><span class="c">#必选，容器的镜像名称</span><span class="w">
+</span><span class="w">    </span><span class="k">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>Always<span class="w"> </span>|<span class="w"> </span>Never<span class="w"> </span>|<span class="w"> </span>IfNotPresent<span class="p">]</span><span class="w"> </span><span class="c">#获取镜像的策略 Alawys表示下载镜像 IfnotPresent表示优先使用本地镜像，否则下载镜像，Nerver表示仅使用本地镜像</span><span class="w">
+</span><span class="w">    </span><span class="k">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>string<span class="p">]</span><span class="w">    </span><span class="c">#容器的启动命令列表，如不指定，使用打包时使用的启动命令</span><span class="w">
+</span><span class="w">    </span><span class="k">args</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>string<span class="p">]</span><span class="w">     </span><span class="c">#容器的启动命令参数列表</span><span class="w">
+</span><span class="w">    </span><span class="k">workingDir</span><span class="p">:</span><span class="w"> </span>string<span class="w">   </span><span class="c">#容器的工作目录</span><span class="w">
+</span><span class="w">    </span><span class="k">volumeMounts</span><span class="p">:</span><span class="w">        </span><span class="c">#挂载到容器内部的存储卷配置</span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>string<span class="w">     </span><span class="c">#引用pod定义的共享存储卷的名称，需用volumes[]部分定义的的卷名</span><span class="w">
+</span><span class="w">      </span><span class="k">mountPath</span><span class="p">:</span><span class="w"> </span>string<span class="w">    </span><span class="c">#存储卷在容器内mount的绝对路径，应少于512字符</span><span class="w">
+</span><span class="w">      </span><span class="k">readOnly</span><span class="p">:</span><span class="w"> </span>boolean<span class="w">    </span><span class="c">#是否为只读模式</span><span class="w">
+</span><span class="w">    </span><span class="k">ports</span><span class="p">:</span><span class="w">       </span><span class="c">#需要暴露的端口库号列表</span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>string<span class="w">     </span><span class="c">#端口号名称</span><span class="w">
+</span><span class="w">      </span><span class="k">containerPort</span><span class="p">:</span><span class="w"> </span>int<span class="w">  </span><span class="c">#容器需要监听的端口号</span><span class="w">
+</span><span class="w">      </span><span class="k">hostPort</span><span class="p">:</span><span class="w"> </span>int<span class="w">    </span><span class="c">#容器所在主机需要监听的端口号，默认与Container相同</span><span class="w">
+</span><span class="w">      </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>string<span class="w">     </span><span class="c">#端口协议，支持TCP和UDP，默认TCP</span><span class="w">
+</span><span class="w">    </span><span class="k">env</span><span class="p">:</span><span class="w">       </span><span class="c">#容器运行前需设置的环境变量列表</span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>string<span class="w">     </span><span class="c">#环境变量名称</span><span class="w">
+</span><span class="w">      </span><span class="k">value</span><span class="p">:</span><span class="w"> </span>string<span class="w">    </span><span class="c">#环境变量的值</span><span class="w">
+</span><span class="w">    </span><span class="k">resources</span><span class="p">:</span><span class="w">       </span><span class="c">#资源限制和请求的设置</span><span class="w">
+</span><span class="w">      </span><span class="k">limits</span><span class="p">:</span><span class="w">      </span><span class="c">#资源限制的设置</span><span class="w">
+</span><span class="w">        </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span>string<span class="w">    </span><span class="c">#Cpu的限制，单位为core数，将用于docker run --cpu-shares参数</span><span class="w">
+</span><span class="w">        </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>string<span class="w">   </span><span class="c">#内存限制，单位可以为Mib/Gib，将用于docker run --memory参数</span><span class="w">
+</span><span class="w">      </span><span class="k">requests</span><span class="p">:</span><span class="w">         </span><span class="c">#资源请求的设置</span><span class="w">
+</span><span class="w">        </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span>string<span class="w">    </span><span class="c">#Cpu请求，容器启动的初始可用数量</span><span class="w">
+</span><span class="w">        </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>string<span class="w">   </span><span class="c">#内存清楚，容器启动的初始可用数量</span><span class="w">
+</span><span class="w">    </span><span class="k">livenessProbe</span><span class="p">:</span><span class="w">     </span><span class="c">#对Pod内个容器健康检查的设置，当探测无响应几次后将自动重启该容器，检查方法有exec、httpGet和tcpSocket，对一个容器只需设置其中一种方法即可</span><span class="w">
+</span><span class="w">      </span><span class="k">exec</span><span class="p">:</span><span class="w">      </span><span class="c">#对Pod容器内检查方式设置为exec方式</span><span class="w">
+</span><span class="w">        </span><span class="k">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>string<span class="p">]</span><span class="w">  </span><span class="c">#exec方式需要制定的命令或脚本</span><span class="w">
+</span><span class="w">      </span><span class="k">httpGet</span><span class="p">:</span><span class="w">       </span><span class="c">#对Pod内个容器健康检查方法设置为HttpGet，需要制定Path、port</span><span class="w">
+</span><span class="w">        </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>string<span class="w">
+</span><span class="w">        </span><span class="k">port</span><span class="p">:</span><span class="w"> </span>number<span class="w">
+</span><span class="w">        </span><span class="k">host</span><span class="p">:</span><span class="w"> </span>string<span class="w">
+</span><span class="w">        </span><span class="k">scheme</span><span class="p">:</span><span class="w"> </span>string<span class="w">
+</span><span class="w">        </span><span class="k">HttpHeaders</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>string<span class="w">
+</span><span class="w">          </span><span class="k">value</span><span class="p">:</span><span class="w"> </span>string<span class="w">
+</span><span class="w">      </span><span class="k">tcpSocket</span><span class="p">:</span><span class="w">     </span><span class="c">#对Pod内个容器健康检查方式设置为tcpSocket方式</span><span class="w">
+</span><span class="w">         </span><span class="k">port</span><span class="p">:</span><span class="w"> </span>number<span class="w">
+</span><span class="w">       </span><span class="k">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="c">#容器启动完成后首次探测的时间，单位为秒</span><span class="w">
+</span><span class="w">       </span><span class="k">timeoutSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">   </span><span class="c">#对容器健康检查探测等待响应的超时时间，单位秒，默认1秒</span><span class="w">
+</span><span class="w">       </span><span class="k">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">    </span><span class="c">#对容器监控检查的定期探测时间设置，单位秒，默认10秒一次</span><span class="w">
+</span><span class="w">       </span><span class="k">successThreshold</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">       </span><span class="k">failureThreshold</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">       </span><span class="k">securityContext</span><span class="p">:</span><span class="w">
 </span><span class="w">         </span>privileged<span class="p">:</span><span class="kc">false</span><span class="w">
-</span><span class="w">    </span>restartPolicy<span class="p">:</span><span class="w"> </span><span class="p">[</span>Always<span class="w"> </span>|<span class="w"> </span>Never<span class="w"> </span>|<span class="w"> </span>OnFailure<span class="p">]</span><span class="c">#Pod的重启策略，Always表示一旦不管以何种方式终止运行，kubelet都将重启，OnFailure表示只有Pod以非0退出码退出才重启，Nerver表示不再重启该Pod</span><span class="w">
-</span><span class="w">    </span>nodeSelector<span class="p">:</span><span class="w"> </span>obeject<span class="w">  </span><span class="c">#设置NodeSelector表示将该Pod调度到包含这个label的node上，以key：value的格式指定</span><span class="w">
-</span><span class="w">    </span>imagePullSecrets<span class="p">:</span><span class="w">    </span><span class="c">#Pull镜像时使用的secret名称，以key：secretkey格式指定</span><span class="w">
-</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>string<span class="w">
+</span><span class="w">    </span><span class="k">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>Always<span class="w"> </span>|<span class="w"> </span>Never<span class="w"> </span>|<span class="w"> </span>OnFailure<span class="p">]</span><span class="c">#Pod的重启策略，Always表示一旦不管以何种方式终止运行，kubelet都将重启，OnFailure表示只有Pod以非0退出码退出才重启，Nerver表示不再重启该Pod</span><span class="w">
+</span><span class="w">    </span><span class="k">nodeSelector</span><span class="p">:</span><span class="w"> </span>obeject<span class="w">  </span><span class="c">#设置NodeSelector表示将该Pod调度到包含这个label的node上，以key：value的格式指定</span><span class="w">
+</span><span class="w">    </span><span class="k">imagePullSecrets</span><span class="p">:</span><span class="w">    </span><span class="c">#Pull镜像时使用的secret名称，以key：secretkey格式指定</span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>string<span class="w">
 </span><span class="w">    </span>hostNetwork<span class="p">:</span><span class="kc">false</span><span class="w">      </span><span class="c">#是否使用主机网络模式，默认为false，如果设置为true，表示使用宿主机网络</span><span class="w">
-</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">       </span><span class="c">#在该pod上定义共享存储卷列表</span><span class="w">
-</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>string<span class="w">     </span><span class="c">#共享存储卷名称 （volumes类型有很多种）</span><span class="w">
-</span><span class="w">      </span>emptyDir<span class="p">:</span><span class="w"> </span>{}<span class="w">     </span><span class="c">#类型为emtyDir的存储卷，与Pod同生命周期的一个临时目录。为空值</span><span class="w">
-</span><span class="w">      </span>hostPath<span class="p">:</span><span class="w"> </span>string<span class="w">     </span><span class="c">#类型为hostPath的存储卷，表示挂载Pod所在宿主机的目录</span><span class="w">
-</span><span class="w">        </span>path<span class="p">:</span><span class="w"> </span>string<span class="w">     </span><span class="c">#Pod所在宿主机的目录，将被用于同期中mount的目录</span><span class="w">
-</span><span class="w">      </span>secret<span class="p">:</span><span class="w">      </span><span class="c">#类型为secret的存储卷，挂载集群与定义的secre对象到容器内部</span><span class="w">
-</span><span class="w">        </span>scretname<span class="p">:</span><span class="w"> </span>string<span class="w">  
-</span><span class="w">        </span>items<span class="p">:</span><span class="w">     
-</span><span class="w">        </span>-<span class="w"> </span>key<span class="p">:</span><span class="w"> </span>string<span class="w">
-</span><span class="w">          </span>path<span class="p">:</span><span class="w"> </span>string<span class="w">
-</span><span class="w">      </span>configMap<span class="p">:</span><span class="w">     </span><span class="c">#类型为configMap的存储卷，挂载预定义的configMap对象到容器内部</span><span class="w">
-</span><span class="w">        </span>name<span class="p">:</span><span class="w"> </span>string<span class="w">
-</span><span class="w">        </span>items<span class="p">:</span><span class="w">
-</span><span class="w">        </span>-<span class="w"> </span>key<span class="p">:</span><span class="w"> </span>string<span class="w">
-</span><span class="w">          </span>path<span class="p">:</span><span class="w"> </span>string<span class="w">
+</span><span class="w">    </span><span class="k">volumes</span><span class="p">:</span><span class="w">       </span><span class="c">#在该pod上定义共享存储卷列表</span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>string<span class="w">     </span><span class="c">#共享存储卷名称 （volumes类型有很多种）</span><span class="w">
+</span><span class="w">      </span><span class="k">emptyDir</span><span class="p">:</span><span class="w"> </span>{}<span class="w">     </span><span class="c">#类型为emtyDir的存储卷，与Pod同生命周期的一个临时目录。为空值</span><span class="w">
+</span><span class="w">      </span><span class="k">hostPath</span><span class="p">:</span><span class="w"> </span>string<span class="w">     </span><span class="c">#类型为hostPath的存储卷，表示挂载Pod所在宿主机的目录</span><span class="w">
+</span><span class="w">        </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>string<span class="w">     </span><span class="c">#Pod所在宿主机的目录，将被用于同期中mount的目录</span><span class="w">
+</span><span class="w">      </span><span class="k">secret</span><span class="p">:</span><span class="w">      </span><span class="c">#类型为secret的存储卷，挂载集群与定义的secre对象到容器内部</span><span class="w">
+</span><span class="w">        </span><span class="k">scretname</span><span class="p">:</span><span class="w"> </span>string<span class="w">  
+</span><span class="w">        </span><span class="k">items</span><span class="p">:</span><span class="w">     
+</span><span class="w">        </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>string<span class="w">
+</span><span class="w">          </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>string<span class="w">
+</span><span class="w">      </span><span class="k">configMap</span><span class="p">:</span><span class="w">     </span><span class="c">#类型为configMap的存储卷，挂载预定义的configMap对象到容器内部</span><span class="w">
+</span><span class="w">        </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>string<span class="w">
+</span><span class="w">        </span><span class="k">items</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>string<span class="w">
+</span><span class="w">          </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>string<span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div>
