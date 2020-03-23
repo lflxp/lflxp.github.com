@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kernel on 爱像水墨青花</title>
+    <link>https://www.lflxp.cn/tags/kernel/</link>
+    <description>Recent content in kernel on 爱像水墨青花</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
+    <lastBuildDate>Mon, 23 Mar 2020 10:11:22 +0800</lastBuildDate>
+    
+	<atom:link href="https://www.lflxp.cn/tags/kernel/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>编写一个简单的Linux内核模块</title>
+      <link>https://www.lflxp.cn/post/os/kernel/%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84linux%E5%86%85%E6%A0%B8%E6%A8%A1%E5%9D%97/</link>
+      <pubDate>Mon, 23 Mar 2020 10:11:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/os/kernel/%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84linux%E5%86%85%E6%A0%B8%E6%A8%A1%E5%9D%97/</guid>
+      <description>Ring-0 Linux为应用程序提供了强大而广泛的API，但有时这还不够。与一块硬件交互或进行需要访问系统中特权信息的操作需要内核模块。 Linux内核</description>
+    </item>
+    
+  </channel>
+</rss>
