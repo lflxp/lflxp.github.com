@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>lflxp.cn 版权所有 ICP证：&lt;a href=&#39;http://www.beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;渝ICP备17011066号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 23 Mar 2020 10:11:22 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 23 Mar 2020 10:22:22 +0800</lastBuildDate>
     
 	<atom:link href="https://www.lflxp.cn/index.xml" rel="self" type="application/rss+xml" />
     
@@ -19,6 +19,15 @@
       
       <guid>https://www.lflxp.cn/post/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%B5%84%E6%96%99/</guid>
       <description>入门教程 如何从零开始写一个简单的操作系统 30天自制操作系统 Stop &amp;amp; 「OS67 」 Start 自制一个小型的linux操作系统 经典教程 Xv6, a simple Unix-like teaching operating system 中文版的 MIT</description>
+    </item>
+    
+    <item>
+      <title>Chrome自定义书签，一个不需要VPN翻墙就能管理Chrome书签的工具！</title>
+      <link>https://www.lflxp.cn/post/%E5%89%8D%E7%AB%AF/chrome%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B9%A6%E7%AD%BE/</link>
+      <pubDate>Mon, 23 Mar 2020 10:22:22 +0800</pubDate>
+      
+      <guid>https://www.lflxp.cn/post/%E5%89%8D%E7%AB%AF/chrome%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B9%A6%E7%AD%BE/</guid>
+      <description>介绍（原创） Chrome自定义书签，一个不需要VPN就能访问的书签工具！ 该扩展插件的目的是替代chrome书签同步功能，解决因无法翻墙导致书</description>
     </item>
     
     <item>

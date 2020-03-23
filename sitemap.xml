@@ -10,7 +10,49 @@
   
   <url>
     <loc>https://www.lflxp.cn/categories/</loc>
-    <lastmod>2020-03-23T10:11:22+08:00</lastmod>
+    <lastmod>2020-03-23T10:22:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/categories/chrome/</loc>
+    <lastmod>2020-03-23T10:22:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/tags/chrome-extensions/</loc>
+    <lastmod>2020-03-23T10:22:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/%E5%89%8D%E7%AB%AF/chrome%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B9%A6%E7%AD%BE/</loc>
+    <lastmod>2020-03-23T10:22:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/post/</loc>
+    <lastmod>2020-03-23T10:22:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/tags/</loc>
+    <lastmod>2020-03-23T10:22:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.lflxp.cn/</loc>
+    <lastmod>2020-03-23T10:22:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -24,27 +66,6 @@
   
   <url>
     <loc>https://www.lflxp.cn/categories/linux/</loc>
-    <lastmod>2020-03-23T10:11:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/post/</loc>
-    <lastmod>2020-03-23T10:11:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/tags/</loc>
-    <lastmod>2020-03-23T10:11:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.lflxp.cn/</loc>
     <lastmod>2020-03-23T10:11:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
